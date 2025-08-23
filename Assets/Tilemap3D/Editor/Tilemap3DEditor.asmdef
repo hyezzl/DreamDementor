@@ -1,0 +1,18 @@
+{
+    "name": "Tilemap3DEditor",
+    "rootNamespace": "Tilemap3DEditor",
+    "references": [
+        "GUID:24d15f88f3bba9a41b5e64dd22c759d9"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

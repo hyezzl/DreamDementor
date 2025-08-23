@@ -1,0 +1,50 @@
+
+.background-red { background-color: #F44336; }
+
+.flex-direction-row {
+	flex-direction: row;
+}
+
+.rule-matchGrid {
+	flex-direction: column;
+	margin-top: 0;
+	margin-right: 4px;
+	margin-bottom: 1px;
+	margin-left: 1px;
+	padding: 0;
+}
+.rule-matchGrid.bottom { margin-top: 12px; }
+.rule-matchGrid.middle { margin-top: 6px; }
+.rule-matchGrid.top { margin-top: 0px; }
+.rule-matchGrid-row {
+	flex-direction: row;
+	margin: 0;
+	padding: 0;
+}
+.rule-matchGrid-cell {
+	width: 20px; 
+	height: 20px;
+	min-width: 20px; 
+	min-height: 20px;
+	margin: 1px;
+	padding: 0;
+}
+
+.rule-tilePreviewImage {
+	width: 64px; 
+	height: 64px;
+	margin: 1px;
+	margin-right: 8px;
+	padding: 1px;
+	border-width: 1px;
+	border-color: #111111;
+	border-radius: 4px;
+}
+
+.rule-tileConfig {
+	flex-direction: column;
+	flex-grow: 1;
+}
+.rule-tile Label {
+	min-width: 72px;
+}

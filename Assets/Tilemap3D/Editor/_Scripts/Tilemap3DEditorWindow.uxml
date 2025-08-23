@@ -1,0 +1,93 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Tilemap3D/Editor/_Scripts/Tilemap3DEditorWindow.uss?fileID=7433441132597879392&amp;guid=90500fb4b31c00a4e9d52853e84da995&amp;type=3#Tilemap3DEditorWindow" />
+    <ui:VisualElement class="section">
+        <uie:Toolbar name="toolbarEditMode" class="brush_toolbar">
+            <uie:ToolbarToggle focusable="false" text="[1] Default" class="bold" />
+            <uie:ToolbarToggle focusable="false" text="[2] Paint" class="bold" />
+            <uie:ToolbarToggle focusable="false" text="[3] Erase" class="bold" />
+            <uie:ToolbarToggle focusable="false" text="[4] Select" class="bold" />
+        </uie:Toolbar>
+    </ui:VisualElement>
+    <ui:ScrollView>
+        <ui:VisualElement class="section section-properties">
+            <uie:ObjectField label="Tile Map" type="UnityEngine.GameObject, UnityEngine.CoreModule" tooltip="The name of the current tilemap you are working on." name="fieldTilemap" class="readonly" />
+            <uie:ObjectField label="Tile Layer" type="UnityEngine.GameObject, UnityEngine.CoreModule" tooltip="The name of the current tilemap layer you are working on." name="fieldTileLayer" class="readonly" />
+            <uie:ColorField label="Grid Gizmo Color" value="#FAFAFA40" tooltip="The color of the grid lines in the scene view." name="fieldGridGizmoColor" focusable="false" />
+            <uie:Vector2IntField label="Grid Gizmo Extents" tooltip="How much of the grid lines to show at once in the scene view." name="fieldGridGizmoExtents" />
+            <ui:VisualElement class="gridpos">
+                <ui:Label text="Target Grid Position" display-tooltip-when-elided="true" tooltip="The current grid position you are targeting within the scene." focusable="true" />
+                <ui:VisualElement>
+                    <uie:IntegerField name="fieldGridPosX" label="X" readonly="true" class="gridpos-x readonly" />
+                    <uie:IntegerField name="fieldGridPosY" label="Y" class="gridpos-y" />
+                    <uie:IntegerField name="fieldGridPosZ" label="Z" readonly="true" class="gridpos-z readonly" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="vePlacementOptions" class="placement_options section">
+            <ui:Label text="Placement Options" display-tooltip-when-elided="true" class="bold" style="margin-bottom: 3px;" />
+            <ui:VisualElement style="flex-direction: row; align-items: center; margin-left: 15px; margin-bottom: 3px;">
+                <ui:Label text="Tool : " display-tooltip-when-elided="true" style="max-width: 150px; margin-right: 3px;" />
+                <uie:Toolbar name="toolbarPaintTool" style="border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; -unity-text-align: middle-center;">
+                    <uie:ToolbarToggle focusable="false" value="true" text="Default" style="left: 0; justify-content: center; flex-grow: 1;" />
+                    <uie:ToolbarToggle text="Bucket" focusable="false" style="left: 0; -unity-text-align: middle-center; flex-grow: 1; justify-content: center;" />
+                </uie:Toolbar>
+            </ui:VisualElement>
+            <ui:Toggle label="Unpack Prefab" tooltip="Whether or not to unpack the prefab after placing it into the scene." name="toggleUnpackPrefab" value="true" style="margin-left: 15px;" />
+            <uie:ColorField label="Placement Gizmo Color" value="#00BCD4FF" tooltip="The color of the placement gizmo in the scene view." name="fieldPlacementGizmoColor" focusable="false" style="margin-left: 15px; margin-bottom: 3px;" />
+            <uie:Vector3Field label="Offset" name="fieldPlacementOffset" style="margin-left: 15px;" />
+            <uie:Vector3Field label="Rotation" name="fieldPlacementRotation" style="margin-left: 15px;" />
+            <uie:Vector3Field label="Scale" name="fieldPlacementScale" x="1" y="1" z="1" style="margin-left: 15px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="veEraserOptions" class="eraser_options section" style="display: flex;">
+            <ui:Label text="Eraser Options" display-tooltip-when-elided="true" class="bold" style="margin-bottom: 3px;" />
+            <uie:Vector3IntField label="Size" x="1" y="1" z="1" name="fieldEraserSize" style="margin-left: 15px;" />
+            <ui:VisualElement style="flex-direction: row; margin-top: 3px;">
+                <ui:Toggle label="Use Placement Offsets" name="toggleEraserUsePlacementOffsets" tooltip="Use current placement offsets to draw the eraser gizmo" style="margin-left: 15px; padding-top: 1px; margin-top: 2px;" />
+                <ui:VisualElement class="offsets" style="flex-direction: row; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(17, 17, 17); border-right-color: rgb(17, 17, 17); border-top-color: rgb(17, 17, 17); border-bottom-color: rgb(17, 17, 17); padding-top: 2px;">
+                    <ui:Toggle name="toggleEraserOffset" label="P" tooltip="Position" style="margin-left: 15px;" />
+                    <ui:Toggle name="toggleEraserRotationOffset" label="R" tooltip="Rotation" style="margin-left: 15px;" />
+                    <ui:Toggle name="toggleEraserScaleOffset" label="S" tooltip="Scale" style="margin-left: 15px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="veSelectionOptions" class="selection_options section">
+            <ui:Label text="Selection Options" display-tooltip-when-elided="true" class="bold" style="margin-bottom: 3px;" />
+            <ui:VisualElement style="margin-left: 15px; flex-direction: row; margin-bottom: 3px;">
+                <ui:Label text="Current Layer : " display-tooltip-when-elided="true" style="-unity-text-align: middle-left;" />
+                <ui:Button text="Select All Tiles" display-tooltip-when-elided="true" name="btnSelectAllInLayer" tooltip="Select all tiles in current layer." />
+                <ui:Button text="Clear Selection" display-tooltip-when-elided="true" name="btnClearSelection" tooltip="Clear the current selection." />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-direction: row; align-items: center; margin-left: 15px; margin-bottom: 3px;">
+                <ui:Label text="Tool : " display-tooltip-when-elided="true" style="max-width: 150px; margin-right: 3px;" />
+                <uie:Toolbar name="toolbarSelectionTool" style="border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; -unity-text-align: middle-center;">
+                    <uie:ToolbarToggle focusable="false" value="true" text="Default" style="left: 0; justify-content: center; flex-grow: 1;" />
+                    <uie:ToolbarToggle focusable="false" text="Wand" style="left: 0; -unity-text-align: middle-center; flex-grow: 1; justify-content: center;" />
+                </uie:Toolbar>
+            </ui:VisualElement>
+            <ui:Label text="(left click) =&gt; select tile &#10;(ctrl + left click) =&gt; select and append to selection&#10;(ctrl + shift + left click) =&gt; deselect and remove from selection" name="lblDefaultSelectionTips" display-tooltip-when-elided="true" class="whitespace-normal" style="flex-wrap: wrap; margin-left: 30px;" />
+            <uie:EnumField label="Wand Filter" value="0" name="fieldWandFilter" style="margin-left: 30px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="veMeshCombiner" class="section">
+            <ui:Label text="Mesh Combiner" display-tooltip-when-elided="true" style="-unity-font-style: bold; margin-bottom: 3px;" />
+            <ui:Toggle label="Destroy Tiles?" tooltip="Whether or not to destroy the tiles of the meshes used in the combining process" name="toggleMCDestroyTiles" style="margin-left: 15px;" />
+            <ui:Button text="Combine Meshes" display-tooltip-when-elided="true" name="btnCombineMeshes" style="margin-left: 15px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="vePalette" class="section-palette section section--last">
+            <ui:Label text="Palette" display-tooltip-when-elided="true" class="bold" style="font-size: 14px;" />
+            <uie:ObjectField type="UnityEngine.ScriptableObject, UnityEngine.CoreModule" tooltip="The palette asset that we are selecting prefabs from." name="fieldPalette" style="margin-left: 8px; margin-right: 8px;" />
+            <ui:VisualElement class="previews" style="margin-left: 8px; margin-right: 8px;">
+                <ui:VisualElement style="overflow: hidden;">
+                    <ui:Label text="Tile Previews" display-tooltip-when-elided="true" style="-unity-font-style: bold; margin-bottom: 4px;" />
+                    <ui:Button display-tooltip-when-elided="true" text="Refresh" name="btnPaletteTilePreviewRefresh" focusable="false" tooltip="Clear the cache and trigger a refresh of the tile preview images." style="height: 16px; position: absolute; right: 0; top: 0; font-size: 9px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; -unity-font-style: normal;" />
+                    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                        <ui:SliderInt picking-mode="Ignore" name="sliderPaletteTileWidth" low-value="40" high-value="160" label="Width :" value="75" style="width: 50%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; overflow: hidden;" />
+                        <ui:SliderInt picking-mode="Ignore" name="sliderPaletteTileHeight" low-value="40" high-value="160" label="Height :" value="75" style="width: 50%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; overflow: hidden;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:TextField picking-mode="Ignore" label="Filter" name="fieldPaletteTileFilter" />
+                <ui:VisualElement class="hr" />
+                <Tilemap3DEditor.PaletteView name="paletteView" class="previews-list" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:ScrollView>
+</ui:UXML>

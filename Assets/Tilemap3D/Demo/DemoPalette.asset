@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baf10f08426e62949be8a3cc11b3c056, type: 3}
+  m_Name: DemoPalette
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 11400000, guid: bf4291d9243fde74392063779af36f99, type: 2}
+  - {fileID: 9018730981983059939, guid: cfe0c646acaa2da409a4dab9d77d1ae0, type: 3}
+  - {fileID: 776371088504270637, guid: 30354181aad3079449a929a201988254, type: 3}
+  - {fileID: 11400000, guid: 7d61b05fec8ae41479f4e69f1127f4e5, type: 2}

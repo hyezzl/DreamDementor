@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baf10f08426e62949be8a3cc11b3c056, type: 3}
+  m_Name: HappyPalette
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 8897333684798104952, guid: ab58fec00938c9e49b2b1cbffb882587, type: 3}
+  - {fileID: 2601184789853874026, guid: 05f079985677e28448714dc88fa47822, type: 3}
+  - {fileID: 594845265605774555, guid: 357390b9e4c6bcb41bb954016dbcfd0d, type: 3}
+  - {fileID: 8774451612175932375, guid: c3ff7467df047464f98121d63e8d4f1b, type: 3}
+  - {fileID: 617473877936276819, guid: 4e518877cde159d479c5a1b4f4feceff, type: 3}
+  - {fileID: 3132654938300798773, guid: dad6ddd12f5f7ee448296f5faa12430b, type: 3}
+  - {fileID: 445098047186264950, guid: 64163b89b10273e4c97c4b9269cb71e3, type: 3}
+  - {fileID: 2296223775022009402, guid: 9e02e95b389f3f4408593e375baf85d1, type: 3}
+  - {fileID: 1232971820806424708, guid: 877e713e6229d4744ade5606e898c4c4, type: 3}

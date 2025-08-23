@@ -1,0 +1,10 @@
+
+Version 1.0.1
+
+- Fixed bug where 'unpack prefab' editor preference was not being saved correctly
+_____________________________________
+
+Version 1.0
+
+- Initial release
+_____________________________________
