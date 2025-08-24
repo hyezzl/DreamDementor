@@ -1,0 +1,272 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a4174beaa4f0ab4fadfb908eb931bf7, type: 3}
+  m_Name: EventTable
+  m_EditorClassIdentifier: 
+  Narration:
+  - EventID: E001
+    EventName: Intro
+    EventType: Narration
+    Order: 1
+    Text: "\"\uBABD\uB839\"\uC774\uB77C\uACE0 \uC54C\uC544?"
+  - EventID: E001
+    EventName: Intro
+    EventType: Narration
+    Order: 2
+    Text: "\uC0B6\uC758 \uC758\uC9C0\uAC00 \uC5C6\uC744 \uB54C \uB098\uD0C0\uB098\uB294
+      \uADC0\uC2E0\uC778\uB370."
+  - EventID: E001
+    EventName: Intro
+    EventType: Narration
+    Order: 3
+    Text: "\uC0B6\uC5D0 \uBBF8\uB828\uC744 \uB193\uB294 \uC21C\uAC04 \uBABD\uB839\uC774
+      \uCC3E\uC544\uC628\uB300."
+  - EventID: E001
+    EventName: Intro
+    EventType: Narration
+    Order: 4
+    Text: "\uBABD\uB839\uC740 \uB108\uB97C \uAFC8\uC18D\uC5D0 \uAC00\uB450\uACE0
+      \uBCF8\uC778\uC774 \uBAB8\uC744 \uCC28\uC9C0\uD558\uB824 \uD558\uB824\uACE0
+      \uD560 \uAC70\uC57C."
+  - EventID: E001
+    EventName: Intro
+    EventType: Narration
+    Order: 5
+    Text: "\uADF8\uB7EC\uB2C8\uAE4C \uBB34\uC2A8 \uC77C\uC774 \uC788\uC5B4\uB3C4."
+  - EventID: E001
+    EventName: Intro
+    EventType: Narration
+    Order: 6
+    Text: "\uC808\uB300.. \uC0B6\uC758 \uC758\uC9C0\uB97C \uB193\uC544\uC120 \uC548\uB3FC."
+  - EventID: E001
+    EventName: Intro
+    EventType: Narration
+    Order: 7
+    Text: "\uB9CC\uC57D.. \uC544\uC8FC \uB9CC\uC57D \uAFC8\uC18D\uC5D0\uC11C \uBABD\uB839\uC744
+      \uB9C8\uC8FC\uCE58\uAC8C \uB41C\uB2E4\uBA74."
+  - EventID: E001
+    EventName: Intro
+    EventType: Narration
+    Order: 8
+    Text: "\uC0B4\uACE0 \uC2F6\uB2E4\uB294 \uB9C8\uC74C\uC744 \uAC00\uC9C0\uACE0
+      \uB6F0\uC5B4.."
+  - EventID: E001
+    EventName: Intro
+    EventType: Narration
+    Order: 9
+    Text: "\uAFC8\uC18D\uC5D0\uB294 \uBC18\uB4DC\uC2DC \uD0C8\uCD9C\uD560 \uC218
+      \uC788\uB294 \uAE38\uC774 \uC874\uC7AC\uD558\uB2C8\uAE4C.."
+  Cutscene:
+  - EventID: E002
+    EventName: Tutorial
+    EventType: Cutscene
+    ConvID: 20001
+    Text: "\uC5EC\uAE34...?"
+    NextConvID: 20002
+    Speaker: Player
+  - EventID: E002
+    EventName: Tutorial
+    EventType: Cutscene
+    ConvID: 20002
+    Text: "\uC5B4\uB838\uC744 \uB54C \uC5C4\uB9C8\uB791 \uC790\uC8FC \uC624\uB358
+      \uACF5\uC6D0\uC774\uB791 \uB611\uAC19\uB124.."
+    NextConvID: 20003
+    Speaker: Player
+  - EventID: E002
+    EventName: Tutorial
+    EventType: Cutscene
+    ConvID: 20003
+    Text: "\uC5C4\uB9C8 \uBCF4\uACE0\uC2F6\uB2E4.."
+    NextConvID: 20004
+    Speaker: Player
+  - EventID: E002
+    EventName: Tutorial
+    EventType: Cutscene
+    ConvID: 20004
+    Text: .....
+    NextConvID: 20005
+    Speaker: Enemy
+  - EventID: E002
+    EventName: Tutorial
+    EventType: Cutscene
+    ConvID: 20005
+    Text: "\uB204\uAD6C\uC9C0..?"
+    NextConvID: 20006
+    Speaker: Player
+  - EventID: E002
+    EventName: Tutorial
+    EventType: Cutscene
+    ConvID: 20006
+    Text: .....
+    NextConvID: 20007
+    Speaker: Enemy
+  - EventID: E002
+    EventName: Tutorial
+    EventType: Cutscene
+    ConvID: 20007
+    Text: "\uC5C4\uB9C8..?"
+    NextConvID: 20008
+    Speaker: Player
+  - EventID: E002
+    EventName: Tutorial
+    EventType: Cutscene
+    ConvID: 20008
+    Text: "...\uC544"
+    NextConvID: 20009
+    Speaker: Enemy
+  - EventID: E002
+    EventName: Tutorial
+    EventType: Cutscene
+    ConvID: 20009
+    Text: "\uC5C4\uB9C8 \uB9DE\uC544?"
+    NextConvID: 20010
+    Speaker: Player
+  - EventID: E002
+    EventName: Tutorial
+    EventType: Cutscene
+    ConvID: 20010
+    Text: "\uC11C\uB9B0\uC544.. \uC774\uB9AC\uC640"
+    NextConvID: 20011
+    Speaker: Enemy
+  - EventID: E002
+    EventName: Tutorial
+    EventType: Cutscene
+    ConvID: 20011
+    Text: "\uC5C4\uB9C8!!"
+    NextConvID: -1
+    Speaker: Player
+  Conversation:
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30001
+    Text: "\uBCF4\uACE0\uC2F6\uC5C8\uC5B4\uC694"
+    NextConvID: 30002
+    Speaker: Player
+    ChoiceID: 
+    Emotion: 1
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30002
+    Text: "......\u3134...\u314F...\uB3C4.....\u3131\u3161...\uB798\u3146.....\uB2E4\u3134.....\uB2E4..."
+    NextConvID: 30003
+    Speaker: Enemy
+    ChoiceID: 
+    Emotion: -1
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30003
+    Text: "\uC5B4\uB514\uAC14\uC5C8\uC5B4\uC694....\uD55C\uCC38 \uCC3E\uC558\uC796\uC544\uC694."
+    NextConvID: 30004
+    Speaker: Player
+    ChoiceID: 
+    Emotion: 1
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30004
+    Text: .................................
+    NextConvID: 30005
+    Speaker: Enemy
+    ChoiceID: 
+    Emotion: -1
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30005
+    Text: "\uC5C4\uB9C8...?"
+    NextConvID: 30006
+    Speaker: Player
+    ChoiceID: 
+    Emotion: 2
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30006
+    Text: "....\u3131......\u314F....\uC790....."
+    NextConvID: 30007
+    Speaker: Enemy
+    ChoiceID: 
+    Emotion: -1
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30007
+    Text: "\uC5B4\uB51C \uAC00\uC790\uB294\uAC70\uC5D0\uC694?"
+    NextConvID: 30008
+    Speaker: Player
+    ChoiceID: 
+    Emotion: 2
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30008
+    Text: "........\u3147....\u3153.....\u3145\u3153.....\uAC00....\uC790\uB2C8\uAE4C...!!!!!!"
+    NextConvID: 30009
+    Speaker: Enemy
+    ChoiceID: 
+    Emotion: -1
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30009
+    Text: "\uAE84\uC545!!!!"
+    NextConvID: 30010
+    Speaker: Player
+    ChoiceID: 
+    Emotion: 3
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30010
+    Text: "\uC65C....\uC65C\uADF8\uB7EC\uB294\uAC70\uC57C?"
+    NextConvID: 30011
+    Speaker: Player
+    ChoiceID: 
+    Emotion: 2
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30011
+    Text: "......\u3134\u314F....\u3139....\u314F\u3147.....\uAC00....\uC790...."
+    NextConvID: 30012
+    Speaker: Enemy
+    ChoiceID: 
+    Emotion: -1
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30012
+    Text: "<i>\uADF8\uB7EC\uACE0\uBCF4\uB2C8 \uC5C4\uB9C8\uB294 \uC624\uB798\uC804\uC5D0
+      \uB3CC\uC544\uAC00\uC168\uC5B4,,</i>"
+    NextConvID: 30013
+    Speaker: Player
+    ChoiceID: 
+    Emotion: 0
+  - EventID: E003
+    EventName: Tutorial
+    EventType: Conversation
+    ConvID: 30013
+    Text: "<i>\uADF8\uB7FC \uC5EC\uAE30 \uC788\uB294\uAC74 \uB204\uAD6C\uC9C0?</i>"
+    NextConvID: -1
+    Speaker: Player
+    ChoiceID: C001
+    Emotion: 0
+  Choice:
+  - ChoiceID: C001
+    Choice0: "\uC5C4\uB9C8\uB294 \uC624\uB798\uC804\uC5D0 \uB3CC\uC544\uAC00\uC168\uC5B4\u2026
+      \uB10C \uC5C4\uB9C8\uAC00 \uC544\uB2C8\uC57C."
+    Choice1: "\uC5C4\uB9C8\uAC00 \uB098\uD55C\uD14C \uC774\uB7F4\uB9AC\uAC00 \uC5C6\uC5B4,
+      \uB2F9\uC2E0...\uB204\uAD6C\uC57C?"
+    Choice2: 

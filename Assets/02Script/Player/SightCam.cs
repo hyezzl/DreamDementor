@@ -36,7 +36,6 @@ public class SightCam : MonoBehaviour
 
     private void Toggle() {
         iscontrol = !iscontrol;
-        Debug.Log("Toggle 상태 변경: " + iscontrol);
         if (iscontrol)
         {
             mouseSensitivity = 1.5f;
