@@ -21,7 +21,12 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private bool isGrounded = true;
     private float gravity = -9.8f;
     private Vector3 verticalDir = Vector3.zero;   // 중력 벡터
+    private Vector3 preDir = Vector3.forward; // 전 프레임 이동벡터 (기본은 정면)
 
+    // 누른 키 상태 저장용 변수
+    private int horizontalPriority = 0; // -1:왼  1:오
+    private int verticalPriority = 0;   // -1:아래  1:위
+    
 
     public Vector3 LookingDir => lookingDir;
 
@@ -37,9 +42,8 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         if (!TryGetComponent<PlayerController>(out pc)) {
             Debug.Log("PlayerMove - Failed to Load PlayerController");
         }
-        if (!TryGetComponent<Animator>(out anim)) {
-            Debug.Log("PlayerMove - Failed to Load Animator");
-        }
+        anim = GetComponentInChildren<Animator>();
+        if (anim == null) Debug.Log("PlayerMove - Failed to Load Animatord");
     }
 
     private void Update()
@@ -48,44 +52,59 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         if (moveable) Movement();
     }
 
-    private void Movement() {
+
+    private void Movement() 
+    {
+        InputPriority(); // 키 입력 우선순위 갱신
+        Vector2 inputVec = new Vector2(horizontalPriority, verticalPriority);
+        Vector3 moveInput = new Vector3(inputVec.x, 0f, inputVec.y);
+
         // 입력값 받기
-        input = inputHandler.GetMovement();
+        //input = inputHandler.GetMovement();
         bool isRunning = inputHandler.Run();
+        bool isWalking = inputVec.sqrMagnitude > 0.1f && !isRunning;
+        //Vector3 moveInput = new Vector3(input.x, 0f, input.y);
+
 
         if (pc.CurAspect == AspectMode.ThirdpersonMode) // 3인칭
         {
-            Vector3 moveInput = new Vector3(input.x, 0f, input.y).normalized;
-            moveDir = moveInput.normalized + verticalDir;  // 2. 정규화 한번만해서? 중력만 큰값으로 합쳐지는경우
+            moveDir = moveInput.normalized + verticalDir;
 
         }
         else // 1인칭 
         {
-            Vector3 moveInput = new Vector3(input.x, 0f, input.y).normalized;
             Vector3 horizonDir = transform.TransformDirection(moveInput);  // 로컬방향 변환
             horizonDir.y = 0f;
-
-            //moveDir = horizonDir.normalized + verticalDir;
             moveDir = horizonDir + verticalDir;
         }
 
-        if (input.sqrMagnitude < 0.01f && !isRunning) //Idle
+        // PlayerState 분기 (유저 입력에 따른)
+        if (inputVec.sqrMagnitude < 0.001f && !isRunning) //Idle
         {
             pc.CurState = PlayerState.Idle;
-            Debug.Log("Idle");
         }
-        else if (!isRunning) // Walk
+        else  // 사용자 move 움직임 있을 때
         {
-            pc.CurState = PlayerState.Walk;
-            cc.Move(moveDir * (moveSpeed * Time.deltaTime));
-            Debug.Log("Walk");
+            preDir = moveInput.normalized;   // 마지막 이동방향 캐싱
+            if (!isRunning) // Walk
+            {
+                pc.CurState = PlayerState.Walk;
+                cc.Move(moveDir * (moveSpeed * Time.deltaTime));
+            }
+            else if (isRunning && inputVec.sqrMagnitude > 0.01f)  // Run
+            {
+                pc.CurState = PlayerState.Run;
+                cc.Move(moveDir * (runSpeed * Time.deltaTime));
+            }
         }
-        else if(isRunning && input.sqrMagnitude > 0.01f)  // Run
-        {
-            pc.CurState = PlayerState.Run;
-            cc.Move(moveDir * (runSpeed * Time.deltaTime));
-            Debug.Log("Run");
-        }
+
+        Vector3 localInput = transform.InverseTransformDirection(preDir); // 로컬
+
+        // (Animation) Blend Tree 값 전달
+        anim.SetFloat("inputX", localInput.x);
+        anim.SetFloat("inputY", localInput.z);
+
+        anim.SetBool("isWalk", isWalking);
     }
 
     // 중력구현 
@@ -97,8 +116,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         isGrounded = Physics.Raycast(ray, 1f, ground);
 
         //bool isGrounded = cc.isGrounded;  // 1. cc가 땅레이어와 부딪힌걸 인식못함? 
-        //if (cc.isGrounded) Debug.Log("땅에 붙어있음");
-        //else Debug.Log("ㄴㄴ");
 
         //////////////////////2
         //Vector3 sphere = transform.position + Vector3.down * (cc.height / 2);
@@ -115,28 +132,66 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         // 땅에 붙어있는걸 인식못해서 중력이 계속 누적되는 문제
     }
 
-    // 애니메이션 변경
-    private void PlayerAnim() {
 
-        input = inputHandler.GetMovement();
-        bool isRunning = inputHandler.Run();
+    // 실패....
+    // 이동관련 키 입력 감지 함수
+    private void InputPriority123() {
+        bool leftPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+        bool rightPressed = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+        bool upPressed = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+        bool downPressed = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
 
-        //switch (pc.CurState) {
-        //    case PlayerState.Idle:
-        //        anim.SetBool()
-        //        break;
-        //    case PlayerState.Walk:
-        //        break;
-        //    case PlayerState.Run:
-        //        break;
-        //}
-        if (input.sqrMagnitude < 0.01f && !isRunning) // Idle
-        {
-            anim.SetBool("iswalking", false);
-        }
-        else if (!isRunning)  // Walk
-        { 
-        }
+        // 수평 우선순위
+        if (leftPressed && !rightPressed) horizontalPriority = -1;
+        else if (rightPressed && !leftPressed) horizontalPriority = 1;
+        else if (!rightPressed && !leftPressed) horizontalPriority = 0;
+        else Debug.Log("같이 누르지마라 ㅡㅡ");
+
+        if (upPressed && !downPressed) verticalPriority = 1;
+        else if (downPressed && !upPressed) verticalPriority = -1;
+        else if (!upPressed && !downPressed) verticalPriority = 0;
+        else Debug.Log("같이 누르지마라 ㅡㅡ");
+    }
+
+    // 키 눌림 시간 기록용 변수
+    private float lastLeftTime = -1f;
+    private float lastRightTime = -1f;
+    private float lastUpTime = -1f;
+    private float lastDownTime = -1f;
+    private void InputPriority()
+    {
+        float now = Time.time;
+
+        // 누른 순간 기록
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) lastLeftTime = now;
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) lastRightTime = now;
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) lastUpTime = now;
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) lastDownTime = now;
+
+        bool leftHeld = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+        bool rightHeld = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+        bool upHeld = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+        bool downHeld = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+
+        // 수평 방향 우선순위
+        if (leftHeld && rightHeld)
+            horizontalPriority = lastLeftTime > lastRightTime ? -1 : 1;
+        else if (leftHeld)
+            horizontalPriority = -1;
+        else if (rightHeld)
+            horizontalPriority = 1;
+        else
+            horizontalPriority = 0;
+
+        // 수직 방향 우선순위
+        if (upHeld && downHeld)
+            verticalPriority = lastUpTime > lastDownTime ? 1 : -1;
+        else if (upHeld)
+            verticalPriority = 1;
+        else if (downHeld)
+            verticalPriority = -1;
+        else
+            verticalPriority = 0;
     }
 
 
