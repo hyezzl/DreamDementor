@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class BlinkAnnounce : MonoBehaviour
 {
-    [SerializeField] private float term = 0.9f;
+    [SerializeField] private float term;
+    [SerializeField] private float maxAlpha;
 
-    public IEnumerator BlinkAnnounceMSG(CanvasGroup group, float term) {
+    public IEnumerator BlinkAnnounceMSG(CanvasGroup group, float term = 2) {
         float t = 0;
         bool fadeIn = true;
         while (true) {
             t += Time.deltaTime * term;
-            group.alpha = fadeIn ? Mathf.Lerp(0f, 0.6f, t) : Mathf.Lerp(0.6f, 0f, t);
+            group.alpha = fadeIn ? Mathf.Lerp(0f, maxAlpha, t) : Mathf.Lerp(maxAlpha, 0f, t);
 
             if (t >= 1f) {
                 t = 0f;

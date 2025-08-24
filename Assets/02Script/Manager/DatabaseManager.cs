@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class ItemDatabaseManager : Singleton<ItemDatabaseManager>, IDatabase
+public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
 {
     [Header("Data SO 연결")]
     [SerializeField] private ObjectTable SOobject; // Object SO연결
@@ -24,8 +24,9 @@ public class ItemDatabaseManager : Singleton<ItemDatabaseManager>, IDatabase
     private Dictionary<string, ChoiceData> choiceDict = new();
 
 
-    private void Awake()
+    protected override void DoAwake()
     {
+        base.DoAwake();
         InitDict(); // 아이템 정보 딕셔너리에 넣기
     }
 

@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// 게임시작하자마자 실행될 Intro Event + 다음 이벤트 이어 호출
 /// </summary>
 
-public class IntroEvent : MonoBehaviour // IGameEvent
+public class IntroEvent : MonoBehaviour, IGameEvent
 {
     public string eventID = "E001";
     private IDatabase database;
@@ -76,11 +76,10 @@ public class IntroEvent : MonoBehaviour // IGameEvent
         }
 
         foreach (var narration in narrations.OrderBy(n => n.order)) {
-            textArea.text = "";
             float duration = narration.text.Length * typingSpeed;
             var typing = textArea.DOText(narration.text + "\n", duration).SetEase(Ease.Linear);
 
-            arrow.alpha = 1f;
+            arrow.alpha = 0f;
 
             // 타이핑 완료까지 대기
             yield return typing.WaitForCompletion();
@@ -94,10 +93,10 @@ public class IntroEvent : MonoBehaviour // IGameEvent
             arrow.alpha = 0f;
             standbyInput = false;
             textArea.text = ""; //초기화
-            StopCoroutine(blinkCor);
         }
 
         // 타이핑 끝나고 화면 꺼주기
+        StopCoroutine(blinkCor);
         background.gameObject.SetActive(false);
         textArea.gameObject.SetActive(false);
 
@@ -108,8 +107,12 @@ public class IntroEvent : MonoBehaviour // IGameEvent
     private IEnumerator BlinkArrow() {
         yield return null;
         if (standbyInput) {
-            StartCoroutine(blink.BlinkAnnounceMSG(arrow, 2f));
+            StartCoroutine(blink.BlinkAnnounceMSG(arrow, 1.2f));
         }
     }
-        
+
+    public void RecordEvent(GameEvents.PlayEvent evt)
+    {
+        // 저장
+    }
 }

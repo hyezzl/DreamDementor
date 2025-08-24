@@ -7,12 +7,12 @@ using UnityEngine;
 
 public class InitManager : MonoBehaviour
 {
-    protected ItemDatabaseManager db;
+    protected DatabaseManager db;
     protected InventoryManager invenManager;
 
     protected virtual void Start()
     {
-        db = ItemDatabaseManager.Instance;
+        db = DatabaseManager.Instance;
         invenManager = InventoryManager.Instance;
 
         // 씬에 존재하는 IActionItem 찾아 Init 실행
