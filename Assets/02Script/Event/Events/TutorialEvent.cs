@@ -7,7 +7,7 @@ public class TutorialEvent : MonoBehaviour
 {
     public string eventID = "E002";
     private IDatabase database;
-    private List<CutsceneData> cutsceneTexts;
+    private List<DialogData> dialogs;
 
     private PlayerMove pm;
     private PlayerController pc;
@@ -35,8 +35,8 @@ public class TutorialEvent : MonoBehaviour
     // DB ¿¬°á
     public void Init(IDatabase db) {
         database = db;
-        cutsceneTexts = database.GetCutscene(eventID);
-        if (cutsceneTexts == null) Debug.Log("TutorialEvent - Failed to Load CutsceneData");
+        dialogs = database.GetDialog(eventID);
+        if (dialogs == null) Debug.Log("TutorialEvent - Failed to Load CutsceneData");
     }
 
 

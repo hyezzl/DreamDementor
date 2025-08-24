@@ -1,6 +1,5 @@
 
 using System.Collections.Generic;
-// 임시
 
 public enum Speaker
 { 
@@ -24,35 +23,28 @@ public enum Emotion
 
 
 
-public class NarrationData
+public class EventData
 {
     public string eventID;
     public string eventName;
     public EventType type;
+}
+
+public class NarrationData
+{ 
+    public string eventID;
     public int order;
     public string text;
 }
 
-public class CutsceneData
+public class DialogData
 {
     public string eventID;
-    public string eventName;
-    public EventType type;
-    public int convID;  // 추후에 순서 바꿀 예정
-    public string text;
-    public int nextConvID;
+    public int logID;
+    public string dialog;
+    public int nextID;
     public Speaker speaker;
-}
-
-public class ConversationData
-{
-    public string eventID;
-    public string eventName;
-    public EventType type;
-    public int convID;   // 여기도 순서 바꾸기
-    public string text;
-    public int nextConvID;
-    public Speaker speaker;
+    public string speakerName;
     public string choiceID;
     public Emotion emotion;
     public ChoiceData choices;  //  하위 클래스

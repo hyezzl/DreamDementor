@@ -10,11 +10,11 @@ public interface IDatabase
 
     ReadableData GetReadable(int itemID);
 
+    EventData GetEventData(string eventID);
+
     List<NarrationData> GetNarration(string eventID);
 
-    List<CutsceneData> GetCutscene(string eventID);
-
-    List<ConversationData> GetConversation(string eventID);
+    List<DialogData> GetDialog(string eventID);
 
     ChoiceData GetChoice(string eventID);
 }

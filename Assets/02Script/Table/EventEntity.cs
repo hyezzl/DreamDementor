@@ -1,37 +1,30 @@
 using System;
 
 [Serializable]
-public class NarrationEntity
+public class EventEntity
 {
     public string EventID;
     public string EventName;
     public string EventType;
+}
+
+[Serializable]
+public class NarrationEntity
+{ 
+    public string EventID;
     public int Order;
     public string Text;
 }
 
 [Serializable]
-public class CutsceneEntity
+public class DialogEntity
 {
     public string EventID;
-    public string EventName;
-    public string EventType;
-    public int ConvID;
-    public string Text;
-    public int NextConvID;
+    public int LogID;
+    public string Dialog;
+    public int NextID;
     public string Speaker;
-}
-
-[Serializable]
-public class ConversationEntity
-{
-    public string EventID;
-    public string EventName;
-    public string EventType;
-    public int ConvID;
-    public string Text;
-    public int NextConvID;
-    public string Speaker;
+    public string SpeakerName;
     public string ChoiceID;
     public int Emotion;
 }

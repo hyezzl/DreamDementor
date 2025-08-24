@@ -17,11 +17,12 @@ public class ItemDatabaseManager : Singleton<ItemDatabaseManager>, IDatabase
     private Dictionary<int, InspectableData> inspectableDict = new();
     private Dictionary<int, ReadableData> readableDict = new();
 
-    // 이벤트 정보 (같은 이벤트ID를 가진 행이 많으므로, List로 관리)
+    // 이벤트 정보 (하나의 이벤트에 속해있는 Text의 집합은 List형태로 정의)
+    private Dictionary<string, EventData> eventDict = new();
     private Dictionary<string, List<NarrationData>> narrationDict = new();
-    private Dictionary<string, List<CutsceneData>> cutsceneDict = new();
-    private Dictionary<string, List<ConversationData>> conversationDict = new();
+    private Dictionary<string, List<DialogData>> dialogDict = new();
     private Dictionary<string, ChoiceData> choiceDict = new();
+
 
     private void Awake()
     {
@@ -104,43 +105,37 @@ public class ItemDatabaseManager : Singleton<ItemDatabaseManager>, IDatabase
             readableDict[item.ItemID] = data;
         }
 
-        // 5. Narration
+        // 5. Event
+        foreach (var evt in SOevent.Event) {
+            EventType curType;
+            if (!System.Enum.TryParse(evt.EventType, out curType)) { 
+                Debug.Log("EventType변환 실패");
+                curType = EventType.Conversation;
+            } 
+
+            EventData data = new EventData
+            {
+                eventID = evt.EventID,
+                eventName = evt.EventName,
+                type = curType,
+            };
+            eventDict[evt.EventID] = data;
+        }
+
+        // 6. Narration
         foreach (var evt in SOevent.Narration)
         {
             NarrationData data = new NarrationData
             {
                 eventID = evt.EventID,
-                eventName = evt.EventName,
-                type = EventType.Narration,
                 order = evt.Order,
                 text = evt.Text,
             };
-            // eventID가 이미 있으면 리스트추가, 없으면 리스트 생성
             if (!narrationDict.ContainsKey(evt.EventID))
             {
                 narrationDict[evt.EventID] = new List<NarrationData>();
             }
             narrationDict[evt.EventID].Add(data);
-        }
-
-        // 6. Cutscene
-        foreach (var evt in SOevent.Cutscene)
-        {
-            CutsceneData data = new CutsceneData
-            {
-                eventID = evt.EventID,
-                eventName = evt.EventName,
-                type = EventType.Cutscene,
-                convID = evt.ConvID,  // 고유값
-                text = evt.Text,
-                nextConvID = evt.NextConvID,
-                speaker = System.Enum.Parse<Speaker>(evt.Speaker),
-            };
-            if (!cutsceneDict.ContainsKey(evt.EventID))
-            {
-                cutsceneDict[evt.EventID] = new List<CutsceneData>();
-            }
-            cutsceneDict[evt.EventID].Add(data);  // 같은 EventID 안에 List로 Add
         }
 
         // 7. Choice
@@ -157,36 +152,40 @@ public class ItemDatabaseManager : Singleton<ItemDatabaseManager>, IDatabase
                 .Where(x => !string.IsNullOrEmpty(x))
                 .ToList()
             };
-            // 중복값 없음
             choiceDict[evt.ChoiceID] = data;
         }
 
 
-        // 8. Conversation
-        foreach (var evt in SOevent.Conversation)
+        // 8. Dialog
+        foreach (var evt in SOevent.Dialog)
         {
             // choiceID에 맞는 ChoiceData 미리 세팅
-            choiceDict.TryGetValue(evt.ChoiceID, out var choiceData); // ChoiceID에 맞는 Choice값들
+            ChoiceData choiceData = null;
+            if (!string.IsNullOrEmpty(evt.ChoiceID)) {
+                choiceDict.TryGetValue(evt.ChoiceID, out choiceData);
+            }
 
-            ConversationData data = new ConversationData
+            DialogData data = new DialogData
             {
-                eventID = evt.EventID,
-                eventName = evt.EventName,
-                type = EventType.Conversation,
-                convID = evt.ConvID,
-                text = evt.Text,
-                nextConvID = evt.NextConvID,
+                logID = evt.LogID,
+                dialog = evt.Dialog,
+                nextID = evt.NextID,
                 speaker = System.Enum.Parse<Speaker>(evt.Speaker),
+                speakerName = evt.SpeakerName,
                 choiceID = evt.ChoiceID,
                 emotion = (Emotion)evt.Emotion,
-                choices = string.IsNullOrEmpty(evt.ChoiceID) ? null : new ChoiceData
-                {
-                    choiceID = evt.ChoiceID,
-                    texts = choiceData.texts,
-                }
+                choices = choiceData,
             };
+            if (!dialogDict.ContainsKey(evt.EventID))
+            {
+                dialogDict[evt.EventID] = new List<DialogData>();
+            }
+            dialogDict[evt.EventID].Add(data);
         }
     }
+
+
+
 
 
 
@@ -228,32 +227,27 @@ public class ItemDatabaseManager : Singleton<ItemDatabaseManager>, IDatabase
         return null;
     }
 
-    public List<NarrationData> GetNarration(string eventID)
-    {
-        if (narrationDict.TryGetValue(eventID, out var dataList))
-        {
-            return dataList;   // 리스트 반환
+    public EventData GetEventData(string eventID) {
+        if (eventDict.TryGetValue(eventID, out var data)) {
+            return data;
         }
         return null;
     }
 
-    public List<CutsceneData> GetCutscene(string eventID)
-    {
-        if (cutsceneDict.TryGetValue(eventID, out var dataList))
-        {
+    public List<NarrationData> GetNarration(string eventID) {
+        if (narrationDict.TryGetValue(eventID, out var dataList)) {
             return dataList;
         }
         return null;
     }
 
-    public List<ConversationData> GetConversation(string eventID)
+    public List<DialogData> GetDialog(string eventID)
     {
-        if (conversationDict.TryGetValue(eventID, out var dataList))
+        if (dialogDict.TryGetValue(eventID, out var dataList))
         {
             return dataList;
         }
         return null;
-
     }
 
     public ChoiceData GetChoice(string choiceID)
