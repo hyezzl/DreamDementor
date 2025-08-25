@@ -16,7 +16,8 @@ public class TutorialTimeline : MonoBehaviour
     [SerializeField] private TextMeshProUGUI speaker;
 
     private IDatabase database;
-    private List<DialogData> dialogs;
+    private List<DialogData> dialogs;  // 전체 대사 목록
+    int curidx = 0;  // 현재 대화 인덱스
 
 
     // DB 연결
@@ -27,27 +28,22 @@ public class TutorialTimeline : MonoBehaviour
     }
 
     // signal때 재생될 함수
-    public void OnSignal(List<DialogData> texts) {
-        // 대화창 설정 (초기화) 끝에 할까?
-        //group.alpha = 1f; // 필요하면 Lerp
-        //textarea.text = "";
-        //speaker.text = "";
+    public void OnSignal() {
+        if (curidx < dialogs.Count) {
+            ShowDialog(dialogs[curidx]);
+            StartCoroutine(OnWaiting());
+            curidx++;
+        }
+    }
 
-        // 데이터 넣기 //////////////
-        StartCoroutine(OnWaiting());
+    void ShowDialog(DialogData log) {
+        group.alpha = 1f;
+        speaker.text = log.speakerName;
+        textarea.text = log.dialog;
     }
 
     IEnumerator OnWaiting() {
-
-        // 대화창 설정 (초기화) 끝에 할까?
-        group.alpha = 1f; // 필요하면 Lerp
-        textarea.text = "";
-        speaker.text = "";
-        yield return null;
-
-        // 대화창 (for ++)
-
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2.4f);
 
         // 대화창 끄기
         group.alpha = 0f;
