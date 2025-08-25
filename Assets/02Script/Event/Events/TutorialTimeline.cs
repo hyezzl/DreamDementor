@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 /// <summary>
 ///  튜토리얼 내 타임라인 Detail
@@ -30,6 +31,7 @@ public class TutorialTimeline : MonoBehaviour
     // signal때 재생될 함수
     public void OnSignal() {
         if (curidx < dialogs.Count) {
+            group.alpha = 1f;
             ShowDialog(dialogs[curidx]);
             StartCoroutine(OnWaiting());
             curidx++;
@@ -37,16 +39,15 @@ public class TutorialTimeline : MonoBehaviour
     }
 
     void ShowDialog(DialogData log) {
-        group.alpha = 1f;
         speaker.text = log.speakerName;
-        textarea.text = log.dialog;
+        // 타이핑
+        textarea.DOText(log.dialog, 1.7f);
     }
 
     IEnumerator OnWaiting() {
         yield return new WaitForSeconds(2.4f);
 
-        // 대화창 끄기
-        group.alpha = 0f;
+        // 대화창 초기화
         textarea.text = "";
         speaker.text = "";
     }

@@ -5,7 +5,7 @@ using UnityEngine.Playables;
 
 public class TutorialEvent : MonoBehaviour
 {
-    public string eventID = "E002";
+    public string eventID = "E003";
     private IDatabase database;
     private List<DialogData> dialogs;
 
@@ -16,8 +16,21 @@ public class TutorialEvent : MonoBehaviour
     [SerializeField] private PlayableDirector timeline01;
     [SerializeField] private PlayableDirector timeline02;
 
+    [Header("UIRefs")]
+    [SerializeField] private CanvasGroup dialog;
+
     private bool isChoice = false;
 
+
+    ///임시
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            timeline01.time = 0;
+            timeline01.Stop();
+            timeline01.Evaluate(); // 0시점 반영
+        }
+    }
 
 
 
@@ -56,25 +69,26 @@ public class TutorialEvent : MonoBehaviour
 
     // 타임라인 실행
     private IEnumerator PlayTimeline() {
+        
+        // 1. 타임라인01 재생
         timeline01.Play();
 
         // 재생완료까지 대기
         yield return new WaitUntil(() => timeline01.state != PlayState.Playing);
+        // 카메라 BetweenCam으로 고정
+        EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.BetweenCam));
+        // Dialog박스 비활성화
+        dialog.alpha = 0f;
 
-        // 첫번째 DialogMode
-        ///////////////////////Dialog끊기는 시점마다  Event 나누어놓기!!!!!!!!!
 
-
-        // Dialog + 선택지
-        // 게임모드 변경
+        // 2. Dialog + 선택지
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(dialogs));
-
 
 
         // 선택까지 대기
         yield return new WaitUntil(() => isChoice == true);
 
-        // 두번째 타임라인 재생 + 완료대기
+        // 3. 두번째 타임라인 재생
         Debug.Log("왜안들어와요?????????????????????/////");
         timeline02.Play();
         yield return new WaitUntil(() => timeline02.state != PlayState.Playing);

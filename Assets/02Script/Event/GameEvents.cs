@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +36,15 @@ public static class GameEvents
         public EnemyStateChange(EnemyState state)
         {
             this.state = state;
+        }
+    }
+
+    // 카메라 교체
+    public struct CameraShift
+    {
+        public CameraType type;
+        public CameraShift(CameraType type) { 
+            this.type = type;
         }
     }
 }
