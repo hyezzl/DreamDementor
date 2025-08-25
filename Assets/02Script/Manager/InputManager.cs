@@ -23,7 +23,6 @@ public class InputManager : MonoBehaviour
 
     // 외부에 입력 넘겨주기
     private void SendInputVal() {
-        if (FindAnyObjectByType<PlayerMove>() == null) Debug.Log("널");
         FindAnyObjectByType<PlayerMove>().SetInputHandler(inputHandler);
         //FindAnyObjectByType<Interact>().SetInputHandler(inputHandler);  
         //FindAnyObjectByType<PauseMode>().SetInputHandler(inputHandler);

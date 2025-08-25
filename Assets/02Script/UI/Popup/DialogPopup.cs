@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -11,7 +10,8 @@ public class DialogPopup : MonoBehaviour
 {
     [SerializeField] private CanvasGroup popup;
     [SerializeField] private TextMeshProUGUI textarea;
-    [SerializeField] private float typingSpeed = 2f;
+    [SerializeField] private TextMeshProUGUI speaker;
+    [SerializeField] private float typingSpeed = 20f;
 
     private PlayerController pc;
     Tweener typing;
@@ -67,7 +67,7 @@ public class DialogPopup : MonoBehaviour
 
 
     private void LogInit() {
-        // 캐릭이름
+        speaker.text = "";
         textarea.text = "";
     }
 
@@ -75,8 +75,8 @@ public class DialogPopup : MonoBehaviour
         preMode = pc.CurMode; // 캐싱
         
         // 모드 변경
-        //pc.CurMode = GameMode.DialogMode;
-        //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
+        pc.CurMode = GameMode.DialogMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
 
         // 로그 창 표시
         DialogFade(true);
@@ -105,17 +105,21 @@ public class DialogPopup : MonoBehaviour
         popup.DOFade(val, 0.8f).SetEase(Ease.Linear);
     }
 
-    private IEnumerator TypeDialog(List<string> texts) {
+    private IEnumerator TypeDialog(List<DialogData> texts) {
         seq = DOTween.Sequence();
 
-        foreach (string text in texts) {
+        foreach (var text in texts) {
             isTyping = true;
             standbyInput = false;
-            sentence = text;  // 캐싱
-            textarea.text = "";
+            LogInit();
+            sentence = text.dialog;  // 캐싱
 
-            float duration = text.Length * typingSpeed;
-            typing = textarea.DOText(text, duration).SetEase(Ease.Linear);
+            // Speaker
+            speaker.text = text.speakerName;
+
+            // Typing
+            float duration = text.dialog.Length / typingSpeed;
+            typing = textarea.DOText(text.dialog, duration).SetEase(Ease.Linear);
 
             yield return typing.WaitForCompletion(); // 타이핑 완료 까지 대기
 

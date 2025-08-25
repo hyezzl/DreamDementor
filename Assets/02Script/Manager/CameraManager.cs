@@ -9,7 +9,6 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Button toggleBTN;
 
     private bool isPlayer = false;
-    private bool isPerspective = true;
     private Camera mainCam;
 
     private void Awake()

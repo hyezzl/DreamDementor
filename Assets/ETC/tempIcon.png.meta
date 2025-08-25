@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,49 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: tempIcon_5
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 1217
+        width: 871
+        height: 406
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 401, y: 162, z: 432, w: 219}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5443715c278d6db40b3d7ef679860be1
+      internalID: -203705172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tempIcon_7
+      rect:
+        serializedVersion: 2
+        x: 1074
+        y: 979
+        width: 682
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 323, y: 75, z: 294, w: 87}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54e5dd67747968244923f5370bf71d7d
+      internalID: 1003065314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +161,38 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tempIcon_0: -1141659261
+      tempIcon_1: -1263087363
+      tempIcon_10: -1382272473
+      tempIcon_11: 1584646614
+      tempIcon_12: 743185038
+      tempIcon_13: -591114798
+      tempIcon_14: 392943130
+      tempIcon_15: -1227357882
+      tempIcon_16: 951477504
+      tempIcon_17: -2027594046
+      tempIcon_18: 528641760
+      tempIcon_19: -1351654192
+      tempIcon_2: -2075493116
+      tempIcon_20: 1415591980
+      tempIcon_21: -903831456
+      tempIcon_22: -1134558072
+      tempIcon_23: 1799007322
+      tempIcon_24: 841088121
+      tempIcon_25: -791370425
+      tempIcon_26: -934710753
+      tempIcon_27: -968075312
+      tempIcon_28: -1781725763
+      tempIcon_29: 1434204196
+      tempIcon_3: -816058590
+      tempIcon_30: -1990044263
+      tempIcon_4: 1824629905
+      tempIcon_5: -203705172
+      tempIcon_6: -1729894345
+      tempIcon_7: 1003065314
+      tempIcon_8: -934986817
+      tempIcon_9: -377260275
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

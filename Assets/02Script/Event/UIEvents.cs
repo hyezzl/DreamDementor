@@ -4,9 +4,9 @@ public static class UIEvents
 {
     public struct OpenDialog
     {
-        public List<string> texts;
+        public List<DialogData> texts;
 
-        public OpenDialog(List<string> texts)
+        public OpenDialog(List<DialogData> texts)
         {
             this.texts = texts;
         }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Temp
@@ -12,13 +13,14 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private float moveSpeed = 3f;
     // [SerializeField] private float chaseRange = 10f; 
 
-    private Rigidbody2D rig;
+    private Rigidbody rig;
     private EnemyController ec;
     private PlayerController pc;
+    private NavMeshAgent na;
 
     private void Awake()
     {
-        if (!TryGetComponent<Rigidbody2D>(out rig))
+        if (!TryGetComponent<Rigidbody>(out rig))
         {
             Debug.Log("EnemyMove - Failed to Load Rigidbody");
         }
@@ -28,15 +30,24 @@ public class EnemyMove : MonoBehaviour
         }
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("EnemyMove - Failed to Load PlayerController");
+        if (!TryGetComponent<NavMeshAgent>(out na)) {
+            Debug.Log("EnemyMove - Failed to Load NavMeshAgent");
+        }
+    }
+
+    //юс╫ц
+    private void Start()
+    {
+        ec.EnemyState = EnemyState.Chase;
     }
 
     private void OnEnable()
     {
-        EventBus.Instance.Subscribe<GameEvents.EnemyStateChange>(OnChange);
+        //EventBus.Instance.Subscribe<GameEvents.EnemyStateChange>(OnChange);
     }
     private void OnDisable()
     {
-        EventBus.Instance.Unsubscribe<GameEvents.EnemyStateChange>(OnChange);
+        //EventBus.Instance.Unsubscribe<GameEvents.EnemyStateChange>(OnChange);
     }
 
     private void OnChange(GameEvents.EnemyStateChange evt)
@@ -74,6 +85,13 @@ public class EnemyMove : MonoBehaviour
             {
                 rig.velocity = Vector2.zero;
             }
+        }
+    }
+
+    private void AIChasePlayer() {
+        if (ec.EnemyState == EnemyState.Chase)
+        {
+            na.SetDestination(player.position);
         }
     }
 }

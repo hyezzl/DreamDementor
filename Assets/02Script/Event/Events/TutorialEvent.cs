@@ -15,12 +15,9 @@ public class TutorialEvent : MonoBehaviour
     [Header("Timeline")]
     [SerializeField] private PlayableDirector timeline01;
     [SerializeField] private PlayableDirector timeline02;
-    [SerializeField] private Canvas speech;
 
     private bool isChoice = false;
 
-    [Header("임시")]
-    [SerializeField] public List<string> texts = new();
 
 
 
@@ -63,12 +60,14 @@ public class TutorialEvent : MonoBehaviour
 
         // 재생완료까지 대기
         yield return new WaitUntil(() => timeline01.state != PlayState.Playing);
-        speech.gameObject.SetActive(false);
+
+        // 첫번째 DialogMode
+        ///////////////////////Dialog끊기는 시점마다  Event 나누어놓기!!!!!!!!!
 
 
         // Dialog + 선택지
         // 게임모드 변경
-        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(texts));
+        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(dialogs));
 
 
 
