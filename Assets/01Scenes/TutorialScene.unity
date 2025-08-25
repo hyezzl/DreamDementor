@@ -1093,6 +1093,8 @@ GameObject:
   m_Component:
   - component: {fileID: 585387039}
   - component: {fileID: 585387040}
+  - component: {fileID: 585387041}
+  - component: {fileID: 585387042}
   m_Layer: 0
   m_Name: Tutorial01
   m_TagString: Untagged
@@ -1137,6 +1139,53 @@ PlayableDirector:
   m_ExposedReferences:
     m_References:
     - d212a8d41a3460942bc29b6b8727467c: {fileID: 831204244}
+--- !u!114 &585387041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585387038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 128c4b6ec84b5e349a130eac8e2a2c08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventID: E002
+  dialog: {fileID: 7607538049536493281}
+  group: {fileID: 9086848042586789535}
+  textarea: {fileID: 6643820882227440455}
+  speaker: {fileID: 548274685}
+--- !u!114 &585387042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585387038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 3d112e30c5a747a429edfe876a9430fd, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 585387041}
+          m_TargetAssemblyTypeName: TutorialTimeline, Assembly-CSharp
+          m_MethodName: OnSignal
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &611546882
 PrefabInstance:
   m_ObjectHideFlags: 0

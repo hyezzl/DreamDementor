@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baf10f08426e62949be8a3cc11b3c056, type: 3}
-  m_Name: HappyPalette2123]
+  m_Script: {fileID: 11500000, guid: d6fa2d92fc1b3f34da284357edf89c3b, type: 3}
+  m_Name: tutorial01
   m_EditorClassIdentifier: 
-  tiles:
-  - {fileID: 8824948941241258631, guid: 2f023f4ba3d66c7428fa891af2d648ef, type: 3}
