@@ -1,64 +1,80 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectPopup : MonoBehaviour
 {
-    //[SerializeField] private GameObject selectBox;
-    //[SerializeField] private Button[] BTNs;
+    [SerializeField] private Image background;  // 비활성화 효과 배경
+    [SerializeField] private GameObject choiceBTNprefab;  // 버튼 프리팹
+    [SerializeField] private Transform BTNarea;   // 버튼 영역(부모)
 
-    //private bool standbyInput = false;
-    //private TutorialEvent te;
-    //private DialogPopup dp;
-    //private int selectVal;
+    private bool standbyInput = false;
+    private List<GameObject> buttons = new();
+    private string curChoiceID = null;
 
-    //private void Awake()
-    //{
-    //    te = FindAnyObjectByType<TutorialEvent>();
-    //    if (te == null) Debug.Log("SelectPopup - Failed to Load TutorialEvent");
-    //    dp = FindAnyObjectByType<DialogPopup>();
-    //    if (dp == null) Debug.Log("SelectPopup - Failed to Load DialogPopup");
-    //}
 
-    //private void OnEnable()
-    //{
-    //    EventBus.Instance.Subscribe<UIEvents.OpenSelectBox>(OnOpenSelectBox);
+    private void OnEnable()
+    {
+        EventBus.Instance.Subscribe<UIEvents.OccurSelection>(OnSelection);
+    }
+    private void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<UIEvents.OccurSelection>(OnSelection);
+    }
 
-    //    // 버튼 등록
-    //    for (int i = 0; i < BTNs.Length; i++) {
-    //        int index = i;
-    //        BTNs[i].onClick.AddListener(() => Choice(i));
-    //    }
-    //}
-    //private void OnDisable()
-    //{
-    //    EventBus.Instance.Unsubscribe<UIEvents.OpenSelectBox>(OnOpenSelectBox);
+    private void OnSelection(UIEvents.OccurSelection evt) {
+        standbyInput = true;
+        background.enabled = true;
+        CreateBTN(evt.idx, evt.choice);
+    }
 
-    //    foreach (var btn in BTNs) {
-    //        btn.onClick.RemoveAllListeners();
-    //    }
-    //}
+    // 버튼 개수대로 생성
+    private void CreateBTN(int num, ChoiceData data) {
+        curChoiceID = data.choiceID; // 캐싱
+        // 기존 버튼 비활성화
+        foreach (var btn in buttons) {
+            btn.SetActive(false);
+        }
 
-    //private void OnOpenSelectBox(UIEvents.OpenSelectBox evt) {
-    //    // 게임모드 변경
+        for (int i = 0; i < num; i++) {
+            GameObject btn;
 
-    //    Debug.Log("똑똑..");
+            if (i < buttons.Count)
+                btn = buttons[i];
+            else {
+                btn = Instantiate(choiceBTNprefab, BTNarea);
+                buttons.Add(btn);
+            }
+            btn.SetActive(true);
 
-    //    selectBox.SetActive(true);
-    //    standbyInput = true;
+            // 버튼 텍스트
+            btn.GetComponentInChildren<TextMeshProUGUI>().text = data.texts[i];
 
-    //    // 버튼 눌림
+            // 버튼 클릭 이벤트 연결 (예: i번째 선택지를 넘기는 커스텀 함수에 연결)
+            btn.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
+            int choiceIndex = i;
+            btn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnChoice(choiceIndex));
+        }
+    }
 
-    //}
+    private void OnChoice(int idx) {
+        if (!standbyInput) return;
+        Debug.Log($"{idx} 번 선택됨!!!!!!!!!!!!!!!!");
+        EventBus.Instance.Publish<GameEvents.MakeChoice>(new GameEvents.MakeChoice(curChoiceID, idx));
+
+        background.enabled = false;
+        curChoiceID = null;
+    }
 
     //private void Choice(int idx) {
     //    if (!standbyInput) return;
 
-    //    selectVal = idx; // idx값
-    //    te.OnChoice(selectVal); // 넘김
+    //    selectVal = idx; 
+    //    te.OnChoice(selectVal); 
     //    selectBox.SetActive(false);
     //    standbyInput = false;
 
-    //    // Dialog도 끔
     //    StartCoroutine(dp.ClosePanel());
     //}
 }

@@ -22,18 +22,6 @@ public class TutorialEvent : MonoBehaviour
     private bool isChoice = false;
 
 
-    ///임시
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            timeline01.time = 0;
-            timeline01.Stop();
-            timeline01.Evaluate(); // 0시점 반영
-        }
-    }
-
-
-
     private void Awake()
     {
         pm = FindAnyObjectByType<PlayerMove>();
@@ -53,10 +41,12 @@ public class TutorialEvent : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.PlayEvent>(PlayTutorial);
+        EventBus.Instance.Subscribe<GameEvents.MakeChoice>(EndChoice);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.PlayEvent>(PlayTutorial);
+        EventBus.Instance.Unsubscribe<GameEvents.MakeChoice>(EndChoice);
     }
 
     private void PlayTutorial(GameEvents.PlayEvent evt) {
@@ -69,7 +59,6 @@ public class TutorialEvent : MonoBehaviour
 
     // 타임라인 실행
     private IEnumerator PlayTimeline() {
-        
         // 1. 타임라인01 재생
         timeline01.Play();
 
@@ -83,29 +72,30 @@ public class TutorialEvent : MonoBehaviour
 
         // 2. Dialog + 선택지
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(dialogs));
+        // 캐릭터들 애니메이션 손보기
 
 
         // 선택까지 대기
         yield return new WaitUntil(() => isChoice == true);
 
         // 3. 두번째 타임라인 재생
-        Debug.Log("왜안들어와요?????????????????????/////");
-        timeline02.Play();
-        yield return new WaitUntil(() => timeline02.state != PlayState.Playing);
-
-        // 술래잡기 시작
-        Debug.Log("술래잡기 시작~~~~~~~~~");
-        // 게임모드 변경
-        pc.CurMode = GameMode.InspectMode;
-        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
-        EventBus.Instance.Publish<GameEvents.EndTimeline>(new GameEvents.EndTimeline());
-
-        // 적 상태 변경 (Chase)
-        EventBus.Instance.Publish<GameEvents.EnemyStateChange>(new GameEvents.EnemyStateChange(EnemyState.Chase));
+        Debug.Log("들어오나???");
+        //timeline02.Play();
+        //yield return new WaitUntil(() => timeline02.state != PlayState.Playing);
+        //
+        //// 술래잡기 시작
+        //Debug.Log("술래잡기 시작~~~~~~~~~");
+        //// 게임모드 변경
+        //pc.CurMode = GameMode.InspectMode;
+        //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+        //EventBus.Instance.Publish<GameEvents.EndTimeline>(new GameEvents.EndTimeline());
+        //
+        //// 적 상태 변경 (Chase)
+        //EventBus.Instance.Publish<GameEvents.EnemyStateChange>(new GameEvents.EnemyStateChange(EnemyState.Chase));
     }
 
-    // 외부에서 호출할 함수
-    public void OnChoice(int idx) {
+    public void EndChoice(GameEvents.MakeChoice evt) {
+        Debug.Log("MakeChoice 이벤트 받음!");
         isChoice = true;
     }
 

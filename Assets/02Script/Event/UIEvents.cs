@@ -25,11 +25,13 @@ public static class UIEvents
 
     public struct OccurSelection
     {
-        public int idx; // 버튼의 개수를 넘겨줘야하나...?
+        public int idx;
+        public ChoiceData choice;
 
-        public OccurSelection(int idx)
+        public OccurSelection(int idx, ChoiceData choice)
         {
             this.idx = idx;
+            this.choice = choice;
         }
     }
 }

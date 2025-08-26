@@ -48,7 +48,7 @@ public class IntroEvent : MonoBehaviour, IGameEvent
             textArea.gameObject.SetActive(false);
 
             // 바로 다음 이벤트 호출
-            EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E002"));
+            EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E003"));
         }
     }
 
@@ -115,7 +115,7 @@ public class IntroEvent : MonoBehaviour, IGameEvent
         textArea.gameObject.SetActive(false);
 
         // 바로 다음 이벤트 호출
-        EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E002"));
+        EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E003"));
     }
 
     private IEnumerator BlinkArrow() {

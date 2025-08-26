@@ -1,4 +1,5 @@
 using Cinemachine;
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,6 +46,17 @@ public static class GameEvents
         public CameraType type;
         public CameraShift(CameraType type) { 
             this.type = type;
+        }
+    }
+
+    // 선택지 선택
+    public struct MakeChoice
+    {
+        public string choiceID;
+        public int selectIdx;
+        public MakeChoice(string choiceID, int selectIdx) { 
+            this.choiceID = choiceID;
+            this.selectIdx = selectIdx;
         }
     }
 }

@@ -16,7 +16,8 @@ public class TimeManager : MonoBehaviour
     }
 
     private void OnModeChange(GameEvents.GameModeChange evt) {
-        if (evt.mode == GameMode.DialogMode || evt.mode == GameMode.PauseMode)
+        if (evt.mode == GameMode.DialogMode || evt.mode == GameMode.PauseMode 
+            || evt.mode == GameMode.EventMode)
         {
             StopTime();
         }

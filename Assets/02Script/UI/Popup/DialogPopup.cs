@@ -148,12 +148,17 @@ public class DialogPopup : MonoBehaviour
 
             // 선택지가 있으면 이벤트가 발생!
             if (!string.IsNullOrEmpty(curDialog.choiceID)) {
-                EventBus.Instance.Publish<UIEvents.OccurSelection>(new UIEvents.OccurSelection(dialogDict[curlogIdx].choices.texts.Count));
+                Debug.Log($"선택이벤트 발생 ! {curDialog.dialog} 이후 > ");
+                EventBus.Instance.Publish<UIEvents.OccurSelection>
+                    (new UIEvents.OccurSelection(dialogDict[curlogIdx].choices.texts.Count, dialogDict[curlogIdx].choices));
                 yield break;  // 선택지 발생 시 대화 멈춤
             }
 
             // 입력 대기
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+            
+            // Index++;
+            curlogIdx = curDialog.nextID;
         }
 
         
