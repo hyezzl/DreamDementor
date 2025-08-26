@@ -74,7 +74,6 @@ public class DialogPopup : MonoBehaviour
     /// <summary>
     // 외부에서 대화창 열어주는 함수
     /// </summary>
-    /// <param name="evt"></param>
     private void OnOpenDialog(UIEvents.OpenDialog evt) {
         preMode = pc.CurMode; // 캐싱
         
@@ -94,7 +93,6 @@ public class DialogPopup : MonoBehaviour
     /// <summary>
     /// 아이템 상호작용 시 대화창
     /// </summary>
-    /// <param name="evt"></param>
     private void OnInteract(UIEvents.InteractDialog evt) {
         preMode = pc.CurMode; // 캐싱
 
