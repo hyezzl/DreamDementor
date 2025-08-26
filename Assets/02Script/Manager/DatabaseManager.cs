@@ -267,4 +267,52 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
         }
         return null;
     }
+
+    ///
+
+    public List<DialogData> GetDialog(string eventID, int logID)
+    {
+        if (dialogDict.TryGetValue(eventID, out var logDict) && logDict.TryGetValue(logID, out var dialogList))
+        {
+            return dialogList;
+        }
+        return null;
+    }
+
+    private Dictionary<string, Dictionary<int, List<DialogData>>> dialogDict = new();
+
+    foreach (var evt in SOevent.Dialog)
+    {
+        // 선택지 미리 세팅
+        ChoiceData choiceData = null;
+        if (!string.IsNullOrEmpty(evt.ChoiceID)) {
+            choiceDict.TryGetValue(evt.ChoiceID, out choiceData);
+        }
+
+    DialogData data = new DialogData
+    {
+        logID = evt.LogID,
+        dialog = evt.Dialog,
+        nextID = evt.NextID,
+        speaker = System.Enum.Parse<Speaker>(evt.Speaker),
+        speakerName = evt.SpeakerName,
+        choiceID = evt.ChoiceID,
+        emotion = (Emotion)evt.Emotion,
+        choices = choiceData,
+    };
+
+    // eventID가 없으면 새 Dictionary<int, List<DialogData>> 생성!
+    if (!dialogDict.ContainsKey(evt.EventID))
+    {
+        dialogDict[evt.EventID] = new Dictionary<int, List<DialogData>>();
+    }
+
+    // logID가 없으면 새 List<DialogData> 생성!
+    if (!dialogDict[evt.EventID].ContainsKey(evt.LogID))
+    {
+        dialogDict[evt.EventID][evt.LogID] = new List<DialogData>();
+    }
+
+    // DialogData 추가!
+    dialogDict[evt.EventID][evt.LogID].Add(data);
 }
