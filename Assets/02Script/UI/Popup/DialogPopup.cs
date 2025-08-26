@@ -30,6 +30,13 @@ public class DialogPopup : MonoBehaviour
     private float inputDelay = 0.3f;
     private float inputTimer = 0f;
 
+    [Header("ill")]
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject mom;
+    [SerializeField] private Sprite playerill;
+    [SerializeField] private Sprite momill;
+
+
     public void SetInputHandler(IInputHandler inputHandler) => this.inputHandler = inputHandler;
 
     private void Awake()
@@ -142,8 +149,21 @@ public class DialogPopup : MonoBehaviour
             // Speaker
             speaker.text = curDialog.speakerName;
 
-            // Typing
-            float duration = curDialog.dialog.Length / typingSpeed;
+            // Speaker 일러스트 나오게!!!!!
+            ////////////////////////////////////Temp (임시)
+            if (dialogDict[curlogIdx].speaker == Speaker.Player)
+            {
+                player.SetActive(true);
+                mom.SetActive(false);
+            }
+            else {
+                mom.SetActive(true);
+                player.SetActive(false);
+            }
+
+
+                // Typing
+                float duration = curDialog.dialog.Length / typingSpeed;
             typing = textarea.DOText(curDialog.dialog, duration).SetEase(Ease.Linear);
 
             yield return typing.WaitForCompletion(); // 타이핑 완료까지 대기

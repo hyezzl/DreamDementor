@@ -9,6 +9,10 @@ public class SelectPopup : MonoBehaviour
     [SerializeField] private GameObject choiceBTNprefab;  // 버튼 프리팹
     [SerializeField] private Transform BTNarea;   // 버튼 영역(부모)
 
+    [SerializeField] private GridLayoutGroup group;
+
+    
+
     private bool standbyInput = false;
     private List<GameObject> buttons = new();
     private string curChoiceID = null;
@@ -23,10 +27,23 @@ public class SelectPopup : MonoBehaviour
         EventBus.Instance.Unsubscribe<UIEvents.OccurSelection>(OnSelection);
     }
 
+
     private void OnSelection(UIEvents.OccurSelection evt) {
         standbyInput = true;
         background.enabled = true;
-        CreateBTN(evt.idx, evt.choice);
+
+        if (evt.choice.texts.Count == 2)  // 선택지 2개일 때
+        {
+            Vector2 spacing = group.spacing;
+            spacing.x = 700f;
+            group.spacing = spacing;
+        }
+        else {
+            Vector2 spacing = group.spacing;
+            spacing.x = 20f;
+            group.spacing = spacing;
+        }
+            CreateBTN(evt.idx, evt.choice);
     }
 
     // 버튼 개수대로 생성
