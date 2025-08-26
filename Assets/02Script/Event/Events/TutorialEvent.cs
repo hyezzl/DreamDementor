@@ -19,6 +19,10 @@ public class TutorialEvent : MonoBehaviour
     [Header("UIRefs")]
     [SerializeField] private CanvasGroup dialog;
 
+    [Header("Animator")]
+    [SerializeField] private Animator playerAnim;
+    [SerializeField] private Animator EnemyAnim;
+
     private bool isChoice = false;
 
 
@@ -34,7 +38,7 @@ public class TutorialEvent : MonoBehaviour
     public void Init(IDatabase db) {
         database = db;
         dialogs = database.GetDialog(eventID);
-        if (dialogs == null) Debug.Log("TutorialEvent - Failed to Load CutsceneData");
+        if (dialogs == null) Debug.Log("TutorialEvent - Failed to Load DialogData");
     }
 
 
@@ -72,7 +76,10 @@ public class TutorialEvent : MonoBehaviour
 
         // 2. Dialog + 선택지
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(dialogs));
-        // 캐릭터들 애니메이션 손보기
+
+        // 대화 이벤트 중 캐릭터들 애니메이션
+        playerAnim.Play("PlayerIdle_Right", 0);
+        //EnemyAnim.Play("MomIdle_Left");
 
 
         // 선택까지 대기

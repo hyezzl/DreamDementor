@@ -27,5 +27,6 @@ public class InputManager : MonoBehaviour
         //FindAnyObjectByType<Interact>().SetInputHandler(inputHandler);  
         //FindAnyObjectByType<PauseMode>().SetInputHandler(inputHandler);
         //FindAnyObjectByType<PopupManager>().SetInputHandler(inputHandler);
+        FindAnyObjectByType<DialogPopup>().SetInputHandler(inputHandler);
     }
 }

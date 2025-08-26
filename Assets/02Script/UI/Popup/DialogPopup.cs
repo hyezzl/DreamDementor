@@ -24,6 +24,13 @@ public class DialogPopup : MonoBehaviour
 
     private string sentence;  // 캐싱
     private GameMode preMode;  // 캐싱
+    private IInputHandler inputHandler;
+
+    // 대화창 스페이스 연타 시 오류
+    private float inputDelay = 0.3f;
+    private float inputTimer = 0f;
+
+    public void SetInputHandler(IInputHandler inputHandler) => this.inputHandler = inputHandler;
 
     private void Awake()
     {
@@ -51,18 +58,21 @@ public class DialogPopup : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            if (isTyping)
+        if (inputTimer > 0f) // 0.3f 간격으로 입력가능
+            inputTimer -= Time.deltaTime;
+        
+
+        if (inputHandler.DoSelect() && inputTimer <= 0f) {
+            if (isTyping && !isSkip) // 타이핑 중 스킵 한번만 허용 (꼬임방지)
             {
                 SkipDialog();
                 isSkip = true;
-            } 
-            //else if (standbyInput) // 입력 대기 상태
-            //{
-            //    // delete blink
-
-            //    StartCoroutine(ClosePanel());
-            //}
+                inputTimer = inputDelay;
+            }
+            else if (standbyInput && !isTyping) // 입력 대기 상태
+            {
+                inputTimer = inputDelay;
+            }
         }
     }
 
@@ -125,6 +135,7 @@ public class DialogPopup : MonoBehaviour
 
             isTyping = true;
             standbyInput = false;
+            isSkip = false;
             LogInit();
             sentence = curDialog.dialog; // 캐싱
 
@@ -147,8 +158,8 @@ public class DialogPopup : MonoBehaviour
             }
 
             // 선택지가 있으면 이벤트가 발생!
-            if (!string.IsNullOrEmpty(curDialog.choiceID)) {
-                Debug.Log($"선택이벤트 발생 ! {curDialog.dialog} 이후 > ");
+            if (!string.IsNullOrEmpty(curDialog.choiceID)) 
+            {
                 EventBus.Instance.Publish<UIEvents.OccurSelection>
                     (new UIEvents.OccurSelection(dialogDict[curlogIdx].choices.texts.Count, dialogDict[curlogIdx].choices));
                 yield break;  // 선택지 발생 시 대화 멈춤
@@ -160,10 +171,6 @@ public class DialogPopup : MonoBehaviour
             // Index++;
             curlogIdx = curDialog.nextID;
         }
-
-        
-        // 선택지 발생
-        //EventBus.Instance.Publish<UIEvents.OpenSelectBox>(new UIEvents.OpenSelectBox(0));
     }
 
     // 스킵 시 바로 출력

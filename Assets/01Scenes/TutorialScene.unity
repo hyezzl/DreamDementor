@@ -2865,6 +2865,8 @@ MonoBehaviour:
   timeline01: {fileID: 585387040}
   timeline02: {fileID: 0}
   dialog: {fileID: 9086848042586789535}
+  playerAnim: {fileID: 1230496850}
+  EnemyAnim: {fileID: 1806655542}
 --- !u!114 &1581899398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3425,8 +3427,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2039305650}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 12.5, y: 4, z: -25}
+  m_LocalRotation: {x: 0.17364825, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 8.430437, z: -23.9256}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
