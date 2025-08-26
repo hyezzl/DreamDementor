@@ -7,7 +7,7 @@ public class TutorialEvent : MonoBehaviour
 {
     public string eventID = "E003";
     private IDatabase database;
-    private List<DialogData> dialogs;
+    private Dictionary<int, DialogData> dialogs;
 
     private PlayerMove pm;
     private PlayerController pc;

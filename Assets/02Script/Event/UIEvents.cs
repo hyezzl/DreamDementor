@@ -4,9 +4,9 @@ public static class UIEvents
 {
     public struct OpenDialog
     {
-        public List<DialogData> texts;
+        public Dictionary<int, DialogData> texts;
 
-        public OpenDialog(List<DialogData> texts)
+        public OpenDialog(Dictionary<int, DialogData> texts)
         {
             this.texts = texts;
         }
@@ -23,11 +23,11 @@ public static class UIEvents
 
     }
 
-    public struct OpenSelectBox
+    public struct OccurSelection
     {
         public int idx; // 버튼의 개수를 넘겨줘야하나...?
 
-        public OpenSelectBox(int idx)
+        public OccurSelection(int idx)
         {
             this.idx = idx;
         }

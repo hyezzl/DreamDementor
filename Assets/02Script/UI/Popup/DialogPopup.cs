@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -110,25 +111,32 @@ public class DialogPopup : MonoBehaviour
         popup.DOFade(val, 0.8f).SetEase(Ease.Linear);
     }
 
-    private IEnumerator TypeDialog(List<DialogData> texts) {
+    private IEnumerator TypeDialog(Dictionary<int, DialogData> dialogDict) {
         seq = DOTween.Sequence();
 
-        foreach (var text in texts) {
-            Debug.Log(text.dialog);
+        // 시작 logID의 최소값
+        int curlogIdx = dialogDict.Keys.Min();
+
+        while (curlogIdx != -1) {
+            if (!dialogDict.TryGetValue(curlogIdx, out var curDialog)) {
+                Debug.Log($"{curlogIdx} : 존재하지 않는 대화 데이터");
+                yield break;
+            }
+
             isTyping = true;
             standbyInput = false;
             LogInit();
-            sentence = text.dialog;  // 캐싱
+            sentence = curDialog.dialog; // 캐싱
 
             // Speaker
-            speaker.text = text.speakerName;
+            speaker.text = curDialog.speakerName;
 
             // Typing
-            float duration = text.dialog.Length / typingSpeed;
-            typing = textarea.DOText(text.dialog, duration).SetEase(Ease.Linear);
+            float duration = curDialog.dialog.Length / typingSpeed;
+            typing = textarea.DOText(curDialog.dialog, duration).SetEase(Ease.Linear);
 
-            yield return typing.WaitForCompletion(); // 타이핑 완료 까지 대기
-
+            yield return typing.WaitForCompletion(); // 타이핑 완료까지 대기
+            
             isTyping = false;
             standbyInput = true;
 
@@ -138,11 +146,19 @@ public class DialogPopup : MonoBehaviour
                 isSkip = false;
             }
 
+            // 선택지가 있으면 이벤트가 발생!
+            if (!string.IsNullOrEmpty(curDialog.choiceID)) {
+                EventBus.Instance.Publish<UIEvents.OccurSelection>(new UIEvents.OccurSelection(dialogDict[curlogIdx].choices.texts.Count));
+                yield break;  // 선택지 발생 시 대화 멈춤
+            }
+
             // 입력 대기
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         }
+
+        
         // 선택지 발생
-        EventBus.Instance.Publish<UIEvents.OpenSelectBox>(new UIEvents.OpenSelectBox(0));
+        //EventBus.Instance.Publish<UIEvents.OpenSelectBox>(new UIEvents.OpenSelectBox(0));
     }
 
     // 스킵 시 바로 출력
