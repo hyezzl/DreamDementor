@@ -17,9 +17,15 @@ public class TutorialTimeline : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textarea;
     [SerializeField] private TextMeshProUGUI speaker;
 
+    [Header("Objects")]
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject enemy;
+
     private IDatabase database;
     private Dictionary<int, DialogData> dialogs;  // 전체 대사 목록
     int curlogIdx;  // 현재 대화 인덱스
+    Vector3 timelineLastPosPlayer; // 플레이어 마지막 위치
+    Vector3 timelineLastPosEnemy;
 
 
     // DB 연결
@@ -71,4 +77,10 @@ public class TutorialTimeline : MonoBehaviour
     //    textarea.text = "";
     //    speaker.text = "";
     //}
+
+    public void SaveLastPosition() {
+        // 캐릭터 오브젝트들의 마지막 Position 저장
+        player.transform.position = timelineLastPosPlayer;
+        enemy.transform.position = timelineLastPosEnemy;
+    }
 }

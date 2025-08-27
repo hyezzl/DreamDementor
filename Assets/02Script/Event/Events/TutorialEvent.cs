@@ -77,16 +77,15 @@ public class TutorialEvent : MonoBehaviour
         // 2. Dialog + 선택지
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(dialogs));
 
-        // 대화 이벤트 중 캐릭터들 애니메이션
+        // 대화 이벤트 중 캐릭터들 애니메이션  // 아직 적용 되지 않음
         playerAnim.Play("PlayerIdle_Right", 0);
         //EnemyAnim.Play("MomIdle_Left");
 
 
         // 선택까지 대기
-        yield return new WaitUntil(() => isChoice == true);
+        yield return new WaitUntil(() => isChoice == true); // 이벤트 발생
 
         // 3. 두번째 타임라인 재생
-        Debug.Log("들어오나???");
         //timeline02.Play();
         //yield return new WaitUntil(() => timeline02.state != PlayState.Playing);
         //
@@ -102,8 +101,12 @@ public class TutorialEvent : MonoBehaviour
     }
 
     public void EndChoice(GameEvents.MakeChoice evt) {
-        Debug.Log("MakeChoice 이벤트 받음!");
-        isChoice = true;
+
+        //if(evt.choiceID == ) 다음 이벤트 부터 처리
+        if (evt.selectIdx == 0 || evt.selectIdx == 1) { 
+            Debug.Log("MakeChoice 이벤트 받음!");
+            isChoice = true;
+        }
     }
 
 }
