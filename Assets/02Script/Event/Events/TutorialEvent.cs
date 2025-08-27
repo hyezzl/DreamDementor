@@ -34,6 +34,13 @@ public class TutorialEvent : MonoBehaviour
         if (pc == null) Debug.Log("PlayerController - Failed to Load PlayerController");
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            timeline02.Play();
+        }
+    }
+
     // DB 연결
     public void Init(IDatabase db) {
         database = db;
@@ -70,15 +77,13 @@ public class TutorialEvent : MonoBehaviour
         yield return new WaitUntil(() => timeline01.state != PlayState.Playing);
         // 카메라 BetweenCam으로 고정
         EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.BetweenCam));
-        // Dialog박스 비활성화
-        dialog.alpha = 0f;
 
 
         // 2. Dialog + 선택지
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(dialogs));
 
         // 대화 이벤트 중 캐릭터들 애니메이션  // 아직 적용 되지 않음
-        playerAnim.Play("PlayerIdle_Right", 0);
+        //playerAnim.Play("PlayerIdle_Right", 0);
         //EnemyAnim.Play("MomIdle_Left");
 
 
@@ -86,8 +91,8 @@ public class TutorialEvent : MonoBehaviour
         yield return new WaitUntil(() => isChoice == true); // 이벤트 발생
 
         // 3. 두번째 타임라인 재생
-        //timeline02.Play();
-        //yield return new WaitUntil(() => timeline02.state != PlayState.Playing);
+        timeline02.Play();
+        yield return new WaitUntil(() => timeline02.state != PlayState.Playing);
         //
         //// 술래잡기 시작
         //Debug.Log("술래잡기 시작~~~~~~~~~");

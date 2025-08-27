@@ -12,14 +12,22 @@ using System.Linq;
 public class TutorialTimeline : MonoBehaviour
 {
     public string eventID = "E002";
-    [SerializeField] private GameObject dialog;
-    [SerializeField] private CanvasGroup group;
-    [SerializeField] private TextMeshProUGUI textarea;
-    [SerializeField] private TextMeshProUGUI speaker;
+    [Header("UI Refs")]
+    [SerializeField] private CanvasGroup playerTextBox;
+    [SerializeField] private TextMeshProUGUI playerText;
+    [SerializeField] private TextMeshProUGUI playerSpeaker;
+
+    [SerializeField] private CanvasGroup flipTextBox;
+    [SerializeField] private TextMeshProUGUI flipText;
+    [SerializeField] private TextMeshProUGUI flipSpeaker;
+
 
     [Header("Objects")]
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemy;
+
+    [Header("타이핑 속도")]
+    [SerializeField] private float TypingTime = 1.7f;
 
     private IDatabase database;
     private Dictionary<int, DialogData> dialogs;  // 전체 대사 목록
@@ -42,7 +50,9 @@ public class TutorialTimeline : MonoBehaviour
 
         if (!dialogs.ContainsKey(curlogIdx))
         {
-            group.alpha = 0f;  // 대사 끝나면 UI 숨김
+            // 대사 끝나면 UI 숨김
+            playerTextBox.alpha = 0f;  
+            flipTextBox.alpha = 0f;
             return;
         }
         StartCoroutine(PlayDialogCoroutine(curlogIdx));
@@ -54,30 +64,40 @@ public class TutorialTimeline : MonoBehaviour
     {
         var dialog = dialogs[logID];
 
-        group.alpha = 1f;
-        speaker.text = dialog.speakerName;
-        yield return textarea.DOText(dialog.dialog, 1.7f);
+        if (dialog.speaker == Speaker.Player)
+        {
+            SetCanvasGroup(playerTextBox, true);
+            SetCanvasGroup(flipTextBox, false);
+            playerSpeaker.text = dialog.speakerName;
+            yield return playerText.DOText(dialog.dialog, TypingTime);
+        }
+        else {
+            SetCanvasGroup(playerTextBox, false);
+            SetCanvasGroup(flipTextBox, true);
+            flipSpeaker.text = dialog.speakerName;
+            yield return flipText.DOText(dialog.dialog, TypingTime);
+        }
 
         yield return new WaitForSeconds(2.4f);
 
-        textarea.text = "";
-        speaker.text = "";
+        playerText.text = "";
+        flipText.text = "";
+        playerSpeaker.text = "";
+        flipSpeaker.text = "";
     }
 
-    void ShowDialog(DialogData log) {
-        speaker.text = log.speakerName;
-        // 타이핑
-        textarea.DOText(log.dialog, 1.7f);
+    private void SetCanvasGroup(CanvasGroup group, bool isActive)
+    {
+        group.alpha = isActive ? 1f : 0f;
+        group.interactable = isActive;
+        group.blocksRaycasts = isActive;
     }
 
-    //IEnumerator OnWaiting() {
-    //    yield return new WaitForSeconds(2.4f);
-
-    //    // 대화창 초기화
-    //    textarea.text = "";
-    //    speaker.text = "";
-    //}
-
+    public void UpdateLastPositions()
+    {
+        timelineLastPosPlayer = player.transform.position;
+        timelineLastPosEnemy = enemy.transform.position;
+    }
     public void SaveLastPosition() {
         // 캐릭터 오브젝트들의 마지막 Position 저장
         player.transform.position = timelineLastPosPlayer;

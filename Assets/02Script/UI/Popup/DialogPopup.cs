@@ -9,10 +9,20 @@ using Sequence = DG.Tweening.Sequence;
 
 public class DialogPopup : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup popup;
-    [SerializeField] private TextMeshProUGUI textarea;
-    [SerializeField] private TextMeshProUGUI speaker;
     [SerializeField] private float typingSpeed = 20f;
+
+    [Header("UI Refs")]
+    [SerializeField] private CanvasGroup playerTextBox;
+    [SerializeField] private TextMeshProUGUI playerText;
+    [SerializeField] private TextMeshProUGUI playerSpeaker;
+
+    [SerializeField] private CanvasGroup flipTextBox;
+    [SerializeField] private TextMeshProUGUI flipText;
+    [SerializeField] private TextMeshProUGUI flipSpeaker;
+
+    [SerializeField] private CanvasGroup enemyTextBox;
+    [SerializeField] private TextMeshProUGUI enemyText;
+    [SerializeField] private TextMeshProUGUI enemySpeaker;
 
     private PlayerController pc;
     Tweener typing;
@@ -25,6 +35,8 @@ public class DialogPopup : MonoBehaviour
     private string sentence;  // 캐싱
     private GameMode preMode;  // 캐싱
     private IInputHandler inputHandler;
+    private TextMeshProUGUI textarea;  // 사용할 텍스트박스
+    private CanvasGroup curTextbox;
 
     // 대화창 스페이스 연타 시 오류
     private float inputDelay = 0.3f;
@@ -47,9 +59,10 @@ public class DialogPopup : MonoBehaviour
 
     private void Start()
     {
-        popup.interactable = false;
-        popup.blocksRaycasts = false;
-        popup.alpha = 0f;
+        // 대화창 모두 숨기기
+        SetCanvasGroup(playerTextBox, false);
+        SetCanvasGroup(flipTextBox, false);
+        SetCanvasGroup(enemyTextBox, false);
     }
 
     private void OnEnable()
@@ -83,12 +96,6 @@ public class DialogPopup : MonoBehaviour
         }
     }
 
-
-    private void LogInit() {
-        speaker.text = "";
-        textarea.text = "";
-    }
-
     /// <summary>
     // 외부에서 대화창 열어주는 함수
     /// </summary>
@@ -100,7 +107,6 @@ public class DialogPopup : MonoBehaviour
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
 
         // 로그 창 표시
-        DialogFade(true);
         isOpen = true;
 
         // 타이핑
@@ -121,12 +127,6 @@ public class DialogPopup : MonoBehaviour
     }
 
 
-    public void DialogFade(bool isDisplay) {
-        float val = isDisplay ? 1f : 0f;
-        popup.interactable = isDisplay;
-        popup.blocksRaycasts = isDisplay;
-        popup.DOFade(val, 0.8f).SetEase(Ease.Linear);
-    }
 
     private IEnumerator TypeDialog(Dictionary<int, DialogData> dialogDict) {
         seq = DOTween.Sequence();
@@ -143,28 +143,37 @@ public class DialogPopup : MonoBehaviour
             isTyping = true;
             standbyInput = false;
             isSkip = false;
-            LogInit();
+            
+
+            
+
+            // Speaker에 따른 분기 (대화창 / 이름 / 폰트)
+            if (dialogDict[curlogIdx].speaker == Speaker.Player)  // 화자가 플레이어일 때
+            {
+                curTextbox = playerTextBox;
+                DialogFade(curTextbox, true);
+                SetDialog(0, curDialog.speakerName);
+            }
+            else if (dialogDict[curlogIdx].speaker == Speaker.Enemy) // 화자가 괴물일 때
+            {
+                curTextbox = enemyTextBox;
+                DialogFade(curTextbox, true);
+                SetDialog(2, curDialog.speakerName);
+            }
+            else  // 화자가 그외 (오른쪽에 위치할 인물)
+            {
+                curTextbox = flipTextBox;
+                DialogFade(curTextbox, true);
+                SetDialog(1, curDialog.speakerName);
+            }
+
             sentence = curDialog.dialog; // 캐싱
 
-            // Speaker
-            speaker.text = curDialog.speakerName;
 
-            // Speaker 일러스트 나오게!!!!!
-            ////////////////////////////////////Temp (임시)
-            if (dialogDict[curlogIdx].speaker == Speaker.Player)
-            {
-                player.SetActive(true);
-                mom.SetActive(false);
-            }
-            else {
-                mom.SetActive(true);
-                player.SetActive(false);
-            }
-
-
-                // Typing
-                float duration = curDialog.dialog.Length / typingSpeed;
+            // Typing
+            float duration = curDialog.dialog.Length / typingSpeed;
             typing = textarea.DOText(curDialog.dialog, duration).SetEase(Ease.Linear);
+            Debug.Log($"타이핑중 {curDialog.dialog}");
 
             yield return typing.WaitForCompletion(); // 타이핑 완료까지 대기
             
@@ -211,7 +220,7 @@ public class DialogPopup : MonoBehaviour
     // 패널 닫기
     public IEnumerator ClosePanel() {
         yield return null;
-        DialogFade(false);
+        DialogFade(curTextbox, false);
 
         // 모드 변경
         pc.CurMode = preMode;
@@ -224,6 +233,57 @@ public class DialogPopup : MonoBehaviour
 
         standbyInput = false;
         isOpen = false;
+    }
+
+    public void SetDialog(int popupIdx, string speakerName) {
+        // 모든 대화창 비활성화
+        SetCanvasGroup(playerTextBox, false);
+        SetCanvasGroup(flipTextBox, false);
+        SetCanvasGroup(enemyTextBox, false);
+        CanvasGroup target = null;
+
+        // 특정 팝업만 활성화
+        switch (popupIdx) {
+            case 0:
+                playerSpeaker.text = speakerName;
+                target = playerTextBox;
+                //SetCanvasGroup(playerTextBox, true);
+                textarea = playerText;
+                break;
+            case 1:
+                flipSpeaker.text = speakerName;
+                target = flipTextBox;
+                //SetCanvasGroup(flipTextBox, true);
+                textarea = flipText;
+                break;
+            case 2:
+                enemySpeaker.text = speakerName;
+                target = enemyTextBox;
+                //SetCanvasGroup(enemyTextBox, true);
+                textarea = enemyText;
+                break;
+        }
+        if (target != null) {
+            DialogFade(target, true);
+        }
+        // 텍스트 초기화
+        textarea.text = "";
+    }
+
+    // CanvasGroup 상태 제어 함수
+    private void SetCanvasGroup(CanvasGroup group, bool isActive) {
+        group.alpha = isActive ? 1 : 0;
+        group.interactable = isActive;
+        group.blocksRaycasts = isActive;
+    }
+
+    // group + animation
+    public void DialogFade(CanvasGroup target, bool isDisplay)
+    {
+        float val = isDisplay ? 1f : 0f;
+        target.interactable = isDisplay;
+        target.blocksRaycasts = isDisplay;
+        target.DOFade(val, 0.8f).SetEase(Ease.Linear);
     }
 
 }
