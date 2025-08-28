@@ -39,7 +39,7 @@ public class DialogPopup : MonoBehaviour
     private CanvasGroup curTextbox;
 
     // 대화창 스페이스 연타 시 오류
-    private float inputDelay = 0.3f;
+    private float inputDelay = 0.4f;
     private float inputTimer = 0f;
 
     [Header("ill")]
@@ -69,16 +69,18 @@ public class DialogPopup : MonoBehaviour
     {
         EventBus.Instance.Subscribe<UIEvents.OpenDialog>(OnOpenDialog);
         EventBus.Instance.Subscribe<UIEvents.InteractDialog>(OnInteract);
+        EventBus.Instance.Subscribe<GameEvents.MakeChoice>(EndChoice);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OpenDialog>(OnOpenDialog);
         EventBus.Instance.Unsubscribe<UIEvents.InteractDialog>(OnInteract);
+        EventBus.Instance.Unsubscribe<GameEvents.MakeChoice>(EndChoice);
     }
 
     private void Update()
     {
-        if (inputTimer > 0f) // 0.3f 간격으로 입력가능
+        if (inputTimer > 0f) // 0.4f 간격으로 입력가능
             inputTimer -= Time.deltaTime;
         
 
@@ -247,19 +249,16 @@ public class DialogPopup : MonoBehaviour
             case 0:
                 playerSpeaker.text = speakerName;
                 target = playerTextBox;
-                //SetCanvasGroup(playerTextBox, true);
                 textarea = playerText;
                 break;
             case 1:
                 flipSpeaker.text = speakerName;
                 target = flipTextBox;
-                //SetCanvasGroup(flipTextBox, true);
                 textarea = flipText;
                 break;
             case 2:
                 enemySpeaker.text = speakerName;
                 target = enemyTextBox;
-                //SetCanvasGroup(enemyTextBox, true);
                 textarea = enemyText;
                 break;
         }
@@ -283,7 +282,14 @@ public class DialogPopup : MonoBehaviour
         float val = isDisplay ? 1f : 0f;
         target.interactable = isDisplay;
         target.blocksRaycasts = isDisplay;
-        target.DOFade(val, 0.8f).SetEase(Ease.Linear);
+        target.DOFade(val, 0.3f).SetEase(Ease.Linear);
+    }
+
+    // 선택지 선택 후
+    public void EndChoice(GameEvents.MakeChoice evt) {
+        DialogFade(playerTextBox, false);
+        DialogFade(flipTextBox, false);
+        DialogFade(enemyTextBox, false);
     }
 
 }

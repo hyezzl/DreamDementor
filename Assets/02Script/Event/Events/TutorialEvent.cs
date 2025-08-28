@@ -34,13 +34,6 @@ public class TutorialEvent : MonoBehaviour
         if (pc == null) Debug.Log("PlayerController - Failed to Load PlayerController");
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            timeline02.Play();
-        }
-    }
-
     // DB 연결
     public void Init(IDatabase db) {
         database = db;
@@ -82,9 +75,13 @@ public class TutorialEvent : MonoBehaviour
         // 2. Dialog + 선택지
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(dialogs));
 
-        // 대화 이벤트 중 캐릭터들 애니메이션  // 아직 적용 되지 않음
-        //playerAnim.Play("PlayerIdle_Right", 0);
-        //EnemyAnim.Play("MomIdle_Left");
+        // 대화 이벤트 중 캐릭터들 애니메이션 
+        playerAnim.SetFloat("inputX", 1f);
+        playerAnim.SetFloat("inputY", 0f);
+
+        // 을 멈추고 싶다고 하십니다.
+        playerAnim.speed = 0f;
+        EnemyAnim.speed = 0f;
 
 
         // 선택까지 대기
@@ -95,7 +92,7 @@ public class TutorialEvent : MonoBehaviour
         yield return new WaitUntil(() => timeline02.state != PlayState.Playing);
         //
         //// 술래잡기 시작
-        //Debug.Log("술래잡기 시작~~~~~~~~~");
+        Debug.Log("술래잡기 시작~~~~~~~~~");
         //// 게임모드 변경
         //pc.CurMode = GameMode.InspectMode;
         //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));

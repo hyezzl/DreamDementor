@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 using System.Linq;
+using Cinemachine;
 
 /// <summary>
 ///  튜토리얼 내 타임라인 Detail
@@ -25,6 +26,7 @@ public class TutorialTimeline : MonoBehaviour
     [Header("Objects")]
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemy;
+    [SerializeField] private CinemachineVirtualCamera betweencam;
 
     [Header("타이핑 속도")]
     [SerializeField] private float TypingTime = 1.7f;
@@ -34,6 +36,7 @@ public class TutorialTimeline : MonoBehaviour
     int curlogIdx;  // 현재 대화 인덱스
     Vector3 timelineLastPosPlayer; // 플레이어 마지막 위치
     Vector3 timelineLastPosEnemy;
+    Vector3 betweenCamLastPos;
 
 
     // DB 연결
@@ -95,12 +98,15 @@ public class TutorialTimeline : MonoBehaviour
 
     public void UpdateLastPositions()
     {
+        // 캐릭터 오브젝트들의 마지막 Position 저장
         timelineLastPosPlayer = player.transform.position;
         timelineLastPosEnemy = enemy.transform.position;
+        betweenCamLastPos = betweencam.transform.position;
     }
     public void SaveLastPosition() {
-        // 캐릭터 오브젝트들의 마지막 Position 저장
+        // 적용
         player.transform.position = timelineLastPosPlayer;
         enemy.transform.position = timelineLastPosEnemy;
+        betweencam.transform.position = betweenCamLastPos;
     }
 }

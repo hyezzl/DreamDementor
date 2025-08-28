@@ -80,18 +80,14 @@ public class SelectPopup : MonoBehaviour
         Debug.Log($"{idx} 번 선택됨!!!!!!!!!!!!!!!!");
         EventBus.Instance.Publish<GameEvents.MakeChoice>(new GameEvents.MakeChoice(curChoiceID, idx));
 
+        // 버튼 비활성화
+        foreach (var btn in buttons) {
+            btn.SetActive(false);
+        }
+
         background.enabled = false;
         curChoiceID = null;
+        standbyInput = false;
     }
 
-    //private void Choice(int idx) {
-    //    if (!standbyInput) return;
-
-    //    selectVal = idx; 
-    //    te.OnChoice(selectVal); 
-    //    selectBox.SetActive(false);
-    //    standbyInput = false;
-
-    //    StartCoroutine(dp.ClosePanel());
-    //}
 }
