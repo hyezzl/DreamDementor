@@ -17,15 +17,15 @@ MonoBehaviour:
     EventName: Intro
     EventType: Narration
   - EventID: E002
-    EventName: Tutorial
+    EventName: Tutorial_Timeline
     EventType: Conversation
   - EventID: E003
-    EventName: Tutorial
+    EventName: Tutorial_Conversation
     EventType: Conversation
   Narration:
   - EventID: E001
     Order: 1
-    Text: "\"\uBABD\uB839\"\uC774\uB77C\uACE0 \uC54C\uC544?"
+    Text: "<color=red>\"\uBABD\uB839\"</color>\uC774\uB77C\uACE0 \uC54C\uC544?"
   - EventID: E001
     Order: 2
     Text: "\uC0B6\uC758 \uC758\uC9C0\uAC00 \uC5C6\uC744 \uB54C \uB098\uD0C0\uB098\uB294
@@ -36,9 +36,9 @@ MonoBehaviour:
       \uCC3E\uC544\uC628\uB300."
   - EventID: E001
     Order: 4
-    Text: "\uBABD\uB839\uC740 \uB108\uB97C \uAFC8\uC18D\uC5D0 \uAC00\uB450\uACE0
-      \uBCF8\uC778\uC774 \uBAB8\uC744 \uCC28\uC9C0\uD558\uB824 \uD558\uB824\uACE0
-      \uD560 \uAC70\uC57C."
+    Text: "<color=red>\uBABD\uB839</color>\uC740 \uB108\uB97C \uAFC8\uC18D\uC5D0
+      \uAC00\uB450\uACE0 \n\uBCF8\uC778\uC774 \uBAB8\uC744 \uCC28\uC9C0\uD558\uB824
+      \uD558\uB824\uACE0 \uD560 \uAC70\uC57C."
   - EventID: E001
     Order: 5
     Text: "\uADF8\uB7EC\uB2C8\uAE4C \uBB34\uC2A8 \uC77C\uC774 \uC788\uC5B4\uB3C4."
@@ -47,7 +47,7 @@ MonoBehaviour:
     Text: "\uC808\uB300.. \uC0B6\uC758 \uC758\uC9C0\uB97C \uB193\uC544\uC120 \uC548\uB3FC."
   - EventID: E001
     Order: 7
-    Text: "\uB9CC\uC57D.. \uC544\uC8FC \uB9CC\uC57D \uAFC8\uC18D\uC5D0\uC11C \uBABD\uB839\uC744
+    Text: "\uB9CC\uC57D.. \uC544\uC8FC \uB9CC\uC57D \uAFC8\uC18D\uC5D0\uC11C <color=red>\uBABD\uB839</color>\uC744
       \uB9C8\uC8FC\uCE58\uAC8C \uB41C\uB2E4\uBA74."
   - EventID: E001
     Order: 8
@@ -77,7 +77,7 @@ MonoBehaviour:
     Emotion: 0
   - EventID: E002
     LogID: 2003
-    Dialog: "\uC5C4\uB9C8 \uBCF4\uACE0\uC2F6\uB2E4.."
+    Dialog: "\uC5C4\uB9C8 \uBCF4\uACE0 \uC2F6\uB2E4.."
     NextID: 2004
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -85,7 +85,7 @@ MonoBehaviour:
     Emotion: 0
   - EventID: E002
     LogID: 2004
-    Dialog: .....
+    Dialog: .......
     NextID: 2005
     Speaker: Enemy
     SpeakerName: ???
@@ -101,7 +101,7 @@ MonoBehaviour:
     Emotion: 0
   - EventID: E002
     LogID: 2006
-    Dialog: .....
+    Dialog: .......
     NextID: 2007
     Speaker: Enemy
     SpeakerName: ???
@@ -117,7 +117,7 @@ MonoBehaviour:
     Emotion: 0
   - EventID: E002
     LogID: 2008
-    Dialog: "...\uC544"
+    Dialog: "...\uC544..."
     NextID: 2009
     Speaker: Enemy
     SpeakerName: ???
@@ -133,7 +133,7 @@ MonoBehaviour:
     Emotion: 0
   - EventID: E002
     LogID: 2010
-    Dialog: "\uC11C\uB9B0\uC544.. \uC774\uB9AC\uC640"
+    Dialog: "\u3145\u3153\uB9B0\u3147\u314F.. \uC774\u3139\u3163 \uC640..."
     NextID: 2011
     Speaker: Enemy
     SpeakerName: ???
@@ -149,39 +149,39 @@ MonoBehaviour:
     Emotion: 0
   - EventID: E003
     LogID: 3001
-    Dialog: "\uBCF4\uACE0\uC2F6\uC5C8\uC5B4\uC694"
+    Dialog: "\uBCF4\uACE0 \uC2F6\uC5C8\uC5B4\uC694.."
     NextID: 3002
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
-    Emotion: 1
+    Emotion: 4
   - EventID: E003
     LogID: 3002
-    Dialog: "......\u3134...\u314F...\uB3C4.....\u3131\u3161...\uB798\u3146.....\uB2E4\u3134.....\uB2E4..."
+    Dialog: .................................
     NextID: 3003
-    Speaker: Enemy
-    SpeakerName: "\uC5C4\uB9C8?"
+    Speaker: Extra
+    SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: -1
+    Emotion: 5
   - EventID: E003
     LogID: 3003
-    Dialog: "\uC5B4\uB514\uAC14\uC5C8\uC5B4\uC694....\uD55C\uCC38 \uCC3E\uC558\uC796\uC544\uC694."
+    Dialog: "\uC5C4\uB9C8...\uC65C \uB9D0\uC744 \uC548\uD558\uC138\uC694..?"
     NextID: 3004
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
-    Emotion: 1
+    Emotion: 2
   - EventID: E003
     LogID: 3004
-    Dialog: .................................
+    Dialog: "......\u3134...\u314F...\uB3C4.....\n\u3131\u3161...\uB798\u3146.....\uB2E4\u3134.....\uB2E4..."
     NextID: 3005
-    Speaker: Enemy
-    SpeakerName: "\uC5C4\uB9C8?"
+    Speaker: Extra
+    SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: -1
+    Emotion: 5
   - EventID: E003
     LogID: 3005
-    Dialog: "\uC5C4\uB9C8...?"
+    Dialog: "\uBB50\uB77C\uACE0\uC694? \uC798 \uC548 \uB4E4\uB824\uC694"
     NextID: 3006
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -189,39 +189,39 @@ MonoBehaviour:
     Emotion: 2
   - EventID: E003
     LogID: 3006
-    Dialog: "....\u3131......\u314F....\uC790....."
+    Dialog: ....................................
     NextID: 3007
-    Speaker: Enemy
-    SpeakerName: "\uC5C4\uB9C8?"
+    Speaker: Extra
+    SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: -1
+    Emotion: 5
   - EventID: E003
     LogID: 3007
-    Dialog: "\uC5B4\uB51C \uAC00\uC790\uB294\uAC70\uC5D0\uC694?"
+    Dialog: "....\u3131......\u314F....\uC790....."
     NextID: 3008
+    Speaker: Extra
+    SpeakerName: "\uC5C4\uB9C8"
+    ChoiceID: 
+    Emotion: 6
+  - EventID: E003
+    LogID: 3008
+    Dialog: "\uB124....?"
+    NextID: 3009
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Emotion: 2
   - EventID: E003
-    LogID: 3008
-    Dialog: "........\u3147....\u3153.....\u3145\u3153.....\uAC00....\uC790\uB2C8\uAE4C...!!!!!!"
-    NextID: 3009
-    Speaker: Enemy
-    SpeakerName: "\uC5C4\uB9C8?"
-    ChoiceID: 
-    Emotion: -1
-  - EventID: E003
     LogID: 3009
-    Dialog: "\uAE84\uC545!!!!"
+    Dialog: "......\u3134\u314F....\u3139....\u314F\u3147.....\uAC00....\uC790...."
     NextID: 3010
-    Speaker: Player
-    SpeakerName: "\uC11C\uB9B0"
+    Speaker: Enemy
+    SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: 3
+    Emotion: 6
   - EventID: E003
     LogID: 3010
-    Dialog: "\uC65C....\uC65C\uADF8\uB7EC\uB294\uAC70\uC57C?"
+    Dialog: "\uC5B4\uB514\uB97C \uAC00\uC790\uB294 \uAC70\uC608\uC694?"
     NextID: 3011
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -229,24 +229,48 @@ MonoBehaviour:
     Emotion: 2
   - EventID: E003
     LogID: 3011
-    Dialog: "......\u3134\u314F....\u3139....\u314F\u3147.....\uAC00....\uC790...."
+    Dialog: ....................................
     NextID: 3012
     Speaker: Enemy
-    SpeakerName: "\uC5C4\uB9C8?"
+    SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: -1
+    Emotion: 5
   - EventID: E003
     LogID: 3012
-    Dialog: "<i>\uADF8\uB7EC\uACE0\uBCF4\uB2C8 \uC5C4\uB9C8\uB294 \uC624\uB798\uC804\uC5D0
-      \uB3CC\uC544\uAC00\uC168\uC5B4,,</i>"
+    Dialog: "\uC5C4\uB9C8? \uC65C \uADF8\uB798?"
     NextID: 3013
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Emotion: 2
+  - EventID: E003
+    LogID: 3013
+    Dialog: "........\u3147....\u3153.....\u3145\u3153.....\uAC00....\uC790\uB2C8\uAE4C...!!!!!!"
+    NextID: 3014
+    Speaker: Enemy
+    SpeakerName: "\uC5C4\uB9C8"
+    ChoiceID: 
+    Emotion: 7
+  - EventID: E003
+    LogID: 3014
+    Dialog: "\uAE84\uC544\uC544\uC545!!!!!!!!!!!!!!!!!!!!!!!!"
+    NextID: 3015
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Emotion: 2
+  - EventID: E003
+    LogID: 3015
+    Dialog: "<i>\uADF8\uB7EC\uACE0 \uBCF4\uB2C8 \uC5C4\uB9C8\uB294 \uC624\uB798\uC804\uC5D0
+      \uB3CC\uC544\uAC00\uC168\uC5B4,,</i>"
+    NextID: 3016
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Emotion: 0
   - EventID: E003
-    LogID: 3013
-    Dialog: "<i>\uADF8\uB7FC \uC5EC\uAE30 \uC788\uB294\uAC74 \uB204\uAD6C\uC9C0?</i>"
+    LogID: 3016
+    Dialog: "<i>\uADF8\uB7FC \uC5EC\uAE30 \uC788\uB294 \uAC74 \uB204\uAD6C\uC9C0?</i>"
     NextID: -1
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -254,8 +278,7 @@ MonoBehaviour:
     Emotion: 0
   Choice:
   - ChoiceID: C001
-    Choice0: "\uC5C4\uB9C8\uB294 \uC624\uB798\uC804\uC5D0 \uB3CC\uC544\uAC00\uC168\uC5B4\u2026
-      \uB10C \uC5C4\uB9C8\uAC00 \uC544\uB2C8\uC57C."
-    Choice1: "\uC5C4\uB9C8\uAC00 \uB098\uD55C\uD14C \uC774\uB7F4\uB9AC\uAC00 \uC5C6\uC5B4,
-      \uB2F9\uC2E0...\uB204\uAD6C\uC57C?"
+    Choice0: " \uB2F9\uC2E0\uC740 \uC5C4\uB9C8\uAC00 \uC544\uB2C8\uC57C.\n\uB108..\uB204\uAD6C\uC57C?"
+    Choice1: "\uC5C4\uB9C8 \uB098\uC57C \uC11C\uB9B0\uC774...\n\uC65C \uADF8\uB7EC\uB294
+      \uAC70\uC57C...?"
     Choice2: 
