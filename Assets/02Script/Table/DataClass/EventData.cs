@@ -8,16 +8,19 @@ public enum Speaker
     Extra,  // 파라미터로 관리할지 아니면 수적으면 그냥 번호붙이고???
 }
 
+
+// (일러스트에 표시될) 등장인물 감정
 public enum Emotion
 {
-    Pbasic = 0, 
-    Psad = 1,
-    Pembrassed = 2,
-    Pblind = 3,
-    PHappy = 4,
-    Ebasic = 5,
-    Echill = 6,
-    //
+    None            = -1,
+    Pbasic          = 0,
+    Psad            = 1,
+    Pembrassed      = 2, 
+    Pblind          = 3,
+    Psadhappy       = 4,
+    Ebasic          = 5,
+    Esmile          = 6,
+    EchillingSmile  = 7,
 }
 
 

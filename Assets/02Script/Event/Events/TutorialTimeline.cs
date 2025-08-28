@@ -18,11 +18,6 @@ public class TutorialTimeline : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerText;
     [SerializeField] private TextMeshProUGUI playerSpeaker;
 
-    [SerializeField] private CanvasGroup flipTextBox;
-    [SerializeField] private TextMeshProUGUI flipText;
-    [SerializeField] private TextMeshProUGUI flipSpeaker;
-
-
     [Header("Objects")]
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemy;
@@ -55,7 +50,6 @@ public class TutorialTimeline : MonoBehaviour
         {
             // ´ë»ç ³¡³ª¸é UI ¼û±è
             playerTextBox.alpha = 0f;  
-            flipTextBox.alpha = 0f;
             return;
         }
         StartCoroutine(PlayDialogCoroutine(curlogIdx));
@@ -67,26 +61,14 @@ public class TutorialTimeline : MonoBehaviour
     {
         var dialog = dialogs[logID];
 
-        if (dialog.speaker == Speaker.Player)
-        {
-            SetCanvasGroup(playerTextBox, true);
-            SetCanvasGroup(flipTextBox, false);
-            playerSpeaker.text = dialog.speakerName;
-            yield return playerText.DOText(dialog.dialog, TypingTime);
-        }
-        else {
-            SetCanvasGroup(playerTextBox, false);
-            SetCanvasGroup(flipTextBox, true);
-            flipSpeaker.text = dialog.speakerName;
-            yield return flipText.DOText(dialog.dialog, TypingTime);
-        }
+        SetCanvasGroup(playerTextBox, true);
+        playerSpeaker.text = dialog.speakerName;
+        yield return playerText.DOText(dialog.dialog, TypingTime);
 
         yield return new WaitForSeconds(2.4f);
 
         playerText.text = "";
-        flipText.text = "";
         playerSpeaker.text = "";
-        flipSpeaker.text = "";
     }
 
     private void SetCanvasGroup(CanvasGroup group, bool isActive)

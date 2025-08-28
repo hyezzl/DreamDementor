@@ -90,7 +90,22 @@ public class TutorialEvent : MonoBehaviour
         // 3. 두번째 타임라인 재생
         timeline02.Play();
         yield return new WaitUntil(() => timeline02.state != PlayState.Playing);
-        //
+
+
+        // 튜토리얼(Pause) 모드
+        pc.CurMode = GameMode.PauseMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.PauseMode));
+        //EndTimeline Event Publish 필요한가?
+
+        // 카메라 고정
+        // 애니메이션 고정
+
+        // 튜토리얼 화면 나오게
+
+
+
+
+
         //// 술래잡기 시작
         Debug.Log("술래잡기 시작~~~~~~~~~");
         //// 게임모드 변경

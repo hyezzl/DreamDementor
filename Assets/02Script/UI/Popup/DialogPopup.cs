@@ -4,7 +4,9 @@ using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Sequence = DG.Tweening.Sequence;
 
 public class DialogPopup : MonoBehaviour
@@ -12,17 +14,23 @@ public class DialogPopup : MonoBehaviour
     [SerializeField] private float typingSpeed = 20f;
 
     [Header("UI Refs")]
-    [SerializeField] private CanvasGroup playerTextBox;
-    [SerializeField] private TextMeshProUGUI playerText;
-    [SerializeField] private TextMeshProUGUI playerSpeaker;
-
-    [SerializeField] private CanvasGroup flipTextBox;
-    [SerializeField] private TextMeshProUGUI flipText;
-    [SerializeField] private TextMeshProUGUI flipSpeaker;
+    [SerializeField] private CanvasGroup basicTextBox;
+    [SerializeField] private TextMeshProUGUI basicText;
+    [SerializeField] private TextMeshProUGUI basicSpeaker;
 
     [SerializeField] private CanvasGroup enemyTextBox;
     [SerializeField] private TextMeshProUGUI enemyText;
     [SerializeField] private TextMeshProUGUI enemySpeaker;
+
+    [SerializeField] private CanvasGroup LeftIll; // alpha값 조절.
+    [SerializeField] private Image playerIll;     // 바꿔치기
+    [SerializeField] private CanvasGroup RightIll;
+    [SerializeField] private Image otherIll;
+    
+
+    // Temp
+    public Sprite playerSprite;
+    public Sprite otherSprite;
 
     private PlayerController pc;
     Tweener typing;
@@ -37,16 +45,11 @@ public class DialogPopup : MonoBehaviour
     private IInputHandler inputHandler;
     private TextMeshProUGUI textarea;  // 사용할 텍스트박스
     private CanvasGroup curTextbox;
+    //private Image targetImg;  // 변경할 이미지
 
     // 대화창 스페이스 연타 시 오류
     private float inputDelay = 0.4f;
     private float inputTimer = 0f;
-
-    [Header("ill")]
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject mom;
-    [SerializeField] private Sprite playerill;
-    [SerializeField] private Sprite momill;
 
 
     public void SetInputHandler(IInputHandler inputHandler) => this.inputHandler = inputHandler;
@@ -60,8 +63,7 @@ public class DialogPopup : MonoBehaviour
     private void Start()
     {
         // 대화창 모두 숨기기
-        SetCanvasGroup(playerTextBox, false);
-        SetCanvasGroup(flipTextBox, false);
+        SetCanvasGroup(basicTextBox, false);
         SetCanvasGroup(enemyTextBox, false);
     }
 
@@ -145,28 +147,62 @@ public class DialogPopup : MonoBehaviour
             isTyping = true;
             standbyInput = false;
             isSkip = false;
-            
 
-            
+
+
 
             // Speaker에 따른 분기 (대화창 / 이름 / 폰트)
-            if (dialogDict[curlogIdx].speaker == Speaker.Player)  // 화자가 플레이어일 때
-            {
-                curTextbox = playerTextBox;
-                DialogFade(curTextbox, true);
-                SetDialog(0, curDialog.speakerName);
-            }
-            else if (dialogDict[curlogIdx].speaker == Speaker.Enemy) // 화자가 괴물일 때
+            // Rect에 들은 일러 초기화 타이밍이 어렵다....
+
+            if (dialogDict[curlogIdx].speaker == Speaker.Enemy)  // 화자가 괴물일 때
             {
                 curTextbox = enemyTextBox;
                 DialogFade(curTextbox, true);
-                SetDialog(2, curDialog.speakerName);
-            }
-            else  // 화자가 그외 (오른쪽에 위치할 인물)
-            {
-                curTextbox = flipTextBox;
-                DialogFade(curTextbox, true);
                 SetDialog(1, curDialog.speakerName);
+
+                // 일러스트 표시
+                if ((int)dialogDict[curlogIdx].emotion >= 5 && (int)dialogDict[curlogIdx].emotion <= 7) // 일러가 존재할 때
+                {
+                    RightIll.alpha = 1f;
+                    LoadSprite(dialogDict[curlogIdx].emotion.ToString(), otherIll); // 타겟 스프라이트 변수에 할당
+
+                    otherIll.color = Color.white;
+                    playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
+                }
+                else {
+                    LeftIll.alpha = 0f;
+
+                    playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
+                }
+                
+            }
+            else // 화자가 괴물이 아닐 때
+            {
+                curTextbox = basicTextBox;
+                DialogFade(curTextbox, true);
+                SetDialog(0, curDialog.speakerName);
+
+                // 일러스트 표시   ///////////////////////조건 충분히 바뀔수있음 주의 ////////////////////////
+                if ((int)dialogDict[curlogIdx].emotion >= 0 && (int)dialogDict[curlogIdx].emotion <= 4) // Player일때
+                {
+                    LeftIll.alpha = 1f;
+                    LoadSprite(dialogDict[curlogIdx].emotion.ToString(), playerIll); // 타겟 스프라이트 변수에 할당
+
+                    playerIll.color = Color.white;
+                    otherIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
+                }
+                else if (dialogDict[curlogIdx].emotion != Emotion.None)  // 플레이어가 아닌 일러스트를 가진 Extra
+                {
+                    RightIll.alpha = 1f;
+                    LoadSprite(dialogDict[curlogIdx].emotion.ToString(), otherIll);
+
+                    playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
+                }
+                else  // 플레이어도, 일러도 없는 그냥 인간
+                {
+                    RightIll.alpha = 0f;
+                    playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
+                }
             }
 
             sentence = curDialog.dialog; // 캐싱
@@ -175,7 +211,6 @@ public class DialogPopup : MonoBehaviour
             // Typing
             float duration = curDialog.dialog.Length / typingSpeed;
             typing = textarea.DOText(curDialog.dialog, duration).SetEase(Ease.Linear);
-            Debug.Log($"타이핑중 {curDialog.dialog}");
 
             yield return typing.WaitForCompletion(); // 타이핑 완료까지 대기
             
@@ -233,30 +268,30 @@ public class DialogPopup : MonoBehaviour
         if (seq != null && seq.IsActive()) seq.Kill();
         textarea.text = "";
 
+        // 일러스트 닫음 +  초기화
+        LeftIll.alpha = 0f;
+        RightIll.alpha = 0f;
+        playerIll.sprite = null;
+        otherIll.sprite = null;
+
         standbyInput = false;
         isOpen = false;
     }
 
     public void SetDialog(int popupIdx, string speakerName) {
         // 모든 대화창 비활성화
-        SetCanvasGroup(playerTextBox, false);
-        SetCanvasGroup(flipTextBox, false);
+        SetCanvasGroup(basicTextBox, false);
         SetCanvasGroup(enemyTextBox, false);
         CanvasGroup target = null;
 
         // 특정 팝업만 활성화
         switch (popupIdx) {
             case 0:
-                playerSpeaker.text = speakerName;
-                target = playerTextBox;
-                textarea = playerText;
+                basicSpeaker.text = speakerName;
+                target = basicTextBox;
+                textarea = basicText;
                 break;
             case 1:
-                flipSpeaker.text = speakerName;
-                target = flipTextBox;
-                textarea = flipText;
-                break;
-            case 2:
                 enemySpeaker.text = speakerName;
                 target = enemyTextBox;
                 textarea = enemyText;
@@ -269,7 +304,7 @@ public class DialogPopup : MonoBehaviour
         textarea.text = "";
     }
 
-    // CanvasGroup 상태 제어 함수
+    // CanvasGroup 상태 제어 함수 (즉발)
     private void SetCanvasGroup(CanvasGroup group, bool isActive) {
         group.alpha = isActive ? 1 : 0;
         group.interactable = isActive;
@@ -287,9 +322,31 @@ public class DialogPopup : MonoBehaviour
 
     // 선택지 선택 후
     public void EndChoice(GameEvents.MakeChoice evt) {
-        DialogFade(playerTextBox, false);
-        DialogFade(flipTextBox, false);
+        DialogFade(basicTextBox, false);
         DialogFade(enemyTextBox, false);
+
+        // 일러스트 닫음 +  초기화
+        LeftIll.alpha = 0f;
+        RightIll.alpha = 0f;
+        playerIll.sprite = null;
+        otherIll.sprite = null;
+    }
+
+
+    // 스프라이트 Addressable로 비동기 로드
+    public void LoadSprite(string address, Image targetImg) {
+        Addressables.LoadAssetAsync<Sprite>(address).Completed += handle =>
+        {
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                targetImg.sprite = handle.Result;
+                targetImg.color = Color.white;
+            }
+            else
+            {
+                Debug.Log("대화창 스프라이트 로드 실패");
+            }
+        };
     }
 
 }
