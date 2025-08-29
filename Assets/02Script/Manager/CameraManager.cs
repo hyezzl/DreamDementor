@@ -15,10 +15,13 @@ public class CameraManager : MonoBehaviour
     private List<CinemachineVirtualCamera> cams;
     private bool isPlayer = false;
     private Camera mainCam;
+    private CinemachineBrain brain;
 
     private void Awake()
     {
         mainCam = Camera.main;
+        brain = Camera.main.GetComponent<CinemachineBrain>();
+        if (brain == null) Debug.Log("CameraManager - Failed to Load CinemachineBrain");
         cams = new List<CinemachineVirtualCamera> { fixCam, sightCam, enemyCam, betweenCam };
     }
 
@@ -58,25 +61,28 @@ public class CameraManager : MonoBehaviour
         switch (evt.type)
         {
             case CameraType.PlayerFixCam:
-                SelectCam(fixCam);
+                SelectCam(fixCam, evt.blend);
                 break;
 
             case CameraType.PlayerSightCam:
-                SelectCam(sightCam);
+                SelectCam(sightCam, evt.blend);
                 break;
 
             case CameraType.EnemyCam:
-                SelectCam(enemyCam);
+                SelectCam(enemyCam, evt.blend);
                 break;
 
             case CameraType.BetweenCam:
-                SelectCam(betweenCam);
+                SelectCam(betweenCam, evt.blend);
                 break;
         }
     }
 
-    private void SelectCam(CinemachineVirtualCamera onCam)
+    private void SelectCam(CinemachineVirtualCamera onCam, float blend)
     {
+        //blend 조절
+        brain.m_DefaultBlend.m_Time = blend;
+
         // 모두 끈 후
         foreach (var cam in cams)
         {

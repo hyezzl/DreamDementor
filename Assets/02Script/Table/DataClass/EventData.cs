@@ -1,6 +1,24 @@
 
 using System.Collections.Generic;
 
+
+public enum Scene
+{ 
+    TitleScene,
+    TutorialScene,
+    SchoolScene,
+    RoomScene,
+    HappyScene,
+    ConverseHappyScene,
+    SorrowScene,
+    ConverseSorrowScene,
+    ChaosScene,
+    ConverseChaosScene,
+    HorrorScene,
+    ConverseHorrorScene,
+    EndingScene,
+}
+
 public enum Speaker
 { 
     Player,
@@ -21,6 +39,13 @@ public enum Emotion
     Ebasic          = 5,
     Esmile          = 6,
     EchillingSmile  = 7,
+}
+
+public enum DeathType
+{ 
+    CrashEnemy,
+    BadChoice,
+    TimeAttack,
 }
 
 

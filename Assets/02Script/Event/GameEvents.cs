@@ -44,8 +44,10 @@ public static class GameEvents
     public struct CameraShift
     {
         public CameraType type;
-        public CameraShift(CameraType type) { 
+        public int blend;
+        public CameraShift(CameraType type, int blend) { 
             this.type = type;
+            this.blend = blend;
         }
     }
 
@@ -75,6 +77,18 @@ public static class GameEvents
         public bool audioPlay;
         public FlowTime(bool audioPlay) { 
             this.audioPlay = audioPlay;
+        }
+    }
+
+
+    // 게임오버
+    public struct GameOver 
+    {
+        public Scene scene;
+        public DeathType type;
+        public GameOver(Scene scene, DeathType type) {
+            this.scene = scene;
+            this.type = type;
         }
     }
 }

@@ -71,8 +71,7 @@ public class TutorialEvent : MonoBehaviour
         // 재생완료까지 대기
         yield return new WaitUntil(() => timeline01.state != PlayState.Playing);
         // 카메라 BetweenCam으로 고정
-        EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.BetweenCam));
-
+        EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.BetweenCam, 0));
 
         // 2. Dialog + 선택지
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(dialogs));
@@ -80,6 +79,7 @@ public class TutorialEvent : MonoBehaviour
         // 대화 이벤트 중 캐릭터들 애니메이션 
         playerAnim.SetFloat("inputX", 1f);
         playerAnim.SetFloat("inputY", 0f);
+        
 
         // 을 멈추고 싶다고 하십니다.
         playerAnim.speed = 0f;
@@ -104,7 +104,8 @@ public class TutorialEvent : MonoBehaviour
         //EndTimeline Event Publish 필요한가?
 
         // 카메라 고정
-        EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.PlayerFixCam));
+        EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.PlayerFixCam,0));
+    
 
 
         // 애니메이션 다시 재생
@@ -113,8 +114,8 @@ public class TutorialEvent : MonoBehaviour
 
 
         // 애니메이션 고정
-        //playerAnim.SetFloat("inputX", 1f);
-        //playerAnim.SetFloat("inputY", 0f);
+        playerAnim.SetFloat("inputX", 1f);
+        playerAnim.SetFloat("inputY", 0f);
         EnemyAnim.Play("temp 1", 0);
 
         // 시간 멈춤

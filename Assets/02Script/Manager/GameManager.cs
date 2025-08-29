@@ -48,8 +48,7 @@ public class GameManager : Singleton<GameManager>
 
     private void OnModeChange(GameEvents.GameModeChange evt)
     {
-        if (evt.mode == GameMode.DialogMode || evt.mode == GameMode.PauseMode
-            || evt.mode == GameMode.EventMode)
+        if (evt.mode == GameMode.PauseMode)
         {
             StopTime();
         }

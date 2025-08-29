@@ -38,19 +38,6 @@ public class IntroEvent : MonoBehaviour, IGameEvent
         if (pc == null) Debug.Log("IntroEvent - Failed to Load PlayerController");
     }
 
-    private void Update()
-    {
-        // 임시!!!!!!!!!
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            // 타이핑 끝나고 화면 꺼주기
-            StopCoroutine(blinkCor);
-            background.gameObject.SetActive(false);
-            textArea.gameObject.SetActive(false);
-
-            // 바로 다음 이벤트 호출
-            EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E003"));
-        }
-    }
 
     // DB 연결
     public void Init(IDatabase db)  // start시점에 실행

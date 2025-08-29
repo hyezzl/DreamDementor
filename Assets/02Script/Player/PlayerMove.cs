@@ -7,10 +7,12 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     [SerializeField] private float runSpeed = 10f; // 달리기 속도
     [SerializeField] private LayerMask ground;
 
+    [Header("Animator")]
+    [SerializeField] private Animator anim;
+
     private PlayerController pc;
     private IInputHandler inputHandler;
     private CharacterController cc;
-    private Animator anim;
     private bool moveable = true;
 
     // 이동 변수
@@ -21,7 +23,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private bool isGrounded = true;
     private float gravity = -9.8f;
     private Vector3 verticalDir = Vector3.zero;   // 중력 벡터
-    private Vector3 preDir = Vector3.forward; // 전 프레임 이동벡터 (기본은 정면)
+    private Vector3 preDir = Vector3.back; // 전 프레임 이동벡터 (기본은 정면)
 
     // 누른 키 상태 저장용 변수
     private int horizontalPriority = 0; // -1:왼  1:오
@@ -42,16 +44,25 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         if (!TryGetComponent<PlayerController>(out pc)) {
             Debug.Log("PlayerMove - Failed to Load PlayerController");
         }
-        anim = GetComponentInChildren<Animator>();
-        if (anim == null) Debug.Log("PlayerMove - Failed to Load Animator");
     }
 
     private void Update()
     {
         //ApplyGravity();
-        if (moveable) Movement();
-        Debug.Log(moveable);
+        if (moveable) { 
+            Movement();
+            Debug.Log($"Animator Params - inputX: {anim.GetFloat("inputX")}, inputY: {anim.GetFloat("inputY")}, isWalk: {anim.GetBool("isWalk")}");
+        }
     }
+    private void OnEnable()
+    {
+        EventBus.Instance.Subscribe<GameEvents.GameModeChange>(ModeChange);
+    }
+    private void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(ModeChange);
+    }
+
 
 
     private void Movement() 
@@ -102,7 +113,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         Vector3 localInput = transform.InverseTransformDirection(preDir); // 로컬
 
         // (Animation) Blend Tree 값 전달
-        Debug.Log($"inputX:{localInput.x}, inputY:{localInput.z}");
         anim.SetFloat("inputX", localInput.x);
         anim.SetFloat("inputY", localInput.z);
 
@@ -133,27 +143,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
         // 땅에 붙어있는걸 인식못해서 중력이 계속 누적되는 문제
     }
-
-
-    //// 실패....
-    //// 이동관련 키 입력 감지 함수
-    //private void InputPriority123() {
-    //    bool leftPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
-    //    bool rightPressed = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
-    //    bool upPressed = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
-    //    bool downPressed = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
-
-    //    // 수평 우선순위
-    //    if (leftPressed && !rightPressed) horizontalPriority = -1;
-    //    else if (rightPressed && !leftPressed) horizontalPriority = 1;
-    //    else if (!rightPressed && !leftPressed) horizontalPriority = 0;
-    //    else Debug.Log("같이 누르지마라 ㅡㅡ");
-
-    //    if (upPressed && !downPressed) verticalPriority = 1;
-    //    else if (downPressed && !upPressed) verticalPriority = -1;
-    //    else if (!upPressed && !downPressed) verticalPriority = 0;
-    //    else Debug.Log("같이 누르지마라 ㅡㅡ");
-    //}
+    
 
     // 키 눌림 시간 기록용 변수
     private float lastLeftTime = -1f;
@@ -206,5 +196,15 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     public void ResumeGame()
     {
         moveable = true;
+    }
+
+    public void ModeChange(GameEvents.GameModeChange evt) {
+        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode)
+        {
+            StopGame();
+        }
+        else {
+            ResumeGame();
+        }
     }
 }
