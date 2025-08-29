@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -18,6 +19,7 @@ public class TutorialEvent : MonoBehaviour
 
     [Header("UIRefs")]
     [SerializeField] private CanvasGroup dialog;
+    [SerializeField] private GameObject tutorialPopup;
 
     [Header("Animator")]
     [SerializeField] private Animator playerAnim;
@@ -87,33 +89,58 @@ public class TutorialEvent : MonoBehaviour
         // 선택까지 대기
         yield return new WaitUntil(() => isChoice == true); // 이벤트 발생
 
+        
+
         // 3. 두번째 타임라인 재생
         timeline02.Play();
         yield return new WaitUntil(() => timeline02.state != PlayState.Playing);
 
+        yield return null;
+
 
         // 튜토리얼(Pause) 모드
-        pc.CurMode = GameMode.PauseMode;
-        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.PauseMode));
+        //pc.CurMode = GameMode.PauseMode;
+        //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.PauseMode));
         //EndTimeline Event Publish 필요한가?
 
         // 카메라 고정
+        EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.PlayerFixCam));
+
+
+        // 애니메이션 다시 재생
+        playerAnim.speed = 1f;
+        EnemyAnim.speed = 1f;
+
+
         // 애니메이션 고정
+        //playerAnim.SetFloat("inputX", 1f);
+        //playerAnim.SetFloat("inputY", 0f);
+        EnemyAnim.Play("temp 1", 0);
+
+        // 시간 멈춤
+        EventBus.Instance.Publish<GameEvents.StopTime>(new GameEvents.StopTime(false));
 
         // 튜토리얼 화면 나오게
+        tutorialPopup.SetActive(true);
+
+        yield return new WaitUntil(() => Input.anyKeyDown);
+
+        
+
+        // 시간 재개
+        EventBus.Instance.Publish<GameEvents.FlowTime>(new GameEvents.FlowTime(false));
 
 
-
-
-
-        //// 술래잡기 시작
+        // 술래 잡기 시작
+        tutorialPopup.SetActive(false);
         Debug.Log("술래잡기 시작~~~~~~~~~");
-        //// 게임모드 변경
-        //pc.CurMode = GameMode.InspectMode;
-        //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+
+        pc.CurMode = GameMode.InspectMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+
         //EventBus.Instance.Publish<GameEvents.EndTimeline>(new GameEvents.EndTimeline());
-        //
-        //// 적 상태 변경 (Chase)
+        
+        // 적 상태 변경 (Chase)
         //EventBus.Instance.Publish<GameEvents.EnemyStateChange>(new GameEvents.EnemyStateChange(EnemyState.Chase));
     }
 
@@ -121,7 +148,6 @@ public class TutorialEvent : MonoBehaviour
 
         //if(evt.choiceID == ) 다음 이벤트 부터 처리
         if (evt.selectIdx == 0 || evt.selectIdx == 1) { 
-            Debug.Log("MakeChoice 이벤트 받음!");
             isChoice = true;
         }
     }

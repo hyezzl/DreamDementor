@@ -5,7 +5,7 @@ using UnityEngine.AI;
 /// Temp
 /// </summary>
 
-public class EnemyMove : MonoBehaviour
+public class EnemyMove : MonoBehaviour, IMoveObject
 {
     [SerializeField] private Transform player;
 
@@ -17,6 +17,7 @@ public class EnemyMove : MonoBehaviour
     private EnemyController ec;
     private PlayerController pc;
     private NavMeshAgent na;
+    private bool moveable;
 
     private void Awake()
     {
@@ -58,7 +59,8 @@ public class EnemyMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ChasePlayer();
+        if(moveable)
+            ChasePlayer();
 
         Debug.Log("플레이어 위치: " + player.transform.position);
         Debug.Log("적 위치: " + transform.position);
@@ -93,5 +95,15 @@ public class EnemyMove : MonoBehaviour
         {
             na.SetDestination(player.position);
         }
+    }
+
+    public void StopGame()
+    {
+        moveable = false;
+    }
+
+    public void ResumeGame()
+    {
+        moveable = true;
     }
 }

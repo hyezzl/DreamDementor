@@ -43,13 +43,14 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             Debug.Log("PlayerMove - Failed to Load PlayerController");
         }
         anim = GetComponentInChildren<Animator>();
-        if (anim == null) Debug.Log("PlayerMove - Failed to Load Animatord");
+        if (anim == null) Debug.Log("PlayerMove - Failed to Load Animator");
     }
 
     private void Update()
     {
         //ApplyGravity();
         if (moveable) Movement();
+        Debug.Log(moveable);
     }
 
 
@@ -101,6 +102,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         Vector3 localInput = transform.InverseTransformDirection(preDir); // 로컬
 
         // (Animation) Blend Tree 값 전달
+        Debug.Log($"inputX:{localInput.x}, inputY:{localInput.z}");
         anim.SetFloat("inputX", localInput.x);
         anim.SetFloat("inputY", localInput.z);
 
@@ -133,25 +135,25 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     }
 
 
-    // 실패....
-    // 이동관련 키 입력 감지 함수
-    private void InputPriority123() {
-        bool leftPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
-        bool rightPressed = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
-        bool upPressed = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
-        bool downPressed = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+    //// 실패....
+    //// 이동관련 키 입력 감지 함수
+    //private void InputPriority123() {
+    //    bool leftPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+    //    bool rightPressed = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+    //    bool upPressed = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+    //    bool downPressed = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
 
-        // 수평 우선순위
-        if (leftPressed && !rightPressed) horizontalPriority = -1;
-        else if (rightPressed && !leftPressed) horizontalPriority = 1;
-        else if (!rightPressed && !leftPressed) horizontalPriority = 0;
-        else Debug.Log("같이 누르지마라 ㅡㅡ");
+    //    // 수평 우선순위
+    //    if (leftPressed && !rightPressed) horizontalPriority = -1;
+    //    else if (rightPressed && !leftPressed) horizontalPriority = 1;
+    //    else if (!rightPressed && !leftPressed) horizontalPriority = 0;
+    //    else Debug.Log("같이 누르지마라 ㅡㅡ");
 
-        if (upPressed && !downPressed) verticalPriority = 1;
-        else if (downPressed && !upPressed) verticalPriority = -1;
-        else if (!upPressed && !downPressed) verticalPriority = 0;
-        else Debug.Log("같이 누르지마라 ㅡㅡ");
-    }
+    //    if (upPressed && !downPressed) verticalPriority = 1;
+    //    else if (downPressed && !upPressed) verticalPriority = -1;
+    //    else if (!upPressed && !downPressed) verticalPriority = 0;
+    //    else Debug.Log("같이 누르지마라 ㅡㅡ");
+    //}
 
     // 키 눌림 시간 기록용 변수
     private float lastLeftTime = -1f;

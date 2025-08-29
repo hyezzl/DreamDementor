@@ -44,6 +44,31 @@ MonoBehaviour:
   m_Loop: 0
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &-5538379551598362804
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b46e36075dd1c124a8422c228e75e1fb, type: 3}
+  m_Name: Signal Track (1)
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips: []
+  m_Markers:
+    m_Objects:
+    - {fileID: -1505264926797609752}
+    - {fileID: -407250076106450615}
 --- !u!74 &-5418115310230997568
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -280,13 +305,13 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 2133066316083861877}
-    m_Duration: 5.950000000000001
+    m_Duration: 5.866666666666666
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4934904218362681954}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: 0.08333333333333481
+    m_BlendOutDuration: 0.16666666666666607
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -346,15 +371,15 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: EnemyCam
   - m_Version: 1
-    m_Start: 5.866666666666666
+    m_Start: 5.7
     m_ClipIn: 0
     m_Asset: {fileID: 3633929195818722763}
-    m_Duration: 0.15000000000000036
+    m_Duration: 0.38333333333333286
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4934904218362681954}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: 0.08333333333333481
+    m_BlendInDuration: 0.16666666666666607
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -416,6 +441,22 @@ MonoBehaviour:
     m_DisplayName: PlayerFixCam
   m_Markers:
     m_Objects: []
+--- !u!114 &-1505264926797609752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 4.000000000000002
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: a8881cf4909c90441a7fd5f872dcfdb5, type: 2}
 --- !u!114 &-1246669125082599933
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -542,6 +583,22 @@ MonoBehaviour:
   m_Loop: 0
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &-407250076106450615
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 5.916666666666667
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: 81c0871560c7ddf4bb4554253932b886, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,6 +619,7 @@ MonoBehaviour:
   - {fileID: -1208732025786300939}
   - {fileID: 6985458678449034328}
   - {fileID: -529367836366185702}
+  - {fileID: -5538379551598362804}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
@@ -580,7 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
   m_Name: Signal Emitter
   m_EditorClassIdentifier: 
-  m_Time: 4
+  m_Time: 6.016666666666667
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: db0a826e5f103e94386224a8ba22d2c9, type: 2}
@@ -879,7 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
   m_Name: Signal Emitter
   m_EditorClassIdentifier: 
-  m_Time: 4.366666666666666
+  m_Time: 6.033333333333333
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: 7af52b132f8b03146a1ddb997e013755, type: 2}

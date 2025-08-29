@@ -59,4 +59,22 @@ public static class GameEvents
             this.selectIdx = selectIdx;
         }
     }
+
+    // 시간멈춤 이벤트
+    public struct StopTime
+    {
+        public bool audioStop;
+        public StopTime(bool audioStop) { 
+            this.audioStop = audioStop;
+        }
+    }
+
+    // 시간 재개
+    public struct FlowTime 
+    {
+        public bool audioPlay;
+        public FlowTime(bool audioPlay) { 
+            this.audioPlay = audioPlay;
+        }
+    }
 }

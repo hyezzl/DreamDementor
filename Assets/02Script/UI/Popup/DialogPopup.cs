@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Sequence = DG.Tweening.Sequence;
+using Unity.VisualScripting;
 
 public class DialogPopup : MonoBehaviour
 {
@@ -48,6 +49,10 @@ public class DialogPopup : MonoBehaviour
     private float inputDelay = 0.4f;
     private float inputTimer = 0f;
 
+    // 일러스트 변경 시 최적화
+    private Emotion curLeft = Emotion.None;
+    private Emotion curRight = Emotion.None;
+
 
     public void SetInputHandler(IInputHandler inputHandler) => this.inputHandler = inputHandler;
 
@@ -62,6 +67,10 @@ public class DialogPopup : MonoBehaviour
         // 대화창 모두 숨기기
         SetCanvasGroup(basicTextBox, false);
         SetCanvasGroup(enemyTextBox, false);
+
+        // 투명처리
+        playerIll.color = new Color(1, 1, 1, 0);
+        otherIll.color = new Color(1, 1, 1, 0);
     }
 
     private void OnEnable()
@@ -160,14 +169,19 @@ public class DialogPopup : MonoBehaviour
                 // 일러스트 표시
                 if ((int)dialogDict[curlogIdx].emotion >= 5 && (int)dialogDict[curlogIdx].emotion <= 7) // 일러가 존재할 때
                 {
-                    otherIll.sprite = null;
-                    LoadSprite(dialogDict[curlogIdx].emotion.ToString(), otherIll); // 타겟 스프라이트 변수에 할당
-                    RightIll.alpha = 1f;
+                    if (curRight != dialogDict[curlogIdx].emotion) // 오른 Dummy에 든 스프라이트와 다를 때
+                    { 
+                        curRight = dialogDict[curlogIdx].emotion;  // 캐싱
+                        LoadSprite(dialogDict[curlogIdx].emotion.ToString(), otherIll); // 타겟 스프라이트 변수에 할당
+                    }
 
+                    RightIll.alpha = 1f;
+                    //
+                    otherIll.color = Color.white;
                     playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
                 }
-                else {
-                    otherIll.sprite = null;
+                else // 괴물인데, 일러스트가 없는 경우
+                {
                     LeftIll.alpha = 0f;
 
                     playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
@@ -183,24 +197,31 @@ public class DialogPopup : MonoBehaviour
                 // 일러스트 표시   ///////////////////////조건 충분히 바뀔수있음 주의 ////////////////////////
                 if ((int)dialogDict[curlogIdx].emotion >= 0 && (int)dialogDict[curlogIdx].emotion <= 4) // Player일때
                 {
-                    playerIll.sprite = null;
-                    LoadSprite(dialogDict[curlogIdx].emotion.ToString(), playerIll); // 타겟 스프라이트 변수에 할당
+                    if (curLeft != dialogDict[curlogIdx].emotion) {
+                        curLeft = dialogDict[curlogIdx].emotion; // 캐싱
+                        LoadSprite(dialogDict[curlogIdx].emotion.ToString(), playerIll); // 타겟 스프라이트 변수에 할당
+                    }
                     LeftIll.alpha = 1f;
-
+                    playerIll.color = Color.white;
                     otherIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
                 }
                 else if (dialogDict[curlogIdx].emotion != Emotion.None)  // 플레이어가 아닌 일러스트를 가진 Extra
                 {
-                    otherIll.sprite = null;
-                    LoadSprite(dialogDict[curlogIdx].emotion.ToString(), otherIll);
+                    if (curRight != dialogDict[curlogIdx].emotion) { 
+                        curRight = dialogDict[curlogIdx].emotion;
+                        LoadSprite(dialogDict[curlogIdx].emotion.ToString(), otherIll);
+                    }
                     RightIll.alpha = 1f;
-
+                    otherIll.color = Color.white;
                     playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
                 }
                 else  // 플레이어도, 일러도 없는 그냥 인간
                 {
                     RightIll.alpha = 0f;
                     playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
+
+                    curLeft = Emotion.None;
+                    curRight = Emotion.None;
                 }
             }
 
@@ -273,7 +294,9 @@ public class DialogPopup : MonoBehaviour
         LeftIll.alpha = 0f;
         RightIll.alpha = 0f;
         playerIll.sprite = null;
+        playerIll.color = new Color(1, 1, 1, 0);
         otherIll.sprite = null;
+        otherIll.color = new Color(1, 1, 1, 0);
 
         standbyInput = false;
         isOpen = false;
@@ -349,22 +372,37 @@ public class DialogPopup : MonoBehaviour
         LeftIll.alpha = 0f;
         RightIll.alpha = 0f;
         playerIll.sprite = null;
+        playerIll.color = new Color(1, 1, 1, 0);
         otherIll.sprite = null;
+        otherIll.color = new Color(1, 1, 1, 0);
     }
 
 
     // 스프라이트 Addressable로 비동기 로드
     public void LoadSprite(string address, Image targetImg) {
+        // 현재 스프라이트와 같으면 교체하지 않음
+        if (targetImg.sprite != null && targetImg.sprite.name == address) {
+            return; 
+        }
+        
+        targetImg.color = new Color(1, 1, 1, 0); // 투명
+        
+        /// 첫 일러스트 나올 때 버벅임 삭제
+        targetImg.DOKill();  // 현재 진행 중인 페이드 애니메이션 중지
+        targetImg.DOFade(0f, 0f);  // 즉시 투명 처리
+
         Addressables.LoadAssetAsync<Sprite>(address).Completed += handle =>
         {
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 targetImg.sprite = handle.Result;
                 targetImg.color = Color.white;
+                targetImg.DOFade(1f, 0.2f).SetEase(Ease.Linear);
             }
             else
             {
                 Debug.Log("대화창 스프라이트 로드 실패");
+                targetImg.color = new Color(1, 1, 1, 0);
             }
         };
     }

@@ -18,6 +18,10 @@ public class TutorialTimeline : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerText;
     [SerializeField] private TextMeshProUGUI playerSpeaker;
 
+    [SerializeField] private CanvasGroup enemyTextBox;
+    [SerializeField] private TextMeshProUGUI enemyText;
+    [SerializeField] private TextMeshProUGUI enemySpeaker;
+
     [Header("Objects")]
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemy;
@@ -90,5 +94,31 @@ public class TutorialTimeline : MonoBehaviour
         player.transform.position = timelineLastPosPlayer;
         enemy.transform.position = timelineLastPosEnemy;
         betweencam.transform.position = betweenCamLastPos;
+    }
+
+    public void OOgrowlEnemy()  // One-Off
+    {
+        string OOtext = "ぁたじたいびあた!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+        string OOspeaker = "畳原";
+        enemyTextBox.alpha = 1f;
+        OOPlayDialog(OOtext, OOspeaker);
+
+    }
+
+    private IEnumerator OOPlayDialog(string sentence, string speaker)
+    {
+        SetCanvasGroup(enemyTextBox, true);
+        enemySpeaker.text = speaker;
+        yield return enemyText.DOText(sentence, TypingTime);
+
+        yield return new WaitForSeconds(1.2f);
+
+    }
+
+    public void OOCloseDialog() {
+
+        enemyTextBox.alpha = 0f; // 但丸奄
+        enemyText.text = "";
+        enemySpeaker.text = "";
     }
 }
