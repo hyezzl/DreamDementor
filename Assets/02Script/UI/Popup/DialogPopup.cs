@@ -28,10 +28,6 @@ public class DialogPopup : MonoBehaviour
     [SerializeField] private Image otherIll;
     
 
-    // Temp
-    public Sprite playerSprite;
-    public Sprite otherSprite;
-
     private PlayerController pc;
     Tweener typing;
     Sequence seq;
@@ -46,6 +42,7 @@ public class DialogPopup : MonoBehaviour
     private TextMeshProUGUI textarea;  // 사용할 텍스트박스
     private CanvasGroup curTextbox;
     //private Image targetImg;  // 변경할 이미지
+    private int curPanelIndex = -1;  // 현재 적용되어있는 대화창 UI
 
     // 대화창 스페이스 연타 시 오류
     private float inputDelay = 0.4f;
@@ -163,13 +160,14 @@ public class DialogPopup : MonoBehaviour
                 // 일러스트 표시
                 if ((int)dialogDict[curlogIdx].emotion >= 5 && (int)dialogDict[curlogIdx].emotion <= 7) // 일러가 존재할 때
                 {
-                    RightIll.alpha = 1f;
+                    otherIll.sprite = null;
                     LoadSprite(dialogDict[curlogIdx].emotion.ToString(), otherIll); // 타겟 스프라이트 변수에 할당
+                    RightIll.alpha = 1f;
 
-                    otherIll.color = Color.white;
                     playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
                 }
                 else {
+                    otherIll.sprite = null;
                     LeftIll.alpha = 0f;
 
                     playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
@@ -185,16 +183,17 @@ public class DialogPopup : MonoBehaviour
                 // 일러스트 표시   ///////////////////////조건 충분히 바뀔수있음 주의 ////////////////////////
                 if ((int)dialogDict[curlogIdx].emotion >= 0 && (int)dialogDict[curlogIdx].emotion <= 4) // Player일때
                 {
-                    LeftIll.alpha = 1f;
+                    playerIll.sprite = null;
                     LoadSprite(dialogDict[curlogIdx].emotion.ToString(), playerIll); // 타겟 스프라이트 변수에 할당
+                    LeftIll.alpha = 1f;
 
-                    playerIll.color = Color.white;
                     otherIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
                 }
                 else if (dialogDict[curlogIdx].emotion != Emotion.None)  // 플레이어가 아닌 일러스트를 가진 Extra
                 {
-                    RightIll.alpha = 1f;
+                    otherIll.sprite = null;
                     LoadSprite(dialogDict[curlogIdx].emotion.ToString(), otherIll);
+                    RightIll.alpha = 1f;
 
                     playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
                 }
@@ -232,11 +231,13 @@ public class DialogPopup : MonoBehaviour
             }
 
             // 입력 대기
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+            yield return new WaitUntil(() => inputHandler.DoSelect());
             
             // Index++;
             curlogIdx = curDialog.nextID;
         }
+
+        yield return StartCoroutine(ClosePanel());  // 모든 대화가 끝나면 패널 닫음
     }
 
     // 스킵 시 바로 출력
@@ -279,7 +280,25 @@ public class DialogPopup : MonoBehaviour
     }
 
     public void SetDialog(int popupIdx, string speakerName) {
-        // 모든 대화창 비활성화
+        // 이전에 띄웠던 타입과 같으면 패널 그대로 둠
+        if (curPanelIndex != -1 && curPanelIndex == popupIdx) {
+            switch (popupIdx)
+            {
+                case 0:
+                    basicSpeaker.text = speakerName;
+                    textarea = basicText;
+                    break;
+                case 1:
+                    enemySpeaker.text = speakerName;
+                    textarea = enemyText;
+                    break;
+            }
+            textarea.text = ""; // 텍스트만 초기화
+            return;
+        }
+
+
+        // 패널 바뀌는 경우
         SetCanvasGroup(basicTextBox, false);
         SetCanvasGroup(enemyTextBox, false);
         CanvasGroup target = null;
@@ -302,6 +321,7 @@ public class DialogPopup : MonoBehaviour
         }
         // 텍스트 초기화
         textarea.text = "";
+        curPanelIndex = popupIdx; // 캐싱
     }
 
     // CanvasGroup 상태 제어 함수 (즉발)
