@@ -12,6 +12,7 @@ public class TutorialDead : MonoBehaviour
 {
     public string eventID = "E004";
     private IDatabase database;
+    private PlayerController pc;
     private Dictionary<int, DialogData> dialogs;
 
     // DB 연결
@@ -20,11 +21,13 @@ public class TutorialDead : MonoBehaviour
         database = db;
         dialogs = database.GetDialog(eventID);
         if (dialogs == null) Debug.Log("TutorialDead - Failed to Load DialogData");
-
-        Debug.Log($"dialogs 잘받아오나?????? : {dialogs.Count}");
     }
 
-
+    private void Awake()
+    {
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null) Debug.Log("TutorialDead - Failed to Load PlayerController");
+    }
 
     private void OnEnable()
     {
@@ -40,17 +43,19 @@ public class TutorialDead : MonoBehaviour
 
     private void OnEvent(GameEvents.PlayEvent evt) {
         if (evt.eventID == this.eventID) {
-            // 대화 실행 (1)
+            // 대화 모드
+            pc.CurMode = GameMode.DialogMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
+
             EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
-            Debug.Log("대화실행 in DeadScene");
         }
     }
 
     private void OnEndDialog(UIEvents.EndDialog evt) {
         if (evt.eventID == this.eventID) {
+
             // HappyScene으로 이동
-            SceneManager.LoadScene("HappyScene");
-            Debug.Log("해피씬으로 이동~!");
+            EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.HappyScene));
         }
     }
 }

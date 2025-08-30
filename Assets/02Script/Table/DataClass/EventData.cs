@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-public enum Scene
+public enum SceneType
 { 
     TitleScene,
     TutorialScene,

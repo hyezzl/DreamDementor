@@ -12,7 +12,7 @@ public class DeadScene : MonoBehaviour
     [SerializeField] private float fadeDuration = 5f;
 
     //  현재 죽음에 대한 정보 캐싱값
-    private Scene scene;
+    private SceneType scene;
     private DeathType deathType;
 
     // 플래그
@@ -83,7 +83,7 @@ public class DeadScene : MonoBehaviour
     private IEnumerator AfterDead() {
         yield return StartCoroutine(BloodEffect());  // 코루틴 끝날 때 까지 기다림
 
-        if (scene == Scene.TutorialScene || deathType == DeathType.CrashEnemy) // D0100
+        if (scene == SceneType.TutorialScene || deathType == DeathType.CrashEnemy) // D0100
         {
             EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E004"));
         }

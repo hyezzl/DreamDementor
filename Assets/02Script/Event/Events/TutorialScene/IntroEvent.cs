@@ -39,6 +39,17 @@ public class IntroEvent : MonoBehaviour, IGameEvent
     }
 
 
+    private void Update()
+    {
+        // 임시
+        if (Input.GetKeyDown(KeyCode.Alpha0)) {
+            // 튜토리얼 스킵
+            EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.HappyScene));
+        }
+    }
+
+
+
     // DB 연결
     public void Init(IDatabase db)  // start시점에 실행
     { 

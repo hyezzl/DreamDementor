@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class PlayerMove : MonoBehaviour, IMoveObject
 {
@@ -52,6 +53,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         if (moveable) { 
             Movement();
         }
+        
     }
     private void OnEnable()
     {

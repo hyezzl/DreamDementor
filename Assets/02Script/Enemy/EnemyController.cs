@@ -1,6 +1,8 @@
 
 
 
+using UnityEditor;
+
 public enum EnemyState
 {
     Idle,
@@ -13,4 +15,18 @@ public enum EnemyState
 public class EnemyController : Singleton<EnemyController>
 {
     public EnemyState EnemyState { get; set; } = EnemyState.Stop;
+
+    private void OnEnable()
+    {
+        EventBus.Instance.Subscribe<GameEvents.SwitchScene>(DeactiveEnemy);
+    }
+    private void OnDisable()
+    {
+        EventBus.Instance.Subscribe<GameEvents.SwitchScene>(DeactiveEnemy);
+    }
+
+    // ¾Àº¯°æ ½Ã Enemy Deactive
+    private void DeactiveEnemy(GameEvents.SwitchScene evt) { 
+        this.gameObject.SetActive(false);
+    }
 }

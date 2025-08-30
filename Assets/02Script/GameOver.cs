@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField] private Scene curscene;
+    [SerializeField] private SceneType curscene;
 
     private CharacterController cc;
     

@@ -84,11 +84,21 @@ public static class GameEvents
     // 게임오버
     public struct GameOver 
     {
-        public Scene scene;
+        public SceneType scene;
         public DeathType type;
-        public GameOver(Scene scene, DeathType type) {
+        public GameOver(SceneType scene, DeathType type) {
             this.scene = scene;
             this.type = type;
         }
+    }
+
+    // 씬이동 이벤트
+    public struct SwitchScene
+    {
+        public SceneType nextScene;
+        public SwitchScene(SceneType nextScene) { 
+            this.nextScene = nextScene;
+        }
+
     }
 }
