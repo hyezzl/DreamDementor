@@ -8,7 +8,6 @@ using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Sequence = DG.Tweening.Sequence;
-using Unity.VisualScripting;
 
 public class DialogPopup : MonoBehaviour
 {
@@ -37,6 +36,7 @@ public class DialogPopup : MonoBehaviour
     private bool standbyInput = false; // 사용자 입력 기다리기
     private bool isSkip = false;
 
+    private string curEventID;  // 캐싱
     private string sentence;  // 캐싱
     private GameMode preMode;  // 캐싱
     private IInputHandler inputHandler;
@@ -118,6 +118,9 @@ public class DialogPopup : MonoBehaviour
 
         // 로그 창 표시
         isOpen = true;
+
+        // 이벤트 번호 캐싱
+        curEventID = evt.eventID;
 
         // 타이핑
         StartCoroutine(TypeDialog(evt.texts));
@@ -276,6 +279,7 @@ public class DialogPopup : MonoBehaviour
         //blinkCor = StartCoroutine(blink.BlinkAnnounceMSG(group));
     }
 
+
     // 패널 닫기
     public IEnumerator ClosePanel() {
         yield return null;
@@ -300,7 +304,12 @@ public class DialogPopup : MonoBehaviour
 
         standbyInput = false;
         isOpen = false;
+
+        // 대화끝 이벤트 (대화이 벤트 ID 전달)
+        EventBus.Instance.Publish<UIEvents.EndDialog>(new UIEvents.EndDialog(curEventID));
     }
+
+
 
     public void SetDialog(int popupIdx, string speakerName) {
         // 이전에 띄웠던 타입과 같으면 패널 그대로 둠

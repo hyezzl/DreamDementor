@@ -11,8 +11,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01Scenes/TutorialScene.unity
     guid: bd9da5953f3ab83468b76ae18cc56404
-  - enabled: 1
+  - enabled: 0
     path: Assets/01Scenes/HappyScene123.unity
     guid: ce13555513564be4ba13127bb2b04e10
+  - enabled: 1
+    path: Assets/01Scenes/HappyScene.unity
+    guid: 863e8e3fa3f567b46bd1a8f5a6dc7b47
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: a57b876db6cd5e5478eacf21fa87d1dd, type: 2}

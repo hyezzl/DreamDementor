@@ -51,7 +51,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         //ApplyGravity();
         if (moveable) { 
             Movement();
-            Debug.Log($"Animator Params - inputX: {anim.GetFloat("inputX")}, inputY: {anim.GetFloat("inputY")}, isWalk: {anim.GetBool("isWalk")}");
         }
     }
     private void OnEnable()

@@ -9,7 +9,15 @@ public class DeadScene : MonoBehaviour
     [SerializeField] private GameObject bottomBack;
     [SerializeField] private Image bloodSpot1;
     [SerializeField] private Image bloodSpot2;
-    [SerializeField] private float fadeDuration = 3f;
+    [SerializeField] private float fadeDuration = 5f;
+
+    //  현재 죽음에 대한 정보 캐싱값
+    private Scene scene;
+    private DeathType deathType;
+
+    // 플래그
+    private bool endCoroutine = false;
+
 
 
     private void Start()
@@ -35,10 +43,15 @@ public class DeadScene : MonoBehaviour
         topBack.SetActive(true);
         bottomBack.SetActive(true);
 
-        StartCoroutine(BloodEffect());
+        // 게임오버 정보 캐싱
+        scene = evt.scene;
+        deathType = evt.type;
+
+        StartCoroutine(AfterDead()); // 데드씬 연출 + 이후 처리
+        
     }
 
-    private IEnumerator BloodEffect() { 
+    private IEnumerator BloodEffect() {
         yield return null;
         float elapsed = 0f;
 
@@ -53,7 +66,7 @@ public class DeadScene : MonoBehaviour
         float startAlpha1 = bloodSpot1.color.a;
         float startAlpha2 = bloodSpot2.color.a;
 
-        while (elapsed < fadeDuration) { 
+        while (elapsed < fadeDuration) {
             elapsed += Time.deltaTime;
             float alpha1 = Mathf.Lerp(startAlpha1, 0f, elapsed / fadeDuration);
             float alpha2 = Mathf.Lerp(startAlpha2, 0f, elapsed / fadeDuration);
@@ -65,4 +78,18 @@ public class DeadScene : MonoBehaviour
         bloodSpot1.color = new Color(bloodSpot1.color.r, bloodSpot1.color.g, bloodSpot1.color.b, 0f);
         bloodSpot2.color = new Color(bloodSpot2.color.r, bloodSpot2.color.g, bloodSpot2.color.b, 0f);
     }
+
+    // 데드씬 끝난 이후 처리
+    private IEnumerator AfterDead() {
+        yield return StartCoroutine(BloodEffect());  // 코루틴 끝날 때 까지 기다림
+
+        if (scene == Scene.TutorialScene || deathType == DeathType.CrashEnemy) // D0100
+        {
+            EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E004"));
+        }
+
+        ////////////// 계속 조건문 추가
+    }
+
+
 }
