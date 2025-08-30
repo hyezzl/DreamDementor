@@ -15,10 +15,6 @@ public class DeadScene : MonoBehaviour
     private SceneType scene;
     private DeathType deathType;
 
-    // ÇÃ·¡±×
-    private bool endCoroutine = false;
-
-
 
     private void Start()
     {

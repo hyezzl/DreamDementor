@@ -18,6 +18,9 @@ public class SelectPopup : MonoBehaviour
     private List<GameObject> buttons = new();
     private string curChoiceID = null;
 
+    // 선택
+    private int focusIdx = 0;
+
 
     private void OnEnable()
     {
@@ -26,6 +29,29 @@ public class SelectPopup : MonoBehaviour
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OccurSelection>(OnSelection);
+    }
+
+
+    private void Update()
+    {
+        if (!standbyInput) return;
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            int nextIdx = focusIdx + 1;
+            if (nextIdx >= buttons.Count) nextIdx = 0;
+            SetFocus(nextIdx);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            int preIdx = focusIdx - 1;
+            if (preIdx < 0) preIdx = buttons.Count - 1;
+            SetFocus(preIdx);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space)) // 모바일에서는...상호작용키보다 클릭이겠죠..?
+        {
+            OnChoice(focusIdx);
+        }
     }
 
 
@@ -68,14 +94,37 @@ public class SelectPopup : MonoBehaviour
 
             // 버튼 텍스트
             btn.GetComponentInChildren<TextMeshProUGUI>().text = data.texts[i];
-            btn.GetComponentInChildren<Image>().enabled = false; // 포커스 비활성화
+            btn.transform.Find("focusbox").GetComponent<Image>().enabled = false; // 포커스 비활성화
 
             // 버튼 클릭 이벤트 연결 (예: i번째 선택지를 넘기는 커스텀 함수에 연결)
             btn.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();  // 초기화
             int choiceIndex = i;
             btn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnChoice(choiceIndex));
+
+            SetFocus(0);
         }
     }
+
+
+    private void SetFocus(int index) {
+        if (buttons.Count == 0) return;
+
+        // 이전 포커스 박스 끄기
+        if (focusIdx >= 0 && focusIdx < buttons.Count)
+        {
+            buttons[focusIdx].transform.Find("focusbox").GetComponent<Image>().enabled = false;
+        }
+
+        // 인덱스 값
+        focusIdx = Mathf.Clamp(index, 0, buttons.Count - 1);
+
+        // 현재 포커스 버튼 포커스 활성화
+        buttons[focusIdx].transform.Find("focusbox").GetComponent<Image>().enabled = true;
+
+        // 선택된 버튼에 포커스 설정
+        buttons[focusIdx].GetComponent<UnityEngine.UI.Button>().Select();
+    }
+
 
     private void OnChoice(int idx) {
         if (!standbyInput) return;

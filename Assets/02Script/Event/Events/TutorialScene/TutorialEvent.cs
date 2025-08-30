@@ -77,8 +77,8 @@ public class TutorialEvent : MonoBehaviour
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
 
         // 대화 이벤트 중 캐릭터들 애니메이션 
-        playerAnim.SetFloat("inputX", 1f);
-        playerAnim.SetFloat("inputY", 0f);
+        playerAnim.SetFloat("lookX", 1f);
+        playerAnim.SetFloat("lookY", 0f);
         
 
         // 을 멈추고 싶다고 하십니다. 리더께서.
@@ -114,8 +114,8 @@ public class TutorialEvent : MonoBehaviour
 
 
         // 애니메이션 고정
-        playerAnim.SetFloat("inputX", 1f);
-        playerAnim.SetFloat("inputY", 0f);
+        playerAnim.SetFloat("lookX", 1f);
+        playerAnim.SetFloat("lookY", 0f);
         EnemyAnim.Play("Temp01", 0);
 
         // 시간 멈춤
@@ -131,13 +131,14 @@ public class TutorialEvent : MonoBehaviour
         // 시간 재개
         EventBus.Instance.Publish<GameEvents.FlowTime>(new GameEvents.FlowTime(false));
 
-
         // 술래 잡기 시작
         tutorialPopup.SetActive(false);
         Debug.Log("술래잡기 시작~~~~~~~~~");
 
         pc.CurMode = GameMode.InspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+
+        
 
         //EventBus.Instance.Publish<GameEvents.EndTimeline>(new GameEvents.EndTimeline());
         

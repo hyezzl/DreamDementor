@@ -427,6 +427,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 64
+  anim: {fileID: 0}
   moveDir: {x: 0, y: 0, z: 0}
 --- !u!114 &216969136
 MonoBehaviour:
@@ -563,8 +564,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d76456ff077694fb1735514950e2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookat: {fileID: 831204244}
-  playersight: {fileID: 1667902592}
+  fixCam: {fileID: 0}
+  sightCam: {fileID: 0}
+  enemyCam: {fileID: 0}
+  betweenCam: {fileID: 0}
   toggleBTN: {fileID: 1372036728}
 --- !u!4 &301978821
 Transform:
@@ -4093,10 +4096,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514d1d35c324526489e5e1cf6ecb5ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popup: {fileID: 9086848042586789535}
-  textarea: {fileID: 6643820882227440455}
-  speaker: {fileID: 0}
   typingSpeed: 0.5
+  basicTextBox: {fileID: 0}
+  basicText: {fileID: 0}
+  basicSpeaker: {fileID: 0}
+  enemyTextBox: {fileID: 0}
+  enemyText: {fileID: 0}
+  enemySpeaker: {fileID: 0}
+  LeftIll: {fileID: 0}
+  playerIll: {fileID: 0}
+  RightIll: {fileID: 0}
+  otherIll: {fileID: 0}
 --- !u!1 &2740195235290991874
 GameObject:
   m_ObjectHideFlags: 0
@@ -6284,9 +6294,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6968130a7e1664cb5e7a41c64e3572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectBox: {fileID: 3588810963738138593}
-  BTNs:
-  - {fileID: 6937538803079352887}
+  background: {fileID: 0}
+  choiceBTNprefab: {fileID: 0}
+  BTNarea: {fileID: 0}
+  group: {fileID: 0}
 --- !u!1 &4939279924184760731
 GameObject:
   m_ObjectHideFlags: 0

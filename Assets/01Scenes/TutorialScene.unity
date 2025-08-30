@@ -5591,6 +5591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 216969128}
+  playerAnim: {fileID: 1230496850}
 --- !u!1 &1015463646
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -29,9 +30,15 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     // 누른 키 상태 저장용 변수
     private int horizontalPriority = 0; // -1:왼  1:오
     private int verticalPriority = 0;   // -1:아래  1:위
-    
+
 
     public Vector3 LookingDir => lookingDir;
+
+    // 플레이어 애니메이션 연출위함
+    public Vector3 PreDir {
+        get => preDir;
+        set => preDir = value;
+    }
 
     public void SetInputHandler(IInputHandler inputHandler) => this.inputHandler = inputHandler;
 
@@ -50,10 +57,11 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private void Update()
     {
         //ApplyGravity();
-        if (moveable) { 
+        if (moveable) {
             Movement();
         }
-        
+        Debug.Log(moveable);
+
     }
     private void OnEnable()
     {
@@ -66,7 +74,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
 
 
-    private void Movement() 
+    private void Movement()
     {
         InputPriority(); // 키 입력 우선순위 갱신
         Vector2 inputVec = new Vector2(horizontalPriority, verticalPriority);
@@ -98,7 +106,10 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         }
         else  // 사용자 move 움직임 있을 때
         {
-            preDir = moveInput.normalized;   // 마지막 이동방향 캐싱
+            if (moveInput.sqrMagnitude > 0.001f) // 외부에서 preDir 설정 안 했을 경우
+            { 
+                preDir = moveInput.normalized;   // 마지막 이동방향 캐싱
+            }
             if (!isRunning) // Walk
             {
                 pc.CurState = PlayerState.Walk;
@@ -114,10 +125,14 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         Vector3 localInput = transform.InverseTransformDirection(preDir); // 로컬
 
         // (Animation) Blend Tree 값 전달
-        anim.SetFloat("inputX", localInput.x);
-        anim.SetFloat("inputY", localInput.z);
+        anim.SetBool("moveable", moveable);
+        if (moveable)
+        {
+            anim.SetFloat("inputX", localInput.x);
+            anim.SetFloat("inputY", localInput.z);
+            anim.SetBool("isWalk", isWalking);
+        }
 
-        anim.SetBool("isWalk", isWalking);
     }
 
     // 중력구현 
@@ -144,7 +159,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
         // 땅에 붙어있는걸 인식못해서 중력이 계속 누적되는 문제
     }
-    
+
 
     // 키 눌림 시간 기록용 변수
     private float lastLeftTime = -1f;
@@ -200,7 +215,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     }
 
     public void ModeChange(GameEvents.GameModeChange evt) {
-        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode)
+        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode)
         {
             StopGame();
         }

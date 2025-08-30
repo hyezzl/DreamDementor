@@ -10,7 +10,8 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
 {
     [Header("DonDestroy Ref")]
     [SerializeField] private GameObject player;
-
+    [SerializeField] private Animator playerAnim;
+ 
     private SceneType curScene;   // 현재씬
 
     // 임시
@@ -19,13 +20,11 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
 
     private void OnEnable()
     {
-        Debug.Log("SwitchSceneManager 구독 시작");
         EventBus.Instance.Subscribe<GameEvents.SwitchScene>(SwitchScene);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     private void OnDisable()
     {
-        Debug.Log("SwitchSceneManager 구독 해제");
         EventBus.Instance.Unsubscribe<GameEvents.SwitchScene>(SwitchScene);
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
@@ -40,6 +39,22 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (curScene == SceneType.HappyScene) { 
             player.transform.position = happyStartPos;
+            playerAnim.Rebind();
+            playerAnim.SetFloat("lookX", 0f);
+            playerAnim.SetFloat("lookY", -1f);
+
+            PlayerMove pm = player.GetComponent<PlayerMove>();
+            pm.PreDir = Vector3.back;
         }
     }
+
+    //private IEnumerator SetAnimate() {
+    //    yield return null;
+
+    //    playerAnim.SetFloat("lookX", 0f);
+    //    playerAnim.SetFloat("lookY", -1f);
+
+    //    PlayerMove pm = player.GetComponent<PlayerMove>();
+    //    pm.PreDir = Vector3.back;
+    //}
 }

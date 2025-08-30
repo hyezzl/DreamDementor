@@ -22,6 +22,7 @@ public enum GameMode
     NarrativeMode,
     ChasedMode,
     EventMode,
+    GameOverMode,
 }
 
 /// <summary>
