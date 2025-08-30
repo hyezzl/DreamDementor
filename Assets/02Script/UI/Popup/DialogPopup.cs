@@ -121,6 +121,7 @@ public class DialogPopup : MonoBehaviour
 
         // 이벤트 번호 캐싱
         curEventID = evt.eventID;
+        Debug.Log($"curEventID에 {evt.eventID} 저장!!!!!");
 
         // 타이핑
         StartCoroutine(TypeDialog(evt.texts));
@@ -305,8 +306,10 @@ public class DialogPopup : MonoBehaviour
         standbyInput = false;
         isOpen = false;
 
-        // 대화끝 이벤트 (대화이 벤트 ID 전달)
+        // 대화끝 이벤트 (대화이벤트 ID 전달)
         EventBus.Instance.Publish<UIEvents.EndDialog>(new UIEvents.EndDialog(curEventID));
+        Debug.Log($"curEventID : {curEventID} 전달");
+        Debug.Log("무사히 대화패널이 종료됨");
     }
 
 

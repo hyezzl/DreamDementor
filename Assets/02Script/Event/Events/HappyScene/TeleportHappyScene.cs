@@ -30,23 +30,42 @@ public class TeleportHappyScene : MonoBehaviour
         PlayTeleport();
     }
 
+    private void OnEnable()
+    {
+        EventBus.Instance.Subscribe<UIEvents.EndDialog>(OnEndDialog);
+    }
+    private void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<UIEvents.EndDialog>(OnEndDialog);
+    }
+
     private void PlayTeleport() {
 
         // 눈열리는 연출
 
         // 게임모드 변경
         //(임시)
-        pc.CurMode = GameMode.InspectMode;
-        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+        //pc.CurMode = GameMode.InspectMode;
+        //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
 
+        // 이벤트 모드로 변경
 
         // 이벤트 시작 (대화)
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(eventID));
 
-        Debug.Log("해피씬 이벤트 시작!");
+        // 대화모드
+        pc.CurMode = GameMode.DialogMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
 
-        
+        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
 
-        
+    }
+
+    private void OnEndDialog(UIEvents.EndDialog evt) {
+        if (evt.eventID == this.eventID) {
+            // 대화가 끝났을 때 게임모드 변경
+            pc.CurMode = GameMode.InspectMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+        }
     }
 }

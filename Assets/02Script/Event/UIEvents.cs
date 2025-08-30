@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public static class UIEvents
 {
@@ -41,7 +42,7 @@ public static class UIEvents
     public struct EndDialog
     {
         public string eventID;
-        public EndDialog(string eventID) { 
+        public EndDialog(string eventID) {
             this.eventID = eventID;
         }
     }
