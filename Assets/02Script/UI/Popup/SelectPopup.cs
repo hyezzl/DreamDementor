@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SelectPopup : MonoBehaviour
 {
+    [Header("UI Refs")]
     [SerializeField] private Image background;  // 비활성화 효과 배경
     [SerializeField] private GameObject choiceBTNprefab;  // 버튼 프리팹
     [SerializeField] private Transform BTNarea;   // 버튼 영역(부모)
@@ -67,9 +68,10 @@ public class SelectPopup : MonoBehaviour
 
             // 버튼 텍스트
             btn.GetComponentInChildren<TextMeshProUGUI>().text = data.texts[i];
+            btn.GetComponentInChildren<Image>().enabled = false; // 포커스 비활성화
 
             // 버튼 클릭 이벤트 연결 (예: i번째 선택지를 넘기는 커스텀 함수에 연결)
-            btn.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
+            btn.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();  // 초기화
             int choiceIndex = i;
             btn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnChoice(choiceIndex));
         }
@@ -77,6 +79,7 @@ public class SelectPopup : MonoBehaviour
 
     private void OnChoice(int idx) {
         if (!standbyInput) return;
+
         Debug.Log($"{idx} 번 선택됨!!!!!!!!!!!!!!!!");
         EventBus.Instance.Publish<GameEvents.MakeChoice>(new GameEvents.MakeChoice(curChoiceID, idx));
 
