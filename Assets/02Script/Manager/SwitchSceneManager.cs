@@ -19,12 +19,14 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
 
     private void OnEnable()
     {
+        Debug.Log("SwitchSceneManager 구독 시작");
         EventBus.Instance.Subscribe<GameEvents.SwitchScene>(SwitchScene);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     private void OnDisable()
     {
-        EventBus.Instance.Subscribe<GameEvents.SwitchScene>(SwitchScene);
+        Debug.Log("SwitchSceneManager 구독 해제");
+        EventBus.Instance.Unsubscribe<GameEvents.SwitchScene>(SwitchScene);
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     private void SwitchScene(GameEvents.SwitchScene evt) {

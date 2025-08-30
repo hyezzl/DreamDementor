@@ -6176,7 +6176,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2751836c727b6e148940404fd0d89e24, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -46975,8 +46975,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 265, y: -149}
-  m_SizeDelta: {x: 300, y: 250}
+  m_AnchoredPosition: {x: 274, y: -114}
+  m_SizeDelta: {x: 490.4121, y: 371.9305}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &808458168708976612
 RectTransform:
@@ -82726,7 +82726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.12941177}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.25490198}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -231750,7 +231750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.2784314}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7254902}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -238691,7 +238691,7 @@ MonoBehaviour:
   bottomBack: {fileID: 7177534656563789166}
   bloodSpot1: {fileID: 5096414560295724059}
   bloodSpot2: {fileID: 1644803582271560189}
-  fadeDuration: 2
+  fadeDuration: 5
 --- !u!4 &5264949792035486271
 Transform:
   m_ObjectHideFlags: 0
@@ -268284,8 +268284,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -358, y: 184}
-  m_SizeDelta: {x: 700, y: 530}
+  m_AnchoredPosition: {x: -302, y: 140}
+  m_SizeDelta: {x: 789.1727, y: 692.4533}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5992090738475674166
 GameObject:

@@ -121,7 +121,7 @@ public class DialogPopup : MonoBehaviour
 
         // 이벤트 번호 캐싱
         curEventID = evt.eventID;
-        Debug.Log($"curEventID에 {evt.eventID} 저장!!!!!");
+        Debug.Log($"curEventID에 {evt.eventID} 저장!!!!!"); 
 
         // 타이핑
         StartCoroutine(TypeDialog(evt.texts));
@@ -286,6 +286,8 @@ public class DialogPopup : MonoBehaviour
         yield return null;
         DialogFade(curTextbox, false);
 
+        yield return new WaitForSeconds(0.3f);  //Fade Wait
+
         // 모드 변경
         pc.CurMode = preMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
@@ -305,6 +307,8 @@ public class DialogPopup : MonoBehaviour
 
         standbyInput = false;
         isOpen = false;
+
+        yield return null;
 
         // 대화끝 이벤트 (대화이벤트 ID 전달)
         EventBus.Instance.Publish<UIEvents.EndDialog>(new UIEvents.EndDialog(curEventID));
@@ -369,6 +373,8 @@ public class DialogPopup : MonoBehaviour
     // group + animation
     public void DialogFade(CanvasGroup target, bool isDisplay)
     {
+        if (target == null || target.gameObject == null) return;
+
         float val = isDisplay ? 1f : 0f;
         target.interactable = isDisplay;
         target.blocksRaycasts = isDisplay;
