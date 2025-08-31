@@ -6,6 +6,8 @@ public enum CameraType
     PlayerSightCam,     // 1인칭 시야 플레이어 캠 
     EnemyCam,           // Enemy 카메라
     BetweenCam,         // TutorialScene - Tutorial01 Timeline
+
+    EyeEffectCam,
 }
 
 

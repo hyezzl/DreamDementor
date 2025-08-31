@@ -268,7 +268,7 @@ MonoBehaviour:
   - EventID: E003
     LogID: 3015
     Dialog: "<i>\uADF8\uB7EC\uACE0 \uBCF4\uB2C8 \uC5C4\uB9C8\uB294 \uC624\uB798\uC804\uC5D0
-      \uB3CC\uC544\uAC00\uC168\uC5B4,,</i>"
+      \uB3CC\uC544\uAC00\uC168\uC5B4.</i>"
     NextID: 3016
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -300,7 +300,7 @@ MonoBehaviour:
     Emotion: -1
   - EventID: E005
     LogID: 5001
-    Dialog: "\uAE84\uC544\uC544\uC544\uC544\uC545!"
+    Dialog: "....\uD5C9!"
     NextID: 5002
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"

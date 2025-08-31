@@ -60,7 +60,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         if (moveable) {
             Movement();
         }
-        Debug.Log(moveable);
 
     }
     private void OnEnable()
