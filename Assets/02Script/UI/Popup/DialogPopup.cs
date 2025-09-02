@@ -271,7 +271,6 @@ public class DialogPopup : MonoBehaviour
     public void SetDialog(int popupIdx, string speakerName, Textbox boxType) {
         // 이전에 띄웠던 타입과 같으면 패널 그대로 둠
         // case 0 (basic)  / case 1 (monster)
-        Debug.Log(boxType);
         if (curPanelIndex != -1 && curPanelIndex == popupIdx) {
             switch (popupIdx)
             {

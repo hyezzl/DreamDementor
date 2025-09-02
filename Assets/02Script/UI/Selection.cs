@@ -21,7 +21,7 @@ public class Selection : MonoBehaviour
     private string curChoiceID = null;
 
     // 선택
-    private int focusIdx = 0;
+    private int focusIdx = -1;
     private Tween focusTween;
 
 
@@ -42,13 +42,13 @@ public class Selection : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             int nextIdx = focusIdx + 1;
-            if (nextIdx >= buttons.Count) nextIdx = 0;
+            //if (nextIdx >= buttons.Count) nextIdx = 0;
             SetFocus(nextIdx);
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             int preIdx = focusIdx - 1;
-            if (preIdx < 0) preIdx = buttons.Count - 1;
+            //if (preIdx < 0) preIdx = buttons.Count - 1;
             SetFocus(preIdx);
         }
         else if (Input.GetKeyDown(KeyCode.Space)) // 모바일에서는...상호작용키보다 클릭이겠죠..?
@@ -103,14 +103,18 @@ public class Selection : MonoBehaviour
             btn.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();  // 초기화
             int choiceIndex = i;
             btn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnChoice(choiceIndex));
-
-            SetFocus(0);
         }
+        SetFocus(0);
     }
 
 
     private void SetFocus(int index) {
         if (buttons.Count == 0) return;
+
+        // clamp
+        index = Mathf.Clamp(index, 0, buttons.Count - 1);
+        if (index == focusIdx) return;
+
 
         // 이전 포커스 박스 끄기 + 트윈 종료
         if (focusIdx >= 0 && focusIdx < buttons.Count)
@@ -126,7 +130,8 @@ public class Selection : MonoBehaviour
         }
 
         // 인덱스 값
-        focusIdx = Mathf.Clamp(index, 0, buttons.Count - 1);
+        //focusIdx = Mathf.Clamp(index, 0, buttons.Count - 1);
+        focusIdx = index;
 
         // 현재 포커스 버튼 포커스 활성화
         Transform focusBox = buttons[focusIdx].transform.Find("focusbox");

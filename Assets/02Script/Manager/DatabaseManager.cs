@@ -195,10 +195,6 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
     }
 
 
-
-
-
-
     // 외부 호출 함수 (Getter)
     public PickableData GetPickable(int itemID)
     {
