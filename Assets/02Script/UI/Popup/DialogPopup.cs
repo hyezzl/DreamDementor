@@ -430,12 +430,12 @@ public class DialogPopup : MonoBehaviour
                                 , playerIll);   // 폴더명(speaker) / 스프라이트이름(emotion)
                 }
                 LeftIll.alpha = 1f;
-                //playerIll.color = Color.white;
+                playerIll.color = Color.white;
                 otherIll.color = deactive;
                 break;
 
             case Speaker.Mom:
-                if (curRight != dialogDict[curlogIdx].speaker && curRightIdx != dialogDict[curlogIdx].emotion)
+                if (curRight != dialogDict[curlogIdx].speaker || curRightIdx != dialogDict[curlogIdx].emotion)
                 {
                     curRight = Speaker.Mom; // cache
                     var curAddress = (MomEmotion)dialogDict[curlogIdx].emotion;
@@ -445,13 +445,15 @@ public class DialogPopup : MonoBehaviour
                                 , otherIll);
                 }
                 RightIll.alpha = 1f;
-                //otherIll.color = Color.white;
+                otherIll.color = Color.white;
                 playerIll.color = deactive;
                 break;
 
             case Speaker.Enemy:
                 if (curRight != dialogDict[curlogIdx].speaker && curRightIdx != dialogDict[curlogIdx].emotion)
                 {
+                    Debug.Log("33333333333333333333333333333333333");
+
                     curRight = Speaker.Enemy;
                     var curAddress = (EnemyEmotion)dialogDict[curlogIdx].emotion;
                     curRightIdx = dialogDict[curlogIdx].emotion;
@@ -460,7 +462,7 @@ public class DialogPopup : MonoBehaviour
                                 , otherIll);
                 }
                 RightIll.alpha = 1f;
-                //otherIll.color = Color.white;
+                otherIll.color = Color.white;
                 playerIll.color = deactive;
                 break;
 
@@ -475,7 +477,7 @@ public class DialogPopup : MonoBehaviour
                                 , otherIll);
                 }
                 RightIll.alpha = 1f;
-                //otherIll.color = Color.white;
+                otherIll.color = Color.white;
                 playerIll.color = deactive;
                 break;
         }
