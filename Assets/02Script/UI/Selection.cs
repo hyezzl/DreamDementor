@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SelectPopup : MonoBehaviour
+public class Selection : MonoBehaviour
 {
     [Header("UI Refs")]
     [SerializeField] private Image background;  // 비활성화 효과 배경

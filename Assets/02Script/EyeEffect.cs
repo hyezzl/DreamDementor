@@ -34,4 +34,5 @@ public class EyeEffect : MonoBehaviour
             dof.aperture.value = 2f;
         }
     }
+
 }

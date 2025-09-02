@@ -71,6 +71,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E002
     LogID: 2002
@@ -80,6 +81,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E002
     LogID: 2003
@@ -88,6 +90,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E002
     LogID: 2004
@@ -96,6 +99,7 @@ MonoBehaviour:
     Speaker: Enemy
     SpeakerName: ???
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E002
     LogID: 2005
@@ -104,6 +108,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E002
     LogID: 2006
@@ -112,6 +117,7 @@ MonoBehaviour:
     Speaker: Enemy
     SpeakerName: ???
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E002
     LogID: 2007
@@ -120,6 +126,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E002
     LogID: 2008
@@ -128,6 +135,7 @@ MonoBehaviour:
     Speaker: Enemy
     SpeakerName: ???
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E002
     LogID: 2009
@@ -136,6 +144,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E002
     LogID: 2010
@@ -144,6 +153,7 @@ MonoBehaviour:
     Speaker: Enemy
     SpeakerName: ???
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E002
     LogID: 2011
@@ -152,6 +162,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E003
     LogID: 3001
@@ -160,15 +171,17 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 4
   - EventID: E003
     LogID: 3002
     Dialog: .................................
     NextID: 3003
-    Speaker: Extra
+    Speaker: Mom
     SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: 5
+    Textbox: Basic
+    Emotion: 0
   - EventID: E003
     LogID: 3003
     Dialog: "\uC5C4\uB9C8...\uC65C \uB9D0\uC744 \uC548\uD558\uC138\uC694..?"
@@ -176,15 +189,17 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 2
   - EventID: E003
     LogID: 3004
     Dialog: "......\u3134...\u314F...\uB3C4.....\n\u3131\u3161...\uB798\u3146.....\uB2E4\u3134.....\uB2E4..."
     NextID: 3005
-    Speaker: Extra
+    Speaker: Mom
     SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: 5
+    Textbox: Basic
+    Emotion: 0
   - EventID: E003
     LogID: 3005
     Dialog: "\uBB50\uB77C\uACE0\uC694? \uC798 \uC548 \uB4E4\uB824\uC694"
@@ -192,23 +207,26 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 2
   - EventID: E003
     LogID: 3006
     Dialog: ....................................
     NextID: 3007
-    Speaker: Extra
+    Speaker: Mom
     SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: 5
+    Textbox: Basic
+    Emotion: 1
   - EventID: E003
     LogID: 3007
     Dialog: "....\u3131......\u314F....\uC790....."
     NextID: 3008
-    Speaker: Extra
+    Speaker: Mom
     SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: 6
+    Textbox: Basic
+    Emotion: 2
   - EventID: E003
     LogID: 3008
     Dialog: "\uB124....?"
@@ -216,15 +234,17 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 2
   - EventID: E003
     LogID: 3009
     Dialog: "......\u3134\u314F....\u3139....\u314F\u3147.....\uAC00....\uC790...."
     NextID: 3010
-    Speaker: Enemy
+    Speaker: Mom
     SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: 6
+    Textbox: Monster
+    Emotion: 1
   - EventID: E003
     LogID: 3010
     Dialog: "\uC5B4\uB514\uB97C \uAC00\uC790\uB294 \uAC70\uC608\uC694?"
@@ -232,15 +252,17 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 2
   - EventID: E003
     LogID: 3011
     Dialog: ....................................
     NextID: 3012
-    Speaker: Enemy
+    Speaker: Mom
     SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: 5
+    Textbox: Monster
+    Emotion: 1
   - EventID: E003
     LogID: 3012
     Dialog: "\uC5C4\uB9C8? \uC65C \uADF8\uB798?"
@@ -248,15 +270,17 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 2
   - EventID: E003
     LogID: 3013
     Dialog: "........\u3147....\u3153.....\u3145\u3153.....\uAC00....\uC790\uB2C8\uAE4C...!!!!!!"
     NextID: 3014
-    Speaker: Enemy
+    Speaker: Mom
     SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
-    Emotion: 7
+    Textbox: Monster
+    Emotion: 2
   - EventID: E003
     LogID: 3014
     Dialog: "\uAE84\uC544\uC544\uC545!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -264,23 +288,26 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 2
   - EventID: E003
     LogID: 3015
-    Dialog: "<i>\uADF8\uB7EC\uACE0 \uBCF4\uB2C8 \uC5C4\uB9C8\uB294 \uC624\uB798\uC804\uC5D0
-      \uB3CC\uC544\uAC00\uC168\uC5B4.</i>"
+    Dialog: "\uADF8\uB7EC\uACE0 \uBCF4\uB2C8 \uC5C4\uB9C8\uB294 \uC624\uB798\uC804\uC5D0
+      \uB3CC\uC544\uAC00\uC168\uC5B4."
     NextID: 3016
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Monologue
     Emotion: 0
   - EventID: E003
     LogID: 3016
-    Dialog: "<i>\uADF8\uB7FC \uC5EC\uAE30 \uC788\uB294 \uAC74 \uB204\uAD6C\uC9C0?</i>"
+    Dialog: "\uADF8\uB7FC \uC5EC\uAE30 \uC788\uB294 \uAC74 \uB204\uAD6C\uC9C0?"
     NextID: -1
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: C001
+    Textbox: Monologue
     Emotion: 0
   - EventID: E004
     LogID: 4001
@@ -289,6 +316,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: 
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E004
     LogID: 4002
@@ -297,6 +325,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: 
     ChoiceID: 
+    Textbox: Basic
     Emotion: -1
   - EventID: E005
     LogID: 5001
@@ -305,6 +334,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 2
   - EventID: E005
     LogID: 5002
@@ -313,6 +343,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 2
   - EventID: E005
     LogID: 5003
@@ -321,6 +352,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 0
   - EventID: E005
     LogID: 5004
@@ -329,6 +361,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 0
   - EventID: E005
     LogID: 5005
@@ -337,16 +370,18 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
+    Textbox: Basic
     Emotion: 0
   - EventID: E005
     LogID: 5006
-    Dialog: "<i>\uC544\uAE4C \uADF8 \uAD34\uBB3C\uC774 \uB2E4\uC2DC \uB098\uD0C0\uB0A0\uC9C0\uB3C4
-      \uBAA8\uB974\uB2C8 \uC6B0\uC120 \uC6C0\uC9C1\uC5EC\uBCFC\uAE4C</i>"
+    Dialog: "\uC544\uAE4C \uADF8 \uAD34\uBB3C\uC774 \uB2E4\uC2DC \uB098\uD0C0\uB0A0\uC9C0\uB3C4
+      \uBAA8\uB974\uB2C8 \uC6B0\uC120 \uC6C0\uC9C1\uC5EC\uBCFC\uAE4C"
     NextID: -1
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
-    Emotion: 3
+    Textbox: Monologue
+    Emotion: 0
   Choice:
   - ChoiceID: C001
     Choice0: " \uB2F9\uC2E0\uC740 \uC5C4\uB9C8\uAC00 \uC544\uB2C8\uC57C.\n\uB108..\uB204\uAD6C\uC57C?"

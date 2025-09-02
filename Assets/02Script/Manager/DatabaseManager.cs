@@ -174,7 +174,8 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                 speaker = System.Enum.Parse<Speaker>(evt.Speaker),
                 speakerName = evt.SpeakerName,
                 choiceID = evt.ChoiceID,
-                emotion = (Emotion)evt.Emotion,
+                textbox = System.Enum.Parse<Textbox>(evt.Textbox),
+                emotion = evt.Emotion,
                 choices = choiceData,
             };
             // eventID가 없으면 새 Dictionaty 생성

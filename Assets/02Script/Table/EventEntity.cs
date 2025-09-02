@@ -26,6 +26,7 @@ public class DialogEntity
     public string Speaker;
     public string SpeakerName;
     public string ChoiceID;
+    public string Textbox;
     public int Emotion;
 }
 

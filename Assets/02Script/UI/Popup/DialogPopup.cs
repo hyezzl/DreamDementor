@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Sequence = DG.Tweening.Sequence;
+using Unity.VisualScripting;
 
 public class DialogPopup : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class DialogPopup : MonoBehaviour
     [Header("UI Refs")]
     [SerializeField] private CanvasGroup basicTextBox;
     [SerializeField] private TextMeshProUGUI basicText;
+    [SerializeField] private TextMeshProUGUI monologueText;
     [SerializeField] private TextMeshProUGUI basicSpeaker;
 
     [SerializeField] private CanvasGroup enemyTextBox;
@@ -50,8 +52,10 @@ public class DialogPopup : MonoBehaviour
     private float inputTimer = 0f;
 
     // 일러스트 변경 시 최적화
-    private Emotion curLeft = Emotion.None;
-    private Emotion curRight = Emotion.None;
+    private int curLeftIdx = -1;  // 주인공은 무조건 왼쪽
+    private Speaker curRight = Speaker.Enemy;             // 오른쪽은 누구나 가능
+    private int curRightIdx = -1;                         // 이모션 인덱스
+    private Color deactive = new Color(0.4f, 0.4f, 0.4f, 1f);
 
 
     public void SetInputHandler(IInputHandler inputHandler) => this.inputHandler = inputHandler;
@@ -121,7 +125,6 @@ public class DialogPopup : MonoBehaviour
 
         // 이벤트 번호 캐싱
         curEventID = evt.eventID;
-        Debug.Log($"curEventID에 {evt.eventID} 저장!!!!!"); 
 
         // 타이핑
         StartCoroutine(TypeDialog(evt.texts));
@@ -158,79 +161,25 @@ public class DialogPopup : MonoBehaviour
             standbyInput = false;
             isSkip = false;
 
-
-
-
-            // Speaker에 따른 분기 (대화창 / 이름 / 폰트)
-            // Rect에 들은 일러 초기화 타이밍이 어렵다....
-
-            if (dialogDict[curlogIdx].speaker == Speaker.Enemy)  // 화자가 괴물일 때
-            {
-                curTextbox = enemyTextBox;
-                DialogFade(curTextbox, true);
-                SetDialog(1, curDialog.speakerName);
-
-                // 일러스트 표시
-                if ((int)dialogDict[curlogIdx].emotion >= 5 && (int)dialogDict[curlogIdx].emotion <= 7) // 일러가 존재할 때
-                {
-                    if (curRight != dialogDict[curlogIdx].emotion) // 오른 Dummy에 든 스프라이트와 다를 때
-                    { 
-                        curRight = dialogDict[curlogIdx].emotion;  // 캐싱
-                        LoadSprite(dialogDict[curlogIdx].emotion.ToString(), otherIll); // 타겟 스프라이트 변수에 할당
-                    }
-
-                    RightIll.alpha = 1f;
-                    //
-                    otherIll.color = Color.white;
-                    playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
-                }
-                else // 괴물인데, 일러스트가 없는 경우
-                {
-                    LeftIll.alpha = 0f;
-
-                    playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
-                }
-                
-            }
-            else // 화자가 괴물이 아닐 때
+            // Textbox에 따른 분기 (대화창 / 폰트)
+            if (dialogDict[curlogIdx].textbox == Textbox.Basic || dialogDict[curlogIdx].textbox == Textbox.Monologue)
             {
                 curTextbox = basicTextBox;
                 DialogFade(curTextbox, true);
-                SetDialog(0, curDialog.speakerName);
+                SetDialog(0, curDialog.speakerName, curDialog.textbox);
 
-                // 일러스트 표시   ///////////////////////조건 충분히 바뀔수있음 주의 ////////////////////////
-                if ((int)dialogDict[curlogIdx].emotion >= 0 && (int)dialogDict[curlogIdx].emotion <= 4) // Player일때
-                {
-                    if (curLeft != dialogDict[curlogIdx].emotion) {
-                        curLeft = dialogDict[curlogIdx].emotion; // 캐싱
-                        LoadSprite(dialogDict[curlogIdx].emotion.ToString(), playerIll); // 타겟 스프라이트 변수에 할당
-                    }
-                    LeftIll.alpha = 1f;
-                    playerIll.color = Color.white;
-                    otherIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
-                }
-                else if (dialogDict[curlogIdx].emotion != Emotion.None)  // 플레이어가 아닌 일러스트를 가진 Extra
-                {
-                    if (curRight != dialogDict[curlogIdx].emotion) { 
-                        curRight = dialogDict[curlogIdx].emotion;
-                        LoadSprite(dialogDict[curlogIdx].emotion.ToString(), otherIll);
-                    }
-                    RightIll.alpha = 1f;
-                    otherIll.color = Color.white;
-                    playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
-                }
-                else  // 플레이어도, 일러도 없는 그냥 인간
-                {
-                    RightIll.alpha = 0f;
-                    playerIll.color = new Color(0.4f, 0.4f, 0.4f, 1f);
+                ShowIllust(dialogDict, curlogIdx);
+            }
+            else if (dialogDict[curlogIdx].textbox == Textbox.Monster)  // 몬스터 텍스트 박스
+            {
+                curTextbox = enemyTextBox;
+                DialogFade(curTextbox, true);
+                SetDialog(1, curDialog.speakerName, curDialog.textbox);
 
-                    curLeft = Emotion.None;
-                    curRight = Emotion.None;
-                }
+                ShowIllust(dialogDict, curlogIdx);
             }
 
-            sentence = curDialog.dialog; // 캐싱
-
+                sentence = curDialog.dialog; // 캐싱
 
             // Typing
             float duration = curDialog.dialog.Length / typingSpeed;
@@ -318,16 +267,29 @@ public class DialogPopup : MonoBehaviour
 
 
 
-    public void SetDialog(int popupIdx, string speakerName) {
+    public void SetDialog(int popupIdx, string speakerName, Textbox boxType) {
         // 이전에 띄웠던 타입과 같으면 패널 그대로 둠
+        // case 0 (basic)  / case 1 (monster)
+        Debug.Log(boxType);
         if (curPanelIndex != -1 && curPanelIndex == popupIdx) {
             switch (popupIdx)
             {
-                case 0:
+                case 0:  // basic
                     basicSpeaker.text = speakerName;
-                    textarea = basicText;
+                    if (boxType == Textbox.Basic)
+                    {
+                        textarea = basicText;
+                        basicText.enabled = true;
+                        monologueText.enabled = false;
+                    }
+                    else { 
+                        textarea = monologueText;
+                        basicText.enabled = false;
+                        monologueText.enabled = true;
+                    }
                     break;
-                case 1:
+
+                case 1:  // enemy
                     enemySpeaker.text = speakerName;
                     textarea = enemyText;
                     break;
@@ -346,9 +308,20 @@ public class DialogPopup : MonoBehaviour
         switch (popupIdx) {
             case 0:
                 basicSpeaker.text = speakerName;
-                target = basicTextBox;
-                textarea = basicText;
+                if (boxType == Textbox.Basic)
+                {
+                    textarea = basicText;
+                    basicText.enabled = true;
+                    monologueText.enabled = false;
+                }
+                else
+                {
+                    textarea = monologueText;
+                    basicText.enabled = false;
+                    monologueText.enabled = true;
+                }
                 break;
+
             case 1:
                 enemySpeaker.text = speakerName;
                 target = enemyTextBox;
@@ -398,6 +371,7 @@ public class DialogPopup : MonoBehaviour
 
     // 스프라이트 Addressable로 비동기 로드
     public void LoadSprite(string address, Image targetImg) {
+
         // 현재 스프라이트와 같으면 교체하지 않음
         if (targetImg.sprite != null && targetImg.sprite.name == address) {
             return; 
@@ -423,6 +397,93 @@ public class DialogPopup : MonoBehaviour
                 targetImg.color = new Color(1, 1, 1, 0);
             }
         };
+    }
+
+    public void ShowIllust(Dictionary<int, DialogData> dialogDict, int curlogIdx)
+    {
+        // 일러스트
+        if (dialogDict[curlogIdx].emotion == -1)    // 일러스트 없을 경우
+        {
+            if (dialogDict[curlogIdx].speaker == Speaker.Player)
+            {
+                LeftIll.alpha = 0f;
+                otherIll.color = deactive;
+            }
+            else
+            {
+                RightIll.alpha = 0f;
+                playerIll.color = deactive;
+            }
+            return;   // 일러스트 없을 경우
+        }
+
+        switch (dialogDict[curlogIdx].speaker)
+        {
+            case Speaker.Player:
+                if (curLeftIdx != dialogDict[curlogIdx].emotion)
+                {
+                    curLeftIdx = dialogDict[curlogIdx].emotion; // cache
+                    var curAddress = (PlayerEmotion)dialogDict[curlogIdx].emotion;
+
+                    LoadSprite(dialogDict[curlogIdx].speaker.ToString() + "/" + curAddress.ToString()
+                                , playerIll);   // 폴더명(speaker) / 스프라이트이름(emotion)
+                }
+                LeftIll.alpha = 1f;
+                //playerIll.color = Color.white;
+                otherIll.color = deactive;
+                break;
+
+            case Speaker.Mom:
+                if (curRight != dialogDict[curlogIdx].speaker && curRightIdx != dialogDict[curlogIdx].emotion)
+                {
+                    curRight = Speaker.Mom; // cache
+                    var curAddress = (MomEmotion)dialogDict[curlogIdx].emotion;
+                    curRightIdx = dialogDict[curlogIdx].emotion; // cache
+
+                    LoadSprite(dialogDict[curlogIdx].speaker.ToString() + "/" + curAddress.ToString()
+                                , otherIll);
+                }
+                RightIll.alpha = 1f;
+                //otherIll.color = Color.white;
+                playerIll.color = deactive;
+                break;
+
+            case Speaker.Enemy:
+                if (curRight != dialogDict[curlogIdx].speaker && curRightIdx != dialogDict[curlogIdx].emotion)
+                {
+                    curRight = Speaker.Enemy;
+                    var curAddress = (EnemyEmotion)dialogDict[curlogIdx].emotion;
+                    curRightIdx = dialogDict[curlogIdx].emotion;
+
+                    LoadSprite(dialogDict[curlogIdx].speaker.ToString() + "/" + curAddress.ToString()
+                                , otherIll);
+                }
+                RightIll.alpha = 1f;
+                //otherIll.color = Color.white;
+                playerIll.color = deactive;
+                break;
+
+            case Speaker.Extra:
+                if (curRight != dialogDict[curlogIdx].speaker && curRightIdx != dialogDict[curlogIdx].emotion)
+                {
+                    curRight = Speaker.Extra;
+                    var curAddress = (ExtraEmotion)dialogDict[curlogIdx].emotion;
+                    curRightIdx = dialogDict[curlogIdx].emotion;
+
+                    LoadSprite(dialogDict[curlogIdx].speaker.ToString() + "/" + curAddress.ToString()
+                                , otherIll);
+                }
+                RightIll.alpha = 1f;
+                //otherIll.color = Color.white;
+                playerIll.color = deactive;
+                break;
+        }
+    }
+
+    public void LogInit() {
+        basicText.text = "";
+        monologueText.text = "";
+        enemyText.text = "";
     }
 
 }

@@ -5,7 +5,6 @@ public class SightCam : MonoBehaviour
 {
     [SerializeField] float mouseSensitivity = 1.5f;
     [SerializeField] Transform player;
-    [SerializeField] private Button btn;
 
     [SerializeField] private float minAngle;
     [SerializeField] private float maxAngle;
@@ -17,15 +16,6 @@ public class SightCam : MonoBehaviour
     private void Awake()
     {
         //transform.localPosition = new Vector3(0f, 1f, 0f);
-    }
-
-    private void OnEnable()
-    {
-        btn.onClick.AddListener(Toggle);
-    }
-    private void OnDisable()
-    {
-        btn.onClick.RemoveListener(Toggle);
     }
 
     private void Start()

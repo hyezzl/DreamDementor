@@ -11,3 +11,10 @@ public enum CameraType
 }
 
 
+public enum Textbox
+{ 
+    Basic,
+    Monologue,
+    Monster,
+}
+
