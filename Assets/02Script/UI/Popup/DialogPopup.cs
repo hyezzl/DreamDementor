@@ -160,6 +160,7 @@ public class DialogPopup : MonoBehaviour
             isTyping = true;
             standbyInput = false;
             isSkip = false;
+            ShowIllust(dialogDict, curlogIdx);
 
             // Textbox에 따른 분기 (대화창 / 폰트)
             if (dialogDict[curlogIdx].textbox == Textbox.Basic || dialogDict[curlogIdx].textbox == Textbox.Monologue)

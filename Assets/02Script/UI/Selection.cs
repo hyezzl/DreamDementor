@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Selection : MonoBehaviour
 {
@@ -20,6 +22,7 @@ public class Selection : MonoBehaviour
 
     // 선택
     private int focusIdx = 0;
+    private Tween focusTween;
 
 
     private void OnEnable()
@@ -109,17 +112,32 @@ public class Selection : MonoBehaviour
     private void SetFocus(int index) {
         if (buttons.Count == 0) return;
 
-        // 이전 포커스 박스 끄기
+        // 이전 포커스 박스 끄기 + 트윈 종료
         if (focusIdx >= 0 && focusIdx < buttons.Count)
         {
-            buttons[focusIdx].transform.Find("focusbox").GetComponent<Image>().enabled = false;
+            Transform preFocus = buttons[focusIdx].transform.Find("focusbox");
+            Image preFocusImg = preFocus.GetComponent<Image>();
+            preFocusImg.enabled = false;
+
+            if (focusTween != null && focusTween.IsActive()) {
+                focusTween.Kill(); // 트윈 종료
+            }
+            preFocus.localScale = Vector3.one; // 원상태
         }
 
         // 인덱스 값
         focusIdx = Mathf.Clamp(index, 0, buttons.Count - 1);
 
         // 현재 포커스 버튼 포커스 활성화
-        buttons[focusIdx].transform.Find("focusbox").GetComponent<Image>().enabled = true;
+        Transform focusBox = buttons[focusIdx].transform.Find("focusbox");
+        Image focusImg = focusBox.GetComponent<Image>();
+        focusImg.enabled = true;
+
+        // Scale Animated
+        focusBox.localScale = Vector3.one;
+        focusTween = focusBox.DOScale(1.05f, 1f)
+                                .SetLoops(6, LoopType.Yoyo)
+                                .SetEase(Ease.InOutSine);
 
         // 선택된 버튼에 포커스 설정
         buttons[focusIdx].GetComponent<UnityEngine.UI.Button>().Select();
@@ -141,5 +159,4 @@ public class Selection : MonoBehaviour
         curChoiceID = null;
         standbyInput = false;
     }
-
 }
