@@ -153,7 +153,7 @@ public class Selection : MonoBehaviour
         if (!standbyInput) return;
 
         Debug.Log($"{idx} 번 선택됨!!!!!!!!!!!!!!!!");
-        EventBus.Instance.Publish<GameEvents.MakeChoice>(new GameEvents.MakeChoice(curChoiceID, idx));
+        EventBus.Instance.Publish<UIEvents.MakeChoice>(new UIEvents.MakeChoice(curChoiceID, idx));
 
         // 버튼 비활성화
         foreach (var btn in buttons) {

@@ -47,12 +47,12 @@ public class TutorialEvent : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.PlayEvent>(PlayTutorial);
-        EventBus.Instance.Subscribe<GameEvents.MakeChoice>(EndChoice);
+        EventBus.Instance.Subscribe<UIEvents.MakeChoice>(EndChoice);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.PlayEvent>(PlayTutorial);
-        EventBus.Instance.Unsubscribe<GameEvents.MakeChoice>(EndChoice);
+        EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(EndChoice);
     }
 
     private void PlayTutorial(GameEvents.PlayEvent evt) {
@@ -146,7 +146,7 @@ public class TutorialEvent : MonoBehaviour
         //EventBus.Instance.Publish<GameEvents.EnemyStateChange>(new GameEvents.EnemyStateChange(EnemyState.Chase));
     }
 
-    public void EndChoice(GameEvents.MakeChoice evt) {
+    public void EndChoice(UIEvents.MakeChoice evt) {
 
         //if(evt.choiceID == ) 다음 이벤트 부터 처리
         if (evt.selectIdx == 0 || evt.selectIdx == 1) { 

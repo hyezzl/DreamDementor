@@ -51,16 +51,6 @@ public static class GameEvents
         }
     }
 
-    // 선택지 선택
-    public struct MakeChoice
-    {
-        public string choiceID;
-        public int selectIdx;
-        public MakeChoice(string choiceID, int selectIdx) { 
-            this.choiceID = choiceID;
-            this.selectIdx = selectIdx;
-        }
-    }
 
     // 시간멈춤 이벤트
     public struct StopTime

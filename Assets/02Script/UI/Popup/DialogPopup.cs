@@ -81,13 +81,13 @@ public class DialogPopup : MonoBehaviour
     {
         EventBus.Instance.Subscribe<UIEvents.OpenDialog>(OnOpenDialog);
         EventBus.Instance.Subscribe<UIEvents.InteractDialog>(OnInteract);
-        EventBus.Instance.Subscribe<GameEvents.MakeChoice>(EndChoice);
+        EventBus.Instance.Subscribe<UIEvents.MakeChoice>(EndChoice);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OpenDialog>(OnOpenDialog);
         EventBus.Instance.Unsubscribe<UIEvents.InteractDialog>(OnInteract);
-        EventBus.Instance.Unsubscribe<GameEvents.MakeChoice>(EndChoice);
+        EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(EndChoice);
     }
 
     private void Update()
@@ -355,7 +355,7 @@ public class DialogPopup : MonoBehaviour
     }
 
     // 선택지 선택 후
-    public void EndChoice(GameEvents.MakeChoice evt) {
+    public void EndChoice(UIEvents.MakeChoice evt) {
         DialogFade(basicTextBox, false);
         DialogFade(enemyTextBox, false);
 
