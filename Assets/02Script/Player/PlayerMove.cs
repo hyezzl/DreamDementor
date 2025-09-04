@@ -74,7 +74,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         cameraVertical = sightCam.localEulerAngles.x;
         if (cameraVertical > 180f)
             cameraVertical -= 360f;
-        Debug.Log($"π∫∞° ¿ÃªÛ«— cameraVertical : {cameraVertical}");
     }
 
     private void Update()
