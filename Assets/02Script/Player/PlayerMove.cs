@@ -2,6 +2,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
+
+/// <summary>
+/// 3인칭용 PlayerMove
+/// </summary>
 public class PlayerMove : MonoBehaviour, IMoveObject
 {
     [Header("Movement Parameter")]
@@ -9,13 +13,23 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     [SerializeField] private float runSpeed = 10f; // 달리기 속도
     [SerializeField] private LayerMask ground;
 
+    [Header("Mouse Settings")]
+    [SerializeField] private float mouseSensitivity = 1.5f;
+    [SerializeField] private float minAngle = -60f;
+    [SerializeField] private float maxAngle = 60f;
+
     [Header("Animator")]
     [SerializeField] private Animator anim;
+
+    [Header("Ref")]
+    [SerializeField] private Transform Player;
+    [SerializeField] private Transform sightCam;
 
     private PlayerController pc;
     private IInputHandler inputHandler;
     private CharacterController cc;
     private bool moveable = true;
+    private bool isThree = true;  // 3인칭 시점인지
 
     // 이동 변수
     public Vector3 moveDir = Vector3.zero;
@@ -26,6 +40,9 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private float gravity = -9.8f;
     private Vector3 verticalDir = Vector3.zero;   // 중력 벡터
     private Vector3 preDir = Vector3.back; // 전 프레임 이동벡터 (기본은 정면)
+
+    // 카메라(1인칭)
+    private float cameraVertical = 0f;
 
     // 누른 키 상태 저장용 변수
     private int horizontalPriority = 0; // -1:왼  1:오
@@ -52,27 +69,50 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         if (!TryGetComponent<PlayerController>(out pc)) {
             Debug.Log("PlayerMove - Failed to Load PlayerController");
         }
+
+        // 시야캠 초기화
+        cameraVertical = sightCam.localEulerAngles.x;
+        if (cameraVertical > 180f)
+            cameraVertical -= 360f;
+        Debug.Log($"뭔가 이상한 cameraVertical : {cameraVertical}");
     }
 
     private void Update()
     {
         //ApplyGravity();
-        if (moveable) {
+        if (moveable && isThree)
+        {
             Movement();
+        }
+        else if (moveable && !isThree) {
+            HandleMouse();
+            HandleMovement();
         }
 
     }
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(ModeChange);
+        EventBus.Instance.Subscribe<GameEvents.AspectChange>(OnAspectChange);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(ModeChange);
+        EventBus.Instance.Unsubscribe<GameEvents.AspectChange>(OnAspectChange);
     }
 
 
+    private void OnAspectChange(GameEvents.AspectChange evt) {
+        if (evt.mode == AspectMode.ThirdpersonMode)
+            isThree = true;
 
+        else
+            isThree = false;
+    }
+
+    /// <summary>
+    /// 3인칭 용
+    /// </summary>
     private void Movement()
     {
         InputPriority(); // 키 입력 우선순위 갱신
@@ -131,8 +171,50 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             anim.SetFloat("inputY", localInput.z);
             anim.SetBool("isWalk", isWalking);
         }
-
     }
+
+    /// <summary>
+    /// 1인칭 용
+    /// </summary>
+    private void HandleMouse()
+    {
+        float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        // Y값은 카메라에 적용
+        cameraVertical -= inputY;
+        cameraVertical = Mathf.Clamp(cameraVertical, minAngle, maxAngle);
+        sightCam.localEulerAngles = Vector3.right * cameraVertical;
+
+        // X값은 플레이어 자체 회전
+        Player.Rotate(Vector3.up * inputX);
+    }
+
+    private void HandleMovement()
+    {
+        // todo :: PlayerState분기
+
+        Vector2 inputDir = inputHandler.GetMovement().normalized;
+        Vector3 forward = sightCam.forward;
+        forward.y = 0f;
+        forward.Normalize();
+
+        Vector3 right = sightCam.right;
+        right.y = 0f;
+        right.Normalize();
+
+        Vector3 moveDir = forward * inputDir.y + right * inputDir.x;
+
+        bool isRunning = inputHandler.Run();
+        float speed = isRunning ? runSpeed : moveSpeed;
+
+        // todo :: 중력적용
+
+        cc.Move(moveDir * speed * Time.deltaTime);
+    }
+
+
+
 
     // 중력구현 
     private void ApplyGravity()

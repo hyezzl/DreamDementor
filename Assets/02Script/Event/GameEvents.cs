@@ -99,6 +99,14 @@ public static class GameEvents
         public SwitchScene(SceneType nextScene) { 
             this.nextScene = nextScene;
         }
+    }
 
+    // ÀÎÄª º¯°æ
+    public struct AspectChange
+    {
+        public AspectMode mode;
+        public AspectChange(AspectMode mode) { 
+            this.mode = mode;
+        }
     }
 }

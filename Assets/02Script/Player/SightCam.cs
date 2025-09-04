@@ -21,7 +21,6 @@ public class SightCam : MonoBehaviour
     private void Start()
     {
         //Cursor.lockState = CursorLockMode.Locked;
-        iscontrol = false;
     }
 
     private void Toggle() {
