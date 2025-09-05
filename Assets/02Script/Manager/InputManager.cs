@@ -26,7 +26,7 @@ public class InputManager : MonoBehaviour
         FindAnyObjectByType<PlayerMove>()?.SetInputHandler(inputHandler);
         //FindAnyObjectByType<Interact>()?.SetInputHandler(inputHandler);  
         //FindAnyObjectByType<PauseMode>()?.SetInputHandler(inputHandler);
-        //FindAnyObjectByType<PopupManager>()?.SetInputHandler(inputHandler);
+        FindAnyObjectByType<PopupManager>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<DialogPopup>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<PlayerMoveOne>()?.SetInputHandler(inputHandler);
     }
