@@ -19,9 +19,11 @@ public class InteractableEntity
     public int ItemID;
     public string ItemName;
     public string Type;
-    public string DeactiveMSG;
+    public string Monologue;
+    public string ActiveMSG;
     public string RejectMSG;
     public string PairID;
+    public int HNum;
 }
 
 [Serializable]
@@ -33,13 +35,13 @@ public class InspectableEntity
     public string Monologue;
 }
 
-[Serializable]
-public class ReadableEntity
-{
-    public int ItemID;
-    public string ItemName;
-    public string Type;
-    public string Monologue;
-    public string Narrative;
-    public string Reply;
-}
+//[Serializable]
+//public class ReadableEntity
+//{
+//    public int ItemID;
+//    public string ItemName;
+//    public string Type;
+//    public string Monologue;
+//    public string Narrative;
+//    public string Reply;
+//}

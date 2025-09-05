@@ -71,9 +71,11 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         }
 
         // 시야캠 초기화
-        cameraVertical = sightCam.localEulerAngles.x;
-        if (cameraVertical > 180f)
-            cameraVertical -= 360f;
+        if (!isThree) { 
+            cameraVertical = sightCam.localEulerAngles.x;
+            if (cameraVertical > 180f)
+                cameraVertical -= 360f;
+        }
     }
 
     private void Update()
@@ -103,10 +105,15 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
     private void OnAspectChange(GameEvents.AspectChange evt) {
         if (evt.mode == AspectMode.ThirdpersonMode)
+        {
             isThree = true;
+            pc.CurAspect = AspectMode.ThirdpersonMode;
+        }
 
-        else
+        else { 
             isThree = false;
+            pc.CurAspect = AspectMode.OnepersonMode;
+        }
     }
 
     /// <summary>

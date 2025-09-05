@@ -15,7 +15,7 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
     private Dictionary<int, PickableData> pickableDict = new();
     private Dictionary<int, InteractableData> interactableDict = new();
     private Dictionary<int, InspectableData> inspectableDict = new();
-    private Dictionary<int, ReadableData> readableDict = new();
+    //private Dictionary<int, ReadableData> readableDict = new();
 
     // 이벤트 정보 (하나의 이벤트에 속해있는 Text의 집합은 List형태로 정의)
     private Dictionary<string, EventData> eventDict = new();
@@ -49,17 +49,17 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
             pickableDict[item.ItemID] = data;
 
             //아이콘 비동기 로드 (아이콘 만들 때 까지 보류)
-            //Addressables.LoadAssetAsync<Sprite>(item.IconName).Completed += handle =>
-            //{
-            //    if (handle.Status == AsyncOperationStatus.Succeeded)
-            //    {
-            //        data.icon = handle.Result;
-            //    }
-            //    else
-            //    {
-            //        Debug.Log($"PickableItem ({item.ItemID} 아이콘 로드 실패)");
-            //    }
-            //};
+            Addressables.LoadAssetAsync<Sprite>(item.IconName).Completed += handle =>
+            {
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    data.icon = handle.Result;
+                }
+                else
+                {
+                    Debug.Log($"PickableItem ({item.ItemID} 아이콘 로드 실패)");
+                }
+            };
 
         }
 
@@ -71,9 +71,11 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                 itemID = item.ItemID,
                 itemName = item.ItemName,
                 type = ItemType.Interactable,
-                deactiveMSG = item.DeactiveMSG,
+                monologue = item.Monologue,
+                activeMSG = item.ActiveMSG,
                 rejectMSG = item.RejectMSG,
                 pairID = item.PairID,
+                hnum = item.HNum
             };
             interactableDict[item.ItemID] = data;
         }
@@ -92,19 +94,19 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
         }
 
         // 4. Readable
-        foreach (var item in SOobject.Readable)
-        {
-            ReadableData data = new ReadableData
-            {
-                itemID = item.ItemID,
-                itemName = item.ItemName,
-                type = ItemType.Readable,
-                monologue = item.Monologue,
-                narrative = item.Narrative,
-                reply = item.Reply,
-            };
-            readableDict[item.ItemID] = data;
-        }
+        //foreach (var item in SOobject.Readable)
+        //{
+        //    ReadableData data = new ReadableData
+        //    {
+        //        itemID = item.ItemID,
+        //        itemName = item.ItemName,
+        //        type = ItemType.Readable,
+        //        monologue = item.Monologue,
+        //        narrative = item.Narrative,
+        //        reply = item.Reply,
+        //    };
+        //    readableDict[item.ItemID] = data;
+        //}
 
         // 5. Event
         foreach (var evt in SOevent.Event) {
@@ -224,14 +226,14 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
     }
 
 
-    public ReadableData GetReadable(int itemID)
-    {
-        if (readableDict.TryGetValue(itemID, out var data))
-        {
-            return data;
-        }
-        return null;
-    }
+    //public ReadableData GetReadable(int itemID)
+    //{
+    //    if (readableDict.TryGetValue(itemID, out var data))
+    //    {
+    //        return data;
+    //    }
+    //    return null;
+    //}
 
     public EventData GetEventData(string eventID) {
         if (eventDict.TryGetValue(eventID, out var data)) {

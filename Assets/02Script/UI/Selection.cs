@@ -113,7 +113,7 @@ public class Selection : MonoBehaviour
 
         // clamp
         index = Mathf.Clamp(index, 0, buttons.Count - 1);
-        if (index == focusIdx) return;
+        if (index == focusIdx) return; // 끝에 도달했을 경우 focus함수 호출X
 
 
         // 이전 포커스 박스 끄기 + 트윈 종료
@@ -130,7 +130,6 @@ public class Selection : MonoBehaviour
         }
 
         // 인덱스 값
-        //focusIdx = Mathf.Clamp(index, 0, buttons.Count - 1);
         focusIdx = index;
 
         // 현재 포커스 버튼 포커스 활성화

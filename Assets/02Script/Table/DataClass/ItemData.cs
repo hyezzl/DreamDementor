@@ -16,9 +16,11 @@ public class InteractableData
     public int itemID;
     public string itemName;
     public ItemType type;
-    public string deactiveMSG;
+    public string monologue;
+    public string activeMSG;
     public string rejectMSG;
     public string pairID;
+    public int hnum;
 }
 
 public class InspectableData

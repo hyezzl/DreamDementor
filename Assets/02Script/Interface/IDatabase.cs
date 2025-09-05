@@ -8,7 +8,7 @@ public interface IDatabase
 
     InspectableData GetInspectable(int itemID);
 
-    ReadableData GetReadable(int itemID);
+    //ReadableData GetReadable(int itemID);
 
     EventData GetEventData(string eventID);
 
