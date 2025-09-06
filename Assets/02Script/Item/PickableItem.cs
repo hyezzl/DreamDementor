@@ -16,7 +16,7 @@ public class PickableItem : MonoBehaviour, IActionItem
 
     public void Interact()
     {
-        Debug.Log($"{data.itemName} : {data.description}");
+        Debug.Log($"Pickable - {data.itemName} : {data.description}");
         // 1.아이템 습득
 
         // 2. Reply Dialog // 시간

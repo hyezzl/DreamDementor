@@ -53,12 +53,10 @@ public class Interact : MonoBehaviour
 
 
     private void OnInteract() {
-        if (pc.CurMode == GameMode.InspectMode) { 
-            if (inputHandler.DoInteract())//&& BoxRaycast() != null) {
+        if (pc.CurMode == GameMode.InspectMode)
+            if (inputHandler.DoInteract() && SearchForward() != null) {
             {
-                //BoxRaycast().Interact(); // PickableItem.Interact();
-                if (SearchForward() != null) Debug.Log("아이템 감지!");
-                
+                SearchForward().Interact();
             }
         }
     }
