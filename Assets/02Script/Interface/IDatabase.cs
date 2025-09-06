@@ -4,6 +4,8 @@ public interface IDatabase
 {
     PickableData GetPickable(int itemID);
 
+    EatableData GetEatable(int itemID);
+
     InteractableData GetInteractable(int itemID);
 
     InspectableData GetInspectable(int itemID);

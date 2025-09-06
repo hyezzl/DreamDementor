@@ -40,6 +40,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private float gravity = -9.8f;
     private Vector3 verticalDir = Vector3.zero;   // 중력 벡터
     private Vector3 preDir = Vector3.back; // 전 프레임 이동벡터 (기본은 정면)
+    private Vector3 moveInput;
 
     // 카메라(1인칭)
     private float cameraVertical = 0f;
@@ -49,7 +50,10 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private int verticalPriority = 0;   // -1:아래  1:위
 
 
+    // 플레이어가 바라보는 방향
     public Vector3 LookingDir => lookingDir;
+    // 3인칭
+    public Vector3 LookingDirOnThree => preDir;     // 직전 프레임이 향하는 방향
 
     // 플레이어 애니메이션 연출위함
     public Vector3 PreDir {
@@ -123,13 +127,12 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     {
         InputPriority(); // 키 입력 우선순위 갱신
         Vector2 inputVec = new Vector2(horizontalPriority, verticalPriority);
-        Vector3 moveInput = new Vector3(inputVec.x, 0f, inputVec.y);
+        moveInput = new Vector3(inputVec.x, 0f, inputVec.y);
 
         // 입력값 받기
         //input = inputHandler.GetMovement();
         bool isRunning = inputHandler.Run();
         bool isWalking = inputVec.sqrMagnitude > 0.1f && !isRunning;
-        //Vector3 moveInput = new Vector3(input.x, 0f, input.y);
 
 
         if (pc.CurAspect == AspectMode.ThirdpersonMode) // 3인칭

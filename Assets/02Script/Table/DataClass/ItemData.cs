@@ -11,6 +11,18 @@ public class PickableData
     public string pairID;
 }
 
+public class EatableData
+{
+    public int itemID;
+    public string itemName;
+    public ItemType type;
+    public string description;
+    public string reply;
+    public Sprite icon;
+    public int mental;
+}
+
+
 public class InteractableData
 {
     public int itemID;

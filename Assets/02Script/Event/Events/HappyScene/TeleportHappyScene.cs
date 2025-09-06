@@ -46,8 +46,15 @@ public class TeleportHappyScene : MonoBehaviour
         EventBus.Instance.Unsubscribe<UIEvents.EndDialog>(OnEndDialog);
     }
 
+    private void Update()
+    {
+        // 임시
+        if (Input.GetKeyDown(KeyCode.Alpha0)) {
+            OnEndDialog(new UIEvents.EndDialog("E005"));
+        }
+    }
+
     private void PlayTeleport() {
-        Debug.Log("첫실행");
         StartCoroutine(PlayEvents());
 
         
@@ -65,7 +72,6 @@ public class TeleportHappyScene : MonoBehaviour
 
     private IEnumerator PlayEvents() {
         // 눈열리는 연출
-        Debug.Log("타임라인 재생");
         eyesOpen.Play();
         yield return new WaitUntil(() => eyesOpen.state != PlayState.Playing);
 
@@ -73,17 +79,14 @@ public class TeleportHappyScene : MonoBehaviour
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(eventID));
 
         // 대화모드
-        pc.CurMode = GameMode.DialogMode;
-        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
-
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
     }
 
     private void OnEndDialog(UIEvents.EndDialog evt) {
         if (evt.eventID == this.eventID) {
             // 대화가 끝났을 때 게임모드 변경
-            pc.CurMode = GameMode.InspectMode;
-            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+            //pc.CurMode = GameMode.InspectMode;
+            //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
 
             // 카메라 고정
             EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.PlayerFixCam, 1));

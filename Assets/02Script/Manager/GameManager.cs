@@ -34,14 +34,14 @@ public class GameManager : Singleton<GameManager>
     /// °íÄ¡±â
     private void OnEnable()
     {
-        EventBus.Instance.Subscribe<GameEvents.GameModeChange>(OnModeChange);
+        //EventBus.Instance.Subscribe<GameEvents.GameModeChange>(OnModeChange);
         EventBus.Instance.Subscribe<GameEvents.StopTime>(OnStop);
         EventBus.Instance.Subscribe<GameEvents.FlowTime>(OnFlow);
     }
 
     private void OnDisable()
     {
-        EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(OnModeChange);
+        //EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(OnModeChange);
         EventBus.Instance.Unsubscribe<GameEvents.StopTime>(OnStop);
         EventBus.Instance.Unsubscribe<GameEvents.FlowTime>(OnFlow);
     }

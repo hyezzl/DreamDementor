@@ -12,20 +12,20 @@ public class HappyCameraManager : CameraManager
     protected override void Awake()
     {
         base.Awake();
-        if (PlayerController.Instance != null)
-        {
-            GameObject player = PlayerController.Instance.gameObject;
-            CinemachineVirtualCamera[] cameras = player.GetComponentsInChildren<CinemachineVirtualCamera>();
+        //if (PlayerController.Instance != null)
+        //{
+        //    GameObject player = PlayerController.Instance.gameObject;
+        //    CinemachineVirtualCamera[] cameras = player.GetComponentsInChildren<CinemachineVirtualCamera>();
 
-            if (cameras.Length > 0)
-            {
-                fixCam = cameras[0];
-            }
-        }
-        else
-        {
-            Debug.LogWarning("PlayerController.Instance is null!");
-        }
+        //    if (cameras.Length > 0)
+        //    {
+        //        fixCam = cameras[0];
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("PlayerController.Instance is null!");
+        //}
 
         cams = new List<CinemachineVirtualCamera> { fixCam, eyeeffect };
 

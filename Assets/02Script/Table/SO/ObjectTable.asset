@@ -20,7 +20,7 @@ MonoBehaviour:
       \uBCF4\uC774\uB294 \uCD08\uCF5C\uB9BF.\n\uC720\uD1B5\uAE30\uD55C\uC774....\uC5B8\uC81C
       \uAE4C\uC9C0\uC9C0?"
     Reply: "\uB354\uB7EC\uC6B4 \uCD08\uCF5C\uB9BF\uC744 \uC8FC\uC6E0\uB2E4."
-    IconName: Icon_1
+    IconName: Icon_P1
     PairID: 
   - ItemID: 10001002
     ItemName: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0 \uC190\uC7A1\uC774"
@@ -29,7 +29,7 @@ MonoBehaviour:
       \uAC00\uC9C8 \uC54A\uB294\uB2E4.\n\uC544\uAE4C \uBD24\uB358 \uBB38\uC758 \uC5F4\uC1E0\uC778\uAC00?"
     Reply: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0\uC758 \uC190\uC7A1\uC774\uB97C
       \uC8FC\uC6E0\uB2E4."
-    IconName: Icon_2
+    IconName: Icon_P2
     PairID: P001
   - ItemID: 10001003
     ItemName: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0 \uC911\uAC04\uBD80\uBD84"
@@ -38,7 +38,7 @@ MonoBehaviour:
       \uAC00\uC9C8 \uC54A\uB294\uB2E4.\n\uC544\uAE4C \uBD24\uB358 \uBB38\uC758 \uC5F4\uC1E0\uC778\uAC00?"
     Reply: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0\uC758 \uC911\uAC04 \uBD80\uBD84\uC744
       \uC8FC\uC6E0\uB2E4."
-    IconName: Icon_3
+    IconName: Icon_P3
     PairID: P001
   - ItemID: 10001004
     ItemName: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0 \uC911\uAC04\uBD80\uBD84"
@@ -47,7 +47,7 @@ MonoBehaviour:
       \uAC00\uC9C8 \uC54A\uB294\uB2E4.\n\uC544\uAE4C \uBD24\uB358 \uBB38\uC758 \uC5F4\uC1E0\uC778\uAC00?"
     Reply: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0\uC758 \uC911\uAC04 \uBD80\uBD84\uC744
       \uC8FC\uC6E0\uB2E4."
-    IconName: Icon_4
+    IconName: Icon_P4
     PairID: P001
   - ItemID: 10001005
     ItemName: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0 \uB05D\uBD80\uBD84"
@@ -56,17 +56,35 @@ MonoBehaviour:
       \uAC00\uC9C8 \uC54A\uB294\uB2E4.\n\uC544\uAE4C \uBD24\uB358 \uBB38\uC758 \uC5F4\uC1E0\uC778\uAC00?"
     Reply: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0\uC758 \uB05D\uBD80\uBD84\uC744
       \uC8FC\uC6E0\uB2E4."
-    IconName: Icon_5
+    IconName: Icon_P5
     PairID: P001
   - ItemID: 10001006
     ItemName: "\uD558\uC580 \uC2E4"
     Type: Pickable
     Description: "\uC774\uAC74... \uC5B4\uB514\uC5D0 \uC4F0\uB294\uAC70\uC9C0?"
     Reply: "\uD558\uC580\uC0C9\uC758 \uC2E4\uC744 \uC8FC\uC6E0\uB2E4."
-    IconName: Icon_6
+    IconName: Icon_P6
     PairID: P002
-  Interactable:
+  Eatable:
   - ItemID: 20001001
+    ItemName: "\uC624\uB798\uB41C \uCD08\uCF5C\uB9BF"
+    Type: Eatable
+    Description: "\uBC14\uB2E5\uC5D0 \uB5A8\uC5B4\uC838 \uC788\uB358 \uC624\uB798\uB3FC
+      \uBCF4\uC774\uB294 \uCD08\uCF5C\uB9BF.\n\uC720\uD1B5\uAE30\uD55C\uC774....\uC5B8\uC81C
+      \uAE4C\uC9C0\uC9C0?"
+    Reply: "\uB354\uB7EC\uC6B4 \uCD08\uCF5C\uB9BF\uC744 \uC8FC\uC6E0\uB2E4."
+    IconName: Icon_E1
+    Mental: -10
+  - ItemID: 20001002
+    ItemName: "\uD64D\uC0BC \uCE94\uB514"
+    Type: Eatable
+    Description: "\uD64D\uC0BC \uB18D\uCD95\uC561 25%\uAC00 \uD568\uC720\uB41C \uACE0\uAE09\uC2A4\uB7EC\uC6B4
+      \uCE94\uB514.\n\uC5C4\uCCAD \uC4F8\uAC70\uAC19\uB2E4."
+    Reply: "\uD64D\uC0BC \uCE94\uB514\uB97C \uC8FC\uC6E0\uB2E4."
+    IconName: Icon_E2
+    Mental: 10
+  Interactable:
+  - ItemID: 30001001
     ItemName: "\uC624\uB798\uB3FC \uBCF4\uC774\uB294 \uB098\uBB34 \uBB38"
     Type: Interactable
     Monologue: "<color=green>\uC5F4\uC1E0\uAC00 \uC788\uC5B4\uC57C \uC5F4 \uC218
@@ -76,7 +94,7 @@ MonoBehaviour:
     RejectMSG: "\uC548\uC5F4\uB798\uC694"
     PairID: P001
     HNum: 4
-  - ItemID: 20001002
+  - ItemID: 30001002
     ItemName: "\uB0A0\uCE74\uB85C\uC6B4 \uBC14\uB298"
     Type: Interactable
     Monologue: "\uB0A0\uCE74\uB85C\uC6B4 \uBC14\uB298\uC774\uB2E4.\n<i>\uBC14\uB298\uAD6C\uBA4D\uC774
@@ -86,29 +104,29 @@ MonoBehaviour:
     PairID: P002
     HNum: 1
   Inspectable:
-  - ItemID: 30001001
+  - ItemID: 40001001
     ItemName: "\uB364\uBD88"
     Type: Inspectable
     Monologue: "\uAE54\uB054\uD558\uAC8C \uC815\uB3C8\uB41C<color=blue>\uB364\uBD88</color>\uB2E4.\n<i>\uC5B4,
       \uC790\uC138\uD788 \uBCF4\uB2C8......</i>\n<b>\uC560\uBC8C\uB808</b>\uAC00
       \uAE30\uC5B4\uB2E4\uB2C8\uACE0 \uC788\uB2E4."
-  - ItemID: 30001002
+  - ItemID: 40001002
     ItemName: "\uCEE4\uB2E4\uB780 \uB098\uBB34"
     Type: Inspectable
     Monologue: "\uC62C\uB824\uB2E4\uBCF4\uAE30 \uD798\uB4E4 \uC815\uB3C4\uB85C <b>\uCEE4\uB2E4\uB780
       \uB098\uBB34</b>\uB2E4.\n\uC5BC\uB9C8\uB098 \uC624\uB798 \uC0B0 \uAC78\uAE4C?"
-  - ItemID: 30001003
+  - ItemID: 40001003
     ItemName: "\uBC9A\uAF43 \uB098\uBB34"
     Type: Inspectable
     Monologue: "\uD551\uD06C\uBE5B \uAF43\uC744 \uC544\uB984\uB2F5\uAC8C \uD53C\uC6B4<b>\uBC9A\uAF43
       \uB098\uBB34</b>\uB2E4.\n<i>\uC5B4, \uADF8\uB7EC\uACE0\uBCF4\uB2C8...</i>\n\uC9C0\uAE08\uC774
       \uBD04\uC774\uB358\uAC00..?"
-  - ItemID: 30001004
+  - ItemID: 40001004
     ItemName: "\uBD84\uC218\uB300"
     Type: Inspectable
     Monologue: "\uC544\uB984\uB2F5\uAC8C \uC870\uD615\uB418\uC5B4 \uB208\uC774 \uBD80\uC2DC\uB294<b>\uBD84\uC218\uB300</b>\uB2E4.\n\uBCF4\uB294
       \uAC83\uB9CC\uC73C\uB85C\uB3C4 \uC2DC\uC6D0\uD55C \uB290\uB08C\uC774\uB2E4."
-  - ItemID: 30001005
+  - ItemID: 40001005
     ItemName: "\uACF5\uC911\uC5D0 \uB5A0\uC788\uB294 \uD48D\uC120"
     Type: Inspectable
     Monologue: "\uC5B4\uB9B0\uC2DC\uC808 \uC190\uC5D0 \uC950\uACE0\uC788\uB358 \uD48D\uC120\uC778

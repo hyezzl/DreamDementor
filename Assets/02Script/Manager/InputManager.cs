@@ -24,7 +24,7 @@ public class InputManager : MonoBehaviour
     // 외부에 입력 넘겨주기
     private void SendInputVal() {
         FindAnyObjectByType<PlayerMove>()?.SetInputHandler(inputHandler);
-        //FindAnyObjectByType<Interact>()?.SetInputHandler(inputHandler);  
+        FindAnyObjectByType<Interact>()?.SetInputHandler(inputHandler);  
         //FindAnyObjectByType<PauseMode>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<PopupManager>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<DialogPopup>()?.SetInputHandler(inputHandler);

@@ -262,8 +262,6 @@ public class DialogPopup : MonoBehaviour
 
         // 대화끝 이벤트 (대화이벤트 ID 전달)
         EventBus.Instance.Publish<UIEvents.EndDialog>(new UIEvents.EndDialog(curEventID));
-        Debug.Log($"curEventID : {curEventID} 전달");
-        Debug.Log("무사히 대화패널이 종료됨");
     }
 
 

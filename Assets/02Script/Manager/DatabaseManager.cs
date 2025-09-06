@@ -13,6 +13,7 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
 
     // 게임에 존재하는 모든 아이템 정보 Dictionary로 관리
     private Dictionary<int, PickableData> pickableDict = new();
+    private Dictionary<int, EatableData> eatableDict = new();
     private Dictionary<int, InteractableData> interactableDict = new();
     private Dictionary<int, InspectableData> inspectableDict = new();
     //private Dictionary<int, ReadableData> readableDict = new();
@@ -48,7 +49,7 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
             };
             pickableDict[item.ItemID] = data;
 
-            //아이콘 비동기 로드 (아이콘 만들 때 까지 보류)
+            //아이콘 비동기 로드
             Addressables.LoadAssetAsync<Sprite>(item.IconName).Completed += handle =>
             {
                 if (handle.Status == AsyncOperationStatus.Succeeded)
@@ -63,7 +64,36 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
 
         }
 
-        // 2. Interactable
+        // 2 . Eatable
+        foreach (var item in SOobject.Eatable) {
+            EatableData data = new EatableData
+            {
+                itemID = item.ItemID,
+                itemName = item.ItemName,
+                type = ItemType.Eatable,
+                description = item.Description,
+                reply = item.Reply,
+                icon = null,
+                mental = item.Mental,
+            };
+            eatableDict[item.ItemID] = data;
+
+            //아이콘 비동기 로드
+            Addressables.LoadAssetAsync<Sprite>(item.IconName).Completed += handle =>
+            {
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    data.icon = handle.Result;
+                }
+                else
+                {
+                    Debug.Log($"EatableItem ({item.ItemID} 아이콘 로드 실패)");
+                }
+            };
+        }
+
+
+        // 3. Interactable
         foreach (var item in SOobject.Interactable)
         {
             InteractableData data = new InteractableData
@@ -80,7 +110,7 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
             interactableDict[item.ItemID] = data;
         }
 
-        // 3. Inspectable
+        // 4. Inspectable
         foreach (var item in SOobject.Inspectable)
         {
             InspectableData data = new InspectableData
@@ -206,6 +236,14 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
         }
         return null;
     }
+
+    public EatableData GetEatable(int itemID) {
+        if (eatableDict.TryGetValue(itemID, out var data)) {
+            return data;
+        }
+        return null;
+    }
+
 
     public InteractableData GetInteractable(int itemID)
     {

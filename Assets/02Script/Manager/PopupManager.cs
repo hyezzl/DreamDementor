@@ -41,6 +41,9 @@ public class PopupManager : MonoBehaviour
 
     private void Awake()
     {
+        // 초기설정
+        background.gameObject.SetActive(false);
+
         if (!TryGetComponent<Animator>(out anim)) Debug.Log("PopupManager - Failed to Load Animator");
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("PopupManager - Failed to Load PlayerController");

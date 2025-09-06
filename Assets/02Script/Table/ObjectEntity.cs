@@ -14,6 +14,18 @@ public class PickableEntity
 }
 
 [Serializable]
+public class EatableEntity
+{ 
+    public int ItemID;
+    public string ItemName;
+    public string Type;
+    public string Description;
+    public string Reply;
+    public string IconName;
+    public int Mental;
+}
+
+[Serializable]
 public class InteractableEntity
 {
     public int ItemID;
