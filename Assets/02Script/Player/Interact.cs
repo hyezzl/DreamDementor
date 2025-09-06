@@ -91,7 +91,7 @@ public class Interact : MonoBehaviour
         return null;
     }
 
-    // "씬뷰 용" 박스캐스트 시각화
+    // "씬뷰용" 박스캐스트 시각화
     private void OnDrawGizmosSelected()
     {
         if (player == null) return;

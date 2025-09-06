@@ -15,17 +15,6 @@ public static class UIEvents
         }
     }
 
-    public struct InteractDialog
-    {
-        public IActionItem item;
-
-        public InteractDialog(IActionItem item)
-        {
-            this.item = item;
-        }
-
-    }
-
     // 선택지 발생
     public struct OccurSelection
     {
@@ -72,6 +61,18 @@ public static class UIEvents
         public string eventID;
         public EndDialog(string eventID) {
             this.eventID = eventID;
+        }
+    }
+
+
+    // 모놀로그 대화창
+    public struct OpenMonologue
+    {
+        public int itemID;
+        public string text;
+        public OpenMonologue(int itemID, string text) {
+            this.text = text;
+            this.itemID = itemID;
         }
     }
 }

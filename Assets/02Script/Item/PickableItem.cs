@@ -7,6 +7,7 @@ public class PickableItem : MonoBehaviour, IActionItem
     private IDatabase database;
 
     public int GetItemID() => itemID;
+    public ItemType GetItemType() => data.type;
 
     public void Init(IDatabase db) {
         database = db;
@@ -17,9 +18,9 @@ public class PickableItem : MonoBehaviour, IActionItem
     public void Interact()
     {
         Debug.Log($"Pickable - {data.itemName} : {data.description}");
-        // 1.아이템 습득
+        // 1. 아이템 습득
 
-        // 2. Reply Dialog // 시간
-
+        // 2. Reply Dialog
+        EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(itemID, data.reply));
     }
 }

@@ -17,6 +17,7 @@ public class TeleportHappyScene : MonoBehaviour
     [SerializeField] private string eventID = "E005";
 
     [SerializeField] private CinemachineVirtualCamera eyecam;
+    [SerializeField] private Canvas eyeCanvas;
 
     private IDatabase database;
     private Dictionary<int, DialogData> dialogs;
@@ -34,6 +35,7 @@ public class TeleportHappyScene : MonoBehaviour
         dialogs = database.GetDialog(eventID);
         if (dialogs == null) Debug.Log("TeleportHappyScene - Failed to Load NarrationData");
 
+        eyeCanvas.gameObject.SetActive(true);
         PlayTeleport();
     }
 

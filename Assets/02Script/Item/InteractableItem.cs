@@ -7,6 +7,7 @@ public class InteractableItem : MonoBehaviour, IActionItem
     private IDatabase database;
 
     public int GetItemID() => itemID;
+    public ItemType GetItemType() => data.type;
 
     public void Init(IDatabase db)
     {
@@ -17,6 +18,6 @@ public class InteractableItem : MonoBehaviour, IActionItem
 
     public void Interact()
     {
-        //Debug.Log($"{data.itemName} : {data.deactiveMSG}");
+        Debug.Log($"{data.itemName} : {data.activeMSG}");
     }
 }

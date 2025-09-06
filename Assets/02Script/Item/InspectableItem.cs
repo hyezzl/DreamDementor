@@ -8,6 +8,8 @@ public class InspectableItem : MonoBehaviour, IActionItem
 
 
     public int GetItemID() => itemID;
+    public ItemType GetItemType() => data.type;
+
 
     public void Init(IDatabase db)
     {
@@ -18,6 +20,8 @@ public class InspectableItem : MonoBehaviour, IActionItem
 
     public void Interact()
     {
-        Debug.Log($"{data.itemName} : {data.monologue}");
+        // Monologue Ãâ·Â
+        EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(itemID, data.monologue));
     }
+    
 }

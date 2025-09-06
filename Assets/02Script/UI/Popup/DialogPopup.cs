@@ -8,7 +8,6 @@ using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Sequence = DG.Tweening.Sequence;
-using Unity.VisualScripting;
 
 public class DialogPopup : MonoBehaviour
 {
@@ -44,7 +43,6 @@ public class DialogPopup : MonoBehaviour
     private IInputHandler inputHandler;
     private TextMeshProUGUI textarea;  // 사용할 텍스트박스
     private CanvasGroup curTextbox;
-    //private Image targetImg;  // 변경할 이미지
     private int curPanelIndex = -1;  // 현재 적용되어있는 대화창 UI
 
     // 대화창 스페이스 연타 시 오류
@@ -80,13 +78,11 @@ public class DialogPopup : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<UIEvents.OpenDialog>(OnOpenDialog);
-        EventBus.Instance.Subscribe<UIEvents.InteractDialog>(OnInteract);
         EventBus.Instance.Subscribe<UIEvents.MakeChoice>(EndChoice);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OpenDialog>(OnOpenDialog);
-        EventBus.Instance.Unsubscribe<UIEvents.InteractDialog>(OnInteract);
         EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(EndChoice);
     }
 
@@ -129,20 +125,6 @@ public class DialogPopup : MonoBehaviour
         // 타이핑
         StartCoroutine(TypeDialog(evt.texts));
     }
-
-
-    /// <summary>
-    /// 아이템 상호작용 시 대화창
-    /// </summary>
-    private void OnInteract(UIEvents.InteractDialog evt) {
-        preMode = pc.CurMode; // 캐싱
-
-        // 모드 변경
-        pc.CurMode = GameMode.DialogMode;
-        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
-
-    }
-
 
 
     private IEnumerator TypeDialog(Dictionary<int, DialogData> dialogDict) {
