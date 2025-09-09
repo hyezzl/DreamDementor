@@ -75,4 +75,14 @@ public static class UIEvents
             this.itemID = itemID;
         }
     }
+
+
+    // 아이템 슬롯 클릭
+    public struct SlotClicked
+    {
+        public ItemInstance item;
+        public SlotClicked(ItemInstance item) { 
+            this.item = item;
+        }
+    }
 }
