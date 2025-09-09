@@ -17,7 +17,7 @@ public class PlayerMoveOne : MonoBehaviour
 
     [SerializeField] Transform player;
 
-
+    private PlayerController pc;
     private CharacterController cc;
     private IInputHandler inputHandler;
     private float cameraVertical = 0f;
@@ -29,6 +29,9 @@ public class PlayerMoveOne : MonoBehaviour
     private void Awake()
     {
         if (!TryGetComponent<CharacterController>(out cc)) Debug.Log("PlayerMoveOne - Failed to Load CharacterController");
+        
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null) Debug.Log("PlayerMoveOne - Failed to Load PlayerController");
     }
 
     private void OnEnable()

@@ -34,7 +34,7 @@ public class Interact : MonoBehaviour
 
     private void Awake()
     {
-        pc = GetComponent<PlayerController>();
+        pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("Interact - Failed to Load PlayerController");
 
         if (!TryGetComponent<PlayerMove>(out pm)) {

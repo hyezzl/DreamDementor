@@ -48,7 +48,7 @@ public class CameraManager : MonoBehaviour
 
     
 
-    protected void SelectCam(CinemachineVirtualCamera onCam, float blend)
+    protected void SelectCam(CinemachineVirtualCamera onCam, float blend = 1)
     {
         //blend Á¶Àý
         brain.m_DefaultBlend.m_Time = blend;

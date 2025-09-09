@@ -70,9 +70,8 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         {
             Debug.Log("PlayerMove - Failed to Load CharacterController");
         }
-        if (!TryGetComponent<PlayerController>(out pc)) {
-            Debug.Log("PlayerMove - Failed to Load PlayerController");
-        }
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null) Debug.Log("PlayerMove - Failed to Load PlayerController");
 
         // 시야캠 초기화
         if (!isThree) { 

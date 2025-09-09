@@ -16,8 +16,8 @@ public class GameOver : MonoBehaviour
     {
         if (!TryGetComponent<CharacterController>(out cc))
             Debug.Log("GameOver - Failed to Load CharacterController");
-        if (!TryGetComponent<PlayerController>(out pc))
-            Debug.Log("GameOver - Failed to Load PlayerController");
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null) Debug.Log("GameOver - Failed to Load PlayerController");
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
