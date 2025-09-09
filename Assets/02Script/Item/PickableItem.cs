@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PickableItem : MonoBehaviour, IActionItem
@@ -19,8 +21,19 @@ public class PickableItem : MonoBehaviour, IActionItem
     {
         Debug.Log($"Pickable - {data.itemName} : {data.description}");
         // 1. æ∆¿Ã≈€ Ω¿µÊ
+        Pickup();
 
         // 2. Reply Dialog
         EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(itemID, data.reply));
+    }
+
+    public void Pickup() {
+        EventBus.Instance.Publish<GameEvents.GetItem>(new GameEvents.GetItem(this));
+        StartCoroutine(SafeDestroy());
+    }
+
+    IEnumerator SafeDestroy() { 
+        yield return null;
+        Destroy(gameObject);
     }
 }

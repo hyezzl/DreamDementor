@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EatableItem : MonoBehaviour, IActionItem
@@ -21,8 +20,21 @@ public class EatableItem : MonoBehaviour, IActionItem
     {
         Debug.Log($"Eatable -  {data.itemName} : {data.description}");
         // 1. 아이템 주움
+        Pickup();
 
         // 2. Reply 재생
         EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(itemID, data.reply));
+    }
+
+    public void Pickup()
+    {
+        EventBus.Instance.Publish<GameEvents.GetItem>(new GameEvents.GetItem(this));
+        StartCoroutine(SafeDestroy());
+    }
+
+    IEnumerator SafeDestroy()
+    {
+        yield return null;
+        Destroy(gameObject);
     }
 }

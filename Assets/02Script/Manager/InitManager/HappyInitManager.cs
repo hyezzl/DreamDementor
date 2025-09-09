@@ -14,7 +14,7 @@ public class HappyInitManager : InitManager
         // Happy Scene
         // 강제 이동 후 즉발
         if (teleport != null) {
-            teleport.Init(db);
+            teleport?.Init(db);
         }
         
     }

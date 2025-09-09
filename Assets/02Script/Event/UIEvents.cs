@@ -81,8 +81,14 @@ public static class UIEvents
     public struct SlotClicked
     {
         public ItemInstance item;
-        public SlotClicked(ItemInstance item) { 
+        public InventorySlot slot;
+        public SlotClicked(ItemInstance item, InventorySlot slot) { 
             this.item = item;
+            this.slot = slot;
         }
     }
+
+
+    // 인벤토리 새로고침
+    public struct InventoryChanged { }
 }

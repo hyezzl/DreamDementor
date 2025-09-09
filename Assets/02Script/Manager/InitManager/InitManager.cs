@@ -8,7 +8,11 @@ using UnityEngine;
 public class InitManager : MonoBehaviour
 {
     protected DatabaseManager db;
+
+    // 인벤토리
     protected InventoryManager invenManager;
+    protected InventoryDescription invenDesc;
+    protected InventorySlot invenSlot;
 
     protected virtual void Start()
     {
@@ -28,7 +32,15 @@ public class InitManager : MonoBehaviour
             }
         }
 
+        invenDesc = FindAnyObjectByType<InventoryDescription>();
+        if (invenDesc == null) Debug.Log("InitManager - Failed to Load InvenDescription");
+
+        invenSlot = FindAnyObjectByType<InventorySlot>();
+        if (invenSlot == null) Debug.Log("InitManager - Failed to Load InvenSlot");
+
         // 인벤토리 Init
-        invenManager.Init(db);
+        invenManager?.Init(db);
+        invenDesc?.Init(db);
+        invenSlot?.Init(db);
     }
 }

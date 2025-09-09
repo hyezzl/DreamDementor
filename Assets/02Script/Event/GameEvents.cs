@@ -99,4 +99,14 @@ public static class GameEvents
             this.mode = mode;
         }
     }
+
+
+    // æ∆¿Ã≈€ Ω¿µÊ
+    public struct GetItem
+    {
+        public IActionItem item;
+        public GetItem(IActionItem item) {
+            this.item = item;
+        }
+    }
 }

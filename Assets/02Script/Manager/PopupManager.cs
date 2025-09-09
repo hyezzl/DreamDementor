@@ -91,6 +91,7 @@ public class PopupManager : MonoBehaviour
     // 팝업 열리는 애니메이션
     private IEnumerator OpenPopupUI() {
         isAnimating = true;
+        popup.gameObject.SetActive(true);
 
         anim.SetTrigger("OpenPopup");
         yield return new WaitForSeconds(openAnim.length);
