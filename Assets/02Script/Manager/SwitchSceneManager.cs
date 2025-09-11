@@ -37,15 +37,15 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
 
     // 씬 로드 시 플레이어 위치 지정
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if (curScene == SceneType.HappyScene) { 
-            player.transform.position = happyStartPos;
-            playerAnim.Rebind();
-            playerAnim.SetFloat("lookX", 0f);
-            playerAnim.SetFloat("lookY", -1f);
+        //if (curScene == SceneType.HappyScene) { 
+        //    player.transform.position = happyStartPos;
+        //    playerAnim.Rebind();
+        //    playerAnim.SetFloat("lookX", 0f);
+        //    playerAnim.SetFloat("lookY", -1f);
 
-            PlayerMove pm = player.GetComponent<PlayerMove>();
-            pm.PreDir = Vector3.back;
-        }
+        //    PlayerMove pm = player.GetComponent<PlayerMove>();
+        //    pm.PreDir = Vector3.back;
+        //}
     }
 
     //private IEnumerator SetAnimate() {
