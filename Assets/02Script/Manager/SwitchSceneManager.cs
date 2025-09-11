@@ -8,10 +8,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SwitchSceneManager : Singleton<SwitchSceneManager>
 {
-    [Header("DonDestroy Ref")]
-    [SerializeField] private GameObject player;
-    [SerializeField] private Animator playerAnim;
- 
     private SceneType curScene;   // ÇöÀç¾À
 
     // ÀÓ½Ã
@@ -48,13 +44,4 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         //}
     }
 
-    //private IEnumerator SetAnimate() {
-    //    yield return null;
-
-    //    playerAnim.SetFloat("lookX", 0f);
-    //    playerAnim.SetFloat("lookY", -1f);
-
-    //    PlayerMove pm = player.GetComponent<PlayerMove>();
-    //    pm.PreDir = Vector3.back;
-    //}
 }

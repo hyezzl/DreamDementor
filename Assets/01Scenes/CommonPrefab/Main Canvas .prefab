@@ -3957,6 +3957,7 @@ GameObject:
   - component: {fileID: 3967161250780053387}
   - component: {fileID: 5240264505690099739}
   - component: {fileID: 791896775724242297}
+  - component: {fileID: 5070432416354922781}
   m_Layer: 5
   m_Name: Popup
   m_TagString: Untagged
@@ -4079,6 +4080,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exitBTN: {fileID: 3090286974975142044}
   backBTN: {fileID: 8735496047640410549}
+--- !u!225 &5070432416354922781
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2736795488446341184}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2768993547765856716
 GameObject:
   m_ObjectHideFlags: 0
@@ -8247,6 +8260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6040107647365883576}
   - component: {fileID: 6958709526146061076}
+  - component: {fileID: 5233543237244586608}
   m_Layer: 5
   m_Name: HorizonPhone
   m_TagString: Untagged
@@ -8283,6 +8297,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5241568227008624958}
   m_CullTransparentMesh: 1
+--- !u!225 &5233543237244586608
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5241568227008624958}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5275692730987383118
 GameObject:
   m_ObjectHideFlags: 0
@@ -8924,7 +8950,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 449, y: 138}
-  m_SizeDelta: {x: 60, y: 60}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4095841961046266726
 CanvasRenderer:
@@ -12628,7 +12654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7317489436382574329
 RectTransform:
   m_ObjectHideFlags: 0

@@ -87,8 +87,8 @@ public class TeleportHappyScene : MonoBehaviour
     private void OnEndDialog(UIEvents.EndDialog evt) {
         if (evt.eventID == this.eventID) {
             // 대화가 끝났을 때 게임모드 변경
-            //pc.CurMode = GameMode.InspectMode;
-            //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+            pc.CurMode = GameMode.InspectMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
 
             // 카메라 고정
             EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.PlayerFixCam, 1));

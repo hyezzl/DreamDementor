@@ -68067,8 +68067,8 @@ MonoBehaviour:
   minAngle: -60
   maxAngle: 60
   anim: {fileID: 5191428394091071734}
-  Player: {fileID: 0}
-  sightCam: {fileID: 0}
+  Player: {fileID: 1142784332481645871}
+  sightCam: {fileID: 689357664469387844}
   moveDir: {x: 0, y: 0, z: 0}
 --- !u!1 &1873341108830833990
 GameObject:
