@@ -1,7 +1,3 @@
-
-
-
-using UnityEditor;
 using UnityEngine;
 
 public enum EnemyState
@@ -13,21 +9,28 @@ public enum EnemyState
     Masked, // 엄마로 분장 중
 }
 
+/// <summary>
+/// 적의 상태 관리
+/// </summary>
 public class EnemyController : MonoBehaviour
 {
-    public EnemyState EnemyState { get; set; } = EnemyState.Stop;
+    private EnemyState curState;
+    public EnemyState CurEnemyState => curState;
 
     private void OnEnable()
     {
-        //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(DeactiveEnemy);
+        EventBus.Instance.Subscribe<GameEvents.EnemyStateChange>(OnChangeEnemyState);
     }
     private void OnDisable()
     {
-        //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(DeactiveEnemy);
+        EventBus.Instance.Unsubscribe<GameEvents.EnemyStateChange>(OnChangeEnemyState);
     }
 
-    //// 씬변경 시 Enemy Deactive  // 함께 삭제될겁니다...
-    //private void DeactiveEnemy(GameEvents.SwitchScene evt) { 
-    //    this.gameObject.SetActive(false);
-    //}
+
+    private void OnChangeEnemyState(GameEvents.EnemyStateChange evt) {
+        curState = evt.state;
+
+        // 하위 Enemy관련 로직에 알림
+        EventBus.Instance.Publish<GameEvents.UpdateEnemy>(new GameEvents.UpdateEnemy());
+    }
 }

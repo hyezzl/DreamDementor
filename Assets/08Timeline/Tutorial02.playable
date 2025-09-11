@@ -22,6 +22,28 @@ MonoBehaviour:
   m_Loop: 0
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &-9119633650258537400
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 7400000, guid: 41c579ac3541cd94e9c8b1990b53542f, type: 2}
+  m_Position: {x: 0, y: 0, z: 0}
+  m_EulerAngles: {x: 0, y: 0, z: 0}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &-5538379551598362804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -903,28 +925,6 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events: []
---- !u!114 &6412465194998033519
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
-  m_Name: AnimationPlayableAsset
-  m_EditorClassIdentifier: 
-  m_Clip: {fileID: 7400000, guid: a5add10bbe9d1e74890bf4a8b31d6d92, type: 2}
-  m_Position: {x: 0, y: 0, z: 0}
-  m_EulerAngles: {x: 0, y: 0, z: 0}
-  m_UseTrackMatchFields: 1
-  m_MatchTargetFields: 63
-  m_RemoveStartOffset: 1
-  m_ApplyFootIK: 1
-  m_Loop: 0
-  m_Version: 1
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &6453452884128707841
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1269,11 +1269,11 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: Temp01
   - m_Version: 1
-    m_Start: 4.000000000000002
+    m_Start: 4
     m_ClipIn: 0
-    m_Asset: {fileID: 6412465194998033519}
-    m_Duration: 1.9999999999999982
-    m_TimeScale: 1
+    m_Asset: {fileID: -9119633650258537400}
+    m_Duration: 2.083333333333333
+    m_TimeScale: 0.5
     m_ParentTrack: {fileID: 8556242093455615420}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -1336,7 +1336,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 1
     m_PostExtrapolationTime: Infinity
     m_PreExtrapolationTime: 0
-    m_DisplayName: Temp01
+    m_DisplayName: EnemyWalk_Left
   m_Markers:
     m_Objects: []
   m_InfiniteClipPreExtrapolation: 0

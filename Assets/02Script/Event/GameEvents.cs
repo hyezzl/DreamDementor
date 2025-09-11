@@ -36,6 +36,7 @@ public static class GameEvents
         public EnemyState state;
         public EnemyStateChange(EnemyState state)
         {
+            Debug.Log($" √ Enemy : {state} 활성화 √");
             this.state = state;
         }
     }
@@ -109,4 +110,8 @@ public static class GameEvents
             this.item = item;
         }
     }
+
+
+    // EnemyState 변경 알림
+    public struct UpdateEnemy { }
 }

@@ -1,23 +1,28 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-/// <summary>
-/// Temp
-/// </summary>
 
+/// <summary>
+/// 괴물 움직임 + 괴물 애니메이션
+/// </summary>
 public class EnemyMove : MonoBehaviour, IMoveObject
 {
     [SerializeField] private Transform player;
+    [SerializeField] private Animator anim;
 
     [Header("Enemy Movement Setting")]
     [SerializeField] private float moveSpeed = 3f;
-    // [SerializeField] private float chaseRange = 10f; 
 
     private Rigidbody rig;
     private EnemyController ec;
     private PlayerController pc;
     private NavMeshAgent na;
     private bool moveable;
+    private EnemyState curState;
+
+    // 상태값
+    private bool isMonster = false;     // 괴물로 변한 상태인지
+    private bool isWalk = false;
 
     private void Awake()
     {
@@ -31,71 +36,74 @@ public class EnemyMove : MonoBehaviour, IMoveObject
         }
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("EnemyMove - Failed to Load PlayerController");
+        
         if (!TryGetComponent<NavMeshAgent>(out na)) {
             Debug.Log("EnemyMove - Failed to Load NavMeshAgent");
         }
-    }
-
-    //임시
-    private void Start()
-    {
-        ec.EnemyState = EnemyState.Chase;
+        na.updateRotation = false;      // 자동회전값 끄기
     }
 
     private void OnEnable()
     {
-        //EventBus.Instance.Subscribe<GameEvents.EnemyStateChange>(OnChange);
+        EventBus.Instance.Subscribe<GameEvents.GameModeChange>(ModeChange);
+        EventBus.Instance.Subscribe<GameEvents.UpdateEnemy>(OnChange);
     }
     private void OnDisable()
     {
-        //EventBus.Instance.Unsubscribe<GameEvents.EnemyStateChange>(OnChange);
+        EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(ModeChange);
+        EventBus.Instance.Unsubscribe<GameEvents.UpdateEnemy>(OnChange);
     }
 
-    private void OnChange(GameEvents.EnemyStateChange evt)
+    private void OnChange(GameEvents.UpdateEnemy evt)
     {
-        // 정지 상태에서 벗어남
-        ec.EnemyState = evt.state;
+        curState = ec.CurEnemyState;
     }
 
     private void FixedUpdate()
     {
-        if(moveable)
-            ChasePlayer();
-
-        Debug.Log("플레이어 위치: " + player.transform.position);
-        Debug.Log("적 위치: " + transform.position);
-
-        float dist = Vector3.Distance(player.transform.position, transform.position);
-        Debug.Log("두 거리: " + dist);
-    }
-
-
-    private void ChasePlayer()
-    {
-        // 조건
-        if (ec.EnemyState == EnemyState.Chase)
-        {
-
-            float distance = Vector2.Distance(transform.position, player.position);
-
-            if (distance <= 100f) // 임시
-            {
-                Vector2 dir = (player.position - transform.position).normalized;
-                rig.velocity = dir * moveSpeed;
-            }
-            else
-            {
-                rig.velocity = Vector2.zero;
-            }
+        if (moveable) { 
+            AIChasePlayer();
+            FlipSprite();
         }
+        //float dist = Vector3.Distance(player.transform.position, transform.position);
+        //Debug.Log("두 거리: " + dist);
     }
+
 
     private void AIChasePlayer() {
-        if (ec.EnemyState == EnemyState.Chase)
+        if (curState == EnemyState.Chase)
         {
             na.SetDestination(player.position);
+
+            // 애니메이션
+            Vector3 moveDir = na.velocity.normalized;
+
+            if (moveDir.magnitude < 0.1f) {
+                moveDir = Vector3.zero;
+                isWalk = false;
+                //  Idle
+            }
+            else { 
+                isWalk = true;
+            }
+            // 애니메이션 파라미터 전달
+            anim.SetBool("isMonster", isMonster);
+            anim.SetBool("isWalk", isWalk);
+            anim.SetFloat("xDir", moveDir.x);
+            anim.SetFloat("yDir", moveDir.y);
         }
     }
+
+    private void FlipSprite() {
+        if (player.position.x < transform.position.x)
+        {
+            transform.localScale = new Vector3(1, 1, 1);   // 왼쪽
+        }
+        else {
+            transform.localScale = new Vector3(-1, 1, 1);    // 오른쪽
+        }
+    }
+
 
     public void StopGame()
     {
@@ -105,5 +113,17 @@ public class EnemyMove : MonoBehaviour, IMoveObject
     public void ResumeGame()
     {
         moveable = true;
+    }
+
+    public void ModeChange(GameEvents.GameModeChange evt)
+    {
+        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode)
+        {
+            StopGame();
+        }
+        else
+        {
+            ResumeGame();
+        }
     }
 }

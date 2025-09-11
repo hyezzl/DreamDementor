@@ -9,14 +9,14 @@ public class EnemyAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.Instance.Subscribe<GameEvents.EnemyStateChange>(OnStateChange);
+        EventBus.Instance.Subscribe<GameEvents.UpdateEnemy>(OnStateChange);
     }
     private void OnDisable()
     {
-        EventBus.Instance.Unsubscribe<GameEvents.EnemyStateChange>(OnStateChange);
+        EventBus.Instance.Unsubscribe<GameEvents.UpdateEnemy>(OnStateChange);
     }
 
-    private void OnStateChange(GameEvents.EnemyStateChange evt) { 
+    private void OnStateChange(GameEvents.UpdateEnemy evt) { 
 
     }
 

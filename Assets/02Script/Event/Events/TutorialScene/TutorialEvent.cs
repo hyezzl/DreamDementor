@@ -138,12 +138,11 @@ public class TutorialEvent : MonoBehaviour
         pc.CurMode = GameMode.InspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
 
-        
 
         //EventBus.Instance.Publish<GameEvents.EndTimeline>(new GameEvents.EndTimeline());
         
         // 적 상태 변경 (Chase)
-        //EventBus.Instance.Publish<GameEvents.EnemyStateChange>(new GameEvents.EnemyStateChange(EnemyState.Chase));
+        EventBus.Instance.Publish<GameEvents.EnemyStateChange>(new GameEvents.EnemyStateChange(EnemyState.Chase));
     }
 
     public void EndChoice(UIEvents.MakeChoice evt) {
