@@ -41,6 +41,7 @@ public class EnemyMove : MonoBehaviour, IMoveObject
             Debug.Log("EnemyMove - Failed to Load NavMeshAgent");
         }
         na.updateRotation = false;      // 자동회전값 끄기
+        na.speed = moveSpeed;
     }
 
     private void OnEnable()

@@ -20,6 +20,8 @@ public class GameOver : MonoBehaviour
         if (pc == null) Debug.Log("GameOver - Failed to Load PlayerController");
     }
 
+
+    /// 이함수는 characterController가 이동할때만 작동
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (isDead) return;
@@ -34,4 +36,6 @@ public class GameOver : MonoBehaviour
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.GameOverMode));
         }
     }
+
+
 }
