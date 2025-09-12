@@ -58,10 +58,33 @@ public class PopupManager : MonoBehaviour
     {
         if (isAnimating) return;
         TogglePopup();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (vertical.alpha > 0f)
+            {
+                OnOffgroup(vertical, false);
+                background.enabled = false;
+            }
+            else if (horizon.alpha > 0f)
+            {
+                OnOffgroup(horizon, false);
+                background.enabled = false;
+            }
+            isOpen = false;
+
+            // 애니메이션 실행
+            StartCoroutine(ClosePopupUI());
+            OnOffgroup(vertical, false);
+
+            // 게임모드 변경
+            pc.CurMode = preMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
+        }
     }
 
     private void TogglePopup() {
-        if (inputHandler.TogglePopup() || inputHandler.Escape()) // Tab OR ESC
+        if (inputHandler.TogglePopup()) // Tab OR ESC
         {
             // mode
             Debug.Log("여는 애니메이션 실행!");
@@ -74,7 +97,7 @@ public class PopupManager : MonoBehaviour
                 // 애니메이션 실행
                 StartCoroutine(OpenPopupUI());
                 background.gameObject.SetActive(true);
-                vertical.alpha = 1f;
+                OnOffgroup(vertical, true);
 
                 // 게임모드 변경
                 pc.CurMode = GameMode.PauseMode;
@@ -86,7 +109,7 @@ public class PopupManager : MonoBehaviour
 
                 // 애니메이션 실행
                 StartCoroutine(ClosePopupUI());
-                vertical.alpha = 0f;
+                OnOffgroup(vertical, false);
 
                 // 게임모드 변경
                 pc.CurMode = preMode;
@@ -114,5 +137,12 @@ public class PopupManager : MonoBehaviour
         yield return new WaitForSeconds(closeAnim.length);
 
         isAnimating = false;
+    }
+
+    private void OnOffgroup(CanvasGroup group, bool isOn)
+    {
+        group.alpha = isOn ? 1 : 0;
+        group.interactable = isOn;
+        group.blocksRaycasts = isOn;
     }
 }
