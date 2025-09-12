@@ -22,6 +22,11 @@ public class PopupManager : MonoBehaviour
     [SerializeField] private GameObject memoContent;
     [SerializeField] private GameObject infoContent;
 
+    [Header("UI Group")]
+    [SerializeField] private CanvasGroup popupGroup;
+    [SerializeField] private CanvasGroup vertical;
+    [SerializeField] private CanvasGroup horizon;
+
     [Header("Animation")]
     [SerializeField] private AnimationClip openAnim;
     [SerializeField] private AnimationClip closeAnim;
@@ -59,6 +64,7 @@ public class PopupManager : MonoBehaviour
         if (inputHandler.TogglePopup() || inputHandler.Escape()) // Tab OR ESC
         {
             // mode
+            Debug.Log("여는 애니메이션 실행!");
 
             if (!isOpen) // Open
             {
@@ -68,6 +74,7 @@ public class PopupManager : MonoBehaviour
                 // 애니메이션 실행
                 StartCoroutine(OpenPopupUI());
                 background.gameObject.SetActive(true);
+                vertical.alpha = 1f;
 
                 // 게임모드 변경
                 pc.CurMode = GameMode.PauseMode;
@@ -79,6 +86,7 @@ public class PopupManager : MonoBehaviour
 
                 // 애니메이션 실행
                 StartCoroutine(ClosePopupUI());
+                vertical.alpha = 0f;
 
                 // 게임모드 변경
                 pc.CurMode = preMode;
