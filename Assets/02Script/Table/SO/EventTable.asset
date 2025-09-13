@@ -151,7 +151,7 @@ MonoBehaviour:
     Dialog: "\u3145\u3153\uB9B0\u3147\u314F.. \uC774\u3139\u3163 \uC640..."
     NextID: 2011
     Speaker: Enemy
-    SpeakerName: ???
+    SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
     Textbox: Basic
     Emotion: -1
@@ -217,7 +217,7 @@ MonoBehaviour:
     SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 1
+    Emotion: 0
   - EventID: E003
     LogID: 3007
     Dialog: "....\u3131......\u314F....\uC790....."
@@ -226,7 +226,7 @@ MonoBehaviour:
     SpeakerName: "\uC5C4\uB9C8"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 2
+    Emotion: 1
   - EventID: E003
     LogID: 3008
     Dialog: "\uB124....?"
@@ -316,7 +316,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: 
     ChoiceID: 
-    Textbox: Basic
+    Textbox: Monologue
     Emotion: -1
   - EventID: E004
     LogID: 4002
@@ -325,7 +325,7 @@ MonoBehaviour:
     Speaker: Player
     SpeakerName: 
     ChoiceID: 
-    Textbox: Basic
+    Textbox: Monologue
     Emotion: -1
   - EventID: E005
     LogID: 5001
