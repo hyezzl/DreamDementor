@@ -41,6 +41,6 @@ public class InitManager : MonoBehaviour
         // 인벤토리 Init
         invenManager?.Init(db);
         invenDesc?.Init(db);
-        //invenSlot?.Init(db);   씬시작시 동적으로 만들어짐
+        invenSlot?.Init(db);   //씬시작시 동적으로 만들어짐
     }
 }
