@@ -62,26 +62,6 @@ public class PopupManager : MonoBehaviour
     {
         if (isAnimating) return;
         TogglePopup();
-
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    if (!isOpen) return;
-        //    if (verticalGroup.alpha > 0f)
-        //    {
-        //        StartCoroutine(ClosePopupUI());
-        //        //OnOffgroup(verticalGroup, false);
-        //        //background.enabled = false;
-        //    }
-        //    else if (horizonGroup.alpha > 0f)
-        //    {
-        //        OnOffgroup(horizonGroup, false);
-        //        background.enabled = false;
-        //    }
-
-        //    // 게임모드 변경
-        //    pc.CurMode = preMode;
-        //    EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
-        //}
     }
 
     private void TogglePopup() {
