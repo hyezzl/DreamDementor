@@ -40,17 +40,17 @@ public class UIApps : MonoBehaviour
     // Temp ³»¸¾´ë·Î
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (verGrp.alpha > 0f)
-            {
-                OnOffgroup(verGrp, false);
-                background.enabled = false;
-            }
-            else if (horGrp.alpha > 0f) { 
-                OnOffgroup(horGrp, false);
-                background.enabled = false;
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape)) {
+        //    if (verGrp.alpha > 0f)
+        //    {
+        //        OnOffgroup(verGrp, false);
+        //        background.enabled = false;
+        //    }
+        //    else if (horGrp.alpha > 0f) { 
+        //        OnOffgroup(horGrp, false);
+        //        background.enabled = false;
+        //    }
+        //}
     }
 
 

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class PopupManager : MonoBehaviour
     [Header("UI Contents Refs")]
     [SerializeField] private RectTransform popup;
     [SerializeField] private Image background;
+    [SerializeField] private RectTransform vertical;
     [SerializeField] private GameObject optionContent;
     [SerializeField] private GameObject inventoryContent;
     [SerializeField] private GameObject memoContent;
@@ -24,15 +26,16 @@ public class PopupManager : MonoBehaviour
 
     [Header("UI Group")]
     [SerializeField] private CanvasGroup popupGroup;
-    [SerializeField] private CanvasGroup vertical;
-    [SerializeField] private CanvasGroup horizon;
+    [SerializeField] private CanvasGroup animGroup;
+    [SerializeField] private CanvasGroup verticalGroup;
+    [SerializeField] private CanvasGroup horizonGroup;
 
     [Header("Animation")]
+    [SerializeField] private Animator anim;
     [SerializeField] private AnimationClip openAnim;
     [SerializeField] private AnimationClip closeAnim;
 
 
-    private Animator anim;
     private IInputHandler inputHandler;
     private PlayerController pc;
     private List<GameObject> contents = new();
@@ -41,6 +44,8 @@ public class PopupManager : MonoBehaviour
     private bool isAnimating = false;       // 애니메이션 중
     private GameMode preMode;       // 이전 모드 캐싱
 
+    private Vector2 hidePos = new Vector2(0, -830f);
+    private Vector2 basisPos = new Vector2(0, -75f);
 
     public void SetInputHandler(IInputHandler inputHandler) => this.inputHandler = inputHandler;
 
@@ -49,7 +54,6 @@ public class PopupManager : MonoBehaviour
         // 초기설정
         background.gameObject.SetActive(false);
 
-        if (!TryGetComponent<Animator>(out anim)) Debug.Log("PopupManager - Failed to Load Animator");
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("PopupManager - Failed to Load PlayerController");
     }
@@ -59,36 +63,31 @@ public class PopupManager : MonoBehaviour
         if (isAnimating) return;
         TogglePopup();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (vertical.alpha > 0f)
-            {
-                OnOffgroup(vertical, false);
-                background.enabled = false;
-            }
-            else if (horizon.alpha > 0f)
-            {
-                OnOffgroup(horizon, false);
-                background.enabled = false;
-            }
-            isOpen = false;
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    if (!isOpen) return;
+        //    if (verticalGroup.alpha > 0f)
+        //    {
+        //        StartCoroutine(ClosePopupUI());
+        //        //OnOffgroup(verticalGroup, false);
+        //        //background.enabled = false;
+        //    }
+        //    else if (horizonGroup.alpha > 0f)
+        //    {
+        //        OnOffgroup(horizonGroup, false);
+        //        background.enabled = false;
+        //    }
 
-            // 애니메이션 실행
-            StartCoroutine(ClosePopupUI());
-            OnOffgroup(vertical, false);
-
-            // 게임모드 변경
-            pc.CurMode = preMode;
-            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
-        }
+        //    // 게임모드 변경
+        //    pc.CurMode = preMode;
+        //    EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
+        //}
     }
 
     private void TogglePopup() {
-        if (inputHandler.TogglePopup()) // Tab OR ESC
-        {
-            // mode
-            Debug.Log("여는 애니메이션 실행!");
-
+        if (inputHandler.TogglePopup() || inputHandler.Escape()) // Tab OR ESC
+        //if (inputHandler.Escape()) // Tab OR ESC
+            {
             if (!isOpen) // Open
             {
                 preMode = pc.CurMode;   // 캐싱
@@ -96,8 +95,6 @@ public class PopupManager : MonoBehaviour
 
                 // 애니메이션 실행
                 StartCoroutine(OpenPopupUI());
-                background.gameObject.SetActive(true);
-                OnOffgroup(vertical, true);
 
                 // 게임모드 변경
                 pc.CurMode = GameMode.PauseMode;
@@ -105,11 +102,9 @@ public class PopupManager : MonoBehaviour
             }
             else {
                 isOpen = false;
-                background.gameObject.SetActive(false);
 
                 // 애니메이션 실행
                 StartCoroutine(ClosePopupUI());
-                OnOffgroup(vertical, false);
 
                 // 게임모드 변경
                 pc.CurMode = preMode;
@@ -122,22 +117,35 @@ public class PopupManager : MonoBehaviour
     // 팝업 열리는 애니메이션
     private IEnumerator OpenPopupUI() {
         isAnimating = true;
+        isOpen = true;
         popup.gameObject.SetActive(true);
+        OnOffgroup(animGroup, true);
+        background.gameObject.SetActive(true);
 
         anim.SetTrigger("OpenPopup");
         yield return new WaitForSeconds(openAnim.length);
 
+        OnOffgroup(verticalGroup, true);
+        OnOffgroup(animGroup, false);
         isAnimating = false;
+        anim.SetBool("isOpen", isOpen);
     }
 
     private IEnumerator ClosePopupUI() {
         isAnimating = true;
 
-        anim.SetTrigger("ClosePopup");
-        yield return new WaitForSeconds(closeAnim.length);
+        yield return vertical.DOAnchorPos(hidePos, 0.8f)
+            .SetEase(Ease.InOutSine)
+            .WaitForCompletion();
 
+        OnOffgroup(verticalGroup, false);
         isAnimating = false;
+        isOpen = false;
+        background.gameObject.SetActive(false);
+        anim.SetBool("isOpen", isOpen);
+        vertical.anchoredPosition = basisPos;
     }
+
 
     private void OnOffgroup(CanvasGroup group, bool isOn)
     {
