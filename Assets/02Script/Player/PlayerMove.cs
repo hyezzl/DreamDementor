@@ -130,7 +130,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
         // 입력값 받기
         //input = inputHandler.GetMovement();
-        bool isRunning = inputHandler.Run();
+        bool isRunning = inputHandler.Run() && inputVec.sqrMagnitude > 0.1f;
         bool isWalking = inputVec.sqrMagnitude > 0.1f && !isRunning;
 
 

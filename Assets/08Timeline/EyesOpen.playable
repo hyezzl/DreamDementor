@@ -311,7 +311,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events: []
---- !u!114 &-3356639961591717751
+--- !u!114 &-3703849851342278141
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: 
   VirtualCamera:
-    exposedName: cdf659f88c4ede348913cd9c2c041e90
+    exposedName: 
     defaultValue: {fileID: 0}
 --- !u!114 &-3084251644289595627
 MonoBehaviour:
@@ -1171,7 +1171,7 @@ MonoBehaviour:
   - m_Version: 1
     m_Start: 0
     m_ClipIn: 0
-    m_Asset: {fileID: -3356639961591717751}
+    m_Asset: {fileID: -3703849851342278141}
     m_Duration: 3.55
     m_TimeScale: 1
     m_ParentTrack: {fileID: 6148944637851540004}
@@ -1236,7 +1236,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: EyeEffectCam
+    m_DisplayName: PlayerFixCam
   m_Markers:
     m_Objects: []
 --- !u!114 &6395238127385296228
