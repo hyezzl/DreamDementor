@@ -16,7 +16,6 @@ public class TeleportHappyScene : MonoBehaviour
 
     [SerializeField] private string eventID = "E005";
 
-    [SerializeField] private CinemachineVirtualCamera eyecam;
     [SerializeField] private Canvas eyeCanvas;
 
     private IDatabase database;
@@ -60,16 +59,6 @@ public class TeleportHappyScene : MonoBehaviour
         StartCoroutine(PlayEvents());
 
         
-
-        // 게임모드 변경
-        //(임시)
-        //pc.CurMode = GameMode.InspectMode;
-        //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
-
-        // 이벤트 모드로 변경
-
-        
-
     }
 
     private IEnumerator PlayEvents() {
@@ -92,7 +81,6 @@ public class TeleportHappyScene : MonoBehaviour
 
             // 카메라 고정
             EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.PlayerFixCam, 1));
-            eyecam.gameObject.SetActive(false);
         }
     }
 }

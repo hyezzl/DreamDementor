@@ -7,13 +7,12 @@ public class HappyCameraManager : CameraManager
 {
     [Header("Camera Refs")]
     [SerializeField] private CinemachineVirtualCamera fixCam;
-    [SerializeField] private CinemachineVirtualCamera eyeeffect;
 
     protected override void Awake()
     {
         base.Awake();
 
-        cams = new List<CinemachineVirtualCamera> { fixCam, eyeeffect };
+        cams = new List<CinemachineVirtualCamera> { fixCam };
 
     }
 
@@ -24,10 +23,6 @@ public class HappyCameraManager : CameraManager
             case CameraType.PlayerFixCam:
                 SelectCam(fixCam, evt.blend);
                 break;
-
-            //case CameraType.EyeEffectCam:
-            //    SelectCam(eyeeffect, evt.blend);
-            //    break;
 
             //case CameraType.EnemyCam:
             //    SelectCam(enemyCam, evt.blend);

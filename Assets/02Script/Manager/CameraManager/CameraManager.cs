@@ -29,20 +29,6 @@ public class CameraManager : MonoBehaviour
         EventBus.Instance.Unsubscribe<GameEvents.CameraShift>(OnCameraShift);
     }
 
-    //public void Onoff() {
-    //    if (isPlayer)
-    //    {
-    //        sightCam.Priority = 0;
-    //        fixCam.Priority = 10;
-    //        mainCam.orthographic = true;
-    //    }
-    //    else {
-    //        fixCam.Priority = 0;
-    //        sightCam.Priority = 10;
-    //        mainCam.orthographic = false;
-    //    }
-    //    isPlayer = !isPlayer;
-    //}
 
     protected virtual void OnCameraShift(GameEvents.CameraShift evt) { }
 
