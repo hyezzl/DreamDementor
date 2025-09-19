@@ -178,6 +178,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             anim.SetFloat("inputX", localInput.x);
             anim.SetFloat("inputY", localInput.z);
             anim.SetBool("isWalk", isWalking);
+            anim.SetBool("isRunning", isRunning);
         }
     }
 
