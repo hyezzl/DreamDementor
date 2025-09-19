@@ -1,6 +1,4 @@
-using System.Linq;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 
 
 /// <summary>
@@ -28,6 +26,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private PlayerController pc;
     private IInputHandler inputHandler;
     private CharacterController cc;
+    //private Animator Ranim;
     private bool moveable = true;
     private bool isThree = true;  // 3인칭 시점인지
 
@@ -70,6 +69,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         {
             Debug.Log("PlayerMove - Failed to Load CharacterController");
         }
+        //if (!TryGetComponent<Animator>(out anim)) Debug.Log("PlayerMove - Failed to Load PlayerAnimator");
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("PlayerMove - Failed to Load PlayerController");
 

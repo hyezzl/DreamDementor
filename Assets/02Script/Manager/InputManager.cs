@@ -18,6 +18,11 @@ public class InputManager : MonoBehaviour
         inputHandler = new CombineInputHandler(keyboardHandler, joystickHandler); // 두 입력수단 결합
         FindAnyObjectByType<UIInputBridge>().joyHandler = joystickHandler; // UIInputBridge에 조이스틱 핸들러 전달
 
+        //SendInputVal();
+    }
+
+    private void Start()
+    {
         SendInputVal();
     }
 
