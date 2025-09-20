@@ -8,7 +8,7 @@ public class GameOver : MonoBehaviour
 
     private PlayerController pc;
     private CharacterController cc;
-    private bool isDead = false;  // 플레이어 쥬금
+    //private bool isDead = false;  // 플레이어 쥬금
 
 
 

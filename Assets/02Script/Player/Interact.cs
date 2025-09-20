@@ -82,7 +82,7 @@ public class Interact : MonoBehaviour
         foreach (var hit in hits) {
             var item = hit.collider.GetComponent<IActionItem>();
             if (item != null) {
-                Debug.Log("아이템 감지! : " + hit.collider.gameObject.name);
+                //Debug.Log("아이템 감지! : " + hit.collider.gameObject.name);
 
                 // 우선순위
                 return item;

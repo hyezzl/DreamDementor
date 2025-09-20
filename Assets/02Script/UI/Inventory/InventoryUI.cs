@@ -10,9 +10,26 @@ public class InventoryUI : MonoBehaviour
 
     private PlayerController pc;
     private InventoryDescription desc;
+    private IDatabase database;
     private const int slotCnt = 8;      // 扁夯蔼
     private List<InventorySlot> slots = new();
     private bool isOpen = false;
+
+    public void Init(IDatabase db)
+    {
+        database = db;
+
+        // 浇吩 积己
+        if (slots.Count == 0) { 
+            for (int i = 0; i < slotCnt; i++)
+            {
+                var slot = Instantiate(slotPrefab, slotParent).GetComponent<InventorySlot>();
+                slot.Init(DatabaseManager.Instance);
+                slots.Add(slot);
+            }
+        }
+    }
+
 
     private void Awake()
     {
@@ -23,33 +40,30 @@ public class InventoryUI : MonoBehaviour
             Debug.Log("InventoryUI - Failed to Load InventoryDescription");
         }
 
-        // 浇吩 积己
-        for (int i = 0; i < slotCnt; i++) { 
-            var slot = Instantiate(slotPrefab, slotParent).GetComponent<InventorySlot>();
-            slot.Init(DatabaseManager.Instance);
-            slots.Add(slot);
-        }
+        //// 浇吩 积己
+        //for (int i = 0; i < slotCnt; i++) { 
+        //    var slot = Instantiate(slotPrefab, slotParent).GetComponent<InventorySlot>();
+        //    slot.Init(DatabaseManager.Instance);
+        //    slots.Add(slot);
+        //}
         //RefreshInventory();
     }
-
-    //Temp
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha5)) {
-            RefreshInventory();
-        }
-    }
-
 
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<UIEvents.InventoryChanged>(OnInventoryChanged);
+        EventBus.Instance.Subscribe<UIEvents.OpenInventory>(OnOpenInventory);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.InventoryChanged>(OnInventoryChanged);
+        EventBus.Instance.Unsubscribe<UIEvents.OpenInventory>(OnOpenInventory);
     }
     private void OnInventoryChanged(UIEvents.InventoryChanged evt) {
+        RefreshInventory();
+    }
+
+    private void OnOpenInventory(UIEvents.OpenInventory evt) {
         RefreshInventory();
     }
 

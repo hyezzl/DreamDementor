@@ -33,7 +33,6 @@ public class PopupManager : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator anim;
     [SerializeField] private AnimationClip openAnim;
-    [SerializeField] private AnimationClip closeAnim;
 
 
     private IInputHandler inputHandler;
@@ -99,6 +98,8 @@ public class PopupManager : MonoBehaviour
         isAnimating = true;
         isOpen = true;
         popup.gameObject.SetActive(true);
+        popupGroup.alpha = 1f;
+
         OnOffgroup(animGroup, true);
         background.gameObject.SetActive(true);
 

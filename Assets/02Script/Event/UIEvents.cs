@@ -91,4 +91,7 @@ public static class UIEvents
 
     // 인벤토리 새로고침
     public struct InventoryChanged { }
+
+    // 인벤토리 열림
+    public struct OpenInventory { }
 }

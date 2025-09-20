@@ -1,4 +1,5 @@
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -13,6 +14,7 @@ public class InitManager : MonoBehaviour
     protected InventoryManager invenManager;
     protected InventoryDescription invenDesc;
     protected InventorySlot invenSlot;
+    protected InventoryUI invenUI;
 
     protected virtual void Start()
     {
@@ -35,6 +37,9 @@ public class InitManager : MonoBehaviour
         invenDesc = FindAnyObjectByType<InventoryDescription>();
         if (invenDesc == null) Debug.Log("InitManager - Failed to Load InvenDescription");
 
+        invenUI = FindAnyObjectByType<InventoryUI>();
+        if (invenUI == null) Debug.Log("InitManager - Failed to Load InventoryUI");
+
         //invenSlot = FindAnyObjectByType<InventorySlot>();
         //if (invenSlot == null) Debug.Log("InitManager - Failed to Load InvenSlot");
 
@@ -42,5 +47,6 @@ public class InitManager : MonoBehaviour
         invenManager?.Init(db);
         invenDesc?.Init(db);
         invenSlot?.Init(db);   //씬시작시 동적으로 만들어짐
+        invenUI?.Init(db);
     }
 }

@@ -57,7 +57,8 @@ public class UIApps : MonoBehaviour
 
     private void OnClicked(int idx) {
         curTab = idx;
-        Debug.Log($"{idx} 번째 탭 열림");
+        UIApp app = (UIApp)idx;
+        Debug.Log($"{app} 탭 열림");
 
         StartCoroutine(TabChange());
     }
@@ -92,8 +93,14 @@ public class UIApps : MonoBehaviour
     // 단순 탭체인지 함수
     private void OpenTab(int idx) {
         foreach (var tab in tabs) { tab.gameObject.SetActive(false); }
-
         tabs[idx].gameObject.SetActive(true);
+
+        UIApp app = (UIApp)idx;
+        switch (app) {
+            case UIApp.Inventory:
+                EventBus.Instance.Publish<UIEvents.OpenInventory>(new UIEvents.OpenInventory());
+                break;
+        }
     }
 
     // CanvasGroup On/Off
