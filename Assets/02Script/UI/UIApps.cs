@@ -4,87 +4,95 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum UIApp
-{ 
-    Inventory   = 0,
-    Option      = 1,
-    Memo        = 2,
-    Status      = 3,
+{
+    Inventory = 0,
+    Option = 1,
+    Memo = 2,
+    Status = 3,
 }
 
 
 public class UIApps : MonoBehaviour
 {
     [Header("Groups")]
-    [SerializeField] private CanvasGroup verGrp;
-    [SerializeField] private CanvasGroup horGrp;
     [SerializeField] private Image background;      // 임시?
-    
+
     [Header("Buttons")]
     [SerializeField] private List<Button> buttons;  // 순서대로
+    [SerializeField] private Button escapeBTN;
     [SerializeField] private Button exitBTN;
     [SerializeField] private Button backBTN;
-
 
     [Header("Tabs")]
     [SerializeField] private List<GameObject> tabs;
     [SerializeField] private List<Button> tabBTNs;
 
-    private int curTab = -1;     //캐싱
+    [Header("Icons")]
+    [SerializeField] private List<Sprite> tabIcons;
 
-    private void Start()
+
+    private int curTab = -1;     //캐싱
+    private PopupManager popupManager;
+
+    private void Awake()
     {
-        OnOffgroup(verGrp, false);
-        OnOffgroup(horGrp, false);
+        if (!TryGetComponent<PopupManager>(out popupManager)) Debug.Log("UIApps - Failed to Load PopupManager");
     }
 
 
     private void OnEnable()
     {
-        for (int i = 0; i < buttons.Count; i++) {
+        for (int i = 0; i < buttons.Count; i++)
+        {
             int idx = i;
             buttons[idx].onClick.AddListener(() => OnClicked(idx));
         }
 
         backBTN.onClick.AddListener(() => StartCoroutine(HorToVer()));
-        exitBTN.onClick.AddListener(EndGame);
+        exitBTN.onClick.AddListener(ExitPopup);
+        escapeBTN.onClick.AddListener(EndGame);
     }
     private void OnDisable()
     {
         foreach (var BTN in buttons) BTN.onClick.RemoveAllListeners();
         backBTN.onClick.RemoveAllListeners();
-        exitBTN.onClick.RemoveListener(EndGame);
+        exitBTN.onClick.RemoveAllListeners();
+        escapeBTN.onClick.RemoveListener(EndGame);
     }
 
 
-    private void OnClicked(int idx) {
+    private void OnClicked(int idx)
+    {
         curTab = idx;
         UIApp app = (UIApp)idx;
-        Debug.Log($"{app} 탭 열림");
+
+        if (popupManager != null) popupManager.ShowHorizontal();
 
         StartCoroutine(TabChange());
     }
 
 
     // 세로 > 가로
-    private IEnumerator VerToHor() {
+    private IEnumerator VerToHor()
+    {
         yield return null;
-        OnOffgroup(verGrp, false);
         // 세로>가로 애니메이션
         // 애니메이션 끝나면
-        OnOffgroup(horGrp, true);
     }
 
-    private IEnumerator HorToVer() {
+    private IEnumerator HorToVer()
+    {
         yield return null;
-        OnOffgroup(horGrp, false);
-        OnOffgroup(verGrp, true);
+        popupManager.ShowVertical();
     }
 
     // 애니메이션 끝난 후 탭 체인지
-    private IEnumerator TabChange() {
+    private IEnumerator TabChange()
+    {
         yield return StartCoroutine(VerToHor());
         // 애니메이션이 끝난 후
-        if (curTab >= 0) { 
+        if (curTab >= 0)
+        {
             OpenTab(curTab);
             curTab = -1;
         }
@@ -92,12 +100,16 @@ public class UIApps : MonoBehaviour
 
 
     // 단순 탭체인지 함수
-    private void OpenTab(int idx) {
+    private void OpenTab(int idx)
+    {
         foreach (var tab in tabs) { tab.gameObject.SetActive(false); }
         tabs[idx].gameObject.SetActive(true);
 
+        UpdateTabBTN(idx);
+
         UIApp app = (UIApp)idx;
-        switch (app) {
+        switch (app)
+        {
             case UIApp.Inventory:
                 EventBus.Instance.Publish<UIEvents.OpenInventory>(new UIEvents.OpenInventory());
                 break;
@@ -105,17 +117,52 @@ public class UIApps : MonoBehaviour
     }
 
     // CanvasGroup On/Off
-    private void OnOffgroup(CanvasGroup group, bool isOn) {
+    private void OnOffgroup(CanvasGroup group, bool isOn)
+    {
         group.alpha = isOn ? 1 : 0;
         group.interactable = isOn;
         group.blocksRaycasts = isOn;
     }
 
     // 게임종료
-    private void EndGame() {
+    private void EndGame()
+    {
         Debug.Log("Really? 게임종료");
     }
 
-    // 탭버튼으로 탭 전환
+    // 현재 선택된 탭을 제외한 3개탭 반환
+    private List<int> OtherTabs(int selectedTab)
+    {
+        List<int> otherTabs = new();
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (i != selectedTab) otherTabs.Add(i);
+        }
+        return otherTabs;
+    }
+
+    private void UpdateTabBTN(int selectedTab)
+    {
+        // 선택탭 외 나머지탭 인덱스
+        List<int> otherTabs = OtherTabs(selectedTab);
+
+        // 탭 버튼에 다른 3개탭 아이콘/버튼 할당
+        for (int i = 0; i < tabBTNs.Count; i++)
+        {
+            int tabIdx = otherTabs[i];
+
+            // 탭 아이콘 변경
+            tabBTNs[i].GetComponent<Image>().sprite = tabIcons[tabIdx];
+
+            // 버튼에 역할 할당
+            tabBTNs[i].onClick.RemoveAllListeners();
+            tabBTNs[i].onClick.AddListener(() => OpenTab(tabIdx));
+        }
+    }
+
+    private void ExitPopup() {
+        popupManager.ClosePopup();
+    }
 
 }

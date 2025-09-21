@@ -39,14 +39,6 @@ public class InventoryUI : MonoBehaviour
         if (!TryGetComponent<InventoryDescription>(out desc)) {
             Debug.Log("InventoryUI - Failed to Load InventoryDescription");
         }
-
-        //// ½½·Ô »ý¼º
-        //for (int i = 0; i < slotCnt; i++) { 
-        //    var slot = Instantiate(slotPrefab, slotParent).GetComponent<InventorySlot>();
-        //    slot.Init(DatabaseManager.Instance);
-        //    slots.Add(slot);
-        //}
-        //RefreshInventory();
     }
 
     private void OnEnable()

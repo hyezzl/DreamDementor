@@ -65,9 +65,5 @@ public class InventoryManager : Singleton<InventoryManager>
     // todo : 아이템 사용 시, 지워지는 함수
 
 
-    //public int CountPairID(string pairID) {
-    //    return inventory.Count(item => item.pairID == pairID);
-    //}
-
     public IReadOnlyList<ItemInstance> GetInventory() => inventory.AsReadOnly();
 }

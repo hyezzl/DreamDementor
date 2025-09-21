@@ -12,6 +12,14 @@ public enum PopupContent
     save,
 }
 
+public enum PopupLayer
+{ 
+    None,
+    Vertical,
+    Horizontal,
+    InvenDesc,
+}
+
 
 public class PopupManager : MonoBehaviour
 {
@@ -19,6 +27,7 @@ public class PopupManager : MonoBehaviour
     [SerializeField] private RectTransform popup;
     [SerializeField] private Image background;
     [SerializeField] private RectTransform vertical;
+    [SerializeField] private RectTransform horizontal;
     [SerializeField] private GameObject optionContent;
     [SerializeField] private GameObject inventoryContent;
     [SerializeField] private GameObject memoContent;
@@ -37,13 +46,13 @@ public class PopupManager : MonoBehaviour
 
     private IInputHandler inputHandler;
     private PlayerController pc;
-    private List<GameObject> contents = new();
 
+    private PopupLayer curLayer = PopupLayer.None;    // 현재 팝업 레이어
     private bool isOpen = false;
     private bool isAnimating = false;       // 애니메이션 중
     private GameMode preMode;       // 이전 모드 캐싱
 
-    private Vector2 hidePos = new Vector2(0, -830f);
+    private Vector2 hidePos = new Vector2(0, -1000f);
     private Vector2 basisPos = new Vector2(0, -75f);
 
     public void SetInputHandler(IInputHandler inputHandler) => this.inputHandler = inputHandler;
@@ -73,40 +82,44 @@ public class PopupManager : MonoBehaviour
 
     private void TogglePopup() {
         if (inputHandler.TogglePopup() || inputHandler.Escape()) // Tab OR ESC
-        //if (inputHandler.Escape()) // Tab OR ESC
-            {
+        {
             if (!isOpen) // Open
             {
-                preMode = pc.CurMode;   // 캐싱
+                if(pc.CurMode != GameMode.PauseMode)
+                    preMode = pc.CurMode;   // 캐싱
                 isOpen = true;
 
                 // 애니메이션 실행
-                StartCoroutine(OpenPopupUI());
+                StartCoroutine(OpenVerticalUI());
 
                 // 게임모드 변경
                 pc.CurMode = GameMode.PauseMode;
                 EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.PauseMode));
             }
-            else {
+            else 
+            {
+                if (curLayer == PopupLayer.Horizontal)
+                {
+                    // 가로상태에서 esc누르면 vertical
+                    ShowVertical();
+                }
+                else if (curLayer == PopupLayer.Vertical) { 
+                    ClosePopup();
+                }
+
                 isOpen = false;
-
-                // 애니메이션 실행
-                StartCoroutine(ClosePopupUI());
-
-                // 게임모드 변경
-                pc.CurMode = preMode;
-                EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
             }
         }
     }
 
 
     // 팝업 열리는 애니메이션
-    private IEnumerator OpenPopupUI() {
+    private IEnumerator OpenVerticalUI() {
         isAnimating = true;
         isOpen = true;
         popup.gameObject.SetActive(true);
         popupGroup.alpha = 1f;
+        curLayer = PopupLayer.Vertical;
 
         OnOffgroup(animGroup, true);
         background.gameObject.SetActive(true);
@@ -115,24 +128,43 @@ public class PopupManager : MonoBehaviour
         yield return new WaitForSeconds(openAnim.length);
 
         OnOffgroup(verticalGroup, true);
+        OnOffgroup(horizonGroup, false);
         OnOffgroup(animGroup, false);
         isAnimating = false;
         anim.SetBool("isOpen", isOpen);
     }
 
-    private IEnumerator ClosePopupUI() {
+    // 팝업닫는 코루틴
+    public IEnumerator ClosePopupUI() {
         isAnimating = true;
 
-        yield return vertical.DOAnchorPos(hidePos, 0.8f)
-            .SetEase(Ease.InOutSine)
-            .WaitForCompletion();
+        switch (curLayer)
+        {
+            case PopupLayer.Vertical:
+                yield return vertical.DOAnchorPos(hidePos, 0.8f)
+                .SetEase(Ease.InOutSine)
+                .WaitForCompletion();
+
+                vertical.anchoredPosition = basisPos;
+                break;
+
+            case PopupLayer.Horizontal:
+                yield return horizontal.DOAnchorPos(hidePos, 0.8f)
+                .SetEase(Ease.InOutSine)
+                .WaitForCompletion();
+
+                horizontal.anchoredPosition = basisPos;
+                break;
+        }
 
         OnOffgroup(verticalGroup, false);
+        OnOffgroup(horizonGroup, false);
+
         isAnimating = false;
         isOpen = false;
         background.gameObject.SetActive(false);
         anim.SetBool("isOpen", isOpen);
-        vertical.anchoredPosition = basisPos;
+        //vertical.anchoredPosition = basisPos;
     }
 
 
@@ -141,5 +173,30 @@ public class PopupManager : MonoBehaviour
         group.alpha = isOn ? 1 : 0;
         group.interactable = isOn;
         group.blocksRaycasts = isOn;
+    }
+
+    // Verical <-> Horizontal
+    public void ShowVertical() {
+        curLayer = PopupLayer.Vertical;
+        OnOffgroup(verticalGroup, true);
+        OnOffgroup(horizonGroup, false);
+    }
+
+    public void ShowHorizontal() {
+        curLayer = PopupLayer.Horizontal;
+        OnOffgroup(verticalGroup, false);
+        OnOffgroup(horizonGroup, true);
+    }
+
+
+    // 최종적으로 팝업 닫기
+    public void ClosePopup() {
+        if (isAnimating) return;
+        StartCoroutine(ClosePopupUI());
+        curLayer = PopupLayer.None;
+
+        // 게임모드 변경
+        pc.CurMode = preMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
     }
 }
