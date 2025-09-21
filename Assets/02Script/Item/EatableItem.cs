@@ -23,7 +23,7 @@ public class EatableItem : MonoBehaviour, IActionItem
         Pickup();
 
         // 2. Reply Àç»ý
-        EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(itemID, data.reply));
+        EventBus.Instance.Publish<UIEvents.ItemMonologue>(new UIEvents.ItemMonologue(itemID, data.reply));
     }
 
     public void Pickup()

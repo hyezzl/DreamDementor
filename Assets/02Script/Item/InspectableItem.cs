@@ -21,7 +21,7 @@ public class InspectableItem : MonoBehaviour, IActionItem
     public void Interact()
     {
         // Monologue Ãâ·Â
-        EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(itemID, data.monologue));
+        EventBus.Instance.Publish<UIEvents.ItemMonologue>(new UIEvents.ItemMonologue(itemID, data.monologue));
     }
     
 }

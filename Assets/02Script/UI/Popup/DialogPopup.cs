@@ -162,7 +162,7 @@ public class DialogPopup : MonoBehaviour
                 ShowIllust(dialogDict, curlogIdx);
             }
 
-                sentence = curDialog.dialog; // Ä³½Ì
+            sentence = curDialog.dialog; // Ä³½Ì
 
             // Typing
             float duration = curDialog.dialog.Length / typingSpeed;

@@ -22,7 +22,7 @@ public class InteractableItem : MonoBehaviour, IActionItem
     public void Interact()
     {
         // Monologue 출력
-        EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(itemID, data.monologue));
+        EventBus.Instance.Publish<UIEvents.ItemMonologue>(new UIEvents.ItemMonologue(itemID, data.monologue));
     }
 
     public int CountPairID(string pairID)
@@ -38,7 +38,7 @@ public class InteractableItem : MonoBehaviour, IActionItem
         if (CountPairID(data.pairID) == data.hnum)
         {
             // ActiveMSG
-            EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(itemID, data.activeMSG));
+            EventBus.Instance.Publish<UIEvents.ItemMonologue>(new UIEvents.ItemMonologue(itemID, data.activeMSG));
             // MiniSelection
             // todo :: 이벤트 생성 / 발행
         }

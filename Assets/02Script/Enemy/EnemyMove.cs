@@ -78,13 +78,20 @@ public class EnemyMove : MonoBehaviour, IMoveObject
 
             // 애니메이션
             Vector3 moveDir = na.velocity.normalized;
+            float speed = na.velocity.magnitude;
 
-            if (moveDir.magnitude < 0.1f) {
+            if (Vector3.Distance(transform.position, player.position) <= na.stoppingDistance + 0.3f)
+            //if (moveDir.magnitude < 0.1f)
+            {
+                speed = 0f;
                 moveDir = Vector3.zero;
+                na.isStopped = true;
+                na.velocity = Vector3.zero;
                 isWalk = false;
                 //  Idle
             }
             else { 
+                na.isStopped = false;
                 isWalk = true;
             }
             // 애니메이션 파라미터 전달

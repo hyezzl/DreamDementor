@@ -1,5 +1,8 @@
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -22,6 +25,7 @@ public class MonologuePopup : MonoBehaviour
     private GameMode preMode;       // 캐싱
     private IInputHandler inputHandler;
     private string sentence;        // 캐싱
+    private string curEventID;  // 캐싱
 
     // 대화창 스페이스 딜레이
     private float inputDelay = 0.4f;
@@ -45,11 +49,28 @@ public class MonologuePopup : MonoBehaviour
 
     private void OnEnable()
     {
+        EventBus.Instance.Subscribe<UIEvents.ItemMonologue>(OnItemMonoBox);
         EventBus.Instance.Subscribe<UIEvents.OpenMonologue>(OnOpenMonoBox);
     }
     private void OnDisable()
     {
+        EventBus.Instance.Unsubscribe<UIEvents.ItemMonologue>(OnItemMonoBox);
         EventBus.Instance.Unsubscribe<UIEvents.OpenMonologue>(OnOpenMonoBox);
+    }
+
+    private void OnItemMonoBox(UIEvents.ItemMonologue evt) {
+        preMode = pc.CurMode; // 캐싱
+
+        // 모드 변경
+        pc.CurMode = GameMode.DialogMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
+
+        // 로그 창 표시
+        DialogFade(monoBox, true);
+        isOpen = true;
+
+        // 타이핑
+        StartCoroutine(TypeItemMonologue(evt.text));
     }
 
     private void OnOpenMonoBox(UIEvents.OpenMonologue evt) {
@@ -63,8 +84,11 @@ public class MonologuePopup : MonoBehaviour
         DialogFade(monoBox, true);
         isOpen = true;
 
+        // 이벤트 번호 캐싱
+        curEventID = evt.eventID;
+
         // 타이핑
-        StartCoroutine(TypeMonologue(evt.text));
+        StartCoroutine(TypeMonologue(evt.texts));
     }
 
     private void Update()
@@ -88,7 +112,8 @@ public class MonologuePopup : MonoBehaviour
         }
     }
 
-    private IEnumerator TypeMonologue(string text)
+    // (아이템)독백형 모놀로그 박스
+    private IEnumerator TypeItemMonologue(string text)
     {
         seq = DOTween.Sequence();
 
@@ -119,6 +144,52 @@ public class MonologuePopup : MonoBehaviour
 
     }
 
+
+    // 대화형 모놀로그박스
+    private IEnumerator TypeMonologue(Dictionary<int, DialogData> monoDict)
+    {
+        seq = DOTween.Sequence();
+
+        // 시작 logID의 최소값
+        int curlogIdx = monoDict.Keys.Min();
+
+        while (curlogIdx != -1)
+        {
+            if (!monoDict.TryGetValue(curlogIdx, out var curDialog))
+            {
+                Debug.Log($"{curlogIdx} : 존재하지 않는 대화 데이터");
+                yield break;
+            }
+            isTyping = true;
+            standbyInput = false;
+            isSkip = false;
+            monoText.text = "";
+            sentence = curDialog.dialog; // 캐싱
+
+            // Typing
+            float duration = curDialog.dialog.Length / typingSpeed;
+            typing = monoText.DOText(curDialog.dialog, duration).SetEase(Ease.Linear);
+
+            yield return typing.WaitForCompletion(); // 타이핑 완료까지 대기
+
+            isTyping = false;
+            standbyInput = true;
+
+            if (isSkip) // 스킵이 눌렸을 때
+            {
+                yield return null;
+                isSkip = false;
+            }
+
+            // 입력 대기
+            yield return new WaitUntil(() => inputHandler.DoSelect());
+
+            // Index++;
+            curlogIdx = curDialog.nextID;
+
+        }
+        yield return StartCoroutine(ClosePanel());  // 모든 대화가 끝나면 패널 닫음
+    }
 
     // 스킵 시 바로 출력
     private void SkipDialog()
@@ -154,6 +225,9 @@ public class MonologuePopup : MonoBehaviour
         isOpen = false;
 
         yield return null;
+
+        // 대화 끝 이벤트
+        EventBus.Instance.Publish<UIEvents.EndDialog>(new UIEvents.EndDialog(curEventID));
     }
 
     public void DialogFade(CanvasGroup target, bool isDisplay)

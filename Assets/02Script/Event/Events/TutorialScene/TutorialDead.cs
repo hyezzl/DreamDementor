@@ -44,10 +44,10 @@ public class TutorialDead : MonoBehaviour
     private void OnEvent(GameEvents.PlayEvent evt) {
         if (evt.eventID == this.eventID) {
             // 대화 모드
-            pc.CurMode = GameMode.DialogMode;
-            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
+            //pc.CurMode = GameMode.DialogMode;
+            //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
 
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
+            EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(eventID, dialogs));
         }
     }
 

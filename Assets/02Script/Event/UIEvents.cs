@@ -65,14 +65,25 @@ public static class UIEvents
     }
 
 
-    // 모놀로그 대화창
-    public struct OpenMonologue
+    // 모놀로그 대화창 (아이템)
+    public struct ItemMonologue
     {
         public int itemID;
         public string text;
-        public OpenMonologue(int itemID, string text) {
+        public ItemMonologue(int itemID, string text) {
             this.text = text;
             this.itemID = itemID;
+        }
+    }
+
+    // 모놀로그 대화창 (대화)
+    public struct OpenMonologue
+    {
+        public string eventID;
+        public Dictionary<int, DialogData> texts;
+        public OpenMonologue(string eventID, Dictionary<int, DialogData> texts) {
+            this.eventID = eventID;
+            this.texts = texts;
         }
     }
 
