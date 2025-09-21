@@ -27,6 +27,7 @@ public class UIApps : MonoBehaviour
 
     [Header("Tabs")]
     [SerializeField] private List<GameObject> tabs;
+    [SerializeField] private List<Button> tabBTNs;
 
     private int curTab = -1;     //캐싱
 
@@ -114,4 +115,7 @@ public class UIApps : MonoBehaviour
     private void EndGame() {
         Debug.Log("Really? 게임종료");
     }
+
+    // 탭버튼으로 탭 전환
+
 }

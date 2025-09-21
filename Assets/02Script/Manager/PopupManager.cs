@@ -50,11 +50,19 @@ public class PopupManager : MonoBehaviour
 
     private void Awake()
     {
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null) Debug.Log("PopupManager - Failed to Load PlayerController");
+    }
+
+    private void Start()
+    {
         // 초기설정
         background.gameObject.SetActive(false);
 
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) Debug.Log("PopupManager - Failed to Load PlayerController");
+        optionContent.SetActive(true);
+        inventoryContent.SetActive(true);
+        memoContent.SetActive(true);
+        infoContent.SetActive(true);
     }
 
     private void Update()
