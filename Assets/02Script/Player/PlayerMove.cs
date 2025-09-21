@@ -292,11 +292,25 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             verticalPriority = 0;
     }
 
+    // 특정(움직이지 못하는)모드 시 이전이동벡터를 이용한 Idle 애니메이션 강제
+    public void ForceAnimate() {
+        Vector3 dir = preDir;
+        Vector3 localDir = transform.InverseTransformDirection(dir);
+
+        anim.SetFloat("lookX", localDir.x);
+        anim.SetFloat("lookY", localDir.z);
+
+        anim.SetBool("isWalk", false);
+        anim.SetBool("isRunning", false);
+        anim.SetBool("moveable", false);
+    }
+
 
 
     public void StopGame()
     {
         moveable = false;
+        ForceAnimate();
     }
 
     public void ResumeGame()
