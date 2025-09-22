@@ -35,5 +35,6 @@ public class InputManager : MonoBehaviour
         FindAnyObjectByType<DialogPopup>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<MonologuePopup>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<PlayerMoveOne>()?.SetInputHandler(inputHandler);
+        FindAnyObjectByType<Stamina>()?.SetInputHandler(inputHandler);
     }
 }
