@@ -29,6 +29,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     //private Animator Ranim;
     private bool moveable = true;
     private bool isThree = true;  // 3인칭 시점인지
+    private bool canRunning = false;     // 뛸 수 있는지
 
     // 이동 변수
     public Vector3 moveDir = Vector3.zero;
@@ -98,11 +99,17 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     {
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(ModeChange);
         EventBus.Instance.Subscribe<GameEvents.AspectChange>(OnAspectChange);
+        EventBus.Instance.Subscribe<GameEvents.StaminaDepleted>(OnStaminaDepleted);
+        EventBus.Instance.Subscribe<GameEvents.StaminaRecoverd>(OnStaminaRecoverd);
+        //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(OnSwitchScene);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(ModeChange);
         EventBus.Instance.Unsubscribe<GameEvents.AspectChange>(OnAspectChange);
+        EventBus.Instance.Unsubscribe<GameEvents.StaminaDepleted>(OnStaminaDepleted);
+        EventBus.Instance.Unsubscribe<GameEvents.StaminaRecoverd>(OnStaminaRecoverd);
+        //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(OnSwitchScene);
     }
 
 
@@ -118,6 +125,8 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             pc.CurAspect = AspectMode.OnepersonMode;
         }
     }
+
+
 
     /// <summary>
     /// 3인칭 용
@@ -157,15 +166,15 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             { 
                 preDir = moveInput.normalized;   // 마지막 이동방향 캐싱
             }
-            if (!isRunning) // Walk
-            {
-                pc.CurState = PlayerState.Walk;
-                cc.Move(moveDir * (moveSpeed * Time.deltaTime));
-            }
-            else if (isRunning && inputVec.sqrMagnitude > 0.01f)  // Run
+            if (isRunning && inputVec.sqrMagnitude > 0.01f && canRunning) // Run
             {
                 pc.CurState = PlayerState.Run;
                 cc.Move(moveDir * (runSpeed * Time.deltaTime));
+            }
+            else if (!isRunning)  // Walk
+            {
+                pc.CurState = PlayerState.Walk;
+                cc.Move(moveDir * (moveSpeed * Time.deltaTime));
             }
         }
 
@@ -316,6 +325,18 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     public void ResumeGame()
     {
         moveable = true;
+    }
+
+    private void OnStaminaDepleted(GameEvents.StaminaDepleted evt)
+    {
+        // 스태미너가 다 고갈됐을 때
+        canRunning = false;
+    }
+
+    private void OnStaminaRecoverd(GameEvents.StaminaRecoverd evt)
+    {
+        // 달리기 가능
+        canRunning = true;
     }
 
     public void ModeChange(GameEvents.GameModeChange evt) {

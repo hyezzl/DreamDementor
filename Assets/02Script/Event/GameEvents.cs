@@ -114,4 +114,11 @@ public static class GameEvents
 
     // EnemyState 변경 알림
     public struct UpdateEnemy { }
+
+    // Stamina 고갈
+    public struct StaminaDepleted { }
+
+
+    // 달리기 가능
+    public struct StaminaRecoverd { }
 }

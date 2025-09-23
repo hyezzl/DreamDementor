@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,10 +11,11 @@ public class Stamina : MonoBehaviour
     [SerializeField] private float consumeVal = 33f;    // 1초당 쓸 스태미나값
     [SerializeField] private float recoverDelay = 3f;   // 멈춘 후 대기시간
     [SerializeField] private float recoverSpeed = 33f;   // 1초당 회복되는 스태미나값
+    [SerializeField] private float minStaminaVal = 33f;  // 달릴 수 있는 스태미너의 최소값
 
     [Header("UI Refs")]
     [SerializeField] private Slider staminaBar;
-    [SerializeField] private Image img;
+    [SerializeField] private TextMeshProUGUI staminaText;
 
     private float maxStamina = 100f;
     private float curStamina;  // 현재 스태미나
@@ -30,7 +32,9 @@ public class Stamina : MonoBehaviour
 
     private void Awake()
     {
-        if (!TryGetComponent<PlayerController>(out pc)) Debug.Log("Stamina - Failed to Load PlayerController");
+        //if (!TryGetComponent<PlayerController>(out pc)) Debug.Log("Stamina - Failed to Load PlayerController");
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null) Debug.Log("Stamina - Failed to Load PlayerController");
     }
 
     private void Update()
@@ -38,11 +42,24 @@ public class Stamina : MonoBehaviour
         if (inputHandler.Run())
         {
             UseStamina();
+            canRecovering = false;
+            delayTimer = recoverDelay;  // 멈추는 순간 대기 타이머 초기화;
         }
-        else if (!inputHandler.Run() && canRecovering) {
-            // 회복 시작
-            Recovering();
+        else
+        {
+            // 회복 대기 시간 감소
+            if (delayTimer > 0f) { 
+                delayTimer -= Time.deltaTime;
+                if (delayTimer <= 0 && curStamina >= minStaminaVal) {
+                    canRecovering = true;
+                    EventBus.Instance.Publish<GameEvents.StaminaRecoverd>(new GameEvents.StaminaRecoverd());
+                }
+            }
+
+            if (canRecovering)
+                Recovering();
         }
+        UpdateUI();
     }
 
     private void UseStamina() {
@@ -57,6 +74,7 @@ public class Stamina : MonoBehaviour
             curStamina = 0f;
 
             // 뛰지 못하게 됨
+            //EventBus.Instance.Publish<GameEvents.StaminaDepleted>(new GameEvents.StaminaDepleted());
             
             isRunning = false;
             canRecovering = false;
@@ -78,30 +96,25 @@ public class Stamina : MonoBehaviour
         }
     }
 
-    private bool IsRecoveable() {
-        if (recoverDelay < delayTimer) return true;
-        else return false;
-    }
-
     private void CanRecover() {
         //update
         if (delayTimer > 0f) {
             delayTimer -= Time.deltaTime;
         }
 
-        if (delayTimer <= 0f) {
+        if (delayTimer <= 0f && curStamina >= minStaminaVal) {
             canRecovering = true;
+            // 달리기 가능
+            //EventBus.Instance.Publish<GameEvents.StaminaRecoverd>(new GameEvents.StaminaRecoverd());
         }
     }
 
-
-    
-
-
-
-
-
-
-
-
+    private void UpdateUI() {
+        if (staminaBar != null) { 
+            staminaBar.value = curStamina / maxStamina;
+        }
+        if (staminaText != null) {
+            staminaText.text = curStamina + " / 100";
+        }
+    }
 }

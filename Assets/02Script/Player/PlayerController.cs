@@ -51,4 +51,5 @@ public class PlayerController : Singleton<PlayerController>
     public PlayerState CurState { get; set; } = PlayerState.Idle;
     public GameMode CurMode { get; set; } = GameMode.InspectMode;
     public AspectMode CurAspect { get; set; } = AspectMode.ThirdpersonMode;
+    //public SceneType CurScene { get; set; } = SceneType.TutorialScene;
 }
