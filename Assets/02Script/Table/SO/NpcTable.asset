@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2499ace9786991e488bf8f56d501e53a, type: 3}
+  m_Name: NpcTable
+  m_EditorClassIdentifier: 
+  NPC:
+  - NpcID: N001
+    NpcName: "\uACF0\uC778\uD615"
+  - NpcID: N002
+    NpcName: "\uC218\uC0C1\uD55C \uAF43"
+  NpcDialog:
+  - NpcID: N001
+    LogID: 1001
+    Dialog: "\uC5B4..?"
+    NextID: 1002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N001
+    LogID: 1002
+    Dialog: "\uC774\uAC74.. \uB0B4\uAC00 \uC5B4\uB838\uC744 \uB54C \uC81C\uC77C \uC88B\uC544\uD588\uB358
+      \uC778\uD615\uC774\uC796\uC544?"
+    NextID: 1003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N001
+    LogID: 1003
+    Dialog: "\uC2EC\uD558\uAC8C \uB9DD\uAC00\uC838\uC11C \uC5C4\uB9C8\uAC00 \uBC84\uB838\uC5C8\uB294\uB370..
+      \uC774\uAC8C \uC65C \uC5EC\uAE30 \uC788\uC9C0?"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: NC001
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N002
+    LogID: 2001
+    Dialog: "\uBB50\uC9C0... \uBC29\uAE08 \uC774 \uAF43\uC774 \uB0A0 \uCCD0\uB2E4\uBCF8
+      \uAC70 \uAC19\uC740\uB370"
+    NextID: 2002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N002
+    LogID: 2002
+    Dialog: "\uBB54\uAC00.. \uB208\uC774 \uB2EC\uB9B0 \uAC83 \uAC19\uC558\uC5B4"
+    NextID: 2003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N002
+    LogID: 2003
+    Dialog: "\uADF8\uB7F4 \uC218\uAC00 \uC788\uB098?"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: NC002
+    Textbox: Basic
+    Emotion: -1
+  NpcReDialog:
+  - NpcID: N001
+    Dialog: ......................
+    Speaker: Extra
+    SpeakerName: "\uACF0\uC778\uD615"
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N002
+    Dialog: ......................
+    Speaker: Extra
+    SpeakerName: "\uC218\uC0C1\uD55C \uAF43"
+    Textbox: Basic
+    Emotion: -1
+  Choice:
+  - ChoiceID: NC001
+    Choice0: "\uC65C \uC788\uB294\uC9C4 \uBAA8\uB974\uACA0\uC9C0\uB9CC\n\uB2E4\uC2DC
+      \uBCF4\uB2C8\uAE4C \uADF8\uB54C \uAE30\uC5B5\uC774 \uB5A0\uC624\uB974\uB124"
+    Choice1: "\uC774\uC0C1\uD574.. \uC544\uBB34\uB798\uB3C4 \uD604\uC2E4\uC774 \uC544\uB2CC
+      \uAC83 \uAC19\uC544.. \n\uB0B4\uAC00 \uAFC8\uC744 \uAFB8\uACE0 \uC788\uB294
+      \uAC78\uAE4C?"
+    Choice2: 
+  - ChoiceID: NC002
+    Choice0: "\uC774 \uAF43.. \uC544\uBB34\uB9AC \uBD10\uB3C4 \uC18C\uB984 \uB07C\uCCD0..\n\uD604\uC2E4\uC5D0
+      \uC774\uB7F0 \uAF43\uC774 \uC874\uC7AC\uD560 \uB9AC\uAC00 \uC5C6\uB294\uB370.."
+    Choice1: "\uC5D0\uC774.. \uADF8\uB7F4 \uB9AC\uAC00 \uC788\uACA0\uC5B4?\n\uB0B4\uAC00
+      \uC798 \uBABB \uBCF8 \uAC70\uACA0\uC9C0?"
+    Choice2: 

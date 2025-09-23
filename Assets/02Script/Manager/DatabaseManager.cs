@@ -7,8 +7,9 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
 {
     [Header("Data SO 연결")]
-    [SerializeField] private ObjectTable SOobject; // Object SO연결
-    [SerializeField] private EventTable SOevent; // event SO 연결
+    [SerializeField] private ObjectTable SOobject;  // Object SO연결
+    [SerializeField] private EventTable SOevent;    // event SO 연결
+    [SerializeField] private NpcTable SOnpc;         // npc SO 연결
 
 
     // 게임에 존재하는 모든 아이템 정보 Dictionary로 관리
@@ -23,6 +24,11 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
     private Dictionary<string, List<NarrationData>> narrationDict = new();
     private Dictionary<string, Dictionary<int, DialogData>> dialogDict = new();
     private Dictionary<string, ChoiceData> choiceDict = new();
+
+    // NPC 정보
+    private Dictionary<string, NPCData> npcDict = new();
+    private Dictionary<string, Dictionary<int, NPCDialogData>> npcDialogDict = new();
+    private Dictionary<string, NPCReDialogData> npcRedialogDict = new();
 
 
     protected override void DoAwake()
@@ -183,7 +189,10 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                     evt.Choice2,
                 }  // LINQ 로 만들기
                 .Where(x => !string.IsNullOrEmpty(x))
-                .ToList()
+                .ToList(),
+                //scores = new List<int> { 
+                //    evt
+                //}
             };
             choiceDict[evt.ChoiceID] = data;
         }
@@ -224,7 +233,67 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                 Debug.Log($"{evt.LogID} : 이미 존재하는 대화");
             }
         }
+
+        // NPC 정보 생략
+
+        // 9. NPC Dialog
+        foreach (var npc in SOnpc.NpcDialog) {
+            // choiceID에 맞는 ChoiceData 미리 세팅
+            ChoiceData choiceData = null;
+            if (!string.IsNullOrEmpty(npc.ChoiceID))
+            {
+                choiceDict.TryGetValue(npc.ChoiceID, out choiceData);
+            }
+
+            NPCDialogData data = new NPCDialogData
+            {
+                npcID = npc.NpcID,
+                logID = npc.LogID,
+                dialog = npc.Dialog,
+                nextID = npc.NextID,
+                speaker = System.Enum.Parse<Speaker>(npc.Speaker),
+                speakerName = npc.SpeakerName,
+                choiceID = npc.ChoiceID,
+                textbox = System.Enum.Parse<Textbox>(npc.Textbox),
+                emotion = npc.Emotion,
+                choices = choiceData
+            };
+            if(!npcDialogDict.ContainsKey(npc.NpcID))
+            {
+                npcDialogDict[npc.NpcID] = new Dictionary<int, NPCDialogData>();
+            }
+            // logID가 없으면  생성
+            if (!npcDialogDict[npc.NpcID].ContainsKey(npc.LogID))
+            {
+                npcDialogDict[npc.NpcID].Add(npc.LogID, data);
+            }
+            else
+            {
+                Debug.Log($"{npc.LogID} : 이미 존재하는 대화");
+            }
+        }
+
+        // 10. ReDialog
+        foreach (var npc in SOnpc.NpcReDialog)
+        {
+            NPCReDialogData data = new NPCReDialogData
+            {
+                npcID = npc.NpcID,
+                dialog = npc.Dialog,
+                speaker = System.Enum.Parse<Speaker>(npc.Speaker),
+                speakerName = npc.SpeakerName,
+                textbox = System.Enum.Parse<Textbox>(npc.Textbox),
+                emotion = npc.Emotion
+            };
+            npcRedialogDict[npc.NpcID] = data;
+        }
     }
+
+
+
+
+
+
 
 
     // 외부 호출 함수 (Getter)
@@ -302,6 +371,22 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
         if (choiceDict.TryGetValue(choiceID, out var data))
         {
             return data;
+        }
+        return null;
+    }
+
+    public Dictionary<int, NPCDialogData> GetNpcDialog(string npcID) {
+        if (npcDialogDict.TryGetValue(npcID, out var dataDict))
+        {
+            return dataDict;
+        }
+        return null;
+    }
+
+    public NPCReDialogData GetNPCReDialog(string npcID){
+        if (npcRedialogDict.TryGetValue(npcID, out var dataDict))
+        {
+            return dataDict;
         }
         return null;
     }

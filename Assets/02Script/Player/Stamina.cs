@@ -12,6 +12,7 @@ public class Stamina : MonoBehaviour
     [SerializeField] private float recoverDelay = 3f;   // 멈춘 후 대기시간
     [SerializeField] private float recoverSpeed = 33f;   // 1초당 회복되는 스태미나값
     [SerializeField] private float minStaminaVal = 33f;  // 달릴 수 있는 스태미너의 최소값
+    // 비활성화된 느낌을 줘야할것같은데.
 
     [Header("UI Refs")]
     [SerializeField] private Slider staminaBar;

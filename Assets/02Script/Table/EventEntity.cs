@@ -37,4 +37,7 @@ public class ChoiceEntity
     public string Choice0;
     public string Choice1;
     public string Choice2;
+    public int Score0;
+    public int Score1;
+    public int Score2;
 }
