@@ -21,8 +21,8 @@ public class InitManager : MonoBehaviour
         db = DatabaseManager.Instance;
         invenManager = InventoryManager.Instance;
 
-        // 씬에 존재하는 IActionItem 찾아 Init 실행
-        var items = FindObjectsOfType<MonoBehaviour>().OfType<IActionItem>();
+        // 씬에 존재하는 IActionItem / IActionNpc 찾아 Init 실행
+        var items = FindObjectsOfType<MonoBehaviour>().OfType<IActionTarget>();
         if (items != null)
         {
             foreach (var item in items)
@@ -33,6 +33,7 @@ public class InitManager : MonoBehaviour
                 }
             }
         }
+
 
         invenDesc = FindAnyObjectByType<InventoryDescription>();
         if (invenDesc == null) Debug.Log("InitManager - Failed to Load InvenDescription");

@@ -15,6 +15,17 @@ public static class UIEvents
         }
     }
 
+    public struct OpenNpcDialog
+    {
+        public string npcID;
+        public Dictionary<int, NPCDialogData> texts;
+        public OpenNpcDialog(string npcID, Dictionary<int, NPCDialogData> texts)
+        {
+            this.npcID = npcID;
+            this.texts = texts;
+        }
+    }
+
     // 선택지 발생
     public struct OccurSelection
     {

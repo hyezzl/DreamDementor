@@ -62,6 +62,8 @@ public class Selection : MonoBehaviour
         standbyInput = true;
         background.enabled = true;
 
+        Debug.Log("선택지 호출");
+
         if (evt.choice.texts.Count == 2)  // 선택지 2개일 때
         {
             Vector2 spacing = group.spacing;

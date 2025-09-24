@@ -33,6 +33,7 @@ public class InputManager : MonoBehaviour
         //FindAnyObjectByType<PauseMode>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<PopupManager>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<DialogPopup>()?.SetInputHandler(inputHandler);
+        FindAnyObjectByType<NpcDialogPopup>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<MonologuePopup>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<PlayerMoveOne>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<Stamina>()?.SetInputHandler(inputHandler);

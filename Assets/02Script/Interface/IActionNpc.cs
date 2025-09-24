@@ -1,9 +1,5 @@
 
-public interface IActionNpc
+public interface IActionNpc : IActionTarget
 {
-    int GetNpcID();
-
-    void Init(IDatabase db);
-
-    void Interact();
+    string GetNpcID();
 }

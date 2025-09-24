@@ -51,6 +51,7 @@ public class DialogPopup : MonoBehaviour
 
     // 일러스트 변경 시 최적화
     private int curLeftIdx = -1;  // 주인공은 무조건 왼쪽
+    //private string curNpcID;
     private Speaker curRight = Speaker.Enemy;             // 오른쪽은 누구나 가능
     private int curRightIdx = -1;                         // 이모션 인덱스
     private Color deactive = new Color(0.4f, 0.4f, 0.4f, 1f);
@@ -126,6 +127,7 @@ public class DialogPopup : MonoBehaviour
         StartCoroutine(TypeDialog(evt.texts));
     }
 
+    
 
     private IEnumerator TypeDialog(Dictionary<int, DialogData> dialogDict) {
         seq = DOTween.Sequence();
@@ -431,8 +433,6 @@ public class DialogPopup : MonoBehaviour
             case Speaker.Enemy:
                 if (curRight != dialogDict[curlogIdx].speaker && curRightIdx != dialogDict[curlogIdx].emotion)
                 {
-                    Debug.Log("33333333333333333333333333333333333");
-
                     curRight = Speaker.Enemy;
                     var curAddress = (EnemyEmotion)dialogDict[curlogIdx].emotion;
                     curRightIdx = dialogDict[curlogIdx].emotion;

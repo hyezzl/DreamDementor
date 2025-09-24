@@ -67,7 +67,6 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                     Debug.Log($"PickableItem ({item.ItemID} 아이콘 로드 실패)");
                 }
             };
-
         }
 
         // 2 . Eatable
@@ -383,7 +382,7 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
         return null;
     }
 
-    public NPCReDialogData GetNPCReDialog(string npcID){
+    public NPCReDialogData GetNpcReDialog(string npcID){
         if (npcRedialogDict.TryGetValue(npcID, out var dataDict))
         {
             return dataDict;

@@ -59,12 +59,13 @@ public class Interact : MonoBehaviour
                 SearchForward().Interact();
             }
         }
+
     }
 
 
     // 3인칭 일 때
     // 박스캐스트를 이용한 물체 검색
-    private IActionItem SearchForward() {
+    private IActionTarget SearchForward() {
         Vector3 lookDir = pm.LookingDirOnThree;    // 플레이어가 현재 바라보는 방향 (직전 프레임이 향하는 방향)
         if (lookDir == Vector3.zero) lookDir = player.transform.forward;
 
@@ -80,7 +81,7 @@ public class Interact : MonoBehaviour
                                     );
 
         foreach (var hit in hits) {
-            var item = hit.collider.GetComponent<IActionItem>();
+            var item = hit.collider.GetComponent<IActionTarget>();
             if (item != null) {
                 //Debug.Log("아이템 감지! : " + hit.collider.gameObject.name);
 
