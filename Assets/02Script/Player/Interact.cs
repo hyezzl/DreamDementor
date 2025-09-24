@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,7 +15,6 @@ public class Interact : MonoBehaviour
     [SerializeField] private float castDist;        // 플레이어 - 박스 캐스트 중심까지의 거리
     [SerializeField] private LayerMask itemLayer;  // 아이템 레이어 참조
     [SerializeField] private GameObject player;
-
 
 
     private PlayerController pc;
@@ -56,6 +56,7 @@ public class Interact : MonoBehaviour
         if (pc.CurMode == GameMode.InspectMode)
             if (inputHandler.DoInteract() && SearchForward() != null) {
             {
+                Debug.Log("앞 조사");
                 SearchForward().Interact();
             }
         }

@@ -5,9 +5,12 @@ using UnityEngine;
 public class NPC : MonoBehaviour, IActionNpc
 {
     public string npcID;
+    public bool isContacted = false;
     private Dictionary<int, NPCDialogData> dialogDatas;
     private NPCReDialogData reDialogData;
     private IDatabase database;
+
+    private bool isInDialog = false;
 
     public string GetNpcID() => npcID;
 
@@ -15,17 +18,41 @@ public class NPC : MonoBehaviour, IActionNpc
     {
         database = db;
         dialogDatas = database.GetNpcDialog(npcID);
+        if (dialogDatas == null) Debug.Log("NPC - Failed to Load NpcDialogs");
         reDialogData = database.GetNpcReDialog(npcID);
+        if (reDialogData == null) Debug.Log("NPC - Failed to Load NpcReDialogs");
+        Debug.Log("NPC Init실행완료");
+    }
+
+    private void OnEnable()
+    {
+        EventBus.Instance.Subscribe<UIEvents.EndNpcDialog>(OnEndNpcDialog);
+    }
+    private void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<UIEvents.EndNpcDialog>(OnEndNpcDialog);
     }
 
     public void Interact()
     {
-        // 대화가 시작
-        Debug.Log("관찰됨");
+        if (isInDialog) return; // 대화중이면 무시
 
-        EventBus.Instance.Publish<UIEvents.OpenNpcDialog>(new UIEvents.OpenNpcDialog(npcID, dialogDatas));
+        if (!isContacted)
+        {
+            // 첫 대면 : 대화
+            EventBus.Instance.Publish<UIEvents.OpenNpcDialog>(new UIEvents.OpenNpcDialog(npcID, dialogDatas));
+            isContacted = true;
+        }
+        else {
+            // 재 대화시 재대화
+            EventBus.Instance.Publish<UIEvents.OpenNpcReDialog>(new UIEvents.OpenNpcReDialog(npcID, reDialogData));
+        }
+    }
 
-        // 재 대화시 재대화
+    private void OnEndNpcDialog(UIEvents.EndNpcDialog evt) {
+        if (evt.npcID == npcID) {
+            isInDialog = false;
+        }
     }
 
 }

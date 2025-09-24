@@ -1,12 +1,13 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UI;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 using Sequence = DG.Tweening.Sequence;
 
 public class NpcDialogPopup : MonoBehaviour
@@ -75,12 +76,12 @@ public class NpcDialogPopup : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<UIEvents.OpenNpcDialog>(OnOpenNpcDialog);
-
+        EventBus.Instance.Subscribe<UIEvents.OpenNpcReDialog>(OnOpenNpcReDialog);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OpenNpcDialog>(OnOpenNpcDialog);
-
+        EventBus.Instance.Unsubscribe<UIEvents.OpenNpcReDialog>(OnOpenNpcReDialog);
     }
 
 
@@ -124,6 +125,23 @@ public class NpcDialogPopup : MonoBehaviour
 
         // 타이핑
         StartCoroutine(TypeDialog(evt.texts));
+    }
+
+    private void OnOpenNpcReDialog(UIEvents.OpenNpcReDialog evt) {
+        preMode = pc.CurMode;
+
+        // 모드 변경
+        pc.CurMode = GameMode.DialogMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
+
+        // 로그창 표시
+        isOpen = true;
+
+        // NPC 
+        curNpcID = evt.npcID;
+
+        // 타이핑
+        StartCoroutine(TypeReDialog(evt.data));
     }
 
 
@@ -183,7 +201,7 @@ public class NpcDialogPopup : MonoBehaviour
             }
 
             // 선택지가 있으면 이벤트가 발생!
-            if (!string.IsNullOrEmpty(curDialog.choiceID))
+            if (!string.IsNullOrEmpty(curDialog.choiceID) && curDialog.choices != null)
             {
                 EventBus.Instance.Publish<UIEvents.OccurSelection>
                     (new UIEvents.OccurSelection(npcDialogDict[curlogIdx].choices.texts.Count, npcDialogDict[curlogIdx].choices));
@@ -196,6 +214,56 @@ public class NpcDialogPopup : MonoBehaviour
             // Index++;
             curlogIdx = curDialog.nextID;
         }
+
+        yield return StartCoroutine(ClosePanel());  // 모든 대화가 끝나면 패널 닫음
+    }
+
+
+    private IEnumerator TypeReDialog(NPCReDialogData data)
+    {
+        seq = DOTween.Sequence();
+
+        sentence = data.dialog;
+        isTyping = true;
+        standbyInput = false;
+        isSkip = false;
+        //ShowIllust(npcDialogDict, curlogIdx);
+
+        // Textbox에 따른 분기 (대화창 / 폰트)
+        if (data.textbox == Textbox.Basic || data.textbox == Textbox.Monologue)
+        {
+            curTextbox = basicTextBox;
+            DialogFade(curTextbox, true);
+            SetDialog(0, data.speakerName, data.textbox);
+
+            //ShowIllust(npcDialogDict, curlogIdx);
+        }
+        else if (data.textbox == Textbox.Monster)  // 몬스터 텍스트 박스
+        {
+            curTextbox = enemyTextBox;
+            DialogFade(curTextbox, true);
+            SetDialog(1, data.speakerName, data.textbox);
+
+            //ShowIllust(npcDialogDict, curlogIdx);
+        }
+
+        // Typing
+        float duration = sentence.Length / typingSpeed;
+        typing = textarea.DOText(sentence, duration).SetEase(Ease.Linear);
+
+        yield return typing.WaitForCompletion(); // 타이핑 완료까지 대기
+
+        isTyping = false;
+        standbyInput = true;
+
+        if (isSkip) // 스킵이 눌렸을 때
+        {
+            yield return null;
+            isSkip = false;
+        }
+
+        // 입력 대기
+        yield return new WaitUntil(() => inputHandler.DoSelect());
 
         yield return StartCoroutine(ClosePanel());  // 모든 대화가 끝나면 패널 닫음
     }
@@ -215,81 +283,6 @@ public class NpcDialogPopup : MonoBehaviour
         //if (blinkCor != null) StopCoroutine(blinkCor);
         //blinkCor = StartCoroutine(blink.BlinkAnnounceMSG(group));
     }
-
-    private IEnumerator TypeNpcDialog(Dictionary<int, NPCDialogData> npcDialogDict)
-    {
-        seq = DOTween.Sequence();
-
-        // 시작 logID의 최소값
-        int curlogIdx = npcDialogDict.Keys.Min();
-
-        while (curlogIdx != -1)
-        {
-            if (!npcDialogDict.TryGetValue(curlogIdx, out var curDialog))
-            {
-                Debug.Log($"{curlogIdx} : 존재하지 않는 대화 데이터");
-                yield break;
-            }
-
-            isTyping = true;
-            standbyInput = false;
-            isSkip = false;
-            ShowIllust(npcDialogDict, curlogIdx);
-
-            // Textbox에 따른 분기 (대화창 / 폰트)
-            if (npcDialogDict[curlogIdx].textbox == Textbox.Basic || npcDialogDict[curlogIdx].textbox == Textbox.Monologue)
-            {
-                curTextbox = basicTextBox;
-                DialogFade(curTextbox, true);
-                SetDialog(0, curDialog.speakerName, curDialog.textbox);
-
-                ShowIllust(npcDialogDict, curlogIdx);
-            }
-            else if (npcDialogDict[curlogIdx].textbox == Textbox.Monster)  // 몬스터 텍스트 박스
-            {
-                curTextbox = enemyTextBox;
-                DialogFade(curTextbox, true);
-                SetDialog(1, curDialog.speakerName, curDialog.textbox);
-
-                ShowIllust(npcDialogDict, curlogIdx);
-            }
-
-            sentence = curDialog.dialog; // 캐싱
-
-            // Typing
-            float duration = curDialog.dialog.Length / typingSpeed;
-            typing = textarea.DOText(curDialog.dialog, duration).SetEase(Ease.Linear);
-
-            yield return typing.WaitForCompletion(); // 타이핑 완료까지 대기
-
-            isTyping = false;
-            standbyInput = true;
-
-            if (isSkip) // 스킵이 눌렸을 때
-            {
-                yield return null;
-                isSkip = false;
-            }
-
-            // 선택지가 있으면 이벤트가 발생!
-            if (!string.IsNullOrEmpty(curDialog.choiceID))
-            {
-                EventBus.Instance.Publish<UIEvents.OccurSelection>
-                    (new UIEvents.OccurSelection(npcDialogDict[curlogIdx].choices.texts.Count, npcDialogDict[curlogIdx].choices));
-                Debug.Log($"{npcDialogDict[curlogIdx].choices.texts.Count}");
-                yield break;  // 선택지 발생 시 대화 멈춤
-            }
-
-            // 입력 대기
-            yield return new WaitUntil(() => inputHandler.DoSelect());
-
-            // Index++;
-            curlogIdx = curDialog.nextID;
-        }
-
-        yield return StartCoroutine(ClosePanel());  // 모든 대화가 끝나면 패널 닫음
-    }
-
 
     // 패널 닫기
     public IEnumerator ClosePanel()
@@ -321,8 +314,8 @@ public class NpcDialogPopup : MonoBehaviour
 
         yield return null;
 
-        // 대화끝 이벤트 (대화이벤트 ID 전달)
-        //EventBus.Instance.Publish<UIEvents.EndDialog>(new UIEvents.EndDialog(curEventID));
+        // 대화끝 이벤트 (대화 NPC ID 전달)
+        EventBus.Instance.Publish<UIEvents.EndNpcDialog>(new UIEvents.EndNpcDialog(curNpcID));
     }
 
 

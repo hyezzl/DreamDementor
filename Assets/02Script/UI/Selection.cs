@@ -14,8 +14,6 @@ public class Selection : MonoBehaviour
 
     [SerializeField] private GridLayoutGroup group;
 
-    
-
     private bool standbyInput = false;
     private List<GameObject> buttons = new();
     private string curChoiceID = null;
@@ -24,6 +22,8 @@ public class Selection : MonoBehaviour
     private int focusIdx = -1;
     private Tween focusTween;
 
+    // 입력 제어 변수
+    private float blockTime = 1f;
 
     private void OnEnable()
     {

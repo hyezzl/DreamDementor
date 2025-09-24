@@ -989,7 +989,7 @@ MonoBehaviour:
       \uAC78\uAE4C?"
     Choice2: 
     Score0: 0
-    Score1: 10
+    Score1: -10
     Score2: 0
   - ChoiceID: C003
     Choice0: "\uC774 \uAF43.. \uC544\uBB34\uB9AC \uBD10\uB3C4 \uC18C\uB984 \uB07C\uCCD0..\n\uD604\uC2E4\uC5D0
@@ -997,6 +997,6 @@ MonoBehaviour:
     Choice1: "\uC5D0\uC774.. \uADF8\uB7F4 \uB9AC\uAC00 \uC788\uACA0\uC5B4?\n\uB0B4\uAC00
       \uC798 \uBABB \uBCF8 \uAC70\uACA0\uC9C0?"
     Choice2: 
-    Score0: 10
+    Score0: -10
     Score1: 0
     Score2: 0

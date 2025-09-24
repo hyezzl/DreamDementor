@@ -189,9 +189,11 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                 }  // LINQ 로 만들기
                 .Where(x => !string.IsNullOrEmpty(x))
                 .ToList(),
-                //scores = new List<int> { 
-                //    evt
-                //}
+                scores = new List<int> { 
+                    evt.Score0,
+                    evt.Score1,
+                    evt.Score2,
+                }
             };
             choiceDict[evt.ChoiceID] = data;
         }
@@ -239,9 +241,10 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
         foreach (var npc in SOnpc.NpcDialog) {
             // choiceID에 맞는 ChoiceData 미리 세팅
             ChoiceData choiceData = null;
-            if (!string.IsNullOrEmpty(npc.ChoiceID))
+            string choiceID = npc.ChoiceID?.Trim();
+            if (!string.IsNullOrEmpty(choiceID))
             {
-                choiceDict.TryGetValue(npc.ChoiceID, out choiceData);
+                choiceDict.TryGetValue(choiceID, out choiceData);
             }
 
             NPCDialogData data = new NPCDialogData

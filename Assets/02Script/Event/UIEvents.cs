@@ -26,6 +26,17 @@ public static class UIEvents
         }
     }
 
+    public struct OpenNpcReDialog
+    {
+        public string npcID;
+        public NPCReDialogData data;
+        public OpenNpcReDialog(string npcID, NPCReDialogData data) { 
+            this.npcID = npcID;
+            this.data = data;
+        }
+    }
+
+
     // 선택지 발생
     public struct OccurSelection
     {
@@ -72,6 +83,14 @@ public static class UIEvents
         public string eventID;
         public EndDialog(string eventID) {
             this.eventID = eventID;
+        }
+    }
+
+    public struct EndNpcDialog
+    {
+        public string npcID;
+        public EndNpcDialog(string npcID) { 
+            this.npcID = npcID;
         }
     }
 
