@@ -8,15 +8,19 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
     public string eventID;
     public bool canPass = false;
     public bool isContacted = false;
-    [SerializeField] private Transform player;
+
+    //[Header("Barrier")]
+    //[SerializeField] private BoxCollider barrier;
 
     private PlayerController pc;
     private PlayerMove pm;
+    private EventHistoryManager hm;
     private IDatabase database;
     private Dictionary<int, DialogData> dialogs;
+    private BoxCollider barrier;
 
     // 임시
-    public string needEventID = "E007";
+    public string needEventID;
 
 
     public void Init(IDatabase db)
@@ -29,9 +33,14 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
     private void Awake()
     {
         pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) Debug.Log("TriggerZone - Failed to Load PlayerController");
+        if (pc == null) Debug.Log("BlockTriggerZone - Failed to Load PlayerController");
         pm = FindAnyObjectByType<PlayerMove>();
-        if (pm == null) Debug.Log("TriggerZone - Failed to Load PlayerMove");
+        if (pm == null) Debug.Log("BlockTriggerZone - Failed to Load PlayerMove");
+        hm = FindAnyObjectByType<EventHistoryManager>();
+        if (hm == null) Debug.Log("BlockTriggerZone - Failed to Load EventHistoryManager");
+
+        barrier = GetComponentInChildren<BoxCollider>();
+        if (barrier == null) Debug.Log("BlockTriggerZone - Failed to Load BarrierCollider");
     }
 
     private void OnEnable()
@@ -45,13 +54,12 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
 
 
 
-
     private void OnTriggerEnter(Collider other)
     {
         // 트리거 존은 플레이어와만 상호작용
         if (other.CompareTag("Player")) {
             // 조건 이벤트 확인
-            if (pc.IsEventComplete(needEventID)) { 
+            if (hm.IsEventComplete(needEventID)) { 
                 canPass = true;
             }
 
@@ -64,21 +72,15 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
         if (canPass)
         {
             Debug.Log("통과 가능");
+            barrier.gameObject.SetActive(false);        // 방해물 제거
         }
         else 
         {
             Debug.Log("통과 불가능");
-
-            // 강제 대화이벤트 발생
-            //pc.CurMode = GameMode.DialogMode;
-            //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
             EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
 
             // 종료 이벤트 저장
-
-
-            // 플레이어 뒤로 밈
-            // 대화가 끝났으면
+            EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent(eventID));
         }
     }
 

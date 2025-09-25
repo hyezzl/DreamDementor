@@ -120,7 +120,7 @@ public static class GameEvents
 
 
     // 달리기 가능
-    public struct StaminaRecoverd { }
+    public struct StaminaRecovered { }
 
 
     // 이벤트 종료 (저장)
@@ -131,6 +131,7 @@ public static class GameEvents
         public EndEvent(string eventID)
         {
             this.eventID = eventID;
+            Debug.Log($"{eventID} 이벤트 종료 후 저장!");
         }
     }
 }

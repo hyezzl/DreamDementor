@@ -15,6 +15,7 @@ public class Interact : MonoBehaviour
     [SerializeField] private float castDist;        // 플레이어 - 박스 캐스트 중심까지의 거리
     [SerializeField] private LayerMask itemLayer;  // 아이템 레이어 참조
     [SerializeField] private GameObject player;
+    [SerializeField] private Vector3 half = new Vector3(0.5f, 1f, 1f); // 가로 1, 세로 2, 깊이 1
 
 
     private PlayerController pc;
@@ -25,7 +26,6 @@ public class Interact : MonoBehaviour
 
     // 박스 캐스트 변수
     Vector3 boxCenter;
-    Vector3 half = new Vector3(0.5f, 1f, 1f); // 가로 1, 세로 2, 깊이 1
     RaycastHit hitInfo;     // 레이캐스트 정보
     Quaternion rotate;      // 박스 회전값
 

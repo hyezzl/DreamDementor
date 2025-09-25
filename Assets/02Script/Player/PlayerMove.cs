@@ -100,7 +100,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(ModeChange);
         EventBus.Instance.Subscribe<GameEvents.AspectChange>(OnAspectChange);
         EventBus.Instance.Subscribe<GameEvents.StaminaDepleted>(OnStaminaDepleted);
-        EventBus.Instance.Subscribe<GameEvents.StaminaRecoverd>(OnStaminaRecoverd);
+        EventBus.Instance.Subscribe<GameEvents.StaminaRecovered>(OnStaminaRecovered);
         //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(OnSwitchScene);
     }
     private void OnDisable()
@@ -108,7 +108,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(ModeChange);
         EventBus.Instance.Unsubscribe<GameEvents.AspectChange>(OnAspectChange);
         EventBus.Instance.Unsubscribe<GameEvents.StaminaDepleted>(OnStaminaDepleted);
-        EventBus.Instance.Unsubscribe<GameEvents.StaminaRecoverd>(OnStaminaRecoverd);
+        EventBus.Instance.Unsubscribe<GameEvents.StaminaRecovered>(OnStaminaRecovered);
         //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(OnSwitchScene);
     }
 
@@ -333,7 +333,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         canRunning = false;
     }
 
-    private void OnStaminaRecoverd(GameEvents.StaminaRecoverd evt)
+    private void OnStaminaRecovered(GameEvents.StaminaRecovered evt)
     {
         // 달리기 가능
         canRunning = true;

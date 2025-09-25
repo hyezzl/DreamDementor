@@ -53,7 +53,7 @@ public class Stamina : MonoBehaviour
                 delayTimer -= Time.deltaTime;
                 if (delayTimer <= 0 && curStamina >= minStaminaVal) {
                     canRecovering = true;
-                    EventBus.Instance.Publish<GameEvents.StaminaRecoverd>(new GameEvents.StaminaRecoverd());
+                    EventBus.Instance.Publish<GameEvents.StaminaRecovered>(new GameEvents.StaminaRecovered());
                 }
             }
 

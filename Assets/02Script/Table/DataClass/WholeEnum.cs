@@ -18,3 +18,9 @@ public enum Textbox
     Monster,
 }
 
+public enum ZoneType
+{ 
+    TriggerZone,        // 충돌 시 이벤트 발생
+    BlockZone,          // 특정 이벤트 보지않았을 시 막혀있음Trig
+}
+

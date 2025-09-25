@@ -540,7 +540,4 @@ public class NpcDialogPopup : MonoBehaviour
                 break;
         }
     }
-
-
-
 }
