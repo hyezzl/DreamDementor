@@ -46,7 +46,7 @@ public static class GameEvents
     {
         public CameraType type;
         public int blend;
-        public CameraShift(CameraType type, int blend) { 
+        public CameraShift(CameraType type, int blend) {
             this.type = type;
             this.blend = blend;
         }
@@ -57,23 +57,23 @@ public static class GameEvents
     public struct StopTime
     {
         public bool audioStop;
-        public StopTime(bool audioStop) { 
+        public StopTime(bool audioStop) {
             this.audioStop = audioStop;
         }
     }
 
     // 시간 재개
-    public struct FlowTime 
+    public struct FlowTime
     {
         public bool audioPlay;
-        public FlowTime(bool audioPlay) { 
+        public FlowTime(bool audioPlay) {
             this.audioPlay = audioPlay;
         }
     }
 
 
     // 게임오버
-    public struct GameOver 
+    public struct GameOver
     {
         public SceneType scene;
         public DeathType type;
@@ -87,7 +87,7 @@ public static class GameEvents
     public struct SwitchScene
     {
         public SceneType nextScene;
-        public SwitchScene(SceneType nextScene) { 
+        public SwitchScene(SceneType nextScene) {
             this.nextScene = nextScene;
         }
     }
@@ -96,7 +96,7 @@ public static class GameEvents
     public struct AspectChange
     {
         public AspectMode mode;
-        public AspectChange(AspectMode mode) { 
+        public AspectChange(AspectMode mode) {
             this.mode = mode;
         }
     }
@@ -121,4 +121,16 @@ public static class GameEvents
 
     // 달리기 가능
     public struct StaminaRecoverd { }
+
+
+    // 이벤트 종료 (저장)
+    public struct EndEvent
+    {
+        public string eventID;
+
+        public EndEvent(string eventID)
+        {
+            this.eventID = eventID;
+        }
+    }
 }

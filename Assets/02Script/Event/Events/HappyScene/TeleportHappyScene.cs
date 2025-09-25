@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
-using UnityEngine.UIElements;
 
 
 /// <summary>
@@ -21,6 +20,8 @@ public class TeleportHappyScene : MonoBehaviour
     private IDatabase database;
     private Dictionary<int, DialogData> dialogs;
     private PlayerController pc;
+
+    private bool isRe = false;
 
     private void Awake()
     {
@@ -57,8 +58,7 @@ public class TeleportHappyScene : MonoBehaviour
 
     private void PlayTeleport() {
         StartCoroutine(PlayEvents());
-
-        
+        isRe = true;
     }
 
     private IEnumerator PlayEvents() {

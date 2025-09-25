@@ -349,4 +349,13 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             ResumeGame();
         }
     }
+
+
+    // 외부에서 호출할 Player BackStep
+    public void PushBack() {
+        Vector3 backDir = -preDir.normalized;
+        cc.Move(backDir);
+
+        Debug.Log("뒤로밀림");
+    }
 }

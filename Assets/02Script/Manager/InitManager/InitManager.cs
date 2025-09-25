@@ -34,6 +34,16 @@ public class InitManager : MonoBehaviour
             }
         }
 
+        // 씬에 존재하는 TiggerZone찾아 이벤트 Init 실행
+        var zones = FindObjectsOfType<MonoBehaviour>().OfType<ITriggerZone>();
+        if (zones != null) { 
+            foreach(var zone in zones){
+                if (zones != null) { 
+                    zone.Init(db);
+                }
+            }
+        }
+
 
         invenDesc = FindAnyObjectByType<InventoryDescription>();
         if (invenDesc == null) Debug.Log("InitManager - Failed to Load InvenDescription");

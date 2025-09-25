@@ -123,8 +123,5 @@ public class IntroEvent : MonoBehaviour, IGameEvent
         }
     }
 
-    public void RecordEvent(GameEvents.PlayEvent evt)
-    {
-        // 저장
-    }
+    public void RecordEvent(GameEvents.EndEvent evt) { } // 잠만
 }

@@ -10624,6 +10624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SOobject: {fileID: 11400000, guid: ed6f927d0a10a9f4fae087bbb79c04c1, type: 2}
   SOevent: {fileID: 11400000, guid: 47e9a0816091354429a3972911e17535, type: 2}
+  SOnpc: {fileID: 11400000, guid: 2b4fa0f8348e16f4fb0e62d445d913bd, type: 2}
 --- !u!4 &1002363606
 Transform:
   m_ObjectHideFlags: 0
