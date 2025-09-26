@@ -22,6 +22,7 @@ public class Interact : MonoBehaviour
     private PlayerMove pm;
     private IInputHandler inputHandler;
     private IActionItem curItem; // 바라보고있는 아이템
+    private AspectMode curAspect = AspectMode.ThirdpersonMode;
 
 
     // 박스 캐스트 변수
@@ -42,6 +43,20 @@ public class Interact : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        
+    }
+
+    private void OnEnable()
+    {
+        EventBus.Instance.Subscribe<GameEvents.AspectChange>(OnModeChange);
+    }
+    private void OnDisable()
+    {
+        EventBus.Instance.Subscribe<GameEvents.AspectChange>(OnModeChange);
+    }
+
 
     // 선택지 중 : DoSelect
     // 탐색 중 : DoInteract
@@ -53,12 +68,23 @@ public class Interact : MonoBehaviour
 
 
     private void OnInteract() {
-        if (pc.CurMode == GameMode.InspectMode)
-            if (inputHandler.DoInteract() && SearchForward() != null) {
-            {
-                Debug.Log("앞 조사");
-                SearchForward().Interact();
-            }
+
+        switch (curAspect) { 
+            case AspectMode.ThirdpersonMode:
+                if (pc.CurMode == GameMode.InspectMode)
+                    if (inputHandler.DoInteract() && SearchForward() != null) {
+                    {
+                        Debug.Log("앞 조사");
+                        SearchForward().Interact();
+                    }
+                }
+
+                break;
+
+
+            case AspectMode.OnepersonMode:
+                break;
+
         }
 
     }
@@ -107,6 +133,22 @@ public class Interact : MonoBehaviour
         Gizmos.matrix = matrix;
 
         Gizmos.DrawWireCube(Vector3.zero, half * 2);
+    }
+
+
+    // ==============================================================
+
+
+    // 1인칭 일때
+
+
+
+
+
+
+    // 시점이 변하면 Interact 방식도 변경
+    private void OnModeChange(GameEvents.AspectChange evt) {
+        curAspect = evt.mode;
     }
 }
 
