@@ -10,7 +10,6 @@ public enum SceneType
     RoomScene,
     HappyScene,
     HappyOneScene,
-    //ConverseHappyScene,
     SorrowScene,
     ConverseSorrowScene,
     ChaosScene,

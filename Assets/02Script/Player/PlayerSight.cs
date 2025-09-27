@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSight : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerSight : MonoBehaviour
     private Camera mainCam;
     private CapsuleCollider col;
     private Rigidbody rig;
+
+    public IActionItem curItem;
 
     private void Awake()
     {
@@ -33,10 +36,32 @@ public class PlayerSight : MonoBehaviour
     // 매프레임 갱신
     private void Update()
     {
+        if (overlapItems.Count > 0)
+        {
+            // 매프레임 갱신
+            var closest = ClosestItem();
+
+            // OutLine
+            foreach (var item in overlapItems)
+            {
+                MonoBehaviour it = item as MonoBehaviour; // 안전성
+                if (it != null && it.TryGetComponent<Outline>(out Outline outline))
+                {
+                    // 내가 현재 바라보는 아이템이면 on
+                    outline.enabled = (item == closest);
+                }
+            }
+
+            if (curItem != closest)
+            {
+                curItem = closest;
+            }
+        }
+        else {
+            curItem = null;
+        }
         
     }
-
-
 
 
     // 시야콜라이더에 들어왔을 때 리스트에 추가
@@ -61,7 +86,10 @@ public class PlayerSight : MonoBehaviour
     {
         if (other.CompareTag("Item") || other.CompareTag("Deactive")) {
             // 윤곽선 삭제
-
+            if (other.TryGetComponent<Outline>(out Outline outline))
+            {
+                outline.enabled = false;
+            }
             if (other.TryGetComponent<IActionItem>(out IActionItem item)) { 
                 overlapItems.Remove(item);
             }
