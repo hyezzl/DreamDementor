@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: SceneCover
+  m_EditorClassIdentifier: 
+  m_GroupName: SceneCover
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c461308a5da7ee84f99a1c48f656f65e
+  m_SerializeEntries:
+  - m_GUID: 4bb87a7790c9bc040b8223951f4b40d9
+    m_Address: F002
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6fe1f200505cc947926720c5f9f1f48
+    m_Address: F003
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 22a5f4df5f4f653419d2b67e33bb1da6, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a971cd645a898704b84a75d48eda0a31, type: 2}
+    - {fileID: 11400000, guid: 74e6b027cc498994182b1b63a80916e5, type: 2}

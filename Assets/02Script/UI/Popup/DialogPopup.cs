@@ -238,6 +238,8 @@ public class DialogPopup : MonoBehaviour
         playerIll.color = new Color(1, 1, 1, 0);
         otherIll.sprite = null;
         otherIll.color = new Color(1, 1, 1, 0);
+        curLeftIdx = -1;
+        curRightIdx = -1;
 
         standbyInput = false;
         isOpen = false;

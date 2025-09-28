@@ -135,4 +135,14 @@ public static class UIEvents
 
     // 인벤토리 열림
     public struct OpenInventory { }
+
+
+    public struct SceneCover {
+        public string illID;
+        public SceneCover(string illID) { 
+            this.illID = illID;
+        }
+    }
+
+    public struct SceneDiscover { }
 }

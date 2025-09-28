@@ -21,7 +21,6 @@ public class NPC : MonoBehaviour, IActionNpc
         if (dialogDatas == null) Debug.Log("NPC - Failed to Load NpcDialogs");
         reDialogData = database.GetNpcReDialog(npcID);
         if (reDialogData == null) Debug.Log("NPC - Failed to Load NpcReDialogs");
-        Debug.Log("NPC Init실행완료");
     }
 
     private void OnEnable()

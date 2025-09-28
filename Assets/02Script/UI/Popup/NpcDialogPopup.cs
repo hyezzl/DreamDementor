@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 using Sequence = DG.Tweening.Sequence;
 
 public class NpcDialogPopup : MonoBehaviour

@@ -1,3 +1,4 @@
+using cakeslice;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,6 @@ public class TriggerZone : MonoBehaviour, ITriggerZone
     private PlayerController pc;
     private IDatabase database;
     private Dictionary<int, DialogData> dialogs;
-
 
     public void Init(IDatabase db)
     {
@@ -43,7 +43,7 @@ public class TriggerZone : MonoBehaviour, ITriggerZone
         }
     }
 
-    protected void OnEndDialog(UIEvents.EndDialog evt) {
+    public virtual void OnEndDialog(UIEvents.EndDialog evt) {
         // 게임모드 변경
         if (evt.eventID == eventID) { 
             Debug.Log($"{evt.eventID} 이벤트 트리거 삭제@");
