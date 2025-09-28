@@ -1,14 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-
-/// <summary>
-/// 괴물 움직임 + 괴물 애니메이션
-/// </summary>
 public class EnemyMove : MonoBehaviour, IMoveObject
 {
     [SerializeField] private Transform player;
     [SerializeField] private Animator anim;
+    public EnemyState curState;
+    public bool moveable;
 
     [Header("Enemy Movement Setting")]
     [SerializeField] private float moveSpeed = 3f;
@@ -17,8 +15,8 @@ public class EnemyMove : MonoBehaviour, IMoveObject
     private EnemyController ec;
     private PlayerController pc;
     private NavMeshAgent na;
-    private bool moveable;
-    private EnemyState curState;
+    //private bool moveable = true;
+    //private EnemyState curState;
 
     // 상태값
     private bool isMonster = false;     // 괴물로 변한 상태인지
@@ -36,11 +34,11 @@ public class EnemyMove : MonoBehaviour, IMoveObject
         }
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("EnemyMove - Failed to Load PlayerController");
-        
-        if (!TryGetComponent<NavMeshAgent>(out na)) {
+
+        if (!TryGetComponent<NavMeshAgent>(out na))
+        {
             Debug.Log("EnemyMove - Failed to Load NavMeshAgent");
         }
-        na.updateRotation = false;      // 자동회전값 끄기
         na.speed = moveSpeed;
     }
 
@@ -62,16 +60,14 @@ public class EnemyMove : MonoBehaviour, IMoveObject
 
     private void FixedUpdate()
     {
-        if (moveable) { 
+        if (moveable)
+        {
             AIChasePlayer();
-            FlipSprite();
         }
-        //float dist = Vector3.Distance(player.transform.position, transform.position);
-        //Debug.Log("두 거리: " + dist);
     }
 
-
-    private void AIChasePlayer() {
+    private void AIChasePlayer()
+    {
         if (curState == EnemyState.Chase)
         {
             na.SetDestination(player.position);
@@ -80,8 +76,20 @@ public class EnemyMove : MonoBehaviour, IMoveObject
             Vector3 moveDir = na.velocity.normalized;
             float speed = na.velocity.magnitude;
 
+            // speed값에 따른 iswalk
+            if (speed > 0.1f)
+            {
+                isWalk = true;
+                na.isStopped = false;
+            }
+            else {
+                isWalk = false;
+                na.isStopped = true;
+                na.velocity = Vector3.zero;
+                moveDir = Vector3.zero;
+            }
+
             if (Vector3.Distance(transform.position, player.position) <= na.stoppingDistance + 0.3f)
-            //if (moveDir.magnitude < 0.1f)
             {
                 speed = 0f;
                 moveDir = Vector3.zero;
@@ -90,7 +98,8 @@ public class EnemyMove : MonoBehaviour, IMoveObject
                 isWalk = false;
                 //  Idle
             }
-            else { 
+            else
+            {
                 na.isStopped = false;
                 isWalk = true;
             }
@@ -102,25 +111,16 @@ public class EnemyMove : MonoBehaviour, IMoveObject
         }
     }
 
-    private void FlipSprite() {
-        if (player.position.x < transform.position.x)
-        {
-            transform.localScale = new Vector3(1, 1, 1);   // 왼쪽
-        }
-        else {
-            transform.localScale = new Vector3(-1, 1, 1);    // 오른쪽
-        }
-    }
 
-
-    public void StopGame()
-    {
-        moveable = false;
-    }
 
     public void ResumeGame()
     {
         moveable = true;
+    }
+
+    public void StopGame()
+    {
+        moveable = false;
     }
 
     public void ModeChange(GameEvents.GameModeChange evt)

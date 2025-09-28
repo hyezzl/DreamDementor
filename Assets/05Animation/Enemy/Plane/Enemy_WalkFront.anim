@@ -21,15 +21,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 2100000, guid: 2e9dc46bb2f6dd2418c65c32a7a35cf6, type: 2}
+      value: {fileID: 2100000, guid: 3da0d0f3581d2744e99bc876e19e97c1, type: 2}
     - time: 0.16666667
-      value: {fileID: 2100000, guid: 4372056f763e5ed40b3f8e0d4bee4777, type: 2}
+      value: {fileID: 2100000, guid: 45b61cc3893a57f45a19e62a61039a02, type: 2}
     - time: 0.33333334
-      value: {fileID: 2100000, guid: 6fe27b6170d6a8a4a930a6577fba7f7f, type: 2}
+      value: {fileID: 2100000, guid: f5ebed369d9755c4590401d47c3cceeb, type: 2}
     - time: 0.5
-      value: {fileID: 2100000, guid: f75a332f822b4974b8c494ead3fafedf, type: 2}
+      value: {fileID: 2100000, guid: 2b300a097268cd5439b4f62c38aee42d, type: 2}
     - time: 0.6666667
-      value: {fileID: 2100000, guid: f9000a820091c5e4794a198946ff4a90, type: 2}
+      value: {fileID: 2100000, guid: b8afa6a6e574cae4eb8539c4ebe1a39e, type: 2}
     attribute: m_Materials.Array.data[0]
     path: 
     classID: 23
@@ -38,15 +38,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 2100000, guid: 2e9dc46bb2f6dd2418c65c32a7a35cf6, type: 2}
+      value: {fileID: 2100000, guid: 3da0d0f3581d2744e99bc876e19e97c1, type: 2}
     - time: 0.16666667
-      value: {fileID: 2100000, guid: 4372056f763e5ed40b3f8e0d4bee4777, type: 2}
+      value: {fileID: 2100000, guid: 45b61cc3893a57f45a19e62a61039a02, type: 2}
     - time: 0.33333334
-      value: {fileID: 2100000, guid: 6fe27b6170d6a8a4a930a6577fba7f7f, type: 2}
+      value: {fileID: 2100000, guid: f5ebed369d9755c4590401d47c3cceeb, type: 2}
     - time: 0.5
-      value: {fileID: 2100000, guid: f75a332f822b4974b8c494ead3fafedf, type: 2}
+      value: {fileID: 2100000, guid: 2b300a097268cd5439b4f62c38aee42d, type: 2}
     - time: 0.6666667
-      value: {fileID: 2100000, guid: f9000a820091c5e4794a198946ff4a90, type: 2}
+      value: {fileID: 2100000, guid: b8afa6a6e574cae4eb8539c4ebe1a39e, type: 2}
     attribute: m_Materials.Array.data[0]
     path: Flip
     classID: 23
@@ -78,22 +78,22 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 2100000, guid: 2e9dc46bb2f6dd2418c65c32a7a35cf6, type: 2}
-    - {fileID: 2100000, guid: 4372056f763e5ed40b3f8e0d4bee4777, type: 2}
-    - {fileID: 2100000, guid: 6fe27b6170d6a8a4a930a6577fba7f7f, type: 2}
-    - {fileID: 2100000, guid: f75a332f822b4974b8c494ead3fafedf, type: 2}
-    - {fileID: 2100000, guid: f9000a820091c5e4794a198946ff4a90, type: 2}
-    - {fileID: 2100000, guid: 2e9dc46bb2f6dd2418c65c32a7a35cf6, type: 2}
-    - {fileID: 2100000, guid: 4372056f763e5ed40b3f8e0d4bee4777, type: 2}
-    - {fileID: 2100000, guid: 6fe27b6170d6a8a4a930a6577fba7f7f, type: 2}
-    - {fileID: 2100000, guid: f75a332f822b4974b8c494ead3fafedf, type: 2}
-    - {fileID: 2100000, guid: f9000a820091c5e4794a198946ff4a90, type: 2}
+    - {fileID: 2100000, guid: 3da0d0f3581d2744e99bc876e19e97c1, type: 2}
+    - {fileID: 2100000, guid: 45b61cc3893a57f45a19e62a61039a02, type: 2}
+    - {fileID: 2100000, guid: f5ebed369d9755c4590401d47c3cceeb, type: 2}
+    - {fileID: 2100000, guid: 2b300a097268cd5439b4f62c38aee42d, type: 2}
+    - {fileID: 2100000, guid: b8afa6a6e574cae4eb8539c4ebe1a39e, type: 2}
+    - {fileID: 2100000, guid: 3da0d0f3581d2744e99bc876e19e97c1, type: 2}
+    - {fileID: 2100000, guid: 45b61cc3893a57f45a19e62a61039a02, type: 2}
+    - {fileID: 2100000, guid: f5ebed369d9755c4590401d47c3cceeb, type: 2}
+    - {fileID: 2100000, guid: 2b300a097268cd5439b4f62c38aee42d, type: 2}
+    - {fileID: 2100000, guid: b8afa6a6e574cae4eb8539c4ebe1a39e, type: 2}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.8333333
+    m_StopTime: 0.8333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

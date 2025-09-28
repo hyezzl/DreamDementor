@@ -518,7 +518,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 2
+    Emotion: -1
   - EventID: E009
     LogID: 9001
     Dialog: "\uC2DC\uB8E8\uB97C \uB2E4\uC2DC \uBCF4\uAC8C \uB420 \uC904\uC774\uC57C.."

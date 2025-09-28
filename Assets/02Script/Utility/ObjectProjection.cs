@@ -9,6 +9,8 @@ public class ObjectProjection : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private float alphaRatio = 0.6f;
+    [SerializeField] private float sphereRadius = 1f;   // 
+    [SerializeField] private LayerMask layer;
 
     private List<Renderer> renderers = new List<Renderer>();
 
@@ -60,7 +62,8 @@ public class ObjectProjection : MonoBehaviour
         renderers.Clear();
 
         Vector3 dir = player.position - transform.position;
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, dir.normalized);
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, sphereRadius, 
+                                                    dir.normalized, dir.magnitude, layer.value);
 
         foreach (RaycastHit hit in hits)
         {
@@ -75,5 +78,4 @@ public class ObjectProjection : MonoBehaviour
             }
         }
     }
-
 }
