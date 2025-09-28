@@ -8,7 +8,7 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
     [SerializeField] private Transform player;
     [SerializeField] private Animator anim;
     public EnemyState curState;
-    public bool moveable;
+    public bool moveable = true;
 
     [Header("Enemy Movement Setting")]
     [SerializeField] private float moveSpeed = 3f;
