@@ -29,7 +29,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     //private Animator Ranim;
     private bool moveable = true;
     private bool isThree = true;  // 3인칭 시점인지
-    private bool canRunning = false;     // 뛸 수 있는지
+    private bool canRunning = true;     // 뛸 수 있는지
 
     // 이동 변수
     public Vector3 moveDir = Vector3.zero;
@@ -99,16 +99,16 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     {
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(ModeChange);
         EventBus.Instance.Subscribe<GameEvents.AspectChange>(OnAspectChange);
-        EventBus.Instance.Subscribe<GameEvents.StaminaDepleted>(OnStaminaDepleted);
-        EventBus.Instance.Subscribe<GameEvents.StaminaRecovered>(OnStaminaRecovered);
+        //EventBus.Instance.Subscribe<GameEvents.StaminaDepleted>(OnStaminaDepleted);
+        //EventBus.Instance.Subscribe<GameEvents.StaminaRecovered>(OnStaminaRecovered);
         //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(OnSwitchScene);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(ModeChange);
         EventBus.Instance.Unsubscribe<GameEvents.AspectChange>(OnAspectChange);
-        EventBus.Instance.Unsubscribe<GameEvents.StaminaDepleted>(OnStaminaDepleted);
-        EventBus.Instance.Unsubscribe<GameEvents.StaminaRecovered>(OnStaminaRecovered);
+        //EventBus.Instance.Unsubscribe<GameEvents.StaminaDepleted>(OnStaminaDepleted);
+        //EventBus.Instance.Unsubscribe<GameEvents.StaminaRecovered>(OnStaminaRecovered);
         //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(OnSwitchScene);
     }
 
@@ -327,17 +327,17 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         moveable = true;
     }
 
-    private void OnStaminaDepleted(GameEvents.StaminaDepleted evt)
-    {
-        // 스태미너가 다 고갈됐을 때
-        canRunning = false;
-    }
+    //private void OnStaminaDepleted(GameEvents.StaminaDepleted evt)
+    //{
+    //    // 스태미너가 다 고갈됐을 때
+    //    canRunning = false;
+    //}
 
-    private void OnStaminaRecovered(GameEvents.StaminaRecovered evt)
-    {
-        // 달리기 가능
-        canRunning = true;
-    }
+    //private void OnStaminaRecovered(GameEvents.StaminaRecovered evt)
+    //{
+    //    // 달리기 가능
+    //    canRunning = true;
+    //}
 
     public void ModeChange(GameEvents.GameModeChange evt) {
         if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode || 

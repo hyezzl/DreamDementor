@@ -481,7 +481,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 1
+    Emotion: -1
   - EventID: E008
     LogID: 8002
     Dialog: "\uC5B4\uB838\uC744 \uB54C \uC2DC\uB8E8\uB791 \uAC19\uC774 \uB180\uB358
@@ -491,7 +491,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 1
+    Emotion: -1
   - EventID: E008
     LogID: 8003
     Dialog: "\uC2DC\uB8E8...\uBCF4\uACE0 \uC2F6\uB2E4.."
@@ -500,7 +500,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 1
+    Emotion: -1
   - EventID: E008
     LogID: 8004
     Dialog: "\uC655\uC655!!!!"
@@ -655,7 +655,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: -1
   - EventID: E013
     LogID: 13002
     Dialog: "\uC5C4\uB9C8\uB791 \uC5EC\uAE30 \uC62C \uB54C\uB294 \uC815\uB9D0 \uD589\uBCF5\uD588\uB294\uB370.."
@@ -664,7 +664,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: -1
   - EventID: E013
     LogID: 13003
     Dialog: "\uC800\uAC74... \uC5C4\uB9C8\uAC00 \uC0AC\uC92C\uB358 \uD48D\uC120..?"
@@ -673,7 +673,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: -1
   - EventID: ' E014'
     LogID: 14001
     Dialog: "\uC800\uAC8C \uBB50\uC9C0....?"
@@ -824,7 +824,7 @@ MonoBehaviour:
     Score1: 0
     Score2: 0
   - ChoiceID: C004
-    Choice0: "\uC544\uBB34\uB798\uB3C4 \uAFC8\uC18D\uC774 \uB9DE\uB098 \uBD10.."
+    Choice0: "\uC544\uBB34\uB798\uB3C4 \n\uAFC8\uC18D\uC774 \uB9DE\uB098 \uBD10.."
     Choice1: "\uBE44\uC2B7\uD55C \uD48D\uC120\uC774\uACA0\uC9C0?"
     Choice2: 
     Score0: -10
