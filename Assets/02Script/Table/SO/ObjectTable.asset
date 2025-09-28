@@ -41,29 +41,20 @@ MonoBehaviour:
     IconName: Icon_P3
     PairID: P001
   - ItemID: 10001004
-    ItemName: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0 \uC911\uAC04\uBD80\uBD84"
-    Type: Pickable
-    Description: "\uC5BC\uB9C8\uB098 \uC624\uB798\uB410\uB294\uC9C0 \uAC00\uB2A0\uC774
-      \uAC00\uC9C8 \uC54A\uB294\uB2E4.\n\uC544\uAE4C \uBD24\uB358 \uBB38\uC758 \uC5F4\uC1E0\uC778\uAC00?"
-    Reply: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0\uC758 \uC911\uAC04 \uBD80\uBD84\uC744
-      \uC8FC\uC6E0\uB2E4."
-    IconName: Icon_P4
-    PairID: P001
-  - ItemID: 10001005
     ItemName: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0 \uB05D\uBD80\uBD84"
     Type: Pickable
     Description: "\uC5BC\uB9C8\uB098 \uC624\uB798\uB410\uB294\uC9C0 \uAC00\uB2A0\uC774
       \uAC00\uC9C8 \uC54A\uB294\uB2E4.\n\uC544\uAE4C \uBD24\uB358 \uBB38\uC758 \uC5F4\uC1E0\uC778\uAC00?"
     Reply: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0\uC758 \uB05D\uBD80\uBD84\uC744
       \uC8FC\uC6E0\uB2E4."
-    IconName: Icon_P5
+    IconName: Icon_P4
     PairID: P001
-  - ItemID: 10001006
+  - ItemID: 10001005
     ItemName: "\uD558\uC580 \uC2E4"
     Type: Pickable
     Description: "\uC774\uAC74... \uC5B4\uB514\uC5D0 \uC4F0\uB294\uAC70\uC9C0?"
     Reply: "\uD558\uC580\uC0C9\uC758 \uC2E4\uC744 \uC8FC\uC6E0\uB2E4."
-    IconName: Icon_P6
+    IconName: Icon_P5
     PairID: P002
   Eatable:
   - ItemID: 20001001

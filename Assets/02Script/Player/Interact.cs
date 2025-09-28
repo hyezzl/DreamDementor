@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -20,6 +19,7 @@ public class Interact : MonoBehaviour
 
     private PlayerController pc;
     private PlayerMove pm;
+    [SerializeField] private PlayerSight sight;
     private IInputHandler inputHandler;
     private IActionItem curItem; // 바라보고있는 아이템
     private AspectMode curAspect = AspectMode.ThirdpersonMode;
@@ -45,7 +45,6 @@ public class Interact : MonoBehaviour
 
     private void Start()
     {
-        
     }
 
     private void OnEnable()
@@ -83,6 +82,13 @@ public class Interact : MonoBehaviour
 
 
             case AspectMode.OnepersonMode:
+                if (pc.CurMode == GameMode.InspectMode) {
+                    if (inputHandler.DoInteract() && sight.curTarget != null) {
+                        Debug.Log("1인칭");
+                        sight.curTarget.Interact();
+                    }
+                }
+
                 break;
 
         }

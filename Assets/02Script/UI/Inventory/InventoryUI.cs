@@ -11,7 +11,7 @@ public class InventoryUI : MonoBehaviour
     private PlayerController pc;
     private InventoryDescription desc;
     private IDatabase database;
-    private const int slotCnt = 8;      // 기본값
+    private const int slotCnt = 10;      // 기본값
     private List<InventorySlot> slots = new();
     private bool isOpen = false;
 

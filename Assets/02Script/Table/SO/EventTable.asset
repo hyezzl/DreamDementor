@@ -830,3 +830,24 @@ MonoBehaviour:
     Score0: -10
     Score1: 0
     Score2: 0
+  - ChoiceID: C005
+    Choice0: "\uC0AC\uB78C??"
+    Choice1: "\uC5B4.. \uACE0\uC591\uC774?"
+    Choice2: 
+    Score0: 0
+    Score1: -10
+    Score2: 0
+  - ChoiceID: C006
+    Choice0: "\uC74C...13\uC778\uAC00?"
+    Choice1: "\uC815\uB2F5\uC740 8\uC774\uC57C."
+    Choice2: 
+    Score0: -10
+    Score1: 0
+    Score2: 0
+  - ChoiceID: C007
+    Choice0: 0...?
+    Choice1: 403,002,187,492??
+    Choice2: 
+    Score0: 0
+    Score1: -10
+    Score2: 0

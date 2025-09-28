@@ -5,13 +5,17 @@ using UnityEngine.UI;
 
 public class PlayerSight : MonoBehaviour
 {
-    public List<IActionItem> overlapItems = new();
+    public List<IActionTarget> overlapItems = new();
+
+    [Header("Tag")]
+    [SerializeField] private LayerMask itemLayer;
+    [SerializeField] private LayerMask deactiveLayer;
     
     private Camera mainCam;
     private CapsuleCollider col;
     private Rigidbody rig;
 
-    public IActionItem curItem;
+    public IActionTarget curTarget;
 
     private void Awake()
     {
@@ -52,13 +56,13 @@ public class PlayerSight : MonoBehaviour
                 }
             }
 
-            if (curItem != closest)
+            if (curTarget != closest)
             {
-                curItem = closest;
+                curTarget = closest;
             }
         }
         else {
-            curItem = null;
+            curTarget = null;
         }
         
     }
@@ -67,11 +71,13 @@ public class PlayerSight : MonoBehaviour
     // 시야콜라이더에 들어왔을 때 리스트에 추가
     private void OnTriggerEnter(Collider other)
     {
+        int layer = other.gameObject.layer;
+
         // 태그로 분리
         if (other.CompareTag("Item")) 
         {
             // 오버랩 리스트 추가
-            if (other.TryGetComponent<IActionItem>(out IActionItem item)) {
+            if (other.TryGetComponent<IActionTarget>(out IActionTarget item)) {
                 if (!overlapItems.Contains(item)) { 
                     overlapItems.Add(item);
                 }
@@ -90,18 +96,18 @@ public class PlayerSight : MonoBehaviour
             {
                 outline.enabled = false;
             }
-            if (other.TryGetComponent<IActionItem>(out IActionItem item)) { 
+            if (other.TryGetComponent<IActionTarget>(out IActionTarget item)) { 
                 overlapItems.Remove(item);
             }
         }
     }
 
     // 바라보고 있는 오브젝트 중 가장 가까운 오브젝트 검출
-    public IActionItem ClosestItem()
+    public IActionTarget ClosestItem()
     {
         Vector2 center = new Vector2(Screen.width / 2, Screen.height / 2);
         float minDistance = float.MaxValue;
-        IActionItem closestItem = null;
+        IActionTarget closestItem = null;
 
         if (overlapItems.Count == 1)
         {
@@ -118,7 +124,7 @@ public class PlayerSight : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, 4f))
             {
                 // 레이에 맞은 콜라이더가 IActionItem인지 확인
-                IActionItem item = hit.collider.GetComponent<IActionItem>();
+                IActionTarget item = hit.collider.GetComponent<IActionTarget>();
                 if (item != null && overlapItems.Contains(item))
                 {
                     return item;

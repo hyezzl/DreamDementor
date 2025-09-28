@@ -123,6 +123,10 @@ public class NpcDialogPopup : MonoBehaviour
         curNpcID = evt.npcID;
 
         // 타이핑
+        //if (evt.npcID == null) Debug.Log("evt가 널");
+        //if (evt.texts == null) Debug.Log("texts가 널");
+        //Debug.Log(evt.npcID);
+        //Debug.Log(DatabaseManager.Instance.GetNpcDialog(evt.npcID)[6002]);
         StartCoroutine(TypeDialog(evt.texts));
     }
 

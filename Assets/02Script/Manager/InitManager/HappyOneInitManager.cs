@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HappyOneInitManager : MonoBehaviour
+public class HappyOneInitManager : InitManager
 {
     
 }

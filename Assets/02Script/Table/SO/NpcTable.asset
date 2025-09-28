@@ -23,6 +23,12 @@ MonoBehaviour:
     NpcName: "\uC624\uB798\uB41C \uD48D\uC120"
   - NpcID: N005
     NpcName: "\uC624\uB798\uB41C \uBB38"
+  - NpcID: N006
+    NpcName: "\uC758\uBB38\uC758 \uBD84\uC218"
+  - NpcID: N007
+    NpcName: "\uC758\uBB38\uC758 \uBD84\uC218"
+  - NpcID: N008
+    NpcName: "\uC758\uBB38\uC758 \uBD84\uC218"
   NpcDialog:
   - NpcID: N001
     LogID: 1001
@@ -284,6 +290,219 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
+  - NpcID: N006
+    LogID: 6001
+    Dialog: "\uC774\uAC74... \uBD84\uC218..?"
+    NextID: 6002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N006
+    LogID: 6002
+    Dialog: "\uBD84\uC218\uAC00 \uC65C \uC774\uB7F0 \uACF3\uC5D0 \uC788\uC9C0?"
+    NextID: 6003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N006
+    LogID: 6003
+    Dialog: "\uC5B4\uC774!! \uAC70\uAE30 \uB108!!"
+    NextID: 6004
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N006
+    LogID: 6004
+    Dialog: "\uC5B4...? \uBD84\uC218\uAC00 \uB9D0\uC744..?"
+    NextID: 6005
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N006
+    LogID: 6005
+    Dialog: "\uAC70\uAE30 \uB108! \uC218\uC218\uAED8\uB07C \uC880 \uD480 \uC904 \uC544\uB098?"
+    NextID: 6006
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N006
+    LogID: 6006
+    Dialog: "\uC218\uC218\uAED8\uB07C... \uC798 \uBAA8\uB974\uB294\uB370."
+    NextID: 6007
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N006
+    LogID: 6007
+    Dialog: "\uB0B4\uAC00 \uB0B4\uB294 \uC218\uC218\uAED8\uB07C\uB97C \uB9DE\uD788\uBA74
+      \uC88B\uC740 \uAC78 \uC904\uAC8C!"
+    NextID: 6008
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N006
+    LogID: 6008
+    Dialog: "\uADF8\uB807\uB2E4\uBA74.. \uD480\uC5B4\uBCFC\uAC8C.."
+    NextID: 6009
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N006
+    LogID: 6009
+    Dialog: "\uC544\uCE68\uC5D4 \uB124\uBC1C \uC810\uC2EC\uC5D4 \uB450\uBC1C \uC800\uB141\uC5D4
+      \uC138\uBC1C\uB85C \uC11C\uC788\uB294 \uAC8C \uBB58\uAE4C?"
+    NextID: -1
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: C005
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N007
+    LogID: 7001
+    Dialog: "\uAC70\uAE30, \uB2F9\uC2E0 \uB0A0 \uC880 \uB3C4\uC640\uC904 \uC218 \uC788\uB098\uC694?"
+    NextID: 7002
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N007
+    LogID: 7002
+    Dialog: "\uC751? \uBB58 \uB3C4\uC640\uC8FC\uBA74 \uB418\uB294\uB370?"
+    NextID: 7003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N007
+    LogID: 7003
+    Dialog: "\uC218\uD559 \uBB38\uC81C \uB77C\uB294\uB370 \uC800\uB294 \uB3C4\uC800\uD788
+      \uBAA8\uB974\uACA0\uC5B4\uC694"
+    NextID: 7004
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N007
+    LogID: 7004
+    Dialog: "\uB098\uB3C4 \uC218\uD559\uC740 \uC798 \uBAA8\uB974\uB294\uB370.."
+    NextID: 7005
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N007
+    LogID: 7005
+    Dialog: "\uC808 \uB3C4\uC640\uC8FC\uC2DC\uBA74 \uB2F9\uC2E0\uC5D0\uAC8C \uD544\uC694\uD55C
+      \uAC78 \uC904\uAC8C\uC694."
+    NextID: 7006
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N007
+    LogID: 7006
+    Dialog: "\uADF8\uB7FC.. \uC77C\uB2E8 \uB4E4\uC5B4\uBCFC\uAC8C."
+    NextID: 7007
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N007
+    LogID: 7007
+    Dialog: "3+5 \uAC00 \uBB50\uC8E0? \uB09C \uB3C4\uC800\uD788 \uBAA8\uB974\uACA0\uC5B4\uC694."
+    NextID: 7008
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N007
+    LogID: 7008
+    Dialog: "\uC774 \uC815\uB3C4\uBA74 \uC720\uCE58\uC6D0\uC0DD\uB3C4 \uD480 \uC218
+      \uC788\uB294 \uBB38\uC81C \uC544\uB2CC\uAC00..?"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: C006
+    Textbox: Monologue
+    Emotion: 0
+  - NpcID: N008
+    LogID: 8001
+    Dialog: "\uC138\uC0C1\uC5D0\uC11C \uC81C\uC77C \uB728\uAC70\uC6B4 \uACFC\uC77C\uC774
+      \uBB54\uC9C0 \uB9DE\uCDB0\uBD10."
+    NextID: 8002
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N008
+    LogID: 8002
+    Dialog: "\uCC9C\uB3C4\uBCF5\uC22D\uC544..?"
+    NextID: 8003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N008
+    LogID: 8003
+    Dialog: "\uADF8\uB807\uB2E4\uBA74, \uC655\uC774 \uB118\uC5B4\uC9C0\uBA74 \uBB58\uAE4C?"
+    NextID: 8004
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N008
+    LogID: 8004
+    Dialog: "....\uD0B9\uCF69?"
+    NextID: 8005
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N008
+    LogID: 8005
+    Dialog: "\uB611\uB611\uD558\uAD70, \uADF8\uB7FC \uB9C8\uC9C0\uB9C9 \uBB38\uC81C."
+    NextID: 8006
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N008
+    LogID: 8006
+    Dialog: "198265x0x257445x789545\uC758 \uB2F5\uC740?"
+    NextID: -1
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    ChoiceID: C007
+    Textbox: Basic
+    Emotion: -1
   NpcReDialog:
   - NpcID: N001
     Dialog: ......................
@@ -313,5 +532,17 @@ MonoBehaviour:
     Dialog: ......................
     Speaker: Extra
     SpeakerName: "\uC624\uB798\uB41C \uBB38"
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N006
+    Dialog: "\uC815\uB2F5\uC774\uC57C! \n\uB108 \uB611\uB611\uD558\uB2E4!"
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N007
+    Dialog: "\uADF8\uB807\uAD70\uC694!!\n\uC815\uB9D0 \uACE0\uB9C8\uC6CC\uC694"
+    Speaker: Extra
+    SpeakerName: "\uBD84\uC218"
     Textbox: Basic
     Emotion: -1

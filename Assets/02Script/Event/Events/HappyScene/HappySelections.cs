@@ -38,7 +38,7 @@ public class HappySelections : MonoBehaviour
 
                 break;
 
-            case "C003":
+            case "C004":
                 Debug.Log("선택지 C003 완료");
 
                 pc.CurMode = GameMode.InspectMode;
