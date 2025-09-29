@@ -2103,6 +2103,11 @@ MonoBehaviour:
   tilemap: {fileID: 959570745}
   layer: {fileID: 1235185161}
   gridCellPosition: {x: -4, y: 0, z: -5}
+--- !u!4 &103454595 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2635179666038553362, guid: d6418639593451347a63dffd65dd9d73, type: 3}
+  m_PrefabInstance: {fileID: 1151423441}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &108909207
 GameObject:
   m_ObjectHideFlags: 0
@@ -5739,7 +5744,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 959570746}
+  m_Father: {fileID: 103454595}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &379307458
 GameObject:
@@ -15529,7 +15534,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1235185160}
-  - {fileID: 369156865}
   - {fileID: 1493411241}
   - {fileID: 1240854613}
   - {fileID: 1044940939}
@@ -18428,9 +18432,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SchoolMap
       objectReference: {fileID: 0}
+    - target: {fileID: 6855146300824078957, guid: d6418639593451347a63dffd65dd9d73, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2635179666038553362, guid: d6418639593451347a63dffd65dd9d73, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 369156865}
     - targetCorrespondingSourceObject: {fileID: 1113933877478884941, guid: d6418639593451347a63dffd65dd9d73, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1466332658}
@@ -20848,6 +20859,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7923186733143159891, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056663043807565140, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056663043807565140, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
@@ -24311,7 +24330,7 @@ GameObject:
   - component: {fileID: 1576970290}
   - component: {fileID: 1576970292}
   - component: {fileID: 1576970291}
-  m_Layer: 7
+  m_Layer: 13
   m_Name: PlayerFixCam
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -30548,6 +30567,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 543450651615881990}
   alphaRatio: 0.05
+  sphereRadius: 1
+  layer:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!1001 &2040359357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31524,7 +31547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SOobject: {fileID: 11400000, guid: ed6f927d0a10a9f4fae087bbb79c04c1, type: 2}
   SOevent: {fileID: 11400000, guid: 47e9a0816091354429a3972911e17535, type: 2}
-  SOnpc: {fileID: 0}
+  SOnpc: {fileID: 11400000, guid: 2b4fa0f8348e16f4fb0e62d445d913bd, type: 2}
 --- !u!114 &2073805370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35702,6 +35725,7 @@ MonoBehaviour:
     m_Bits: 256
   player: {fileID: 919132147882963388}
   half: {x: 0.5, y: 1, z: 1}
+  sight: {fileID: 0}
 --- !u!114 &3469287837680788647
 MonoBehaviour:
   m_ObjectHideFlags: 0
