@@ -13,6 +13,8 @@ public class TriggerZone : MonoBehaviour, ITriggerZone
     private IDatabase database;
     private Dictionary<int, DialogData> dialogs;
 
+    public string ZoneID => zoneID;
+
     public void Init(IDatabase db)
     {
         database = db;
@@ -62,6 +64,7 @@ public class TriggerZone : MonoBehaviour, ITriggerZone
         // 한번 발생 후 파괴
         // 파괴 ? 하는게 좋나
         //Destroy(gameObject);
+        EventBus.Instance.Publish<GameEvents.ActiveZone>(new GameEvents.ActiveZone(zoneID, false));
         gameObject.SetActive(false);
     }
 }

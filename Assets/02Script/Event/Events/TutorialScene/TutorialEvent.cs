@@ -98,11 +98,6 @@ public class TutorialEvent : MonoBehaviour
         yield return null;
 
 
-        // 튜토리얼(Pause) 모드
-        //pc.CurMode = GameMode.PauseMode;
-        //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.PauseMode));
-        //EndTimeline Event Publish 필요한가?
-
         // 카메라 고정
         EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.PlayerFixCam,0));
     
@@ -133,7 +128,6 @@ public class TutorialEvent : MonoBehaviour
 
         // 술래 잡기 시작
         tutorialPopup.SetActive(false);
-        Debug.Log("술래잡기 시작~~~~~~~~~");
 
         pc.CurMode = GameMode.InspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));

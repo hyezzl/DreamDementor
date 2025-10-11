@@ -19,6 +19,8 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
     private Dictionary<int, DialogData> dialogs;
     private BoxCollider barrier;
 
+    public string ZoneID => zoneID;
+
     // 임시
     public string needEventID;
 
@@ -73,6 +75,8 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
         {
             Debug.Log("통과 가능");
             barrier.gameObject.SetActive(false);        // 방해물 제거
+            //
+            EventBus.Instance.Publish<GameEvents.ActiveZone>(new GameEvents.ActiveZone(zoneID, false));
         }
         else 
         {

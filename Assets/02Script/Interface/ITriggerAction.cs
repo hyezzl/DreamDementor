@@ -7,4 +7,6 @@ public interface ITriggerZone
     void OnTrigger(GameObject actor);
 
     void Init(IDatabase db);
+
+    string ZoneID { get; }
 }

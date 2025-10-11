@@ -21,7 +21,7 @@ public class TeleportHappyScene : MonoBehaviour
     private Dictionary<int, DialogData> dialogs;
     private PlayerController pc;
 
-    private bool isRe = false;
+    private static bool HappySceneFirstVisit = false;
 
     private void Awake()
     {
@@ -35,8 +35,20 @@ public class TeleportHappyScene : MonoBehaviour
         dialogs = database.GetDialog(eventID);
         if (dialogs == null) Debug.Log("TeleportHappyScene - Failed to Load NarrationData");
 
-        eyeCanvas.gameObject.SetActive(true);
-        PlayTeleport();
+        // PlayerPrefs사용한 첫방문 분기
+        //bool happyFirstVisit = PlayerPrefs.GetInt("HappySceneFirstVisit", 0) == 0;  // 첫방문인가?
+
+        //if (happyFirstVisit) { 
+        //    eyeCanvas.gameObject.SetActive(true);
+        //    PlayTeleport();
+        //    PlayerPrefs.SetInt("HappySceneFirstVisit", 1);
+        //    PlayerPrefs.Save();
+        //}
+
+        if (HappySceneFirstVisit) {
+            eyeCanvas.gameObject.SetActive(true);
+            PlayTeleport();
+        }
     }
 
     private void OnEnable()
@@ -58,7 +70,6 @@ public class TeleportHappyScene : MonoBehaviour
 
     private void PlayTeleport() {
         StartCoroutine(PlayEvents());
-        isRe = true;
     }
 
     private IEnumerator PlayEvents() {

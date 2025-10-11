@@ -29,3 +29,4 @@ public class NPCReDialogData
     public Textbox textbox;
     public int emotion;
 }
+

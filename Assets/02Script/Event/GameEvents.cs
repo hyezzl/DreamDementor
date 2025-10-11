@@ -83,12 +83,23 @@ public static class GameEvents
         }
     }
 
-    // 씬이동 이벤트
+    // (강제) 씬이동 이벤트
     public struct SwitchScene
     {
         public SceneType nextScene;
         public SwitchScene(SceneType nextScene) {
             this.nextScene = nextScene;
+        }
+    }
+
+    // (포탈) 씬이동
+    public struct PortalSwitchScene
+    { 
+        public SceneType nextScene;
+        public Vector3 targetPoint;
+        public PortalSwitchScene(SceneType nextScene, Vector3 targetPoint) { 
+            this.nextScene = nextScene;
+            this.targetPoint = targetPoint;
         }
     }
 
@@ -134,4 +145,17 @@ public static class GameEvents
             Debug.Log($"{eventID} 이벤트 종료 후 저장!");
         }
     }
+
+
+    // 이벤트 존 비활성화
+    public struct ActiveZone
+    {
+        public string zoneID;
+        public bool isActive;
+        public ActiveZone(string zoneID, bool isActive) { 
+            this.zoneID = zoneID;
+            this.isActive = isActive;
+        }
+    }
+
 }
