@@ -59,8 +59,6 @@ public class FluidBlockTriggerZone : MonoBehaviour, ITriggerZone
     {
         if (canPass)
         {
-            if (barrier != null) barrier.gameObject.SetActive(false);
-
             // zone 상태 저장
             EventBus.Instance.Publish<GameEvents.ActiveZone>(new GameEvents.ActiveZone(zoneID, false));
         }

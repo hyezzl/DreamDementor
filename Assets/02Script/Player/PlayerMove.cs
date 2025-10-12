@@ -9,7 +9,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     [Header("Movement Parameter")]
     [SerializeField] private float moveSpeed = 5f; // 이동속도
     [SerializeField] private float runSpeed = 10f; // 달리기 속도
-    [SerializeField] private LayerMask ground;
 
     [Header("Mouse Settings")]
     [SerializeField] private float mouseSensitivity = 1.5f;
@@ -22,6 +21,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     [Header("Ref")]
     [SerializeField] private Transform Player;
     [SerializeField] private Transform sightCam;
+    [SerializeField] private LayerMask ground;
 
     private PlayerController pc;
     private IInputHandler inputHandler;
@@ -41,6 +41,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private Vector3 verticalDir = Vector3.zero;   // 중력 벡터
     private Vector3 preDir = Vector3.back; // 전 프레임 이동벡터 (기본은 정면)
     private Vector3 moveInput;
+    private float gravityY = 0f;
 
     // 카메라(1인칭)
     private float cameraVertical = 0f;
@@ -88,10 +89,12 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         if (moveable && isThree)
         {
             Movement();
+            ApplyGravity();
         }
         else if (moveable && !isThree) {
             HandleMouse();
             HandleMovement();
+            ApplyGravity();
         }
 
     }
@@ -238,25 +241,23 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private void ApplyGravity()
     {
         // 레이캐스트를 땅방향으로 쏴서 하기
-        ////////////////////// 1.
         Ray ray = new Ray(transform.position + Vector3.up, Vector3.down);
         isGrounded = Physics.Raycast(ray, 1f, ground);
 
-        //bool isGrounded = cc.isGrounded;  // 1. cc가 땅레이어와 부딪힌걸 인식못함? 
+        // 땅에 닿았는지 체크
+        isGrounded = Physics.Raycast(ray, 1f, ground);
 
-        //////////////////////2
-        //Vector3 sphere = transform.position + Vector3.down * (cc.height / 2);
-        //isGrounded = Physics.CheckSphere(sphere, cc.radius, ground);
-
-        if (isGrounded && velocity.y < 0f)
+        if (isGrounded && gravityY < 0f)
         {
-            velocity.y = -1f;
-            Debug.Log("tq");
+            gravityY = -2f;
         }
-        velocity.y += gravity * Time.deltaTime;
-        verticalDir = Vector3.up * velocity.y;
+        else {
+            gravityY += gravity * Time.deltaTime;
+        }
 
-        // 땅에 붙어있는걸 인식못해서 중력이 계속 누적되는 문제
+        // 수직 방향 속도로 이동 처리
+        Vector3 verticalMove = Vector3.up * gravityY * Time.deltaTime;
+        cc.Move(verticalMove);
     }
 
 
