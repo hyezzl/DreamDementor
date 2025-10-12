@@ -14,13 +14,20 @@ using UnityEngine.UI;
 public class IntroEvent : MonoBehaviour, IGameEvent
 {
     public string eventID = "E001";
+    public string illID = "F001";
     private IDatabase database;
 
     [Header("UI Refs")]
-    [SerializeField] private Image background;
+    [SerializeField] private Image background_white;    // 하얀배경
+    [SerializeField] private Image background;      // 검은배경
+    [SerializeField] private CanvasGroup backgroundGroup;
+    [SerializeField] private Image illust;          // 일러스트
+    [SerializeField] private CanvasGroup illustGroup;
     [SerializeField] private TextMeshProUGUI textArea;
     [SerializeField] private CanvasGroup arrow;
+    
     private List<NarrationData> narrations;
+    private FullIllustration fullIll;
 
     private BlinkAnnounce blink;
     private PlayerController pc;
@@ -36,6 +43,8 @@ public class IntroEvent : MonoBehaviour, IGameEvent
         if (!TryGetComponent<BlinkAnnounce>(out blink)) Debug.Log("IntroEvent - Failed to Load BlinkAnnounce");
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("IntroEvent - Failed to Load PlayerController");
+        fullIll = FindAnyObjectByType<FullIllustration>();
+        if (fullIll == null) Debug.Log("IntroEvent - Failed to Load FullIllustation");
     }
 
 
@@ -46,11 +55,11 @@ public class IntroEvent : MonoBehaviour, IGameEvent
         narrations = database.GetNarration(eventID);
         if (narrations == null) Debug.Log("IntroEvent - Failed to Load NarrationData");
 
-        PlayIntro();
+        StartCoroutine(PlayIntro());
     }
 
 
-    public void PlayIntro() {
+    public IEnumerator PlayIntro() {
         // 이벤트 시작
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(eventID));
 
@@ -58,13 +67,49 @@ public class IntroEvent : MonoBehaviour, IGameEvent
         pc.CurMode = GameMode.EventMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
 
-        // 검은 바탕 활성화
+        // 일러스트 3초간 전시
+        EventBus.Instance.Publish<UIEvents.SceneCover>(new UIEvents.SceneCover(illID));
+        yield return new WaitForSeconds(3f);
+
+        // 하얀배경 끄기
+        background_white.gameObject.SetActive(false);
+
+        // 2. 일러스트 이미지 확대
+        Vector2 zoomPivot = new Vector2(0.6265317f, 0.320314f);
+        Vector3 zoomPosition = Vector3.zero;
+        float zoomScale = 4.3f;
+        float zoomDuration = 7f;
+
+        yield return StartCoroutine(fullIll.ZoomInAtPoint(
+            illust.rectTransform,
+            zoomPivot,
+            zoomPosition,
+            zoomScale,
+            zoomDuration));
+
+
+        // 3. 검은 배경과 텍스트 활성화
         background.gameObject.SetActive(true);
         textArea.gameObject.SetActive(true);
         textArea.text = "";
 
-        // 타이핑 시작
-        StartCoroutine(PlayNarration());
+        // 4. 배경 페이드인
+        yield return StartCoroutine(FadeInBackground(1f, true));
+
+
+        // 5. 나레이션 시작 및 완료 대기
+        yield return StartCoroutine(PlayNarration());
+
+        // 6. 완료 이후 
+        StopCoroutine(blinkCor);
+        textArea.gameObject.SetActive(false);
+        StartCoroutine(FadeInBackground(0.7f, false));
+        
+        // 타이핑 끝나고 화면 꺼주기
+        //background.gameObject.SetActive(false);
+
+        // 바로 다음 이벤트 호출
+        EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E003"));
     }
 
 
@@ -76,6 +121,8 @@ public class IntroEvent : MonoBehaviour, IGameEvent
             yield break;
         }
 
+        blinkCor = StartCoroutine(BlinkArrow()); // Arrow blink 0.5초후 시작
+
         foreach (var narration in narrations.OrderBy(n => n.order)) {
             float duration = narration.text.Length * typingSpeed;
             var typing = textArea.DOText(narration.text + "\n", duration).SetEase(Ease.Linear);
@@ -85,7 +132,7 @@ public class IntroEvent : MonoBehaviour, IGameEvent
             // 타이핑 완료까지 대기
             yield return typing.WaitForCompletion();
             standbyInput = true;
-            blinkCor = StartCoroutine(BlinkArrow()); // Arrow blink 0.5초후 시작
+            //blinkCor = StartCoroutine(BlinkArrow()); // Arrow blink 0.5초후 시작
 
             // 사용자의 입력 대기 (스페이스)
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
@@ -95,22 +142,53 @@ public class IntroEvent : MonoBehaviour, IGameEvent
             standbyInput = false;
             textArea.text = ""; //초기화
         }
-
-        // 타이핑 끝나고 화면 꺼주기
-        StopCoroutine(blinkCor);
-        background.gameObject.SetActive(false);
-        textArea.gameObject.SetActive(false);
-
-        // 바로 다음 이벤트 호출
-        EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E003"));
     }
 
     private IEnumerator BlinkArrow() {
         yield return null;
-        if (standbyInput) {
+        //if (standbyInput) {
             StartCoroutine(blink.BlinkAnnounceMSG(arrow, 1.2f));
-        }
+        //}
     }
 
     public void RecordEvent(GameEvents.EndEvent evt) { } // 잠만
+
+    private IEnumerator DelayAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (narrations != null)
+        {
+            StartCoroutine(PlayNarration());
+        }
+    }
+
+    private IEnumerator FadeInBackground(float duration, bool isIn)
+    {
+        float elapsed = 0f;
+        //backgroundGroup.gameObject.SetActive(true);
+
+        if (isIn)
+        {
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                backgroundGroup.alpha = Mathf.Clamp01(elapsed / duration);
+                yield return null;
+            }
+            backgroundGroup.alpha = 1f;
+        }
+        else {
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                backgroundGroup.alpha = 1 - Mathf.Clamp01(elapsed / duration);
+                illustGroup.alpha = 1 - Mathf.Clamp01(elapsed / duration);
+                yield return null;
+            }
+            backgroundGroup.alpha = 0f;
+            illustGroup.alpha = 0f;
+        }
+    }
+
 }
