@@ -25,6 +25,9 @@ MonoBehaviour:
   - EventID: E004
     EventName: Tutorial_Dead
     EventType: Conversation
+  - EventID: E004_1
+    EventName: 
+    EventType: SceneChange
   - EventID: E005
     EventName: RealGame_Start
     EventType: Conversation
@@ -38,67 +41,92 @@ MonoBehaviour:
     EventName: First_Path_Enter
     EventType: Conversation
   - EventID: E009
-    EventName: First_Path_Exit
+    EventName: Siru_No_Conversation
     EventType: Conversation
   - EventID: E010
-    EventName: Try_Enter_FspMap
+    EventName: First_Path_Exit
     EventType: Conversation
   - EventID: E011
-    EventName: Second_Path_Discover
+    EventName: Try_Enter_FspMap
     EventType: Conversation
   - EventID: E012
-    EventName: Second_Path_Pass
+    EventName: Second_Path_Discover
     EventType: Conversation
   - EventID: E013
-    EventName: Second_Path_Enter
+    EventName: Second_Path_Pass
     EventType: Conversation
   - EventID: E014
-    EventName: Exit_Door_Discover
+    EventName: Second_Path_Enter
     EventType: Conversation
   - EventID: E015
-    EventName: FpsMap_Discover
+    EventName: Balloon_No_Conversation
     EventType: Conversation
   - EventID: E016
-    EventName: FpsMap_Enter
+    EventName: Exit_Door_Discover
     EventType: Conversation
   - EventID: E017
+    EventName: FpsMap_Discover
+    EventType: Conversation
+  - EventID: E018
+    EventName: FpsMap_Enter
+    EventType: Conversation
+  - EventID: E019
     EventName: FpsMap_Exic
     EventType: Conversation
   Narration:
   - EventID: E001
     Order: 1
-    Text: "<color=red>\"\uBABD\uB839\"</color>\uC774\uB77C\uACE0 \uC54C\uC544?"
+    Text: "<color=red>\u201C\uBABD\uB839\u201D</color>\uC744 \uB9CC\uB0AC\uB2E4."
   - EventID: E001
     Order: 2
-    Text: "\uC0B6\uC758 \uC758\uC9C0\uAC00 \uC5C6\uC744 \uB54C \uB098\uD0C0\uB098\uB294
-      \uADC0\uC2E0\uC778\uB370."
+    Text: "\uC0B6\uC758 \uC758\uC9C0\uAC00 \uD76C\uBBF8\uD574\uC9C4 \uADF8 \uC21C\uAC04\n\uAFC8\uC18D\uC5D0\uC11C
+      \uB140\uC11D\uC744 \uB9C8\uC8FC\uCCE4\uB2E4."
   - EventID: E001
     Order: 3
-    Text: "\uC0B6\uC5D0 \uBBF8\uB828\uC744 \uB193\uB294 \uC21C\uAC04 \uBABD\uB839\uC774
-      \uCC3E\uC544\uC628\uB300."
+    Text: "\uB0B4\uAC00 \uAFC8\uC18D\uC5D0\uC11C \uC5EC\uB7EC \uAE30\uC5B5\uB4E4\uC744
+      \uB9C8\uC8FC\uD560 \uB54C \n\uB140\uC11D\uC774 \uB0A0 \uC9C0\uCF1C\uBCF4\uACE0
+      \uC788\uC5C8\uB2E4."
   - EventID: E001
     Order: 4
-    Text: "\uBABD\uB839\uC740 \uB108\uB97C \uAFC8\uC18D\uC5D0 \uAC00\uB450\uACE0
-      \n\uBCF8\uC778\uC774 \uBAB8\uC744 \uCC28\uC9C0\uD558\uB824 \uD558\uB824\uACE0
-      \uD560 \uAC70\uC57C."
+    Text: "\uB098\uB294 \uB140\uC11D\uC5D0\uAC8C \uBAB8\uC744 \uBE7C\uC557\uAE30\uC9C0
+      \uC54A\uAE30 \uC704\uD574\n\uAFC8\uC744 \uBC97\uC5B4\uB098\uB824\uACE0 \uB178\uB825\uD588\uB2E4."
   - EventID: E001
     Order: 5
-    Text: "\uADF8\uB7EC\uB2C8\uAE4C \uBB34\uC2A8 \uC77C\uC774 \uC788\uC5B4\uB3C4."
+    Text: "\uB108\uBB34\uB3C4 \uBB34\uC12D\uACE0 \uD798\uB4E4\uC5C8\uC9C0\uB9CC \n\uC0B4\uACE0
+      \uC2F6\uB2E4\uB294 \uB2E4\uC9D0 \uD558\uB098\uB85C \uAFC8\uC744 \uBC97\uC5B4\uB0A0
+      \uC218 \uC788\uC5C8\uB2E4."
   - EventID: E001
     Order: 6
-    Text: "\uC808\uB300.. \uC0B6\uC758 \uC758\uC9C0\uB97C \uB193\uC544\uC120 \uC548\uB3FC."
+    Text: .........
   - EventID: E001
     Order: 7
-    Text: "\uB9CC\uC57D.. \uC544\uC8FC \uB9CC\uC57D.... \n\uAFC8\uC18D\uC5D0\uC11C
-      \uBABD\uB839\uC744 \uB9C8\uC8FC\uCE58\uAC8C \uB41C\uB2E4\uBA74."
+    Text: "\uBABD\uB839\uC740 \uC0B6\uC758 \uC758\uC9C0\uB97C \uC783\uC740 \uC790\uC758
+      \uAFC8\uC18D\uC5D0 \uB098\uD0C0\uB098\n\uBAB8\uC744 \uBE7C\uC557\uB294 \uADC0\uC2E0\uC774\uB2E4."
   - EventID: E001
     Order: 8
-    Text: "\uC0B4\uACE0 \uC2F6\uB2E4\uB294 \uB9C8\uC74C\uC744 \uAC00\uC9C0\uACE0
-      \uB6F0\uC5B4."
+    Text: "\uC544\uBB34\uB9AC \uD798\uB4E0 \uC77C\uC774 \uC788\uC5B4\uB3C4\n\uC808\uB300
+      \uC0B6\uC744 \uD3EC\uAE30\uD558\uB824 \uD558\uBA74 \uC548\uB41C\uB2E4."
   - EventID: E001
     Order: 9
-    Text: "\uAFC8\uC18D\uC5D0\uB294 \uBC18\uB4DC\uC2DC \uD0C8\uCD9C\uD560 \uC218
-      \uC788\uB294 \uAE38\uC774 \uC874\uC7AC\uD558\uB2C8\uAE4C.."
+    Text: "\uADF8\uB807\uC9C0 \uC54A\uC73C\uBA74..\n\uADF8\uB140\uC11D\uC744 \uB2E4\uC2DC
+      \uB9CC\uB098\uAC8C \uB420\uC9C0\uB3C4 \uBAA8\uB978\uB2E4.."
+  - EventID: E001
+    Order: 10
+    Text: "\uADF8\uB7EC\uB2C8\u2026 \uC774 \uAE00\uC744 \uC77D\uB294 \uB124\uAC00
+      \uD639\uC2DC\uB77C\uB3C4 \n\uADF8 \uC874\uC7AC\uB97C \uB9C8\uC8FC\uD558\uAC8C
+      \uB41C\uB2E4\uBA74,"
+  - EventID: E001
+    Order: 11
+    Text: "\uBB34\uC2A8 \uC77C\uC774 \uC788\uC5B4\uB3C4 \uC0B6\uC744 \uD3EC\uAE30\uD558\uC9C0
+      \uB9C8\uB834."
+  - EventID: E001
+    Order: 12
+    Text: "\uC0B4\uACE0 \uC2F6\uB2E4\uB294 \uB9C8\uC74C\uC744 \uB05D\uAE4C\uC9C0
+      \uBD99\uC7A1\uC544\uC57C \uD574."
+  - EventID: E001
+    Order: 13
+    Text: "\uB108\uC758 \uADF8 \uB9C8\uC74C\uC774\n\uB108\uB97C \uAFC8\uC18D\uC5D0\uC11C
+      \uB098\uAC08 \uC218 \uC788\uAC8C \uD574\uC904\uAC70\uC57C."
   Dialog:
   - EventID: E002
     LogID: 2001
@@ -229,7 +257,7 @@ MonoBehaviour:
     Emotion: 2
   - EventID: E003
     LogID: 3004
-    Dialog: "......\u3134...\u314F...\uB3C4.....\n\u3131\u3161...\uB798\u3146.....\uB2E4\u3134.....\uB2E4..."
+    Dialog: "......\u3134...\u314F...\uB3C4.....\n \u3131\u3161...\uB798\u3146.....\uB2E4\u3134.....\uB2E4..."
     NextID: 3005
     Speaker: Mom
     SpeakerName: "\uC5C4\uB9C8"
@@ -401,7 +429,7 @@ MonoBehaviour:
     Emotion: 0
   - EventID: E005
     LogID: 5005
-    Dialog: "\uB2E4\uC2DC \uB3CC\uC544\uC628\uAC74\uAC00?"
+    Dialog: "\uB2E4\uC2DC \uB3CC\uC544\uC628 \uAC74\uAC00?"
     NextID: 5006
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -429,7 +457,7 @@ MonoBehaviour:
     Emotion: -1
   - EventID: E006
     LogID: 6002
-    Dialog: "...... \n\uC774\uAC8C \uBB34\uC2A8 \uC18C\uB9AC\uC9C0?"
+    Dialog: "...... \n \uC774\uAC8C \uBB34\uC2A8 \uC18C\uB9AC\uC9C0?"
     NextID: 6003
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -447,7 +475,7 @@ MonoBehaviour:
     Emotion: -1
   - EventID: E006
     LogID: 6004
-    Dialog: "\uC774 \uC18C\uB9AC\uB294? \n\uC124\uB9C8....?"
+    Dialog: "\uC774 \uC18C\uB9AC\uB294? \n \uC124\uB9C8....?"
     NextID: 6005
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -521,33 +549,42 @@ MonoBehaviour:
     Emotion: -1
   - EventID: E009
     LogID: 9001
+    Dialog: "\uC9C0\uAE08\uC740 \uC2DC\uB8E8\uB97C \uB9CC\uB098\uB294\uAC8C \uBA3C\uC800\uC57C\u2026"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - EventID: E010
+    LogID: 10001
     Dialog: "\uC2DC\uB8E8\uB97C \uB2E4\uC2DC \uBCF4\uAC8C \uB420 \uC904\uC774\uC57C.."
-    NextID: 9002
+    NextID: 10002
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
-  - EventID: E009
-    LogID: 9002
+  - EventID: E010
+    LogID: 10002
     Dialog: "\uC5EC\uAE34 \uB3C4\uB300\uCCB4 \uBB50 \uD558\uB294 \uACF3 \uC77C\uAE4C?"
-    NextID: 9003
+    NextID: 10003
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
-  - EventID: E009
-    LogID: 9003
-    Dialog: "\uC544\uAE4C \uADF8 \uB140\uC11D\uB3C4 \uADF8\uB807\uACE0... "
-    NextID: 9004
+  - EventID: E010
+    LogID: 10003
+    Dialog: "\uC544\uAE4C \uADF8 \uB140\uC11D\uB3C4 \uADF8\uB807\uACE0..."
+    NextID: 10004
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
-  - EventID: E009
-    LogID: 9004
+  - EventID: E010
+    LogID: 10004
     Dialog: "\uBB54\uAC00.. \uC774\uC0C1\uD55C \uACF3 \uAC19\uC544..."
     NextID: -1
     Speaker: Player
@@ -555,8 +592,8 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
-  - EventID: E010
-    LogID: 10001
+  - EventID: E011
+    LogID: 11001
     Dialog: "\uBB54\uAC00 \uC9C0\uAE08\uC740 \uAC00\uBA74 \uC548 \uB420 \uAC70 \uAC19\uC544.."
     NextID: -1
     Speaker: Player
@@ -564,71 +601,71 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Basic
     Emotion: -1
-  - EventID: E011
-    LogID: 11001
+  - EventID: E012
+    LogID: 12001
     Dialog: "\uAE84\uB974\uB974\uB974\uB974\uB975..."
-    NextID: 11002
+    NextID: 12002
     Speaker: Extra
     SpeakerName: ???
     ChoiceID: 
     Textbox: Monologue
     Emotion: -1
-  - EventID: E011
-    LogID: 11002
+  - EventID: E012
+    LogID: 12002
     Dialog: "\uC774\uAC8C...\uBB34\uC2A8 \uC18C\uB9AC\uC9C0?"
-    NextID: 11003
+    NextID: 12003
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
     Emotion: 2
-  - EventID: E011
-    LogID: 11003
+  - EventID: E012
+    LogID: 12003
     Dialog: "\uC5C4\uB9C8~~~~"
-    NextID: 11004
+    NextID: 12004
     Speaker: Extra
     SpeakerName: ???
     ChoiceID: 
     Textbox: Monologue
     Emotion: -1
-  - EventID: E011
-    LogID: 11004
+  - EventID: E012
+    LogID: 12004
     Dialog: "\uC774\uAC74.... \uB0B4 \uBAA9\uC18C\uB9AC?"
-    NextID: 11005
+    NextID: 12005
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
     Emotion: 2
-  - EventID: E011
-    LogID: 11005
+  - EventID: E012
+    LogID: 12005
     Dialog: "\uC5B4\uB514\uC11C \uB098\uB294 \uAC70\uC9C0?"
-    NextID: 11006
+    NextID: 12006
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
-  - EventID: E011
-    LogID: 11006
+  - EventID: E012
+    LogID: 12006
     Dialog: "\uAE84\uB974\uB974\uB974\uB974\uB975"
-    NextID: 11007
+    NextID: 12007
     Speaker: Extra
     SpeakerName: ???
     ChoiceID: 
     Textbox: Monologue
     Emotion: -1
-  - EventID: E011
-    LogID: 11007
+  - EventID: E012
+    LogID: 12007
     Dialog: "\uC774 \uC548\uC5D0\uC11C \uB098\uB294 \uAC70 \uAC19\uC740\uB370.."
-    NextID: 11008
+    NextID: 12008
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
-  - EventID: E011
-    LogID: 11008
+  - EventID: E012
+    LogID: 12008
     Dialog: "\uD55C\uBC88....\uB4E4\uC5B4\uAC00 \uBCFC\uAE4C?"
     NextID: -1
     Speaker: Player
@@ -636,8 +673,8 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Monologue
     Emotion: 0
-  - EventID: E012
-    LogID: 12001
+  - EventID: E013
+    LogID: 13001
     Dialog: "\uC544\uBB34\uB798\uB3C4 \uC800\uAE38 \uBA3C\uC800 \uD655\uC778\uD574
       \uBD10\uC57C\uACA0\uC5B4..."
     NextID: -1
@@ -646,27 +683,27 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Basic
     Emotion: -1
-  - EventID: E013
-    LogID: 13001
+  - EventID: E014
+    LogID: 14001
     Dialog: "\uC5EC\uAE34... \uC5B4\uB838\uC744 \uB54C \uC5C4\uB9C8\uB791 \uC790\uC8FC
       \uB180\uB7EC \uC624\uB358 \uACF3\uC774\uC796\uC544.."
-    NextID: 13002
+    NextID: 14002
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
     Emotion: -1
-  - EventID: E013
-    LogID: 13002
+  - EventID: E014
+    LogID: 14002
     Dialog: "\uC5C4\uB9C8\uB791 \uC5EC\uAE30 \uC62C \uB54C\uB294 \uC815\uB9D0 \uD589\uBCF5\uD588\uB294\uB370.."
-    NextID: 13003
+    NextID: 14003
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
     Emotion: -1
-  - EventID: E013
-    LogID: 13003
+  - EventID: E014
+    LogID: 14003
     Dialog: "\uC800\uAC74... \uC5C4\uB9C8\uAC00 \uC0AC\uC92C\uB358 \uD48D\uC120..?"
     NextID: -1
     Speaker: Player
@@ -674,66 +711,19 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Basic
     Emotion: -1
-  - EventID: ' E014'
-    LogID: 14001
-    Dialog: "\uC800\uAC8C \uBB50\uC9C0....?"
-    NextID: 14002
-    Speaker: Player
-    SpeakerName: "\uC11C\uB9B0"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E014
-    LogID: 14002
-    Dialog: "\uBB38..? \uBB38\uC774 \uC65C \uC774\uB7F0 \uACF3\uC5D0 \uC788\uB294
-      \uAC70\uC9C0?"
-    NextID: -1
-    Speaker: Player
-    SpeakerName: "\uC11C\uB9B0"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
   - EventID: E015
     LogID: 15001
-    Dialog: "\uC800\uAE30\uC5D0 \uC800\uB807\uAC8C \uBB34\uC131\uD55C \uC232\uAE38\uC774
-      \uC788\uC5C8\uB098..?"
-    NextID: 15002
-    Speaker: Player
-    SpeakerName: "\uC11C\uB9B0"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E015
-    LogID: 15002
-    Dialog: "\uC548\uCABD\uC774 \uD558\uB098\uB3C4 \uC548 \uBCF4\uC774\uB124.."
-    NextID: 15003
-    Speaker: Player
-    SpeakerName: "\uC11C\uB9B0"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E015
-    LogID: 15003
-    Dialog: "\uBB54\uAC00.. \uC548\uCABD\uC5D0 \uC5F4\uC1E0\uAC00 \uC788\uC744 \uAC83
-      \uB9CC \uAC19\uC544."
-    NextID: 15004
-    Speaker: Player
-    SpeakerName: "\uC11C\uB9B0"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E015
-    LogID: 15004
-    Dialog: "\uBB34\uC12D\uC9C0\uB9CC \uB4E4\uC5B4\uAC00 \uBD10\uC57C\uACA0\uC5B4."
+    Dialog: "\uD48D\uC120\uC744 \uD655\uC778\uD558\uACE0 \uAC00\uB294 \uAC8C \uB9C8\uC74C\uC774
+      \uD3B8\uD558\uACA0\uC5B4.."
     NextID: -1
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: -1
   - EventID: E016
     LogID: 16001
-    Dialog: "\uC5EC\uAE34... \uB9C8\uCE58 \uBBF8\uB85C \uAC19\uC740\uB370.."
+    Dialog: "\uC800\uAC8C \uBB50\uC9C0....?"
     NextID: 16002
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -742,8 +732,8 @@ MonoBehaviour:
     Emotion: 0
   - EventID: E016
     LogID: 16002
-    Dialog: "\uAE38\uC774 \uC798 \uB6AB\uB824\uC788\uB124.. \uC5EC\uAE30 \uC5B4\uB518\uAC00
-      \uC5F4\uC1E0\uAC00 \uC788\uACA0\uC9C0?"
+    Dialog: "\uBB38..? \uBB38\uC774 \uC65C \uC774\uB7F0 \uACF3\uC5D0 \uC788\uB294
+      \uAC70\uC9C0?"
     NextID: -1
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -752,44 +742,101 @@ MonoBehaviour:
     Emotion: 0
   - EventID: E017
     LogID: 17001
-    Dialog: "\uC73C..."
+    Dialog: "\uC800\uAE30\uC5D0 \uC800\uB807\uAC8C \uBB34\uC131\uD55C \uC232\uAE38\uC774
+      \uC788\uC5C8\uB098..?"
     NextID: 17002
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 2
+    Emotion: 0
   - EventID: E017
     LogID: 17002
-    Dialog: "\uBB50\uC57C \uC800\uAC70.. \uC544\uAE4C \uADF8 \uAD34\uBB3C?"
+    Dialog: "\uC548\uCABD\uC774 \uD558\uB098\uB3C4 \uC548 \uBCF4\uC774\uB124.."
     NextID: 17003
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 2
+    Emotion: 0
   - EventID: E017
     LogID: 17003
-    Dialog: "\uB354 \uC774\uC0C1\uC740 \uCAD3\uC544\uC624\uC9C0 \uC54A\uB294 \uAC83
-      \uAC19\uB124..."
+    Dialog: "\uBB54\uAC00.. \uC548\uCABD\uC5D0 \uC5F4\uC1E0\uAC00 \uC788\uC744 \uAC83
+      \uB9CC \uAC19\uC544."
     NextID: 17004
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 2
+    Emotion: 0
   - EventID: E017
     LogID: 17004
-    Dialog: "\uC65C \uB098\uB97C \uCAD3\uC544\uC628 \uAC78\uAE4C.. \uB300\uCCB4 \uC815\uCCB4\uAC00
-      \uBB50\uC9C0..?"
-    NextID: 17005
+    Dialog: "\uBB34\uC12D\uC9C0\uB9CC \uB4E4\uC5B4\uAC00 \uBD10\uC57C\uACA0\uC5B4."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E018
+    LogID: 18001
+    Dialog: "\uC5EC\uAE34... \uB9C8\uCE58 \uBBF8\uB85C \uAC19\uC740\uB370.."
+    NextID: 18002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E018
+    LogID: 18002
+    Dialog: "\uAE38\uC774 \uC798 \uB6AB\uB824\uC788\uB124.. \uC5EC\uAE30 \uC5B4\uB518\uAC00
+      \uC5F4\uC1E0\uAC00 \uC788\uACA0\uC9C0?"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E019
+    LogID: 19001
+    Dialog: "\uC73C..."
+    NextID: 19002
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
     Emotion: 2
-  - EventID: E017
-    LogID: 17005
+  - EventID: E019
+    LogID: 19002
+    Dialog: "\uBB50\uC57C \uC800\uAC70.. \uC544\uAE4C \uADF8 \uAD34\uBB3C?"
+    NextID: 19003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 2
+  - EventID: E019
+    LogID: 19003
+    Dialog: "\uB354 \uC774\uC0C1\uC740 \uCAD3\uC544\uC624\uC9C0 \uC54A\uB294 \uAC83
+      \uAC19\uB124..."
+    NextID: 19004
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 2
+  - EventID: E019
+    LogID: 19004
+    Dialog: "\uC65C \uB098\uB97C \uCAD3\uC544\uC628 \uAC78\uAE4C.. \uB300\uCCB4 \uC815\uCCB4\uAC00
+      \uBB50\uC9C0..?"
+    NextID: 19005
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 2
+  - EventID: E019
+    LogID: 19005
     Dialog: "\uC6B0\uC120.. \uC774 \uC5F4\uC1E0\uAC00 \uB9DE\uB294\uC9C0 \uD655\uC778\uD574
       \uBD10\uC57C\uACA0\uB2E4."
     NextID: -1
@@ -807,6 +854,7 @@ MonoBehaviour:
     Score0: 0
     Score1: 0
     Score2: 0
+    ContinueID: 
   - ChoiceID: C002
     Choice0: "\uC624\uB79C\uB9CC\uC5D0 \uBCF4\uB2C8\uAE4C\n\uC61B\uB0A0 \uC0DD\uAC01\uC774
       \uB098\uB124.."
@@ -815,6 +863,7 @@ MonoBehaviour:
     Score0: 0
     Score1: -10
     Score2: 0
+    ContinueID: 
   - ChoiceID: C003
     Choice0: "\uD604\uC2E4\uC5D0 \uC774\uB7F0 \uAF43\uC774 \n\uC874\uC7AC\uD560 \uB9AC\uAC00
       \uC5C6\uC5B4.."
@@ -823,6 +872,7 @@ MonoBehaviour:
     Score0: -10
     Score1: 0
     Score2: 0
+    ContinueID: 
   - ChoiceID: C004
     Choice0: "\uC544\uBB34\uB798\uB3C4 \n\uAFC8\uC18D\uC774 \uB9DE\uB098 \uBD10.."
     Choice1: "\uBE44\uC2B7\uD55C \uD48D\uC120\uC774\uACA0\uC9C0?"
@@ -830,6 +880,7 @@ MonoBehaviour:
     Score0: -10
     Score1: 0
     Score2: 0
+    ContinueID: 
   - ChoiceID: C005
     Choice0: "\uC0AC\uB78C??"
     Choice1: "\uC5B4.. \uACE0\uC591\uC774?"
@@ -837,6 +888,7 @@ MonoBehaviour:
     Score0: 0
     Score1: -10
     Score2: 0
+    ContinueID: 
   - ChoiceID: C006
     Choice0: "\uC74C...13\uC778\uAC00?"
     Choice1: "\uC815\uB2F5\uC740 8\uC774\uC57C."
@@ -844,6 +896,7 @@ MonoBehaviour:
     Score0: -10
     Score1: 0
     Score2: 0
+    ContinueID: 
   - ChoiceID: C007
     Choice0: 0...?
     Choice1: 403,002,187,492??
@@ -851,3 +904,4 @@ MonoBehaviour:
     Score0: 0
     Score1: -10
     Score2: 0
+    ContinueID: 

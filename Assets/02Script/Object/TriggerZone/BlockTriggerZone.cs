@@ -8,21 +8,15 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
     public string eventID;
     public bool canPass = false;
     public bool isContacted = false;
-
-    //[Header("Barrier")]
-    //[SerializeField] private BoxCollider barrier;
+    public string deactiveConditionID;  // 블락 비활성화 조건
 
     private PlayerController pc;
     private PlayerMove pm;
     private EventHistoryManager hm;
     private IDatabase database;
     private Dictionary<int, DialogData> dialogs;
-    private BoxCollider barrier;
 
     public string ZoneID => zoneID;
-
-    // 임시
-    public string needEventID;
 
 
     public void Init(IDatabase db)
@@ -40,9 +34,6 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
         if (pm == null) Debug.Log("BlockTriggerZone - Failed to Load PlayerMove");
         hm = FindAnyObjectByType<EventHistoryManager>();
         if (hm == null) Debug.Log("BlockTriggerZone - Failed to Load EventHistoryManager");
-
-        barrier = GetComponentInChildren<BoxCollider>();
-        if (barrier == null) Debug.Log("BlockTriggerZone - Failed to Load BarrierCollider");
     }
 
     private void OnEnable()
@@ -61,7 +52,7 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
         // 트리거 존은 플레이어와만 상호작용
         if (other.CompareTag("Player")) {
             // 조건 이벤트 확인
-            if (hm.IsEventComplete(needEventID)) { 
+            if (hm.IsEventComplete(deactiveConditionID)) { 
                 canPass = true;
             }
 
@@ -73,14 +64,11 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
     {
         if (canPass)
         {
-            Debug.Log("통과 가능");
-            barrier.gameObject.SetActive(false);        // 방해물 제거
-            //
+            // zone 상태 저장
             EventBus.Instance.Publish<GameEvents.ActiveZone>(new GameEvents.ActiveZone(zoneID, false));
         }
         else 
         {
-            Debug.Log("통과 불가능");
             EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
 
             // 종료 이벤트 저장

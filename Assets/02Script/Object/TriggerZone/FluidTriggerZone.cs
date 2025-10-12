@@ -5,7 +5,7 @@ using UnityEngine;
 public class FluidTriggerZone : TriggerZone
 {
     private EventHistoryManager hm;
-    public string needID;       // N001
+    public string activeConditionID;
 
     protected override void Awake()
     {
@@ -18,7 +18,7 @@ public class FluidTriggerZone : TriggerZone
     {
         // npcID값이 완료이벤트에 있으면 동작 / 없으면 무시
 
-        if (hm != null && hm.IsEventComplete(needID))
+        if (hm != null && hm.IsEventComplete(activeConditionID))
         {
             base.OnTrigger(actor);
         }

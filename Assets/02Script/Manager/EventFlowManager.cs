@@ -5,7 +5,7 @@ public enum EventType
     Narration,
     Cutscene,
     Conversation,  // only 대화 (플레이어의 입력 포함)
-    ChangeScene,
+    SceneChange,
 }
 
 

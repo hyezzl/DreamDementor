@@ -189,11 +189,12 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                 }  // LINQ 로 만들기
                 .Where(x => !string.IsNullOrEmpty(x))
                 .ToList(),
-                scores = new List<int> { 
+                scores = new List<int> {
                     evt.Score0,
                     evt.Score1,
                     evt.Score2,
-                }
+                },
+                continueID = evt.ContinueID,
             };
             choiceDict[evt.ChoiceID] = data;
         }
