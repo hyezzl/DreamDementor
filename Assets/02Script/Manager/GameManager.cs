@@ -34,26 +34,40 @@ public class GameManager : Singleton<GameManager>
     /// 고치기
     private void OnEnable()
     {
-        //EventBus.Instance.Subscribe<GameEvents.GameModeChange>(OnModeChange);
+        EventBus.Instance.Subscribe<GameEvents.GameModeChange>(OnModeChange);
         EventBus.Instance.Subscribe<GameEvents.StopTime>(OnStop);
         EventBus.Instance.Subscribe<GameEvents.FlowTime>(OnFlow);
     }
 
     private void OnDisable()
     {
-        //EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(OnModeChange);
+        EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(OnModeChange);
         EventBus.Instance.Unsubscribe<GameEvents.StopTime>(OnStop);
         EventBus.Instance.Unsubscribe<GameEvents.FlowTime>(OnFlow);
     }
 
     private void OnModeChange(GameEvents.GameModeChange evt)
     {
-        if (evt.mode == GameMode.PauseMode)
-        {
-            StopTime();
+        //if (evt.mode == GameMode.PauseMode)
+        //{
+        //    StopTime();
+        //}
+        //else
+        //    FlowTime();
+
+        switch (evt.mode) {
+            case GameMode.InspectMode:
+                // 커서 가림
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.None;
+                break;
+
+            case GameMode.PauseMode:
+                // 커서 생김
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                break;
         }
-        else
-            FlowTime();
     }
 
     private void OnStop(GameEvents.StopTime evt) {

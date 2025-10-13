@@ -32,18 +32,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 36be74e17191c064a9edf671b27f0a4d
-    m_Address: Mom/Smile
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 50567e3002d23d44aaabb7c44c2c944a
     m_Address: Player/Basic
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 94bd551a4dece8c4583158c9e1e9f960
-    m_Address: Mom/ChillingSmile
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -52,8 +42,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: aac854c04d414a6488f23db81aa6e7a3
+  - m_GUID: ab5048623188b7f48ba042b412598fc7
+    m_Address: Mom/ChillingSmile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc203f7848da08747beebbb72143a21a
     m_Address: Mom/Basic
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f518c9506bbfe994091fe7fec8946650
+    m_Address: Mom/Smile
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
