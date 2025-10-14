@@ -158,4 +158,27 @@ public static class GameEvents
         }
     }
 
+    // 카메라 필터 활성화
+    public struct FilterOn
+    {
+        public FilterType type;
+        //public ICameraFilter filter;
+        public bool isLasting;
+        public float duration;
+        public FilterOn(FilterType type, bool isLasting = true, float duration = 1f) {
+            this.type = type;
+            this.isLasting = isLasting;
+            this.duration = isLasting ? 0f : duration;
+        }
+    }
+
+    // 카메라 필터 비활성화
+    public struct FilterOff
+    {
+        //public FilterType type;
+        //public FilterOff(FilterType type) {
+        //    this.type = type;
+        //}
+    }
+
 }

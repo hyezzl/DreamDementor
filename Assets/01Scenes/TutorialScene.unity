@@ -734,6 +734,7 @@ Transform:
   - {fileID: 950056226}
   - {fileID: 1346039021}
   - {fileID: 1049782605}
+  - {fileID: 1732542850}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &41338271 stripped
@@ -9392,12 +9393,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Events:
     m_Signals:
-    - {fileID: 11400000, guid: db0a826e5f103e94386224a8ba22d2c9, type: 2}
     - {fileID: 11400000, guid: a8881cf4909c90441a7fd5f872dcfdb5, type: 2}
     - {fileID: 11400000, guid: 81c0871560c7ddf4bb4554253932b886, type: 2}
     m_Events:
-    - m_PersistentCalls:
-        m_Calls: []
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 843929495}
@@ -16418,6 +16416,7 @@ MonoBehaviour:
   tutorialPopup: {fileID: 281569414}
   playerAnim: {fileID: 5191428394091071734}
   EnemyAnim: {fileID: 1806655542}
+  glitch: {fileID: 2039305658}
 --- !u!114 &1581899398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17908,6 +17907,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7682b698df456d4dbfe68390798c700, type: 3}
+--- !u!1 &1732542849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1732542850}
+  - component: {fileID: 1732542851}
+  m_Layer: 0
+  m_Name: FilterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1732542850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732542849}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 40680002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1732542851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732542849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad6b78687c61c64bb3d3a1d54c0fd7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1733970781
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21348,6 +21391,8 @@ GameObject:
   - component: {fileID: 2039305654}
   - component: {fileID: 2039305655}
   - component: {fileID: 2039305656}
+  - component: {fileID: 2039305657}
+  - component: {fileID: 2039305658}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -21423,7 +21468,7 @@ Transform:
   m_GameObject: {fileID: 2039305650}
   serializedVersion: 2
   m_LocalRotation: {x: 0.13052626, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: 5.737688, z: -17.288012}
+  m_LocalPosition: {x: 12.5, y: 5.7, z: -18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21493,6 +21538,34 @@ Skybox:
   m_GameObject: {fileID: 2039305650}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 2100000, guid: 8b7dd0809c7c6498789fa32a61eaa6cb, type: 2}
+--- !u!114 &2039305657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039305650}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2418a99e3673b643b5a98717069e4fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SCShader: {fileID: 4800000, guid: 1d887625f6790984b97bdd1192602f72, type: 3}
+  Fade: 0.4
+--- !u!114 &2039305658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039305650}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10108a07306cec44a642fce55f0a5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SCShader: {fileID: 4800000, guid: 6c4912886dfcd564da449dd941df9045, type: 3}
+  Glitch: 0.4
 --- !u!4 &2043765480 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7219370548982472090, guid: 31a8d22bd80329842a0516502b7c7bd8, type: 3}

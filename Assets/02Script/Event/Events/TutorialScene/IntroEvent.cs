@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -47,7 +48,6 @@ public class IntroEvent : MonoBehaviour, IGameEvent
         if (fullIll == null) Debug.Log("IntroEvent - Failed to Load FullIllustation");
     }
 
-
     // DB 연결
     public void Init(IDatabase db)  // start시점에 실행
     { 
@@ -57,7 +57,6 @@ public class IntroEvent : MonoBehaviour, IGameEvent
 
         StartCoroutine(PlayIntro());
     }
-
 
     public IEnumerator PlayIntro() {
         // 이벤트 시작

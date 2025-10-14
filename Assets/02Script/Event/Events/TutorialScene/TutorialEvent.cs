@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -25,6 +26,9 @@ public class TutorialEvent : MonoBehaviour
     [SerializeField] private Animator playerAnim;
     [SerializeField] private Animator EnemyAnim;
 
+    [Header("Filter Refs")]
+    [SerializeField] private CameraFilterPack_FX_Glitch1 glitch;
+
     private bool isChoice = false;
 
 
@@ -34,6 +38,9 @@ public class TutorialEvent : MonoBehaviour
         if (pm == null) Debug.Log("TutorialEvent - Failed to Load PlayerMove");
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("PlayerController - Failed to Load PlayerController");
+
+        glitch = Camera.main.GetComponent<CameraFilterPack_FX_Glitch1>();
+        if (glitch == null) Debug.Log("TutorialEvent - Failed to Load GlitchFilter");
     }
 
     // DB 연결
@@ -65,6 +72,9 @@ public class TutorialEvent : MonoBehaviour
 
     // 타임라인 실행
     private IEnumerator PlayTimeline() {
+        // 카메라 필터
+        EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.OldMovie, true));
+
         // 1. 타임라인01 재생
         timeline01.Play();
 
@@ -94,6 +104,11 @@ public class TutorialEvent : MonoBehaviour
         // 3. 두번째 타임라인 재생
         timeline02.Play();
         yield return new WaitUntil(() => timeline02.state != PlayState.Playing);
+
+        // 카메라 필터
+        EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.Glitch, true));
+        if(glitch != null)
+            glitch.Glitch = 0.4f;
 
         yield return null;
 
@@ -128,6 +143,10 @@ public class TutorialEvent : MonoBehaviour
 
         // 술래 잡기 시작
         tutorialPopup.SetActive(false);
+
+        // 필터 강도 변경
+        if(glitch != null)
+            glitch.Glitch = 0.1f;
 
         pc.CurMode = GameMode.InspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));

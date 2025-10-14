@@ -35,6 +35,8 @@ public class DeadScene : MonoBehaviour
     }
 
     private void OnOver(GameEvents.GameOver evt) {
+        // 카메라 필터
+        
         // 배경
         topBack.SetActive(true);
         bottomBack.SetActive(true);
