@@ -8,7 +8,8 @@ using UnityEngine;
 public class ObjectProjection : MonoBehaviour
 {
     [SerializeField] private Transform player;
-    [SerializeField] private float alphaRatio = 0.6f;
+    [SerializeField] private float alphaRatio2D = 0.6f;
+    [SerializeField] private float alphaRatio3D = 0.15f;
     [SerializeField] private float sphereRadius = 1f;   // 
     [SerializeField] private LayerMask layer;
 
@@ -67,14 +68,25 @@ public class ObjectProjection : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
-            Renderer rend = hit.collider.GetComponent<Renderer>();
-            if (rend != null & hit.collider.gameObject != player.gameObject)
-            {
-                Color color = rend.material.color;
+            if(hit.collider.gameObject == player.gameObject) continue;
 
-                color.a = alphaRatio;
-                rend.material.color = color;
-                renderers.Add(rend);
+            Renderer rend = hit.collider.GetComponent<Renderer>();
+            if(rend == null) continue;
+
+            // Sprite Renderer ¿Í Mesh Renderer ºÐ±â
+            if(rend is SpriteRenderer rend2D){
+                Color color = rend2D.material.color;
+
+                color.a = alphaRatio2D;
+                rend2D.material.color = color;
+                renderers.Add(rend2D);
+            }
+            else if(rend is MeshRenderer rend3D){
+                Color color = rend3D.material.color;
+
+                color.a = alphaRatio3D;
+                rend3D.material.color = color;
+                renderers.Add(rend3D);
             }
         }
     }
