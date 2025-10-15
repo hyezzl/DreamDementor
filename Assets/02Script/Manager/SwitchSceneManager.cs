@@ -8,9 +8,12 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SwitchSceneManager : Singleton<SwitchSceneManager>
 {
-    private SceneType curScene;   // 현재씬
+    public SceneType curScene;   // 현재씬
+    public GameObject player;
     private Vector3 spawnPoint = Vector3.zero;
     private bool isPortal = false;      // 포탈이동에 의한 씬이동인지?
+
+    public CharacterController ch;
 
 
     private void OnEnable()
@@ -34,6 +37,17 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
     }
 
     private void OnPortal(GameEvents.PortalSwitchScene evt) { 
+        // 이동하려는 씬과 현재 씬이 같을 때
+        if(curScene == evt.nextScene){
+            isPortal = true;
+            spawnPoint = evt.targetPoint; 
+
+            // 위치 변경
+            MoveTransform();
+
+            return;
+        }
+
         Debug.Log($"{evt.nextScene}씬으로 이동~!");
         Debug.Log($"소환 위치 : {evt.nextScene.ToString()} - {evt.targetPoint}");
         isPortal = true;
@@ -52,6 +66,27 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
             if (player != null)
             {
                 player.transform.position = spawnPoint;
+            }
+            isPortal = false;
+        }
+    }
+
+    // 같은 씬에서 이동 시 위치만 이동
+    private void MoveTransform(){
+        if(isPortal)
+        {
+            Debug.Log($"이동할 좌표!!! : {spawnPoint}");
+            //GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+            if(player != null){
+                ch.enabled = false;
+                player.transform.position = spawnPoint;
+                //player.transform.position += Vector3.one;
+                //player.SetActive(false);
+                Debug.Log($"{player.transform.position}");
+                ch.enabled = true;
+            }else{
+                Debug.Log("플레이어가 널");
             }
             isPortal = false;
         }

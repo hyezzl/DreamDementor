@@ -10,12 +10,16 @@ public class Portal : MonoBehaviour
     public SceneType targetScene;
     public Vector3 spawnPoint;
 
+    public GameObject player;
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) {
             Debug.Log("Ãæµ¹");
-            EventBus.Instance.Publish<GameEvents.PortalSwitchScene>(new GameEvents.PortalSwitchScene(targetScene, spawnPoint));
+            //EventBus.Instance.Publish<GameEvents.PortalSwitchScene>(new GameEvents.PortalSwitchScene(targetScene, spawnPoint));
+        
+            player.transform.position = spawnPoint;
         }
     }
 }

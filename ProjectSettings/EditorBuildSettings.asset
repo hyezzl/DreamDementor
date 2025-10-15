@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01Scenes/HappyOneScene.unity
     guid: 061fd3361ba61a946b3e33ae97b60fba
+  - enabled: 1
+    path: Assets/01Scenes/RestScene.unity
+    guid: 9ede4fccbc3b2e14990367a06917177b
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: a57b876db6cd5e5478eacf21fa87d1dd, type: 2}

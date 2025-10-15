@@ -6,16 +6,13 @@ public enum SceneType
 { 
     TitleScene,
     TutorialScene,
-    SchoolScene,
-    RoomScene,
     HappyScene,
     HappyOneScene,
+    RestScene,
     SorrowScene,
-    ConverseSorrowScene,
+    SorrowOneScene,
     ChaosScene,
-    ConverseChaosScene,
     HorrorScene,
-    ConverseHorrorScene,
     EndingScene,
 }
 

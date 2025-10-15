@@ -14,7 +14,7 @@ public class ObjectProjection : MonoBehaviour
     [SerializeField] private LayerMask layer;
 
     private List<Renderer> renderers = new List<Renderer>();
-
+    
     private PlayerController pc;
 
     private bool isThree = false;
