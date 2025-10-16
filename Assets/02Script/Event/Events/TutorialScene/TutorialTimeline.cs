@@ -30,6 +30,9 @@ public class TutorialTimeline : MonoBehaviour
     [Header("타이핑 속도")]
     [SerializeField] private float TypingTime = 1.7f;
 
+    [Header("Filter Refs")]
+    [SerializeField] private CameraFilterPack_FX_Glitch1 glitch;
+
     private IDatabase database;
     private Dictionary<int, DialogData> dialogs;  // 전체 대사 목록
     int curlogIdx;  // 현재 대화 인덱스
@@ -120,5 +123,11 @@ public class TutorialTimeline : MonoBehaviour
         enemyTextBox.alpha = 0f; // 창닫기
         enemyText.text = "";
         enemySpeaker.text = "";
+    }
+
+    // 변신 시 글리치 필터
+    public void EnemyTransform() {
+        if (glitch != null)
+            glitch.Glitch = 0.5f;
     }
 }
