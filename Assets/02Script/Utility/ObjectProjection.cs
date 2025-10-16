@@ -68,7 +68,11 @@ public class ObjectProjection : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
+            // 플레이어 자신 무시
             if(hit.collider.gameObject == player.gameObject) continue;
+
+            // 플레이어보다 뒤에 위치한 물체 무시
+            if (hit.collider.transform.position.z > player.position.z) continue;
 
             Renderer rend = hit.collider.GetComponent<Renderer>();
             if(rend == null) continue;

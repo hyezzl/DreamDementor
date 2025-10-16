@@ -13,6 +13,13 @@ public class Portal : MonoBehaviour
     public Direction4 spawnDir;
 
     public GameObject player;
+    public PlayerController pc;
+
+    private void Awake()
+    {
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null) Debug.Log($"{portalID} - Failed to Load PlayerController");
+    }
 
 
     private void OnTriggerEnter(Collider other)
@@ -26,14 +33,16 @@ public class Portal : MonoBehaviour
             }
             // 같은 씬 내 이동
             else {
-                if (player != null) { 
+                if (player != null) {
                     // todo : 이동 직후 로직 부족한듯
+                    // 이벤트모드
+                    pc.CurMode = GameMode.EventMode;
+                    EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
+
                     player.transform.position = spawnPoint;
                     EventBus.Instance.Publish<GameEvents.ForceDir>(new GameEvents.ForceDir(spawnDir));
                 }
             }
-        
         }
     }
-
 }
