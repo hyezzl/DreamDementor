@@ -97,9 +97,11 @@ public static class GameEvents
     { 
         public SceneType nextScene;
         public Vector3 targetPoint;
-        public PortalSwitchScene(SceneType nextScene, Vector3 targetPoint) { 
+        public Direction4 targetDir;
+        public PortalSwitchScene(SceneType nextScene, Vector3 targetPoint, Direction4 targetDir) { 
             this.nextScene = nextScene;
             this.targetPoint = targetPoint;
+            this.targetDir = targetDir;
         }
     }
 
@@ -193,5 +195,15 @@ public static class GameEvents
 
     // 브금 중단
     public struct StopBGM { }
+
+
+    // 플레이어 방향 / 애니메이션 강제
+    public struct ForceDir
+    {
+        public Direction4 dir;
+        public ForceDir(Direction4 dir) {
+            this.dir = dir;
+        }
+    }
 
 }
