@@ -181,4 +181,17 @@ public static class GameEvents
         //}
     }
 
+    // 브금 재생
+    public struct PlayBGM
+    {
+        public BGMType type;
+        public PlayBGM(BGMType type) {
+            this.type = type;
+        }
+    }
+
+
+    // 브금 중단
+    public struct StopBGM { }
+
 }

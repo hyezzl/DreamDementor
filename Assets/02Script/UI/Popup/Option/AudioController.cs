@@ -75,9 +75,10 @@ public class AudioController : MonoBehaviour
         {
             images[(int)type].sprite = playIcon;
             db = Mathf.Log10(value) * 20f;  // µ¥½Ãº§
+            isPlaying[(int)type] = true;
         }
-        //string parameter = type.ToString() + "Vol";
-        //am.SetFloat(parameter, db);
+        string parameter = type.ToString() + "Vol";
+        am.SetFloat(parameter, db);
     }
 
     public void SoundMute(SoundType type) {
@@ -103,4 +104,5 @@ public class AudioController : MonoBehaviour
             SliderValueChanged(type, preVol[(int)type]);
         }
     }
+
 }

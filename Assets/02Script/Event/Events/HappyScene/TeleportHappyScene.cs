@@ -21,7 +21,7 @@ public class TeleportHappyScene : MonoBehaviour
     private Dictionary<int, DialogData> dialogs;
     private PlayerController pc;
 
-    private static bool HappySceneFirstVisit = false;
+    private static bool HappySceneFirstVisit = true;
 
     private void Awake()
     {
@@ -43,11 +43,16 @@ public class TeleportHappyScene : MonoBehaviour
         //    PlayTeleport();
         //    PlayerPrefs.SetInt("HappySceneFirstVisit", 1);
         //    PlayerPrefs.Save();
+
+        //    //브금 재생
         //}
 
         if (HappySceneFirstVisit) {
             eyeCanvas.gameObject.SetActive(true);
             PlayTeleport();
+
+            // 브금 재생
+            EventBus.Instance.Publish<GameEvents.PlayBGM>(new GameEvents.PlayBGM(BGMType.HappyBGM));
         }
     }
 
