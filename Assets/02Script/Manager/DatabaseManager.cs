@@ -52,6 +52,7 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                 reply = item.Reply,
                 icon = null,  // Adressable로 비동기 로드 예정
                 pairID = item.PairID,
+                subsist = item.Subsist == 1 ? true : false,
             };
             pickableDict[item.ItemID] = data;
 

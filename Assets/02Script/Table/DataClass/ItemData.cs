@@ -9,6 +9,7 @@ public class PickableData
     public string reply;
     public Sprite icon;
     public string pairID;
+    public bool subsist;
 }
 
 public class EatableData

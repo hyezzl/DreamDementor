@@ -16,7 +16,9 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     [SerializeField] private float maxAngle = 60f;
 
     [Header("Animator")]
-    [SerializeField] private Animator anim;
+    [SerializeField] private Animator anim;     // 플레이어 애니메이터
+    [SerializeField] private Animator handRAnim;     // 1인칭 오른손 애니메이터
+    [SerializeField] private Animator handLAnim;     // 1인칭 왼손 애니메이터
 
     [Header("Ref")]
     [SerializeField] private Transform Player;
@@ -187,6 +189,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         anim.SetBool("moveable", moveable);
         if (moveable)
         {
+            // Player Animator
             anim.SetFloat("inputX", localInput.x);
             anim.SetFloat("inputY", localInput.z);
             anim.SetBool("isWalk", isWalking);
@@ -227,11 +230,32 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         Vector3 moveDir = forward * inputDir.y + right * inputDir.x;
 
         bool isRunning = inputHandler.Run();
+        bool isWalking = inputDir.sqrMagnitude > 0.1f && !isRunning;
+
         float speed = isRunning ? runSpeed : moveSpeed;
 
-        // todo :: 중력적용
-
         cc.Move(moveDir * speed * Time.deltaTime);
+
+
+        // (Animation) Blend Tree 값 전달
+        anim.SetBool("moveable", moveable);
+        if (moveable)
+        {
+            // Player Animator
+            anim.SetFloat("inputX", inputDir.x);
+            anim.SetFloat("inputY", inputDir.y);
+            anim.SetBool("isWalk", isWalking);
+            anim.SetBool("isRunning", isRunning);
+
+            // Hand Animator
+            if (handRAnim != null && handLAnim != null)
+            {
+                handRAnim.SetBool("isWalk", isWalking);
+                handLAnim.SetBool("isWalk", isWalking);
+                handRAnim.SetBool("isRunning", isRunning);
+                handLAnim.SetBool("isRunning", isRunning);
+            }
+        }
     }
 
 

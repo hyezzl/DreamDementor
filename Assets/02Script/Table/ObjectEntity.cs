@@ -11,6 +11,7 @@ public class PickableEntity
     public string Reply;
     public string IconName;
     public string PairID;
+    public int Subsist;
 }
 
 [Serializable]
