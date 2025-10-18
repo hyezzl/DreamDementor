@@ -156,6 +156,9 @@ public class Selection : MonoBehaviour
         Debug.Log($"{idx} 번 선택됨!!!!!!!!!!!!!!!!");
         EventBus.Instance.Publish<UIEvents.MakeChoice>(new UIEvents.MakeChoice(curChoiceID, idx));
 
+        // 대사 데이터가 있으면 대사 출력
+        // 잘못된 선택지 고를 시 정신력 깎임
+
         // 버튼 비활성화
         foreach (var btn in buttons) {
             btn.SetActive(false);

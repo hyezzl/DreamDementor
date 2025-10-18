@@ -17,8 +17,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
     [Header("Animator")]
     [SerializeField] private Animator anim;     // 플레이어 애니메이터
-    [SerializeField] private Animator handRAnim;     // 1인칭 오른손 애니메이터
-    [SerializeField] private Animator handLAnim;     // 1인칭 왼손 애니메이터
+    [SerializeField] private Animator handAnim;     // 1인칭 손 애니메이터
 
     [Header("Ref")]
     [SerializeField] private Transform Player;
@@ -248,12 +247,10 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             anim.SetBool("isRunning", isRunning);
 
             // Hand Animator
-            if (handRAnim != null && handLAnim != null)
+            if (handAnim != null)
             {
-                handRAnim.SetBool("isWalk", isWalking);
-                handLAnim.SetBool("isWalk", isWalking);
-                handRAnim.SetBool("isRunning", isRunning);
-                handLAnim.SetBool("isRunning", isRunning);
+                handAnim.SetBool("isWalk", isWalking);
+                handAnim.SetBool("isRunning", isRunning);
             }
         }
     }
