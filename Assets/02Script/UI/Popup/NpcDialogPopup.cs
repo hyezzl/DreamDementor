@@ -123,9 +123,6 @@ public class NpcDialogPopup : MonoBehaviour
         curNpcID = evt.npcID;
 
         // 타이핑
-        //if (evt.npcID == null) Debug.Log("evt가 널");
-        //if (evt.texts == null) Debug.Log("texts가 널");
-        //Debug.Log(evt.npcID);
         //Debug.Log(DatabaseManager.Instance.GetNpcDialog(evt.npcID)[6002]);
         StartCoroutine(TypeDialog(evt.texts));
     }
@@ -207,7 +204,7 @@ public class NpcDialogPopup : MonoBehaviour
             if (!string.IsNullOrEmpty(curDialog.choiceID) && curDialog.choices != null)
             {
                 EventBus.Instance.Publish<UIEvents.OccurSelection>
-                    (new UIEvents.OccurSelection(npcDialogDict[curlogIdx].choices.texts.Count, npcDialogDict[curlogIdx].choices));
+                    (new UIEvents.OccurSelection(npcDialogDict[curlogIdx].choices.texts.Count, npcDialogDict[curlogIdx].choices, true));
                 yield break;  // 선택지 발생 시 대화 멈춤
             }
 
@@ -422,12 +419,14 @@ public class NpcDialogPopup : MonoBehaviour
         DialogFade(enemyTextBox, false);
 
         // 일러스트 닫음 +  초기화
-        LeftIll.alpha = 0f;
-        RightIll.alpha = 0f;
-        playerIll.sprite = null;
-        playerIll.color = new Color(1, 1, 1, 0);
-        otherIll.sprite = null;
-        otherIll.color = new Color(1, 1, 1, 0);
+        //LeftIll.alpha = 0f;
+        //RightIll.alpha = 0f;
+        //playerIll.sprite = null;
+        //playerIll.color = new Color(1, 1, 1, 0);
+        //otherIll.sprite = null;
+        //otherIll.color = new Color(1, 1, 1, 0);
+
+        // 
     }
 
 

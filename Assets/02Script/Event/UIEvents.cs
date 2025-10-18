@@ -42,11 +42,13 @@ public static class UIEvents
     {
         public int idx;
         public ChoiceData choice;
+        public bool isNpc;
 
-        public OccurSelection(int idx, ChoiceData choice)
+        public OccurSelection(int idx, ChoiceData choice, bool isNpc)
         {
             this.idx = idx;
             this.choice = choice;
+            this.isNpc = isNpc;
         }
     }
 
@@ -56,10 +58,14 @@ public static class UIEvents
     {
         public string choiceID;
         public int selectIdx;
-        public MakeChoice(string choiceID, int selectIdx)
+        public bool isNpc;
+        public ChoiceData data;
+        public MakeChoice(string choiceID, int selectIdx, bool isNpc, ChoiceData data)
         {
             this.choiceID = choiceID;
             this.selectIdx = selectIdx;
+            this.isNpc = isNpc;
+            this.data = data;
         }
     }
 

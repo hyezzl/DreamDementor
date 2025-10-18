@@ -27,7 +27,8 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
 
     // NPC 정보
     private Dictionary<string, NPCData> npcDict = new();
-    private Dictionary<string, Dictionary<int, NPCDialogData>> npcDialogDict = new();
+    //private Dictionary<string, Dictionary<int, NPCDialogData>> npcDialogDict = new();
+    private Dictionary<string, Dictionary<string, Dictionary<int, NPCDialogData>>> npcDialogDict = new();
     private Dictionary<string, NPCReDialogData> npcRedialogDict = new();
 
 
@@ -195,7 +196,11 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                     evt.Score1,
                     evt.Score2,
                 },
-                continueID = evt.ContinueID,
+                continueIDs = new List<string> { 
+                    evt.Continue0,
+                    evt.Continue1,
+                    evt.Continue2,
+                },
             };
             choiceDict[evt.ChoiceID] = data;
         }
@@ -252,6 +257,7 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
             NPCDialogData data = new NPCDialogData
             {
                 npcID = npc.NpcID,
+                npcEventID = npc.NpcEventID,
                 logID = npc.LogID,
                 dialog = npc.Dialog,
                 nextID = npc.NextID,
@@ -262,14 +268,21 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                 emotion = npc.Emotion,
                 choices = choiceData
             };
+
+            // 삼중 딕셔너리 세팅
             if(!npcDialogDict.ContainsKey(npc.NpcID))
             {
-                npcDialogDict[npc.NpcID] = new Dictionary<int, NPCDialogData>();
+                //npcDialogDict[npc.NpcID] = new Dictionary<int, NPCDialogData>();
+                npcDialogDict[npc.NpcID] = new Dictionary<string, Dictionary<int, NPCDialogData>>();
             }
-            // logID가 없으면  생성
-            if (!npcDialogDict[npc.NpcID].ContainsKey(npc.LogID))
+            if (!npcDialogDict[npc.NpcID].ContainsKey(npc.NpcEventID)) 
             {
-                npcDialogDict[npc.NpcID].Add(npc.LogID, data);
+                npcDialogDict[npc.NpcID][npc.NpcEventID] = new Dictionary<int, NPCDialogData>();
+            }
+            // logID가 없으면 생성
+            if (!npcDialogDict[npc.NpcID][npc.NpcEventID].ContainsKey(npc.LogID))
+            {
+                npcDialogDict[npc.NpcID][npc.NpcEventID].Add(npc.LogID, data);
             }
             else
             {
@@ -379,10 +392,19 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
         return null;
     }
 
-    public Dictionary<int, NPCDialogData> GetNpcDialog(string npcID) {
+    public Dictionary<string, Dictionary<int, NPCDialogData>> GetNpcEvent(string npcID) {
+        if (npcDialogDict.TryGetValue(npcID, out var dataDict)) {
+            return dataDict;
+        }
+        return null;
+    }
+
+    public Dictionary<int, NPCDialogData> GetNpcDialog(string npcID, string npcEventID) {
         if (npcDialogDict.TryGetValue(npcID, out var dataDict))
         {
-            return dataDict;
+            if (dataDict.TryGetValue(npcEventID, out var dialogDict)) { 
+                return dialogDict;
+            }
         }
         return null;
     }

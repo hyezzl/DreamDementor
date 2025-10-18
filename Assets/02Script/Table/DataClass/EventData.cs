@@ -119,5 +119,5 @@ public class ChoiceData
     public string choiceID;
     public List<string> texts;
     public List<int> scores;
-    public string continueID;
+    public List<string> continueIDs;
 }

@@ -9,6 +9,7 @@ public class NPCData
 public class NPCDialogData
 {
     public string npcID;
+    public string npcEventID;
     public int logID;
     public string dialog;
     public int nextID;

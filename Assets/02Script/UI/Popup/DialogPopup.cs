@@ -185,7 +185,7 @@ public class DialogPopup : MonoBehaviour
             if (!string.IsNullOrEmpty(curDialog.choiceID)) 
             {
                 EventBus.Instance.Publish<UIEvents.OccurSelection>
-                    (new UIEvents.OccurSelection(dialogDict[curlogIdx].choices.texts.Count, dialogDict[curlogIdx].choices));
+                    (new UIEvents.OccurSelection(dialogDict[curlogIdx].choices.texts.Count, dialogDict[curlogIdx].choices, false));
                 yield break;  // 선택지 발생 시 대화 멈춤
             }
 
@@ -344,12 +344,14 @@ public class DialogPopup : MonoBehaviour
         DialogFade(enemyTextBox, false);
 
         // 일러스트 닫음 +  초기화
-        LeftIll.alpha = 0f;
-        RightIll.alpha = 0f;
-        playerIll.sprite = null;
-        playerIll.color = new Color(1, 1, 1, 0);
-        otherIll.sprite = null;
-        otherIll.color = new Color(1, 1, 1, 0);
+        //LeftIll.alpha = 0f;
+        //RightIll.alpha = 0f;
+        //playerIll.sprite = null;
+        //playerIll.color = new Color(1, 1, 1, 0);
+        //otherIll.sprite = null;
+        //otherIll.color = new Color(1, 1, 1, 0);
+
+        // 새 대화가 있다면 이어서 실행
     }
 
 

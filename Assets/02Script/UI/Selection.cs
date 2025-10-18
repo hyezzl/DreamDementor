@@ -17,6 +17,8 @@ public class Selection : MonoBehaviour
     private bool standbyInput = false;
     private List<GameObject> buttons = new();
     private string curChoiceID = null;
+    private bool isNpcChoice = true;    // NPC의 선택지인가?
+    private ChoiceData curData;
 
     // 선택
     private int focusIdx = -1;
@@ -63,6 +65,8 @@ public class Selection : MonoBehaviour
         background.enabled = true;
 
         Debug.Log("선택지 호출");
+        isNpcChoice = evt.isNpc;    // 어떤종류의 선택지인지 캐싱
+        curData = evt.choice;
 
         if (evt.choice.texts.Count == 2)  // 선택지 2개일 때
         {
@@ -154,7 +158,7 @@ public class Selection : MonoBehaviour
         if (!standbyInput) return;
 
         Debug.Log($"{idx} 번 선택됨!!!!!!!!!!!!!!!!");
-        EventBus.Instance.Publish<UIEvents.MakeChoice>(new UIEvents.MakeChoice(curChoiceID, idx));
+        EventBus.Instance.Publish<UIEvents.MakeChoice>(new UIEvents.MakeChoice(curChoiceID, idx, isNpcChoice, curData));
 
         // 대사 데이터가 있으면 대사 출력
         // 잘못된 선택지 고를 시 정신력 깎임
@@ -166,6 +170,7 @@ public class Selection : MonoBehaviour
 
         background.enabled = false;
         curChoiceID = null;
+        curData = null;
         standbyInput = false;
     }
 }

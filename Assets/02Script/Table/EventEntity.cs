@@ -40,5 +40,7 @@ public class ChoiceEntity
     public int Score0;
     public int Score1;
     public int Score2;
-    public string ContinueID;
+    public string Continue0;
+    public string Continue1;
+    public string Continue2;
 }

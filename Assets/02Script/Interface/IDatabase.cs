@@ -20,7 +20,9 @@ public interface IDatabase
 
     ChoiceData GetChoice(string eventID);
 
-    Dictionary<int, NPCDialogData> GetNpcDialog(string npcID);
+    Dictionary<string, Dictionary<int, NPCDialogData>> GetNpcEvent(string npcID);
+
+    Dictionary<int, NPCDialogData> GetNpcDialog(string npcID, string npcEventID);
 
     NPCReDialogData GetNpcReDialog(string npcID);
 }

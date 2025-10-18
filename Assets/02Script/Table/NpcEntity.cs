@@ -13,6 +13,7 @@ public class NpcEntity
 public class NpcDialogEntity
 {
     public string NpcID;
+    public string NpcEventID;
     public int LogID;
     public string Dialog;
     public int NextID;
