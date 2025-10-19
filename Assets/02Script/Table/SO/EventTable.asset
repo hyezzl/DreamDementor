@@ -114,7 +114,7 @@ MonoBehaviour:
     Order: 10
     Text: "\uADF8\uB7EC\uB2C8\u2026 \uC774 \uAE00\uC744 \uC77D\uB294 \uB124\uAC00
       \uD639\uC2DC\uB77C\uB3C4 \n\uADF8 \uC874\uC7AC\uB97C \uB9C8\uC8FC\uD558\uAC8C
-      \uB41C\uB2E4\uBA74,"
+      \uB41C\uB2E4\uBA74."
   - EventID: E001
     Order: 11
     Text: "\uBB34\uC2A8 \uC77C\uC774 \uC788\uC5B4\uB3C4 \uC0B6\uC744 \uD3EC\uAE30\uD558\uC9C0
@@ -854,7 +854,9 @@ MonoBehaviour:
     Score0: 0
     Score1: 0
     Score2: 0
-    ContinueID: 
+    Continue0: 
+    Continue1: 
+    Continue2: 
   - ChoiceID: C002
     Choice0: "\uC624\uB79C\uB9CC\uC5D0 \uBCF4\uB2C8\uAE4C\n\uC61B\uB0A0 \uC0DD\uAC01\uC774
       \uB098\uB124.."
@@ -863,7 +865,9 @@ MonoBehaviour:
     Score0: 0
     Score1: -10
     Score2: 0
-    ContinueID: 
+    Continue0: N001_0
+    Continue1: N001_1
+    Continue2: 
   - ChoiceID: C003
     Choice0: "\uD604\uC2E4\uC5D0 \uC774\uB7F0 \uAF43\uC774 \n\uC874\uC7AC\uD560 \uB9AC\uAC00
       \uC5C6\uC5B4.."
@@ -872,7 +876,9 @@ MonoBehaviour:
     Score0: -10
     Score1: 0
     Score2: 0
-    ContinueID: 
+    Continue0: 
+    Continue1: 
+    Continue2: 
   - ChoiceID: C004
     Choice0: "\uC544\uBB34\uB798\uB3C4 \n\uAFC8\uC18D\uC774 \uB9DE\uB098 \uBD10.."
     Choice1: "\uBE44\uC2B7\uD55C \uD48D\uC120\uC774\uACA0\uC9C0?"
@@ -880,7 +886,9 @@ MonoBehaviour:
     Score0: -10
     Score1: 0
     Score2: 0
-    ContinueID: 
+    Continue0: 
+    Continue1: 
+    Continue2: 
   - ChoiceID: C005
     Choice0: "\uC0AC\uB78C??"
     Choice1: "\uC5B4.. \uACE0\uC591\uC774?"
@@ -888,7 +896,9 @@ MonoBehaviour:
     Score0: 0
     Score1: -10
     Score2: 0
-    ContinueID: 
+    Continue0: 
+    Continue1: 
+    Continue2: 
   - ChoiceID: C006
     Choice0: "\uC74C...13\uC778\uAC00?"
     Choice1: "\uC815\uB2F5\uC740 8\uC774\uC57C."
@@ -896,7 +906,9 @@ MonoBehaviour:
     Score0: -10
     Score1: 0
     Score2: 0
-    ContinueID: 
+    Continue0: 
+    Continue1: 
+    Continue2: 
   - ChoiceID: C007
     Choice0: 0...?
     Choice1: 403,002,187,492??
@@ -904,4 +916,6 @@ MonoBehaviour:
     Score0: 0
     Score1: -10
     Score2: 0
-    ContinueID: 
+    Continue0: 
+    Continue1: 
+    Continue2: 

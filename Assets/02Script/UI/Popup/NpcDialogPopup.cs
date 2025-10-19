@@ -294,6 +294,7 @@ public class NpcDialogPopup : MonoBehaviour
 
         // 모드 변경
         pc.CurMode = preMode;
+        Debug.Log($"ClosePanel에서 상태변경 : {preMode}로!");
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
 
         // 값 초기화

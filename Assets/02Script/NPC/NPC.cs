@@ -1,20 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class NPC : MonoBehaviour, IActionNpc
 {
     public string npcID;
     public bool isContacted = false;
+    private PlayerController pc;
     private Dictionary<string, Dictionary<int, NPCDialogData>> allDialogs;
     private Dictionary<int, NPCDialogData> initialDialog;
     private NPCReDialogData reDialogData;
     private IDatabase database;
 
     private bool isInDialog = false;
+    private bool isDelay = false;       // 대화 이후 Interact Delay 중인지
+    private float dialogDelay = 0.5f;   // 원하는 딜레이 시간 (초)
+    private float delayTimer = 0f;
 
     public string GetNpcID() => npcID;
+
+    private void Awake()
+    {
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null) Debug.Log("NPC - Failed to Load PlayerController");
+    }
 
     public void Init(IDatabase db)
     {
@@ -26,6 +36,14 @@ public class NPC : MonoBehaviour, IActionNpc
         if (initialDialog == null) Debug.Log("NPC - Failed to Load NpcDialogs");
         reDialogData = database.GetNpcReDialog(npcID);
         if (reDialogData == null) Debug.Log("NPC - Failed to Load NpcReDialogs");
+
+        //Debug.Log($"{allDialogs.Count}개의 데이터 Init완료");
+        //foreach (var i in allDialogs) {
+        //    Debug.Log($"!!!{i.Key}");
+        //    foreach (var j in i.Value) {
+        //        Debug.Log($"***{j.Key} : {j.Value}");
+        //    }
+        //}
     }
 
     private void OnEnable()
@@ -39,18 +57,32 @@ public class NPC : MonoBehaviour, IActionNpc
         EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(OnNpcChoice);
     }
 
+    private void Update()
+    {
+        // 딜레이 타이밍 갱신
+        if (isDelay) {
+            delayTimer -= Time.deltaTime;
+            if (delayTimer <= 0f) {
+                isDelay = false;
+                delayTimer = 0f;
+            }
+        }
+    }
+
     public void Interact()
     {
-        if (isInDialog) return; // 대화중이면 무시
+        if (isInDialog || isDelay) return; // 대화중이거나, 딜레이 중이면 무시
 
         if (!isContacted)
         {
             // 첫 대면 : 대화
+            isInDialog = true;
             EventBus.Instance.Publish<UIEvents.OpenNpcDialog>(new UIEvents.OpenNpcDialog(npcID, initialDialog));
             isContacted = true;
         }
         else {
             // 재 대화시 재대화
+            isInDialog = true;
             EventBus.Instance.Publish<UIEvents.OpenNpcReDialog>(new UIEvents.OpenNpcReDialog(npcID, reDialogData));
         }
     }
@@ -67,6 +99,10 @@ public class NPC : MonoBehaviour, IActionNpc
 
             if (!string.IsNullOrEmpty(continueID))
             {
+                //Debug.Log($"continueID = {continueID}");
+                foreach (var i in allDialogs[continueID]) {
+                    //Debug.Log($"****{i.Value.dialog}");
+                }
                 if (allDialogs.TryGetValue(continueID, out var branchDialog))
                 {
                     // 선택지 이후 분기대화
@@ -83,6 +119,14 @@ public class NPC : MonoBehaviour, IActionNpc
     private void OnEndNpcDialog(UIEvents.EndNpcDialog evt) {
         if (evt.npcID == npcID) {
             isInDialog = false;
+
+            // 대화 종료 후 다음 Interact 사이 딜레이 시작
+            isDelay = true;
+            delayTimer = dialogDelay;
+
+            // 게임모드 변경
+            pc.CurMode = GameMode.InspectMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
         }
     }
 
