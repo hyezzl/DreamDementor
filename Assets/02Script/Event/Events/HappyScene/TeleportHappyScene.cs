@@ -18,10 +18,11 @@ public class TeleportHappyScene : MonoBehaviour
     [SerializeField] private Canvas eyeCanvas;
 
     private IDatabase database;
-    private Dictionary<int, DialogData> dialogs;
+    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
+    private Dictionary<int, DialogData> initialDialog;
     private PlayerController pc;
 
-    private static bool HappySceneFirstVisit = true;
+    private static bool HappySceneFirstVisit = false;
 
     private void Awake()
     {
@@ -32,8 +33,9 @@ public class TeleportHappyScene : MonoBehaviour
     public void Init(IDatabase db)  // start시점에 실행
     {
         database = db;
-        dialogs = database.GetDialog(eventID);
-        if (dialogs == null) Debug.Log("TeleportHappyScene - Failed to Load NarrationData");
+        allDialogs = database.GetDialogEvent(eventID);
+        initialDialog = database.GetDialog(eventID, eventID);
+        if (initialDialog == null) Debug.Log("TeleportHappyScene - Failed to Load Dialog");
 
         // PlayerPrefs사용한 첫방문 분기
         //bool happyFirstVisit = PlayerPrefs.GetInt("HappySceneFirstVisit", 0) == 0;  // 첫방문인가?
@@ -50,6 +52,7 @@ public class TeleportHappyScene : MonoBehaviour
         if (HappySceneFirstVisit) {
             eyeCanvas.gameObject.SetActive(true);
             PlayTeleport();
+            Debug.Log("HappyScene 임시로 재방문켜둠!");
 
             // 브금 재생
             EventBus.Instance.Publish<GameEvents.PlayBGM>(new GameEvents.PlayBGM(BGMType.HappyBGM));
@@ -86,7 +89,7 @@ public class TeleportHappyScene : MonoBehaviour
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(eventID));
 
         // 대화모드
-        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
+        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
     }
 
     private void OnEndDialog(UIEvents.EndDialog evt) {

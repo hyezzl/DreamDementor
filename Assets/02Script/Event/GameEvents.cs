@@ -29,6 +29,15 @@ public static class GameEvents
         }
     }
 
+    // 선택지 포함된 이벤트 발생
+    public struct PlayChoiceEvent
+    {
+        public string eventID;
+        public PlayChoiceEvent(string eventID) { 
+            this.eventID = eventID;
+        }
+    }
+
     public struct EndTimeline { }
 
     public struct EnemyStateChange

@@ -11,15 +11,17 @@ public class TriggerZone : MonoBehaviour, ITriggerZone
 
     private PlayerController pc;
     private IDatabase database;
-    private Dictionary<int, DialogData> dialogs;
+    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
+    private Dictionary<int, DialogData> initialDialog;
 
     public string ZoneID => zoneID;
 
     public void Init(IDatabase db)
     {
         database = db;
-        dialogs = database.GetDialog(eventID);
-        if (dialogs == null) Debug.Log("");
+        allDialogs = database.GetDialogEvent(eventID);
+        initialDialog = database.GetDialog(eventID, eventID);
+        if (initialDialog == null) Debug.Log("TriggerZone - Failed to Load Dialog");
     }
 
     protected virtual void Awake()
@@ -39,9 +41,9 @@ public class TriggerZone : MonoBehaviour, ITriggerZone
 
     public virtual void OnTrigger(GameObject actor)
     {
-        if (!isContacted && dialogs != null)
+        if (!isContacted && initialDialog != null)
         {
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
+            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
         }
     }
 

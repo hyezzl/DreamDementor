@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -12,11 +11,11 @@ using UnityEngine.UI;
 /// 게임시작하자마자 실행될 Intro Event + 다음 이벤트 이어 호출
 /// </summary>
 
-public class IntroEvent : MonoBehaviour, IGameEvent
+public class IntroEvent : EventBase
 {
-    public string eventID = "E001";
+    //public string eventID = "E001";
     public string illID = "F001";
-    private IDatabase database;
+    //private IDatabase database;
 
     [Header("UI Refs")]
     [SerializeField] private Image background_white;    // 하얀배경
@@ -27,7 +26,7 @@ public class IntroEvent : MonoBehaviour, IGameEvent
     [SerializeField] private TextMeshProUGUI textArea;
     [SerializeField] private CanvasGroup arrow;
     
-    private List<NarrationData> narrations;
+    //private List<NarrationData> narrations;
     private FullIllustration fullIll;
 
     private BlinkAnnounce blink;
@@ -49,11 +48,12 @@ public class IntroEvent : MonoBehaviour, IGameEvent
     }
 
     // DB 연결
-    public void Init(IDatabase db)  // start시점에 실행
+    public override void Init(IDatabase db)  // start시점에 실행
     { 
-        database = db;
-        narrations = database.GetNarration(eventID);
-        if (narrations == null) Debug.Log("IntroEvent - Failed to Load NarrationData");
+        base.Init(db);
+        //database = db;
+        //narrations = database.GetNarration(eventID);
+        //if (narrations == null) Debug.Log("IntroEvent - Failed to Load NarrationData");
 
         StartCoroutine(PlayIntro());
     }
@@ -100,7 +100,9 @@ public class IntroEvent : MonoBehaviour, IGameEvent
         yield return StartCoroutine(PlayNarration());
 
         // 6. 완료 이후 
-        StopCoroutine(blinkCor);
+        if (blinkCor != null) { 
+            StopCoroutine(blinkCor);
+        }
         textArea.gameObject.SetActive(false);
         StartCoroutine(FadeInBackground(0.7f, false));
         

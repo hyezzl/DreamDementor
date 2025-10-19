@@ -13,14 +13,16 @@ public class TutorialDead : MonoBehaviour
     public string eventID = "E004";
     private IDatabase database;
     private PlayerController pc;
-    private Dictionary<int, DialogData> dialogs;
+    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
+    private Dictionary<int, DialogData> initialDialog;
 
     // DB ¿¬°á
     public void Init(IDatabase db)
     {
         database = db;
-        dialogs = database.GetDialog(eventID);
-        if (dialogs == null) Debug.Log("TutorialDead - Failed to Load DialogData");
+        allDialogs = database.GetDialogEvent(eventID);
+        initialDialog = database.GetDialog(eventID, eventID);
+        if (initialDialog == null) Debug.Log("TutorialDead - Failed to Load Dialog");
     }
 
     private void Awake()
@@ -47,7 +49,7 @@ public class TutorialDead : MonoBehaviour
             //pc.CurMode = GameMode.DialogMode;
             //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
 
-            EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(eventID, dialogs));
+            EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(eventID, initialDialog));
         }
     }
 

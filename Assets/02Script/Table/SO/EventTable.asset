@@ -129,6 +129,7 @@ MonoBehaviour:
       \uB098\uAC08 \uC218 \uC788\uAC8C \uD574\uC904\uAC70\uC57C."
   Dialog:
   - EventID: E002
+    EventDetailID: E002
     LogID: 2001
     Dialog: "\uC5EC\uAE34...?"
     NextID: 2002
@@ -138,6 +139,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E002
+    EventDetailID: E002
     LogID: 2002
     Dialog: "\uC5B4\uB838\uC744 \uB54C \uC5C4\uB9C8\uB791 \uC790\uC8FC \uC624\uB358
       \uACF5\uC6D0\uC774\uB791 \uB611\uAC19\uB124.."
@@ -148,6 +150,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E002
+    EventDetailID: E002
     LogID: 2003
     Dialog: "\uC5C4\uB9C8 \uBCF4\uACE0 \uC2F6\uB2E4.."
     NextID: 2004
@@ -157,6 +160,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E002
+    EventDetailID: E002
     LogID: 2004
     Dialog: .......
     NextID: 2005
@@ -166,6 +170,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E002
+    EventDetailID: E002
     LogID: 2005
     Dialog: "\uB204\uAD6C\uC9C0..?"
     NextID: 2006
@@ -175,6 +180,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E002
+    EventDetailID: E002
     LogID: 2006
     Dialog: .......
     NextID: 2007
@@ -184,6 +190,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E002
+    EventDetailID: E002
     LogID: 2007
     Dialog: "\uC5C4\uB9C8..?"
     NextID: 2008
@@ -193,6 +200,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E002
+    EventDetailID: E002
     LogID: 2008
     Dialog: "...\uC544..."
     NextID: 2009
@@ -202,6 +210,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E002
+    EventDetailID: E002
     LogID: 2009
     Dialog: "\uC5C4\uB9C8 \uB9DE\uC544?"
     NextID: 2010
@@ -211,6 +220,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E002
+    EventDetailID: E002
     LogID: 2010
     Dialog: "\u3145\u3153\uB9B0\u3147\u314F.. \uC774\u3139\u3163 \uC640..."
     NextID: 2011
@@ -220,6 +230,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E002
+    EventDetailID: E002
     LogID: 2011
     Dialog: "\uC5C4\uB9C8!!"
     NextID: -1
@@ -229,6 +240,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E003
+    EventDetailID: E003
     LogID: 3001
     Dialog: "\uBCF4\uACE0 \uC2F6\uC5C8\uC5B4\uC694.."
     NextID: 3002
@@ -238,6 +250,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 4
   - EventID: E003
+    EventDetailID: E003
     LogID: 3002
     Dialog: .................................
     NextID: 3003
@@ -247,6 +260,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E003
+    EventDetailID: E003
     LogID: 3003
     Dialog: "\uC5C4\uB9C8...\uC65C \uB9D0\uC744 \uC548\uD558\uC138\uC694..?"
     NextID: 3004
@@ -256,6 +270,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E003
+    EventDetailID: E003
     LogID: 3004
     Dialog: "......\u3134...\u314F...\uB3C4.....\n \u3131\u3161...\uB798\u3146.....\uB2E4\u3134.....\uB2E4..."
     NextID: 3005
@@ -265,6 +280,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E003
+    EventDetailID: E003
     LogID: 3005
     Dialog: "\uBB50\uB77C\uACE0\uC694? \uC798 \uC548 \uB4E4\uB824\uC694"
     NextID: 3006
@@ -274,6 +290,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E003
+    EventDetailID: E003
     LogID: 3006
     Dialog: ....................................
     NextID: 3007
@@ -283,6 +300,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E003
+    EventDetailID: E003
     LogID: 3007
     Dialog: "....\u3131......\u314F....\uC790....."
     NextID: 3008
@@ -292,6 +310,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 1
   - EventID: E003
+    EventDetailID: E003
     LogID: 3008
     Dialog: "\uB124....?"
     NextID: 3009
@@ -301,6 +320,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E003
+    EventDetailID: E003
     LogID: 3009
     Dialog: "......\u3134\u314F....\u3139....\u314F\u3147.....\uAC00....\uC790...."
     NextID: 3010
@@ -310,6 +330,7 @@ MonoBehaviour:
     Textbox: Monster
     Emotion: 1
   - EventID: E003
+    EventDetailID: E003
     LogID: 3010
     Dialog: "\uC5B4\uB514\uB97C \uAC00\uC790\uB294 \uAC70\uC608\uC694?"
     NextID: 3011
@@ -319,6 +340,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E003
+    EventDetailID: E003
     LogID: 3011
     Dialog: ....................................
     NextID: 3012
@@ -328,6 +350,7 @@ MonoBehaviour:
     Textbox: Monster
     Emotion: 1
   - EventID: E003
+    EventDetailID: E003
     LogID: 3012
     Dialog: "\uC5C4\uB9C8? \uC65C \uADF8\uB798?"
     NextID: 3013
@@ -337,6 +360,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E003
+    EventDetailID: E003
     LogID: 3013
     Dialog: "........\u3147....\u3153.....\u3145\u3153.....\uAC00....\uC790\uB2C8\uAE4C...!!!!!!"
     NextID: 3014
@@ -346,6 +370,7 @@ MonoBehaviour:
     Textbox: Monster
     Emotion: 2
   - EventID: E003
+    EventDetailID: E003
     LogID: 3014
     Dialog: "\uAE84\uC544\uC544\uC545!!!!!!!!!!!!!!!!!!!!!!!!"
     NextID: 3015
@@ -355,6 +380,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E003
+    EventDetailID: E003
     LogID: 3015
     Dialog: "\uADF8\uB7EC\uACE0 \uBCF4\uB2C8 \uC5C4\uB9C8\uB294 \uC624\uB798\uC804\uC5D0
       \uB3CC\uC544\uAC00\uC168\uC5B4."
@@ -365,6 +391,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: 0
   - EventID: E003
+    EventDetailID: E003
     LogID: 3016
     Dialog: "\uADF8\uB7FC \uC5EC\uAE30 \uC788\uB294 \uAC74 \uB204\uAD6C\uC9C0?"
     NextID: -1
@@ -374,6 +401,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: 0
   - EventID: E004
+    EventDetailID: E004
     LogID: 4001
     Dialog: .....
     NextID: 4002
@@ -383,6 +411,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: -1
   - EventID: E004
+    EventDetailID: E004
     LogID: 4002
     Dialog: ...........
     NextID: -1
@@ -392,6 +421,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: -1
   - EventID: E005
+    EventDetailID: E005
     LogID: 5001
     Dialog: "....\uD5C9!"
     NextID: 5002
@@ -401,6 +431,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E005
+    EventDetailID: E005
     LogID: 5002
     Dialog: "\uBB50...\uBB50\uC600\uC9C0????"
     NextID: 5003
@@ -410,6 +441,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E005
+    EventDetailID: E005
     LogID: 5003
     Dialog: "\uC5EC\uAE34...?"
     NextID: 5004
@@ -419,6 +451,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E005
+    EventDetailID: E005
     LogID: 5004
     Dialog: "\uC544\uAE4C \uAC70\uAE30\uC796\uC544..."
     NextID: 5005
@@ -428,6 +461,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E005
+    EventDetailID: E005
     LogID: 5005
     Dialog: "\uB2E4\uC2DC \uB3CC\uC544\uC628 \uAC74\uAC00?"
     NextID: 5006
@@ -437,6 +471,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E005
+    EventDetailID: E005
     LogID: 5006
     Dialog: "\uC544\uAE4C \uADF8 \uAD34\uBB3C\uC774 \uB2E4\uC2DC \uB098\uD0C0\uB0A0\uC9C0\uB3C4
       \uBAA8\uB974\uB2C8 \uC6B0\uC120 \uC6C0\uC9C1\uC5EC\uBCFC\uAE4C"
@@ -447,6 +482,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: 0
   - EventID: E006
+    EventDetailID: E006
     LogID: 6001
     Dialog: "\uC640\uB974\uB974\uB974\uB974\uB974\uB974\uC648\uC648!!!!"
     NextID: 6002
@@ -456,6 +492,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: -1
   - EventID: E006
+    EventDetailID: E006
     LogID: 6002
     Dialog: "...... \n \uC774\uAC8C \uBB34\uC2A8 \uC18C\uB9AC\uC9C0?"
     NextID: 6003
@@ -465,6 +502,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E006
+    EventDetailID: E006
     LogID: 6003
     Dialog: "\uC655\uC655\uC640\uADF8\uB974\uB974\uB974\uC655\uC655"
     NextID: 6004
@@ -474,6 +512,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: -1
   - EventID: E006
+    EventDetailID: E006
     LogID: 6004
     Dialog: "\uC774 \uC18C\uB9AC\uB294? \n \uC124\uB9C8....?"
     NextID: 6005
@@ -483,6 +522,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E006
+    EventDetailID: E006
     LogID: 6005
     Dialog: "\uD55C\uBC88 \uD655\uC778\uD574 \uBD10\uC57C\uACA0\uC5B4."
     NextID: -1
@@ -492,6 +532,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E007
+    EventDetailID: E007
     LogID: 7001
     Dialog: "\uC9C0\uAE08\uC740 \uC800\uAE38 \uD655\uC778\uD574 \uBCF4\uB294 \uAC8C
       \uC6B0\uC120\uC774\uC57C.."
@@ -502,6 +543,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E008
+    EventDetailID: E008
     LogID: 8001
     Dialog: "\uC5EC\uAE34....."
     NextID: 8002
@@ -511,6 +553,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E008
+    EventDetailID: E008
     LogID: 8002
     Dialog: "\uC5B4\uB838\uC744 \uB54C \uC2DC\uB8E8\uB791 \uAC19\uC774 \uB180\uB358
       \uACF3\uC774\uB791 \uB611\uAC19\uB124.."
@@ -521,6 +564,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E008
+    EventDetailID: E008
     LogID: 8003
     Dialog: "\uC2DC\uB8E8...\uBCF4\uACE0 \uC2F6\uB2E4.."
     NextID: 8004
@@ -530,6 +574,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E008
+    EventDetailID: E008
     LogID: 8004
     Dialog: "\uC655\uC655!!!!"
     NextID: 8005
@@ -539,6 +584,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: -1
   - EventID: E008
+    EventDetailID: E008
     LogID: 8005
     Dialog: "\uC2DC\uB8E8 \uB108\uC57C??"
     NextID: -1
@@ -548,6 +594,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E009
+    EventDetailID: E009
     LogID: 9001
     Dialog: "\uC9C0\uAE08\uC740 \uC2DC\uB8E8\uB97C \uB9CC\uB098\uB294\uAC8C \uBA3C\uC800\uC57C\u2026"
     NextID: -1
@@ -557,6 +604,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E010
+    EventDetailID: E010
     LogID: 10001
     Dialog: "\uC2DC\uB8E8\uB97C \uB2E4\uC2DC \uBCF4\uAC8C \uB420 \uC904\uC774\uC57C.."
     NextID: 10002
@@ -566,6 +614,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E010
+    EventDetailID: E010
     LogID: 10002
     Dialog: "\uC5EC\uAE34 \uB3C4\uB300\uCCB4 \uBB50 \uD558\uB294 \uACF3 \uC77C\uAE4C?"
     NextID: 10003
@@ -575,6 +624,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E010
+    EventDetailID: E010
     LogID: 10003
     Dialog: "\uC544\uAE4C \uADF8 \uB140\uC11D\uB3C4 \uADF8\uB807\uACE0..."
     NextID: 10004
@@ -584,6 +634,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E010
+    EventDetailID: E010
     LogID: 10004
     Dialog: "\uBB54\uAC00.. \uC774\uC0C1\uD55C \uACF3 \uAC19\uC544..."
     NextID: -1
@@ -593,6 +644,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E011
+    EventDetailID: E011
     LogID: 11001
     Dialog: "\uBB54\uAC00 \uC9C0\uAE08\uC740 \uAC00\uBA74 \uC548 \uB420 \uAC70 \uAC19\uC544.."
     NextID: -1
@@ -602,6 +654,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E012
+    EventDetailID: E012
     LogID: 12001
     Dialog: "\uAE84\uB974\uB974\uB974\uB974\uB975..."
     NextID: 12002
@@ -611,6 +664,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: -1
   - EventID: E012
+    EventDetailID: E012
     LogID: 12002
     Dialog: "\uC774\uAC8C...\uBB34\uC2A8 \uC18C\uB9AC\uC9C0?"
     NextID: 12003
@@ -620,6 +674,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E012
+    EventDetailID: E012
     LogID: 12003
     Dialog: "\uC5C4\uB9C8~~~~"
     NextID: 12004
@@ -629,6 +684,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: -1
   - EventID: E012
+    EventDetailID: E012
     LogID: 12004
     Dialog: "\uC774\uAC74.... \uB0B4 \uBAA9\uC18C\uB9AC?"
     NextID: 12005
@@ -638,6 +694,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E012
+    EventDetailID: E012
     LogID: 12005
     Dialog: "\uC5B4\uB514\uC11C \uB098\uB294 \uAC70\uC9C0?"
     NextID: 12006
@@ -647,6 +704,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E012
+    EventDetailID: E012
     LogID: 12006
     Dialog: "\uAE84\uB974\uB974\uB974\uB974\uB975"
     NextID: 12007
@@ -656,6 +714,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: -1
   - EventID: E012
+    EventDetailID: E012
     LogID: 12007
     Dialog: "\uC774 \uC548\uC5D0\uC11C \uB098\uB294 \uAC70 \uAC19\uC740\uB370.."
     NextID: 12008
@@ -665,6 +724,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E012
+    EventDetailID: E012
     LogID: 12008
     Dialog: "\uD55C\uBC88....\uB4E4\uC5B4\uAC00 \uBCFC\uAE4C?"
     NextID: -1
@@ -674,6 +734,7 @@ MonoBehaviour:
     Textbox: Monologue
     Emotion: 0
   - EventID: E013
+    EventDetailID: E013
     LogID: 13001
     Dialog: "\uC544\uBB34\uB798\uB3C4 \uC800\uAE38 \uBA3C\uC800 \uD655\uC778\uD574
       \uBD10\uC57C\uACA0\uC5B4..."
@@ -684,6 +745,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E014
+    EventDetailID: E014
     LogID: 14001
     Dialog: "\uC5EC\uAE34... \uC5B4\uB838\uC744 \uB54C \uC5C4\uB9C8\uB791 \uC790\uC8FC
       \uB180\uB7EC \uC624\uB358 \uACF3\uC774\uC796\uC544.."
@@ -694,6 +756,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E014
+    EventDetailID: E014
     LogID: 14002
     Dialog: "\uC5C4\uB9C8\uB791 \uC5EC\uAE30 \uC62C \uB54C\uB294 \uC815\uB9D0 \uD589\uBCF5\uD588\uB294\uB370.."
     NextID: 14003
@@ -703,6 +766,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E014
+    EventDetailID: E014
     LogID: 14003
     Dialog: "\uC800\uAC74... \uC5C4\uB9C8\uAC00 \uC0AC\uC92C\uB358 \uD48D\uC120..?"
     NextID: -1
@@ -712,6 +776,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E015
+    EventDetailID: E015
     LogID: 15001
     Dialog: "\uD48D\uC120\uC744 \uD655\uC778\uD558\uACE0 \uAC00\uB294 \uAC8C \uB9C8\uC74C\uC774
       \uD3B8\uD558\uACA0\uC5B4.."
@@ -722,6 +787,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: -1
   - EventID: E016
+    EventDetailID: E016
     LogID: 16001
     Dialog: "\uC800\uAC8C \uBB50\uC9C0....?"
     NextID: 16002
@@ -731,6 +797,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E016
+    EventDetailID: E016
     LogID: 16002
     Dialog: "\uBB38..? \uBB38\uC774 \uC65C \uC774\uB7F0 \uACF3\uC5D0 \uC788\uB294
       \uAC70\uC9C0?"
@@ -741,6 +808,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E017
+    EventDetailID: E017
     LogID: 17001
     Dialog: "\uC800\uAE30\uC5D0 \uC800\uB807\uAC8C \uBB34\uC131\uD55C \uC232\uAE38\uC774
       \uC788\uC5C8\uB098..?"
@@ -751,6 +819,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E017
+    EventDetailID: E017
     LogID: 17002
     Dialog: "\uC548\uCABD\uC774 \uD558\uB098\uB3C4 \uC548 \uBCF4\uC774\uB124.."
     NextID: 17003
@@ -760,6 +829,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E017
+    EventDetailID: E017
     LogID: 17003
     Dialog: "\uBB54\uAC00.. \uC548\uCABD\uC5D0 \uC5F4\uC1E0\uAC00 \uC788\uC744 \uAC83
       \uB9CC \uAC19\uC544."
@@ -770,6 +840,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E017
+    EventDetailID: E017
     LogID: 17004
     Dialog: "\uBB34\uC12D\uC9C0\uB9CC \uB4E4\uC5B4\uAC00 \uBD10\uC57C\uACA0\uC5B4."
     NextID: -1
@@ -779,6 +850,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E018
+    EventDetailID: E018
     LogID: 18001
     Dialog: "\uC5EC\uAE34... \uB9C8\uCE58 \uBBF8\uB85C \uAC19\uC740\uB370.."
     NextID: 18002
@@ -788,6 +860,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E018
+    EventDetailID: E018
     LogID: 18002
     Dialog: "\uAE38\uC774 \uC798 \uB6AB\uB824\uC788\uB124.. \uC5EC\uAE30 \uC5B4\uB518\uAC00
       \uC5F4\uC1E0\uAC00 \uC788\uACA0\uC9C0?"
@@ -798,6 +871,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 0
   - EventID: E019
+    EventDetailID: E019
     LogID: 19001
     Dialog: "\uC73C..."
     NextID: 19002
@@ -807,6 +881,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E019
+    EventDetailID: E019
     LogID: 19002
     Dialog: "\uBB50\uC57C \uC800\uAC70.. \uC544\uAE4C \uADF8 \uAD34\uBB3C?"
     NextID: 19003
@@ -816,6 +891,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E019
+    EventDetailID: E019
     LogID: 19003
     Dialog: "\uB354 \uC774\uC0C1\uC740 \uCAD3\uC544\uC624\uC9C0 \uC54A\uB294 \uAC83
       \uAC19\uB124..."
@@ -826,6 +902,7 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E019
+    EventDetailID: E019
     LogID: 19004
     Dialog: "\uC65C \uB098\uB97C \uCAD3\uC544\uC628 \uAC78\uAE4C.. \uB300\uCCB4 \uC815\uCCB4\uAC00
       \uBB50\uC9C0..?"
@@ -836,12 +913,103 @@ MonoBehaviour:
     Textbox: Basic
     Emotion: 2
   - EventID: E019
+    EventDetailID: E019
     LogID: 19005
     Dialog: "\uC6B0\uC120.. \uC774 \uC5F4\uC1E0\uAC00 \uB9DE\uB294\uC9C0 \uD655\uC778\uD574
       \uBD10\uC57C\uACA0\uB2E4."
     NextID: -1
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E020
+    EventDetailID: E020
+    LogID: 20001
+    Dialog: "\uC784\uC2DC\uC785\uB2C8\uB2E4!!!!!"
+    NextID: 20002
+    Speaker: Player
+    SpeakerName: "\uAC1C\uBC1C\uC790"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E020
+    EventDetailID: E020
+    LogID: 20002
+    Dialog: "\uC774\uBCA4\uD2B8\uC6A9 \uC120\uD0DD\uC9C0 \uD14C\uC2A4\uD2B8 \uC911\uC785\uB2C8\uB2E4"
+    NextID: 20003
+    Speaker: Player
+    SpeakerName: "\uAC1C\uBC1C\uC790"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E020
+    EventDetailID: E020
+    LogID: 20003
+    Dialog: "\uBA4D\uBA4D\uBA4D\uBA4D\uC544\uB974\uB974\uB974\uB974??"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uAC1C\uBC1C\uC790"
+    ChoiceID: C008
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E020
+    EventDetailID: E020_0
+    LogID: 20004
+    Dialog: "\uC815\uB2F5\uC740 \uBA4D\uBA4D\uC774\uC600\uC2B5\uB2C8\uB2E4~~~"
+    NextID: 20005
+    Speaker: Player
+    SpeakerName: "\uAC1C\uBC1C\uC790"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E020
+    EventDetailID: E020_0
+    LogID: 20005
+    Dialog: "\uC9DD\uC9DD\uC9DD\uC9DD\uC9DD"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uAC1C\uBC1C\uC790"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E020
+    EventDetailID: E020_1
+    LogID: 20006
+    Dialog: "\uACA0\uB0D0?"
+    NextID: 20007
+    Speaker: Player
+    SpeakerName: "\uAC1C\uBC1C\uC790"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E020
+    EventDetailID: E020_1
+    LogID: 20007
+    Dialog: "\u3149\u3149"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uAC1C\uBC1C\uC790"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E020
+    EventDetailID: E020_2
+    LogID: 20008
+    Dialog: "\uC880\uB9CC \uB354 \uD798\uB0B4\uC790..."
+    NextID: 20009
+    Speaker: Player
+    SpeakerName: "\uAC1C\uBC1C\uC790"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E020
+    EventDetailID: E020_2
+    LogID: 20009
+    Dialog: "\uC5BC\uB9C8...\uC548\uB0A8\uC558\uC744\uAC78?"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uAC1C\uBC1C\uC790"
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
@@ -916,6 +1084,16 @@ MonoBehaviour:
     Score0: 0
     Score1: -10
     Score2: 0
+    Continue0: 
+    Continue1: 
+    Continue2: 
+  - ChoiceID: C008
+    Choice0: "\uC815\uB2F5! \uAC15\uC544\uC9C0!!"
+    Choice1: "\uC74C.. \uACE0\uC591\uC774?"
+    Choice2: "\uD558....\uC8FD\uAC19\uB2E4"
+    Score0: 0
+    Score1: -10
+    Score2: -10
     Continue0: 
     Continue1: 
     Continue2: 

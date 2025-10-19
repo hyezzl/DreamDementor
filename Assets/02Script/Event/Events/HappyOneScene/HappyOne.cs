@@ -11,7 +11,8 @@ public class HappyOne : MonoBehaviour
 {
     public string eventID = "E018";
     private IDatabase database;
-    private Dictionary<int, DialogData> dialogs;
+    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
+    private Dictionary<int, DialogData> initialDialog;
 
     void Start()
     {
@@ -24,8 +25,9 @@ public class HappyOne : MonoBehaviour
     public void Init(IDatabase db)  // start시점에 실행
     {
         database = db;
-        dialogs = database.GetDialog(eventID);
-        if (dialogs == null) Debug.Log("IntroEvent - Failed to Load DialogData");
+        allDialogs = database.GetDialogEvent(eventID);
+        initialDialog = database.GetDialog(eventID, eventID);
+        if (initialDialog == null) Debug.Log("TriggerZone - Failed to Load Dialog");
 
         StartCoroutine(PlayIntro());
     }
@@ -36,7 +38,7 @@ public class HappyOne : MonoBehaviour
 
         // 맵 입장하자마자 이벤트 (대화 이벤트)
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(eventID));
-        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
+        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
 
     }
 

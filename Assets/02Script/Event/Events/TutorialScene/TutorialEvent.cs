@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class TutorialEvent : MonoBehaviour
+public class TutorialEvent : EventBase
 {
-    public string eventID = "E003";
-    private IDatabase database;
-    private Dictionary<int, DialogData> dialogs;
+    //public string eventID = "E003";
+    //private IDatabase database;
+    //private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
+    //private Dictionary<int, DialogData> initialDialog;
 
     private PlayerMove pm;
     private PlayerController pc;
@@ -44,25 +44,26 @@ public class TutorialEvent : MonoBehaviour
     }
 
     // DB 연결
-    public void Init(IDatabase db) {
-        database = db;
-        dialogs = database.GetDialog(eventID);
-        if (dialogs == null) Debug.Log("TutorialEvent - Failed to Load DialogData");
-    }
+    //public void Init(IDatabase db) {
+    //    database = db;
+    //    allDialogs = database.GetDialogEvent(eventID);
+    //    initialDialog = database.GetDialog(eventID, eventID);
+    //    if (initialDialog == null) Debug.Log("TutorialEvent - Failed to Load Dialog");
+    //}
 
 
-    private void OnEnable()
-    {
-        EventBus.Instance.Subscribe<GameEvents.PlayEvent>(PlayTutorial);
-        EventBus.Instance.Subscribe<UIEvents.MakeChoice>(EndChoice);
-    }
-    private void OnDisable()
-    {
-        EventBus.Instance.Unsubscribe<GameEvents.PlayEvent>(PlayTutorial);
-        EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(EndChoice);
-    }
+    //private void OnEnable()
+    //{
+    //    EventBus.Instance.Subscribe<GameEvents.PlayEvent>(PlayTutorial);
+    //    EventBus.Instance.Subscribe<UIEvents.MakeChoice>(EndChoice);
+    //}
+    //private void OnDisable()
+    //{
+    //    EventBus.Instance.Unsubscribe<GameEvents.PlayEvent>(PlayTutorial);
+    //    EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(EndChoice);
+    //}
 
-    private void PlayTutorial(GameEvents.PlayEvent evt) {
+    protected override void PlayEvent(GameEvents.PlayEvent evt) {
         if (evt.eventID != eventID) return;
 
         // 타임라인
@@ -84,7 +85,7 @@ public class TutorialEvent : MonoBehaviour
         EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.BetweenCam, 0));
 
         // 2. Dialog + 선택지
-        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
+        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
 
         // 대화 이벤트 중 캐릭터들 애니메이션 
         playerAnim.SetFloat("lookX", 1f);
@@ -158,7 +159,7 @@ public class TutorialEvent : MonoBehaviour
         EventBus.Instance.Publish<GameEvents.EnemyStateChange>(new GameEvents.EnemyStateChange(EnemyState.Chase));
     }
 
-    public void EndChoice(UIEvents.MakeChoice evt) {
+    protected override void EndChoice(UIEvents.MakeChoice evt) {
 
         //if(evt.choiceID == ) 다음 이벤트 부터 처리
         if (evt.selectIdx == 0 || evt.selectIdx == 1) { 

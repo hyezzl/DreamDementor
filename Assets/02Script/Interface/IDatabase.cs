@@ -16,7 +16,9 @@ public interface IDatabase
 
     List<NarrationData> GetNarration(string eventID);
 
-    Dictionary<int, DialogData> GetDialog(string eventID);
+    Dictionary<string, Dictionary<int, DialogData>> GetDialogEvent(string eventID);
+
+    Dictionary<int, DialogData> GetDialog(string eventID, string eventDetailID);
 
     ChoiceData GetChoice(string eventID);
 

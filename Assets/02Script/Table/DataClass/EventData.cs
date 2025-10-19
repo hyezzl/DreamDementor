@@ -103,6 +103,7 @@ public class NarrationData
 public class DialogData
 {
     public string eventID;
+    public string eventDetailID;
     public int logID;
     public string dialog;
     public int nextID;

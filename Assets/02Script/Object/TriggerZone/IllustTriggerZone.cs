@@ -12,7 +12,8 @@ public class IllustTriggerZone : MonoBehaviour, ITriggerZone
     private PlayerController pc;
     private GameMode preMode;
     private IDatabase database;
-    private Dictionary<int, DialogData> dialogs;
+    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
+    private Dictionary<int, DialogData> initialDialog;
 
     public string ZoneID => zoneID;
 
@@ -20,8 +21,9 @@ public class IllustTriggerZone : MonoBehaviour, ITriggerZone
     public void Init(IDatabase db)
     {
         database = db;
-        dialogs = database.GetDialog(eventID);
-        if (dialogs == null) Debug.Log("");
+        allDialogs = database.GetDialogEvent(eventID);
+        initialDialog = database.GetDialog(eventID, eventID);
+        if (initialDialog == null) Debug.Log("IllustTriggerZone - Failed to Load Dialog");
     }
 
     protected virtual void Awake()
@@ -88,9 +90,9 @@ public class IllustTriggerZone : MonoBehaviour, ITriggerZone
     private IEnumerator DelayAfter(float delay) {
         yield return new WaitForSeconds(delay);
 
-        if (dialogs != null)
+        if (initialDialog != null)
         {
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
+            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
         }
     }
 }

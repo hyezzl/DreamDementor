@@ -7216,6 +7216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventID: E002
+  eventtype: 2
   playerTextBox: {fileID: 281569423}
   playerText: {fileID: 281569422}
   playerSpeaker: {fileID: 281569421}
@@ -7226,7 +7227,7 @@ MonoBehaviour:
   enemy: {fileID: 1089390146}
   betweencam: {fileID: 1941151789}
   TypingTime: 1.7
-  glitch: {fileID: 0}
+  glitch: {fileID: 2039305658}
 --- !u!114 &585387042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9370,6 +9371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventID: E002
+  eventtype: 2
   playerTextBox: {fileID: 281569423}
   playerText: {fileID: 281569422}
   playerSpeaker: {fileID: 281569421}
@@ -9380,7 +9382,7 @@ MonoBehaviour:
   enemy: {fileID: 1089390146}
   betweencam: {fileID: 1941151789}
   TypingTime: 1.7
-  glitch: {fileID: 0}
+  glitch: {fileID: 2039305658}
 --- !u!114 &843929496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16430,6 +16432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventID: E003
+  eventtype: 2
   timeline01: {fileID: 585387040}
   timeline02: {fileID: 843929494}
   dialog: {fileID: 281569418}
@@ -16450,6 +16453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventID: E001
+  eventtype: 0
   illID: F001
   background_white: {fileID: 1089420893}
   background: {fileID: 281569417}
@@ -88755,6 +88759,7 @@ MonoBehaviour:
   minAngle: -60
   maxAngle: 60
   anim: {fileID: 5191428394091071734}
+  handAnim: {fileID: 0}
   Player: {fileID: 1142784332481645871}
   sightCam: {fileID: 689357664469387844}
   ground:

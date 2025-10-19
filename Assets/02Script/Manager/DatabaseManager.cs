@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UIElements;
 
 public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
 {
@@ -22,7 +23,8 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
     // 이벤트 정보 (하나의 이벤트에 속해있는 Text의 집합은 List형태로 정의)
     private Dictionary<string, EventData> eventDict = new();
     private Dictionary<string, List<NarrationData>> narrationDict = new();
-    private Dictionary<string, Dictionary<int, DialogData>> dialogDict = new();
+    //private Dictionary<string, Dictionary<int, DialogData>> dialogDict = new();
+    private Dictionary<string, Dictionary<string, Dictionary<int, DialogData>>> dialogDict = new();
     private Dictionary<string, ChoiceData> choiceDict = new();
 
     // NPC 정보
@@ -217,6 +219,7 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
 
             DialogData data = new DialogData
             {
+                eventDetailID = evt.EventDetailID,
                 logID = evt.LogID,
                 dialog = evt.Dialog,
                 nextID = evt.NextID,
@@ -227,19 +230,21 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                 emotion = evt.Emotion,
                 choices = choiceData,
             };
-            // eventID가 없으면 새 Dictionaty 생성
-            if (!dialogDict.ContainsKey(evt.EventID))
-            {
-                dialogDict[evt.EventID] = new Dictionary<int, DialogData>();
+            // 3중 딕셔너리
+            if (!dialogDict.ContainsKey(evt.EventID)) {
+                dialogDict[evt.EventID] = new Dictionary<string, Dictionary<int, DialogData>>();
             }
-            // logID가 없으면  생성
-            if (!dialogDict[evt.EventID].ContainsKey(evt.LogID))
+            if (!dialogDict[evt.EventID].ContainsKey(evt.EventDetailID)) {
+                dialogDict[evt.EventID][evt.EventDetailID] = new Dictionary<int, DialogData>();
+            }
+            if (!dialogDict[evt.EventID][evt.EventDetailID].ContainsKey(evt.LogID))
             {
-                dialogDict[evt.EventID].Add(evt.LogID, data);
+                dialogDict[evt.EventID][evt.EventDetailID][evt.LogID] = data;
             }
             else {
                 Debug.Log($"{evt.LogID} : 이미 존재하는 대화");
             }
+
         }
 
         // NPC 정보 생략
@@ -373,11 +378,20 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
         return null;
     }
 
-    public Dictionary<int, DialogData> GetDialog(string eventID)
+    public Dictionary<string, Dictionary<int, DialogData>> GetDialogEvent(string eventID)
     {
         if (dialogDict.TryGetValue(eventID, out var dataDict))
         {
             return dataDict;
+        }
+        return null;
+    }
+
+    public Dictionary<int, DialogData> GetDialog(string eventID, string eventDetailID) {
+        if (dialogDict.TryGetValue(eventID, out var allDict)) {
+            if (allDict.TryGetValue(eventDetailID, out var dataDict)) {
+                return dataDict;
+            }
         }
         return null;
     }

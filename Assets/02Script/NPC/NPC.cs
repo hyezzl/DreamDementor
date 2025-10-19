@@ -36,14 +36,6 @@ public class NPC : MonoBehaviour, IActionNpc
         if (initialDialog == null) Debug.Log("NPC - Failed to Load NpcDialogs");
         reDialogData = database.GetNpcReDialog(npcID);
         if (reDialogData == null) Debug.Log("NPC - Failed to Load NpcReDialogs");
-
-        //Debug.Log($"{allDialogs.Count}개의 데이터 Init완료");
-        //foreach (var i in allDialogs) {
-        //    Debug.Log($"!!!{i.Key}");
-        //    foreach (var j in i.Value) {
-        //        Debug.Log($"***{j.Key} : {j.Value}");
-        //    }
-        //}
     }
 
     private void OnEnable()

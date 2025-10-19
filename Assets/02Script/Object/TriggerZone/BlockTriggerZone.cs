@@ -14,7 +14,8 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
     private PlayerMove pm;
     private EventHistoryManager hm;
     private IDatabase database;
-    private Dictionary<int, DialogData> dialogs;
+    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
+    private Dictionary<int, DialogData> initialDialog;
 
     public string ZoneID => zoneID;
 
@@ -22,7 +23,9 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
     public void Init(IDatabase db)
     {
         database = db;
-        dialogs = database.GetDialog(eventID);
+        allDialogs = database.GetDialogEvent(eventID);
+        initialDialog = database.GetDialog(eventID, eventID);
+        if (initialDialog == null) Debug.Log("BlockTriggerZone - Failed to Load Dialog");
     }
 
 
@@ -69,7 +72,7 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
         }
         else 
         {
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
+            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
 
             // 종료 이벤트 저장
             EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent(eventID));

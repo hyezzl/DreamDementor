@@ -15,7 +15,8 @@ public class FluidBlockTriggerZone : MonoBehaviour, ITriggerZone
 
     private EventHistoryManager hm;
     private PlayerMove pm;
-    private Dictionary<int, DialogData> dialogs;
+    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
+    private Dictionary<int, DialogData> initialDialog;
     private IDatabase database;
 
 
@@ -24,7 +25,9 @@ public class FluidBlockTriggerZone : MonoBehaviour, ITriggerZone
     public void Init(IDatabase db)
     {
         database = db;
-        dialogs = database.GetDialog(eventID);
+        allDialogs = database.GetDialogEvent(eventID);
+        initialDialog = database.GetDialog(eventID, eventID);
+        if (initialDialog == null) Debug.Log("FluidBlockTriggerZone - Failed to Load Dialog");
     }
 
     private void Awake()
@@ -64,7 +67,7 @@ public class FluidBlockTriggerZone : MonoBehaviour, ITriggerZone
         }
         else
         {
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, dialogs));
+            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
             // 여러번 실행될수있으므로 종료이벤트 저장 생략
         }
     }

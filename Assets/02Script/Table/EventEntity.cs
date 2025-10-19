@@ -20,6 +20,7 @@ public class NarrationEntity
 public class DialogEntity
 {
     public string EventID;
+    public string EventDetailID;
     public int LogID;
     public string Dialog;
     public int NextID;
