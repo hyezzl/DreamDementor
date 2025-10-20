@@ -9,16 +9,7 @@ using UnityEngine.UI;
 
 public class HappyOne : EventBase
 {
-
-    private PlayerController pc;
-
-    private void Awake()
-    {
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) Debug.Log("HappyOne - Failed to Load PlayerController");
-    }
-
-    void Start()
+    protected void Start()
     {
         // 시작 시 1인칭 모드
         EventBus.Instance.Publish<GameEvents.AspectChange>(new GameEvents.AspectChange(AspectMode.OnepersonMode));

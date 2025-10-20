@@ -27,7 +27,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private PlayerController pc;
     private IInputHandler inputHandler;
     private CharacterController cc;
-    //private Animator Ranim;
     private bool moveable = true;
     private bool isThree = true;  // 3인칭 시점인지
     private bool canRunning = true;     // 뛸 수 있는지
@@ -246,11 +245,14 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             anim.SetBool("isWalk", isWalking);
             anim.SetBool("isRunning", isRunning);
 
+            float speedVal = 1f;
+            if (isRunning) speedVal = 2f;
+            else if (isWalking) speedVal = 1f;
             // Hand Animator
             if (handAnim != null)
             {
-                handAnim.SetBool("isWalk", isWalking);
-                handAnim.SetBool("isRunning", isRunning);
+                handAnim.SetBool("isMove", inputDir.sqrMagnitude > 0.01f);
+                handAnim.SetFloat("Speed", speedVal);
             }
         }
     }
