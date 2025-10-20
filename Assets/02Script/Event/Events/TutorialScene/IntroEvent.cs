@@ -13,9 +13,7 @@ using UnityEngine.UI;
 
 public class IntroEvent : EventBase
 {
-    //public string eventID = "E001";
     public string illID = "F001";
-    //private IDatabase database;
 
     [Header("UI Refs")]
     [SerializeField] private Image background_white;    // 하얀배경
@@ -26,11 +24,9 @@ public class IntroEvent : EventBase
     [SerializeField] private TextMeshProUGUI textArea;
     [SerializeField] private CanvasGroup arrow;
     
-    //private List<NarrationData> narrations;
     private FullIllustration fullIll;
 
     private BlinkAnnounce blink;
-    private PlayerController pc;
     private bool standbyInput = false;  // 사용자의 입력 기다림 상태
     private Coroutine blinkCor;
 
@@ -41,8 +37,6 @@ public class IntroEvent : EventBase
     private void Awake()
     {
         if (!TryGetComponent<BlinkAnnounce>(out blink)) Debug.Log("IntroEvent - Failed to Load BlinkAnnounce");
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) Debug.Log("IntroEvent - Failed to Load PlayerController");
         fullIll = FindAnyObjectByType<FullIllustration>();
         if (fullIll == null) Debug.Log("IntroEvent - Failed to Load FullIllustation");
     }
@@ -51,9 +45,6 @@ public class IntroEvent : EventBase
     public override void Init(IDatabase db)  // start시점에 실행
     { 
         base.Init(db);
-        //database = db;
-        //narrations = database.GetNarration(eventID);
-        //if (narrations == null) Debug.Log("IntroEvent - Failed to Load NarrationData");
 
         StartCoroutine(PlayIntro());
     }
@@ -183,12 +174,12 @@ public class IntroEvent : EventBase
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
-                backgroundGroup.alpha = 1 - Mathf.Clamp01(elapsed / duration);
                 illustGroup.alpha = 1 - Mathf.Clamp01(elapsed / duration);
+                backgroundGroup.alpha = 1 - Mathf.Clamp01(elapsed / duration);
                 yield return null;
             }
-            backgroundGroup.alpha = 0f;
             illustGroup.alpha = 0f;
+            backgroundGroup.alpha = 0f;
         }
     }
 

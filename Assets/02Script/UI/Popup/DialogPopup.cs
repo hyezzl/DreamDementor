@@ -79,12 +79,12 @@ public class DialogPopup : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<UIEvents.OpenDialog>(OnOpenDialog);
-        EventBus.Instance.Subscribe<UIEvents.MakeChoice>(EndChoice);
+        EventBus.Instance.Subscribe<UIEvents.CloseDialog>(CloseDialogPanel);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OpenDialog>(OnOpenDialog);
-        EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(EndChoice);
+        EventBus.Instance.Unsubscribe<UIEvents.CloseDialog>(CloseDialogPanel);
     }
 
     private void Update()
@@ -197,6 +197,11 @@ public class DialogPopup : MonoBehaviour
         }
 
         yield return StartCoroutine(ClosePanel());  // 모든 대화가 끝나면 패널 닫음
+
+        // 모드 변경
+        pc.CurMode = preMode;
+        Debug.Log($"ClosePanel에서 상태변경 : {preMode}로!");
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
     }
 
     // 스킵 시 바로 출력
@@ -210,8 +215,6 @@ public class DialogPopup : MonoBehaviour
         textarea.text = sentence;
         isTyping = false;
         standbyInput = true;
-        //if (blinkCor != null) StopCoroutine(blinkCor);
-        //blinkCor = StartCoroutine(blink.BlinkAnnounceMSG(group));
     }
 
 
@@ -221,10 +224,6 @@ public class DialogPopup : MonoBehaviour
         DialogFade(curTextbox, false);
 
         yield return new WaitForSeconds(0.3f);  //Fade Wait
-
-        // 모드 변경
-        pc.CurMode = preMode;
-        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
 
         // 값 초기화
         if (typing != null && typing.IsActive()) typing.Kill();
@@ -248,6 +247,16 @@ public class DialogPopup : MonoBehaviour
 
         // 대화끝 이벤트 (대화이벤트 ID 전달)
         EventBus.Instance.Publish<UIEvents.EndDialog>(new UIEvents.EndDialog(curEventID));
+    }
+
+    // 외부에서 강제로 대화창 닫기
+    private void CloseDialogPanel(UIEvents.CloseDialog evt)
+    {
+        // NPC가 아닌 이벤트 대화일때만
+        if (!evt.isNpc) {
+            Debug.Log("이벤트창 닫습니다");
+            StartCoroutine(ClosePanel());
+        }
     }
 
 
@@ -337,23 +346,6 @@ public class DialogPopup : MonoBehaviour
         target.blocksRaycasts = isDisplay;
         target.DOFade(val, 0.3f).SetEase(Ease.Linear);
     }
-
-    // 선택지 선택 후
-    public void EndChoice(UIEvents.MakeChoice evt) {
-        DialogFade(basicTextBox, false);
-        DialogFade(enemyTextBox, false);
-
-        // 일러스트 닫음 +  초기화
-        //LeftIll.alpha = 0f;
-        //RightIll.alpha = 0f;
-        //playerIll.sprite = null;
-        //playerIll.color = new Color(1, 1, 1, 0);
-        //otherIll.sprite = null;
-        //otherIll.color = new Color(1, 1, 1, 0);
-
-        // 새 대화가 있다면 이어서 실행
-    }
-
 
     // 스프라이트 Addressable로 비동기 로드
     public void LoadSprite(string address, Image targetImg) {

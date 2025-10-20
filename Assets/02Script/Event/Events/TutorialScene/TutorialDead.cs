@@ -8,54 +8,18 @@ using UnityEngine.SceneManagement;
 /// 튜토리얼에서 DeadScene 이후 대사 + 씬이동
 /// </summary>
 
-public class TutorialDead : MonoBehaviour
+public class TutorialDead : EventBase
 {
-    public string eventID = "E004";
-    private IDatabase database;
-    private PlayerController pc;
-    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
-    private Dictionary<int, DialogData> initialDialog;
-
-    // DB 연결
-    public void Init(IDatabase db)
-    {
-        database = db;
-        allDialogs = database.GetDialogEvent(eventID);
-        initialDialog = database.GetDialog(eventID, eventID);
-        if (initialDialog == null) Debug.Log("TutorialDead - Failed to Load Dialog");
-    }
-
-    private void Awake()
-    {
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) Debug.Log("TutorialDead - Failed to Load PlayerController");
-    }
-
-    private void OnEnable()
-    {
-        EventBus.Instance.Subscribe<GameEvents.PlayEvent>(OnEvent);
-        EventBus.Instance.Subscribe<UIEvents.EndDialog>(OnEndDialog);
-    }
-    private void OnDisable()
-    {
-        EventBus.Instance.Unsubscribe<GameEvents.PlayEvent>(OnEvent);
-        EventBus.Instance.Subscribe<UIEvents.EndDialog>(OnEndDialog);
-    }
-
-
-    private void OnEvent(GameEvents.PlayEvent evt) {
+    protected override void PlayEvent(GameEvents.PlayEvent evt) {
         if (evt.eventID == this.eventID) {
-            // 대화 모드
-            //pc.CurMode = GameMode.DialogMode;
-            //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
-
             EventBus.Instance.Publish<UIEvents.OpenMonologue>(new UIEvents.OpenMonologue(eventID, initialDialog));
         }
     }
 
-    private void OnEndDialog(UIEvents.EndDialog evt) {
-        if (evt.eventID == this.eventID) {
+    protected override void CloseDialog(UIEvents.EndDialog evt) {
+        base.CloseDialog(evt);
 
+        if (evt.eventID == this.eventID) {
             // HappyScene으로 이동
             EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.HappyScene));
         }

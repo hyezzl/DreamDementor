@@ -16490,6 +16490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventID: E004
+  eventtype: 2
 --- !u!4 &1583491346 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2624400215187493764, guid: a7682b698df456d4dbfe68390798c700, type: 3}

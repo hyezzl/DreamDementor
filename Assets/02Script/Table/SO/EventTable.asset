@@ -1094,6 +1094,6 @@ MonoBehaviour:
     Score0: 0
     Score1: -10
     Score2: -10
-    Continue0: 
-    Continue1: 
-    Continue2: 
+    Continue0: E020_0
+    Continue1: E020_1
+    Continue2: E020_2

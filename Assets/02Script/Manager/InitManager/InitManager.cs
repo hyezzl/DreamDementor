@@ -44,6 +44,19 @@ public class InitManager : MonoBehaviour
             }
         }
 
+        // 씬에 존재하는 GameEvent 스크립트 찾아 Init 실행
+        var events = FindObjectsOfType<MonoBehaviour>().OfType<IGameEvent>();
+        if (events != null)
+        {
+            foreach (var evt in events)
+            {
+                if (events != null)
+                {
+                    evt.Init(db);
+                }
+            }
+        }
+
 
         invenDesc = FindAnyObjectByType<InventoryDescription>();
         if (invenDesc == null) Debug.Log("InitManager - Failed to Load InvenDescription");

@@ -151,4 +151,12 @@ public static class UIEvents
     }
 
     public struct SceneDiscover { }
+
+    // 대화창 강제 닫기
+    public struct CloseDialog {
+        public bool isNpc;
+        public CloseDialog(bool isNpc) { 
+            this.isNpc = isNpc;
+        }
+    }
 }

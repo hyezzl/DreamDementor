@@ -76,11 +76,13 @@ public class NpcDialogPopup : MonoBehaviour
     {
         EventBus.Instance.Subscribe<UIEvents.OpenNpcDialog>(OnOpenNpcDialog);
         EventBus.Instance.Subscribe<UIEvents.OpenNpcReDialog>(OnOpenNpcReDialog);
+        EventBus.Instance.Subscribe<UIEvents.CloseDialog>(CloseDialogPanel);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OpenNpcDialog>(OnOpenNpcDialog);
         EventBus.Instance.Unsubscribe<UIEvents.OpenNpcReDialog>(OnOpenNpcReDialog);
+        EventBus.Instance.Unsubscribe<UIEvents.CloseDialog>(CloseDialogPanel);
     }
 
 
@@ -123,7 +125,6 @@ public class NpcDialogPopup : MonoBehaviour
         curNpcID = evt.npcID;
 
         // 타이핑
-        //Debug.Log(DatabaseManager.Instance.GetNpcDialog(evt.npcID)[6002]);
         StartCoroutine(TypeDialog(evt.texts));
     }
 
@@ -294,13 +295,13 @@ public class NpcDialogPopup : MonoBehaviour
 
         // 모드 변경
         pc.CurMode = preMode;
-        Debug.Log($"ClosePanel에서 상태변경 : {preMode}로!");
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
 
         // 값 초기화
         if (typing != null && typing.IsActive()) typing.Kill();
         if (seq != null && seq.IsActive()) seq.Kill();
-        textarea.text = "";
+        if(textarea != null)
+            textarea.text = "";
 
         // 일러스트 닫음 +  초기화
         LeftIll.alpha = 0f;
@@ -317,6 +318,14 @@ public class NpcDialogPopup : MonoBehaviour
 
         // 대화끝 이벤트 (대화 NPC ID 전달)
         EventBus.Instance.Publish<UIEvents.EndNpcDialog>(new UIEvents.EndNpcDialog(curNpcID));
+    }
+
+    // 외부에서 강제 대화창 닫음
+    private void CloseDialogPanel(UIEvents.CloseDialog evt) {
+        if (evt.isNpc) {
+            Debug.Log("npc창 닫습니다");
+            StartCoroutine(ClosePanel());
+        }
     }
 
 
@@ -412,24 +421,6 @@ public class NpcDialogPopup : MonoBehaviour
         target.blocksRaycasts = isDisplay;
         target.DOFade(val, 0.3f).SetEase(Ease.Linear);
     }
-
-    // 선택지 선택 후
-    public void EndChoice(UIEvents.MakeChoice evt)
-    {
-        DialogFade(basicTextBox, false);
-        DialogFade(enemyTextBox, false);
-
-        // 일러스트 닫음 +  초기화
-        //LeftIll.alpha = 0f;
-        //RightIll.alpha = 0f;
-        //playerIll.sprite = null;
-        //playerIll.color = new Color(1, 1, 1, 0);
-        //otherIll.sprite = null;
-        //otherIll.color = new Color(1, 1, 1, 0);
-
-        // 
-    }
-
 
     // 스프라이트 Addressable로 비동기 로드
     public void LoadSprite(string address, Image targetImg)

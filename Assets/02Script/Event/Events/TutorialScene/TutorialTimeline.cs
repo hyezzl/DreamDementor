@@ -12,7 +12,6 @@ using Cinemachine;
 
 public class TutorialTimeline : EventBase
 {
-    //public string eventID = "E002";
     [Header("UI Refs")]
     [SerializeField] private CanvasGroup playerTextBox;
     [SerializeField] private TextMeshProUGUI playerText;
@@ -33,10 +32,6 @@ public class TutorialTimeline : EventBase
     [Header("Filter Refs")]
     [SerializeField] private CameraFilterPack_FX_Glitch1 glitch;
 
-    //private IDatabase database;
-    //private Dictionary<string, Dictionary<int, DialogData>> allDialogs;  // 전체 대사 목록
-    //private Dictionary<int, DialogData> initialDialog;
-
     int curlogIdx;  // 현재 대화 인덱스
     Vector3 timelineLastPosPlayer; // 플레이어 마지막 위치
     Vector3 timelineLastPosEnemy;
@@ -45,10 +40,6 @@ public class TutorialTimeline : EventBase
 
     // DB 연결
     public override void Init(IDatabase db) {
-        //database = db;
-        //allDialogs = database.GetDialogEvent(eventID);
-        //initialDialog = database.GetDialog(eventID, eventID);
-        //if (initialDialog == null) Debug.Log("TutorialTimeline - Failed to Load Dialog");
         base.Init(db);
 
         if (initialDialog != null) { 

@@ -9,33 +9,16 @@ using UnityEngine.Timeline;
 /// <summary>
 /// 튜토리얼 종료 후 해피씬으로 강제이동 후 바로 실행되는 이벤트
 /// </summary>
-public class TeleportHappyScene : MonoBehaviour
+public class TeleportHappyScene : EventBase
 {
     [SerializeField] PlayableDirector eyesOpen;
-
-    [SerializeField] private string eventID = "E005";
-
     [SerializeField] private Canvas eyeCanvas;
-
-    private IDatabase database;
-    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
-    private Dictionary<int, DialogData> initialDialog;
-    private PlayerController pc;
 
     private static bool HappySceneFirstVisit = false;
 
-    private void Awake()
+    public override void Init(IDatabase db)  // start시점에 실행
     {
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) Debug.Log("TeleportHappyScene - Failed to Load PlayerController");
-    }
-
-    public void Init(IDatabase db)  // start시점에 실행
-    {
-        database = db;
-        allDialogs = database.GetDialogEvent(eventID);
-        initialDialog = database.GetDialog(eventID, eventID);
-        if (initialDialog == null) Debug.Log("TeleportHappyScene - Failed to Load Dialog");
+        base.Init(db);
 
         // PlayerPrefs사용한 첫방문 분기
         //bool happyFirstVisit = PlayerPrefs.GetInt("HappySceneFirstVisit", 0) == 0;  // 첫방문인가?
@@ -59,23 +42,6 @@ public class TeleportHappyScene : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        EventBus.Instance.Subscribe<UIEvents.EndDialog>(OnEndDialog);
-    }
-    private void OnDisable()
-    {
-        EventBus.Instance.Unsubscribe<UIEvents.EndDialog>(OnEndDialog);
-    }
-
-    private void Update()
-    {
-        // 임시
-        if (Input.GetKeyDown(KeyCode.Alpha0)) {
-            OnEndDialog(new UIEvents.EndDialog("E005"));
-        }
-    }
-
     private void PlayTeleport() {
         StartCoroutine(PlayEvents());
     }
@@ -92,12 +58,10 @@ public class TeleportHappyScene : MonoBehaviour
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
     }
 
-    private void OnEndDialog(UIEvents.EndDialog evt) {
+    protected override void CloseDialog(UIEvents.EndDialog evt) {
+        base.CloseDialog(evt);
+        
         if (evt.eventID == this.eventID) {
-            // 대화가 끝났을 때 게임모드 변경
-            pc.CurMode = GameMode.InspectMode;
-            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
-
             // 카메라 고정
             EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.PlayerFixCam, 1));
         }

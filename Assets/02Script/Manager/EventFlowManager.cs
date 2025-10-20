@@ -19,14 +19,10 @@ public class EventFlowManager : Singleton<EventFlowManager> // ΩÃ±€≈Ê¿œ ¿Ã¿Ø∞°?
 
     private void OnEnable()
     {
-        EventBus.Instance.Subscribe<GameEvents.PlayEvent>(OccurEvent);
-        EventBus.Instance.Subscribe<GameEvents.PlayChoiceEvent>(OccurChoice);
     }
 
     private void OnDisable()
     {
-        EventBus.Instance.Unsubscribe<GameEvents.PlayEvent>(OccurEvent);
-        EventBus.Instance.Unsubscribe<GameEvents.PlayChoiceEvent>(OccurChoice);
     }
 
 

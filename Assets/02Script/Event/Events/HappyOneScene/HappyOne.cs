@@ -7,27 +7,31 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class HappyOne : MonoBehaviour
+public class HappyOne : EventBase
 {
-    public string eventID = "E018";
-    private IDatabase database;
-    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
-    private Dictionary<int, DialogData> initialDialog;
+
+    private PlayerController pc;
+
+    private void Awake()
+    {
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null) Debug.Log("HappyOne - Failed to Load PlayerController");
+    }
 
     void Start()
     {
         // 시작 시 1인칭 모드
         EventBus.Instance.Publish<GameEvents.AspectChange>(new GameEvents.AspectChange(AspectMode.OnepersonMode));
 
-        //StartCoroutine(PlayIntro());
+        // 게임모드 InspectorMode
+        pc.CurMode = GameMode.InspectMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
     }
 
-    public void Init(IDatabase db)  // start시점에 실행
+
+    public override void Init(IDatabase db)  // start시점에 실행
     {
-        database = db;
-        allDialogs = database.GetDialogEvent(eventID);
-        initialDialog = database.GetDialog(eventID, eventID);
-        if (initialDialog == null) Debug.Log("TriggerZone - Failed to Load Dialog");
+        base.Init(db);
 
         StartCoroutine(PlayIntro());
     }

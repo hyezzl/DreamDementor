@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -91,10 +92,6 @@ public class NPC : MonoBehaviour, IActionNpc
 
             if (!string.IsNullOrEmpty(continueID))
             {
-                //Debug.Log($"continueID = {continueID}");
-                foreach (var i in allDialogs[continueID]) {
-                    //Debug.Log($"****{i.Value.dialog}");
-                }
                 if (allDialogs.TryGetValue(continueID, out var branchDialog))
                 {
                     // 선택지 이후 분기대화
@@ -102,8 +99,9 @@ public class NPC : MonoBehaviour, IActionNpc
                 }
                 else { Debug.Log($"{continueID}에 대한 분기대화 없음"); }
             }
-            else { 
+            else {
                 // 선택지는 있으나, 그 후 이벤트 없을경우
+                EventBus.Instance.Publish<UIEvents.CloseDialog>(new UIEvents.CloseDialog(true));
             }
         }
     }
