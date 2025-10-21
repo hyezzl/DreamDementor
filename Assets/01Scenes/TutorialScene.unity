@@ -13964,10 +13964,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f404422c111a64893b98ed123ff327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intro: {fileID: 1581899398}
-  tutorial: {fileID: 1581899397}
-  timeline: {fileID: 585387041}
-  tutoDead: {fileID: 1581899400}
 --- !u!4 &1346039021
 Transform:
   m_ObjectHideFlags: 0

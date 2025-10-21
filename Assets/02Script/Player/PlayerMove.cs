@@ -1,4 +1,5 @@
 using UnityEngine;
+using static GameEvents;
 
 
 /// <summary>
@@ -29,7 +30,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private CharacterController cc;
     private bool moveable = true;
     private bool isThree = true;  // 3인칭 시점인지
-    private bool canRunning = true;     // 뛸 수 있는지
 
     // 이동 변수
     public Vector3 moveDir = Vector3.zero;
@@ -42,6 +42,11 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private Vector3 preDir = Vector3.back; // 전 프레임 이동벡터 (기본은 정면)
     private Vector3 moveInput;
     private float gravityY = 0f;
+
+    // 스태미너 따른 플래그
+    public bool canRunning = true;     // 뛸 수 있는지
+    public bool forceRunning = false;  // 스태미너 고갈로 인한 강제 걷기전환
+
 
     // 카메라(1인칭)
     private float cameraVertical = 0f;
@@ -85,7 +90,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
     private void Update()
     {
-        //ApplyGravity();
         if (moveable && isThree)
         {
             Movement();
@@ -96,22 +100,28 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             HandleMovement();
             ApplyGravity();
         }
-
     }
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(ModeChange);
         EventBus.Instance.Subscribe<GameEvents.AspectChange>(OnAspectChange);
-        //EventBus.Instance.Subscribe<GameEvents.StaminaDepleted>(OnStaminaDepleted);
-        //EventBus.Instance.Subscribe<GameEvents.StaminaRecovered>(OnStaminaRecovered);
+
+        // 스태미너 관련 이벤트 구독
+        EventBus.Instance.Subscribe<GameEvents.OnStaminaChanged>(OnStaminaChange);
+        EventBus.Instance.Subscribe<GameEvents.OnStaminaDepleted>(OnStaminaDepleted);
+        EventBus.Instance.Subscribe<GameEvents.OnStaminaRecovered>(OnStaminaRecovered);
+
         //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(OnSwitchScene);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(ModeChange);
         EventBus.Instance.Unsubscribe<GameEvents.AspectChange>(OnAspectChange);
-        //EventBus.Instance.Unsubscribe<GameEvents.StaminaDepleted>(OnStaminaDepleted);
-        //EventBus.Instance.Unsubscribe<GameEvents.StaminaRecovered>(OnStaminaRecovered);
+
+        EventBus.Instance.Unsubscribe<GameEvents.OnStaminaChanged>(OnStaminaChange);
+        EventBus.Instance.Unsubscribe<GameEvents.OnStaminaDepleted>(OnStaminaDepleted);
+        EventBus.Instance.Unsubscribe<GameEvents.OnStaminaRecovered>(OnStaminaRecovered);
+        
         //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(OnSwitchScene);
     }
 
@@ -137,19 +147,19 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     private void Movement()
     {
         InputPriority(); // 키 입력 우선순위 갱신
+
         Vector2 inputVec = new Vector2(horizontalPriority, verticalPriority);
         moveInput = new Vector3(inputVec.x, 0f, inputVec.y);
 
-        // 입력값 받기
-        //input = inputHandler.GetMovement();
-        bool isRunning = inputHandler.Run() && inputVec.sqrMagnitude > 0.1f;
+
+        // 스태미너 고갈로 달리기 불가능한 경우 달릴 수 없음
+        bool isRunning = inputHandler.Run() && inputVec.sqrMagnitude > 0.1f && canRunning && !forceRunning;
         bool isWalking = inputVec.sqrMagnitude > 0.1f && !isRunning;
 
 
         if (pc.CurAspect == AspectMode.ThirdpersonMode) // 3인칭
         {
             moveDir = moveInput.normalized + verticalDir;
-
         }
         else // 1인칭 
         {
@@ -227,12 +237,23 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
         Vector3 moveDir = forward * inputDir.y + right * inputDir.x;
 
-        bool isRunning = inputHandler.Run();
+        //bool isRunning = inputHandler.Run()
+        bool isRunning = inputHandler.Run() && inputDir.sqrMagnitude > 0.1f && canRunning && !forceRunning;
         bool isWalking = inputDir.sqrMagnitude > 0.1f && !isRunning;
 
         float speed = isRunning ? runSpeed : moveSpeed;
 
         cc.Move(moveDir * speed * Time.deltaTime);
+
+        // PlayerState분기
+        if (inputDir.sqrMagnitude < 0.01f && !isRunning)
+        {
+            pc.CurState = PlayerState.Idle;
+        }
+        else {
+            if (isRunning) pc.CurState = PlayerState.Run;
+            else if (isWalking) pc.CurState = PlayerState.Walk;
+        }
 
 
         // (Animation) Blend Tree 값 전달
@@ -248,6 +269,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             float speedVal = 1f;
             if (isRunning) speedVal = 2f;
             else if (isWalking) speedVal = 1f;
+            
             // Hand Animator
             if (handAnim != null)
             {
@@ -351,17 +373,45 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         moveable = true;
     }
 
-    //private void OnStaminaDepleted(GameEvents.StaminaDepleted evt)
-    //{
-    //    // 스태미너가 다 고갈됐을 때
-    //    canRunning = false;
-    //}
+    // 스태미너가 0이 되었을 때
+    private void OnStaminaDepleted(GameEvents.OnStaminaDepleted evt)
+    {
+        // 스태미너가 다 고갈됐을 때
+        canRunning = false;
+        forceRunning = true;        // 강제로 걷기 전환
+        
+        anim.SetBool("isRunning", false);       // 애니메이터
+        pc.CurState = PlayerState.Walk;
+        Debug.Log("스태미나 고갈 !!! 달리기 제한");
+    }
 
-    //private void OnStaminaRecovered(GameEvents.StaminaRecovered evt)
-    //{
-    //    // 달리기 가능
-    //    canRunning = true;
-    //}
+    // 스태미너 충전 시 최소값 만족하면 다시 달릴 수 있음
+    private void OnStaminaChange(GameEvents.OnStaminaChanged evt) {
+        // todo : 최소치 변경하고싶으면 여기서!!!!!!!!!!!!
+        if (!canRunning && evt.curStamina >= 33f)
+        {
+            canRunning = true;
+            forceRunning = false;
+            Debug.Log("달리기 다시 가능!");
+        }
+        // 스태미나가 최소값 아래일때 달릴 수 없음 (달리기 시작이 불가능)
+        else if (evt.curStamina < 33f && !IsPlayerRunning())
+        {
+            canRunning = false;
+            forceRunning = true;
+            Debug.Log("스태미너 부족으로 달릴 수 없음!");
+        }
+    }
+
+    // 스태미너가 모두 회복되었을 때 호출 (필요하진 않으나, 혹시 다채워졌을 때 필요하다면?)
+    private void OnStaminaRecovered(GameEvents.OnStaminaRecovered evt)
+    {
+        canRunning = true;
+        forceRunning = false;
+        Debug.Log("스태미너 완전 회복 - 달리기 가능!");
+    }
+
+
 
     public void ModeChange(GameEvents.GameModeChange evt) {
         if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode || 
@@ -381,5 +431,10 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         cc.Move(backDir);
 
         Debug.Log("뒤로밀림");
+    }
+
+    // 현재 달리는 중인지?
+    private bool IsPlayerRunning() {
+        return pc.CurState == PlayerState.Run;
     }
 }

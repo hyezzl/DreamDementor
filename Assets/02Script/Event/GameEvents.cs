@@ -137,14 +137,6 @@ public static class GameEvents
     // EnemyState 변경 알림
     public struct UpdateEnemy { }
 
-    // Stamina 고갈
-    public struct StaminaDepleted { }
-
-
-    // 달리기 가능
-    public struct StaminaRecovered { }
-
-
     // 이벤트 종료 (저장)
     public struct EndEvent
     {
@@ -215,4 +207,50 @@ public static class GameEvents
         }
     }
 
+
+    ///  스태미너 관련 이벤트들  ///////////////
+    // 1 . Stamina -> PlayerMove
+
+    // 스태미너가 변할때 (UI업데이트)
+    public struct OnStaminaChanged 
+    {
+        public float curStamina;
+        public float maxStamina;
+        public OnStaminaChanged(float curStamina, float maxStamina) {
+            this.curStamina = curStamina;
+            this.maxStamina = maxStamina;
+        }
+    }
+
+
+    //플레이어가 달리기 시작할때
+    public struct OnSprintStart { }
+
+
+    // 달리기를 멈추고 걷기 시작
+    public struct OnSprintStop { }
+
+    // 스태미나가 0이되어 더이상 달릴 수 없을때
+    public struct OnStaminaDepleted { }
+
+
+    //스태미너가 전부 회복되었을때
+    public struct OnStaminaRecovered { }
+
+    // 스태미너 충전이 시작
+    public struct OnStaminaRecoverStart { }
+
+
+
+    // 2 . PlayerMove -> Stamina (동기화)
+    // 달리기 가능 여부 변경
+    public struct ChangeSprintState
+    {
+        public bool canRunning;
+        public ChangeSprintState(bool canRunning) { 
+            this.canRunning = canRunning;
+        }
+    }
+
+    //////////////////////////////////////////
 }
