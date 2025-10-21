@@ -12,7 +12,9 @@ public enum SceneType
     SorrowScene,
     SorrowOneScene,
     ChaosScene,
+    ChaosOneScene,
     HorrorScene,
+    HorrorOneScene,
     EndingScene,
 }
 

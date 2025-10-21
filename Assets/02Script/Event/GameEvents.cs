@@ -253,4 +253,70 @@ public static class GameEvents
     }
 
     //////////////////////////////////////////
+
+
+
+    ///  체력(정신력) 관련 이벤트들  ///////////////
+
+    // 정신력이 변할 때 (업데이트)
+    public struct OnHpChange
+    {
+        //public SceneType curScene;
+        public Stage stage;
+        public int preHp;
+        public int newHp;
+        public OnHpChange(Stage stage, int preHp, int newHp)
+        //public OnHpChange(SceneType curScene, int preHp, int newHp) 
+        //public OnHpChange(int preHp, int newHp)
+        {
+            //this.curScene = curScene;
+            this.stage = stage;
+            this.preHp = preHp;
+            this.newHp = newHp;
+        }
+    }
+
+    // 피해를 입었을 때
+    public struct OnDamaged
+    {
+        public SceneType curScene;
+        public int damage;      // 데미지량
+        public OnDamaged(SceneType curScene, int damage) { 
+            this.curScene = curScene;
+            this.damage = damage;
+        }
+    }
+
+    // HP(정신력)가 0이 되었을 때
+    public struct OnHpDepeleted
+    {
+        public SceneType curScene;
+        public OnHpDepeleted(SceneType curScene) { 
+            this.curScene = curScene;
+        }
+    }
+
+    // 씬 변경에 의한 HP 초기화 시점
+    public struct OnHpInit
+    { 
+        public SceneType curScene;
+        public OnHpInit(SceneType curScene) { 
+            this.curScene = curScene;
+        }
+    }
+
+
+    public struct OnHeal
+    { 
+        public SceneType curScene;
+        public int heal;
+        public OnHeal(SceneType curScene, int heal) {
+            this.curScene = curScene;
+            this.heal = heal;
+        }
+    }
+
+
+    //////////////////////////////////////////
+
 }
