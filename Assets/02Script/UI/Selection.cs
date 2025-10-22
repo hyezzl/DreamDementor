@@ -161,7 +161,17 @@ public class Selection : MonoBehaviour
         EventBus.Instance.Publish<UIEvents.MakeChoice>(new UIEvents.MakeChoice(curChoiceID, idx, isNpcChoice, curData));
 
         // 대사 데이터가 있으면 대사 출력
+
         // 잘못된 선택지 고를 시 정신력 깎임
+        // 아직까지는 선택지에 "-" 로직밖에 없음
+        if (curData != null && curData.scores != null) {
+            int? curScore = curData.scores[idx];
+            if (curScore != null && curScore != 0) {
+                // 정신력 피해
+                Debug.Log($"{curScore}만큼 피해입음!!");
+                EventBus.Instance.Publish<GameEvents.OnDamaged>(new GameEvents.OnDamaged(curData.scores[idx]));
+            }
+        }
 
         // 버튼 비활성화
         foreach (var btn in buttons) {

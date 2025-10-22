@@ -60,7 +60,7 @@ public class PlayerController : Singleton<PlayerController>
     public PlayerState CurState { get; set; } = PlayerState.Idle;
     public GameMode CurMode { get; set; } = GameMode.InspectMode;
     public AspectMode CurAspect { get; set; } = AspectMode.ThirdpersonMode;
-    public SceneType CurScene { get; set; } = SceneType.TutorialScene;
+    public SceneType CurScene { get; set; } = SceneType.HappyScene;
 
 
 
@@ -88,17 +88,20 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     private void OnDamaged(GameEvents.OnDamaged evt) {
-        ChangeHp(Scene2Stage(evt.curScene), evt.damage);
+        //ChangeHp(Scene2Stage(evt.curScene), evt.damage);
+        ChangeHp(Scene2Stage(CurScene), evt.damage);
     }
 
     private void OnHeal(GameEvents.OnHeal evt) {
-        ChangeHp(Scene2Stage(evt.curScene), evt.heal);
+        //ChangeHp(Scene2Stage(evt.curScene), evt.heal);
+        ChangeHp(Scene2Stage(CurScene), evt.heal);
     }
 
     // 체력 관리
     public void ChangeHp(Stage stage, int val)  // 음수면 피해, 양수면 회복
     {
-        if (curHp.ContainsKey(stage)) {
+        if (!curHp.ContainsKey(stage)) {
+
             Debug.Log("존재하지않는 스테이지");
             return;
         }
@@ -109,7 +112,7 @@ public class PlayerController : Singleton<PlayerController>
 
         EventBus.Instance.Publish<GameEvents.OnHpChange>(new GameEvents.OnHpChange());
 
-        // 정신력 0 도달 (씬알려주기)
+        // 정신력 0 도달 (씬알려주기) -> 게임오버
         if (newHp <= 0 && preHp > 0)
         {
             EventBus.Instance.Publish<GameEvents.OnHpDepeleted>(new GameEvents.OnHpDepeleted(CurScene));

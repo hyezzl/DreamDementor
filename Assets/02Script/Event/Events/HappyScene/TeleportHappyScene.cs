@@ -14,7 +14,7 @@ public class TeleportHappyScene : EventBase
     [SerializeField] PlayableDirector eyesOpen;
     [SerializeField] private Canvas eyeCanvas;
 
-    private static bool HappySceneFirstVisit = false;
+    private static bool HappySceneFirstVisit = true;
 
     public override void Init(IDatabase db)  // start시점에 실행
     {

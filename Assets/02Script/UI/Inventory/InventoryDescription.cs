@@ -20,21 +20,36 @@ public class InventoryDescription : MonoBehaviour
     private IDatabase database;
     private PickableData pickable;
     private EatableData eatable;
+    private PopupManager pm;
 
     public void Init(IDatabase db) {
         database = db;
+    }
+
+    private void Awake()
+    {
+        pm = FindAnyObjectByType<PopupManager>();
+        if (pm == null) Debug.Log("InventoryDescription - Failed to Load PopupManager");
     }
 
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<UIEvents.SlotClicked>(OnSlotClicked);
         exitBTN?.onClick.AddListener(CloseDescription);
+
+        // Y & N
+        yesBTN.onClick.AddListener(YesBTN);
+        noBTN.onClick.AddListener(CloseDescription);
+
         Clear();
     }
     private void OnDisable()
     {
         EventBus.Instance.Subscribe<UIEvents.SlotClicked>(OnSlotClicked);
         exitBTN?.onClick.RemoveListener(CloseDescription);
+
+        yesBTN.onClick.RemoveListener(YesBTN);
+        noBTN.onClick.RemoveListener(CloseDescription);
     }
 
     private void OnSlotClicked(UIEvents.SlotClicked evt) {
@@ -101,6 +116,27 @@ public class InventoryDescription : MonoBehaviour
             selection.alpha = 0f;
             selection.interactable = false;
             selection.blocksRaycasts = false;
+        }
+    }
+
+    // yes & no 버튼 로직
+    private void YesBTN() {
+        // 먹는 로직 (Eatable 한정)
+        // 아이템에 따른 정신력 로직
+
+        if (eatable != null) {
+            // item destroy
+            // ItemInstance 삭제
+
+            // 정신력
+            int? mental = eatable.mental;
+            if (mental != null && mental != 0) {
+                EventBus.Instance.Publish<GameEvents.OnDamaged>(new GameEvents.OnDamaged(eatable.mental));
+            }
+
+            // UI창 닫힘
+            CloseDescription();
+            pm.ClosePopup();
         }
     }
 }

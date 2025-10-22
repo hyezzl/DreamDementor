@@ -32,9 +32,11 @@ public class EatableItem : MonoBehaviour, IActionItem
         StartCoroutine(SafeDestroy());
     }
 
-    IEnumerator SafeDestroy()
+    public IEnumerator SafeDestroy()
     {
         yield return null;
         Destroy(gameObject);
     }
+
+    // 먹었을때 체력 +=
 }

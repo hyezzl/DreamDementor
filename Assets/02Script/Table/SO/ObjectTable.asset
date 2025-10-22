@@ -22,6 +22,7 @@ MonoBehaviour:
     Reply: "\uB354\uB7EC\uC6B4 \uCD08\uCF5C\uB9BF\uC744 \uC8FC\uC6E0\uB2E4."
     IconName: Icon_P1
     PairID: 
+    Subsist: 0
   - ItemID: 10001002
     ItemName: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0 \uC190\uC7A1\uC774"
     Type: Pickable
@@ -31,6 +32,7 @@ MonoBehaviour:
       \uC8FC\uC6E0\uB2E4."
     IconName: Icon_P2
     PairID: P001
+    Subsist: 0
   - ItemID: 10001003
     ItemName: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0 \uC911\uAC04\uBD80\uBD84"
     Type: Pickable
@@ -40,6 +42,7 @@ MonoBehaviour:
       \uC8FC\uC6E0\uB2E4."
     IconName: Icon_P3
     PairID: P001
+    Subsist: 0
   - ItemID: 10001004
     ItemName: "\uC624\uB798\uB41C \uB098\uBB34 \uC5F4\uC1E0 \uB05D\uBD80\uBD84"
     Type: Pickable
@@ -49,6 +52,7 @@ MonoBehaviour:
       \uC8FC\uC6E0\uB2E4."
     IconName: Icon_P4
     PairID: P001
+    Subsist: 0
   - ItemID: 10001005
     ItemName: "\uD558\uC580 \uC2E4"
     Type: Pickable
@@ -56,6 +60,7 @@ MonoBehaviour:
     Reply: "\uD558\uC580\uC0C9\uC758 \uC2E4\uC744 \uC8FC\uC6E0\uB2E4."
     IconName: Icon_P5
     PairID: P002
+    Subsist: 0
   Eatable:
   - ItemID: 20001001
     ItemName: "\uC624\uB798\uB41C \uCD08\uCF5C\uB9BF"

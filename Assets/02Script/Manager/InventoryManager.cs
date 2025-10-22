@@ -63,6 +63,12 @@ public class InventoryManager : Singleton<InventoryManager>
     }
 
     // todo : 아이템 사용 시, 지워지는 함수
+    private void RemoveItem(int itemID) {
+        inventory.Remove(new ItemInstance(itemID, ""));
+        //if (item.uniqueID != 0) { 
+            
+        //}
+    }
 
 
     public IReadOnlyList<ItemInstance> GetInventory() => inventory.AsReadOnly();

@@ -279,10 +279,11 @@ public static class GameEvents
     // 피해를 입었을 때
     public struct OnDamaged
     {
-        public SceneType curScene;
+        //public SceneType curScene;
         public int damage;      // 데미지량
-        public OnDamaged(SceneType curScene, int damage) { 
-            this.curScene = curScene;
+        //public OnDamaged(SceneType curScene, int damage) {
+        public OnDamaged(int damage) { 
+            //this.curScene = curScene;
             this.damage = damage;
         }
     }
@@ -308,10 +309,11 @@ public static class GameEvents
 
     public struct OnHeal
     { 
-        public SceneType curScene;
+        //public SceneType curScene;
         public int heal;
-        public OnHeal(SceneType curScene, int heal) {
-            this.curScene = curScene;
+        //public OnHeal(SceneType curScene, int heal) {
+        public OnHeal(int heal) {
+            //this.curScene = curScene;
             this.heal = heal;
         }
     }
