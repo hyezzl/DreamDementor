@@ -171,14 +171,14 @@ public class IntroEvent : EventBase
             backgroundGroup.alpha = 1f;
         }
         else {
+            illustGroup.alpha = 0f;
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
-                illustGroup.alpha = 1 - Mathf.Clamp01(elapsed / duration);
+                //illustGroup.alpha = 1 - Mathf.Clamp01(elapsed / duration);
                 backgroundGroup.alpha = 1 - Mathf.Clamp01(elapsed / duration);
                 yield return null;
             }
-            illustGroup.alpha = 0f;
             backgroundGroup.alpha = 0f;
         }
     }

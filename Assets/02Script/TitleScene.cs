@@ -10,17 +10,29 @@ public class TitleScene : MonoBehaviour
 
     private void OnEnable()
     {
-        startBTN.onClick.AddListener(ConvertTitle2Tutorial);
+        startBTN.onClick.AddListener(GameStart);
+        loadBTN.onClick.AddListener(LoadGame);
+        quitBTN.onClick.AddListener(QuitGame);
     }
     private void OnDisable()
     {
         startBTN.onClick.RemoveAllListeners();
+        loadBTN.onClick.RemoveAllListeners();
+        quitBTN.onClick.RemoveAllListeners();
     }
 
 
-    public void ConvertTitle2Tutorial()
-    {
-        //PlayerPrefs.SetString("StartNext", "First"); // 로딩 씬 필요할 시
-        SceneManager.LoadScene("TutorialScene");
+    private void GameStart() {
+        // 씬이동
+        EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.TutorialScene));
+    }
+
+    private void LoadGame() { 
+        
+    }
+
+    private void QuitGame() {
+        Debug.Log("게임 종료!");
+        Application.Quit();
     }
 }
