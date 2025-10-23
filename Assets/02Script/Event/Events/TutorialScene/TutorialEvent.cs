@@ -121,8 +121,8 @@ public class TutorialEvent : EventBase
         if(glitch != null)
             glitch.Glitch = 0.1f;
 
-        pc.CurMode = GameMode.InspectMode;
-        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+        pc.CurMode = GameMode.EventInInspectMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventInInspectMode));
 
 
         //EventBus.Instance.Publish<GameEvents.EndTimeline>(new GameEvents.EndTimeline());

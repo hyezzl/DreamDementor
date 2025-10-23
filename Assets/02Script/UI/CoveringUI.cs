@@ -16,6 +16,7 @@ public class CoveringUI : MonoBehaviour
     private void OnModeChange(GameEvents.GameModeChange evt) {
         switch (evt.mode) {
             case GameMode.InspectMode:
+            case GameMode.EventInInspectMode:
                 ShowUI(true);
                 break;
 

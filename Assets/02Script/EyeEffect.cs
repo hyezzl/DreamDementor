@@ -33,6 +33,8 @@ public class EyeEffect : MonoBehaviour
             dof.focusDistance.value = 5f;
             dof.aperture.value = 2f;
         }
+
+        pp.gameObject.SetActive(false);
     }
 
 }

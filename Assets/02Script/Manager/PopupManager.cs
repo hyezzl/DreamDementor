@@ -76,6 +76,9 @@ public class PopupManager : MonoBehaviour
 
     private void Update()
     {
+        // Inspector모드에서만 가능
+        if (pc.CurMode != GameMode.InspectMode && pc.CurMode != GameMode.PauseMode) return;
+
         if (isAnimating) return;
         TogglePopup();
     }

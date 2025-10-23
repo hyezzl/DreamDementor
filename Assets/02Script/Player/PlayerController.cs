@@ -21,11 +21,12 @@ public enum PlayerState
 public enum GameMode
 { 
     InspectMode,
-    PauseMode,
+    PauseMode,          // Popup
     DialogMode,
     NarrativeMode,
-    ChasedMode,
     EventMode,
+    ChasedMode,
+    EventInInspectMode,
     GameOverMode,
 }
 

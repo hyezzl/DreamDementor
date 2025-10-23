@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static GameEvents;
 
@@ -414,13 +415,25 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
 
     public void ModeChange(GameEvents.GameModeChange evt) {
-        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode || 
+        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode ||
             evt.mode == GameMode.PauseMode || evt.mode == GameMode.NarrativeMode)
         {
             StopGame();
         }
-        else {
+        else
+        {
             ResumeGame();
+        }
+
+        // 특정모드 (EventInInspectMode)에서는 달리기 금지 (걷기만 가능)
+        if (evt.mode == GameMode.EventInInspectMode)
+        {
+            canRunning = false;
+            forceRunning = true;
+        }
+        else if (!forceRunning && evt.mode != GameMode.EventInInspectMode) {
+            canRunning = true;
+            forceRunning = false;
         }
     }
 

@@ -6,13 +6,12 @@ using UnityEngine;
 public class TutorialCameraManager : CameraManager
 {
     [SerializeField] private CinemachineVirtualCamera fixCam;
-    [SerializeField] private CinemachineVirtualCamera sightCam;
     [SerializeField] private CinemachineVirtualCamera enemyCam;
     [SerializeField] private CinemachineVirtualCamera betweenCam;
 
     protected override void Awake(){ 
         base.Awake();
-        cams = new List<CinemachineVirtualCamera> { fixCam, sightCam, enemyCam, betweenCam };
+        cams = new List<CinemachineVirtualCamera> { fixCam, enemyCam, betweenCam };
     }
 
     private void Start()
@@ -26,10 +25,6 @@ public class TutorialCameraManager : CameraManager
         {
             case CameraType.PlayerFixCam:
                 SelectCam(fixCam, evt.blend);
-                break;
-
-            case CameraType.PlayerSightCam:
-                SelectCam(sightCam, evt.blend);
                 break;
 
             case CameraType.EnemyCam:
