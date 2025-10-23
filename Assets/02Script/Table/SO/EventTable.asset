@@ -923,96 +923,6 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
-  - EventID: E020
-    EventDetailID: E020
-    LogID: 20001
-    Dialog: "\uC784\uC2DC\uC785\uB2C8\uB2E4!!!!!"
-    NextID: 20002
-    Speaker: Player
-    SpeakerName: "\uAC1C\uBC1C\uC790"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E020
-    EventDetailID: E020
-    LogID: 20002
-    Dialog: "\uC774\uBCA4\uD2B8\uC6A9 \uC120\uD0DD\uC9C0 \uD14C\uC2A4\uD2B8 \uC911\uC785\uB2C8\uB2E4"
-    NextID: 20003
-    Speaker: Player
-    SpeakerName: "\uAC1C\uBC1C\uC790"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E020
-    EventDetailID: E020
-    LogID: 20003
-    Dialog: "\uBA4D\uBA4D\uBA4D\uBA4D\uC544\uB974\uB974\uB974\uB974??"
-    NextID: -1
-    Speaker: Player
-    SpeakerName: "\uAC1C\uBC1C\uC790"
-    ChoiceID: C008
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E020
-    EventDetailID: E020_0
-    LogID: 20004
-    Dialog: "\uC815\uB2F5\uC740 \uBA4D\uBA4D\uC774\uC600\uC2B5\uB2C8\uB2E4~~~"
-    NextID: 20005
-    Speaker: Player
-    SpeakerName: "\uAC1C\uBC1C\uC790"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E020
-    EventDetailID: E020_0
-    LogID: 20005
-    Dialog: "\uC9DD\uC9DD\uC9DD\uC9DD\uC9DD"
-    NextID: -1
-    Speaker: Player
-    SpeakerName: "\uAC1C\uBC1C\uC790"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E020
-    EventDetailID: E020_1
-    LogID: 20006
-    Dialog: "\uACA0\uB0D0?"
-    NextID: 20007
-    Speaker: Player
-    SpeakerName: "\uAC1C\uBC1C\uC790"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E020
-    EventDetailID: E020_1
-    LogID: 20007
-    Dialog: "\u3149\u3149"
-    NextID: -1
-    Speaker: Player
-    SpeakerName: "\uAC1C\uBC1C\uC790"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E020
-    EventDetailID: E020_2
-    LogID: 20008
-    Dialog: "\uC880\uB9CC \uB354 \uD798\uB0B4\uC790..."
-    NextID: 20009
-    Speaker: Player
-    SpeakerName: "\uAC1C\uBC1C\uC790"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E020
-    EventDetailID: E020_2
-    LogID: 20009
-    Dialog: "\uC5BC\uB9C8...\uC548\uB0A8\uC558\uC744\uAC78?"
-    NextID: -1
-    Speaker: Player
-    SpeakerName: "\uAC1C\uBC1C\uC790"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
   Choice:
   - ChoiceID: C001
     Choice0: " \uB2F9\uC2E0\uC740 \uC5C4\uB9C8\uAC00 \uC544\uB2C8\uC57C.\n\uB108..\uB204\uAD6C\uC57C?"
@@ -1064,8 +974,8 @@ MonoBehaviour:
     Score0: 0
     Score1: -10
     Score2: 0
-    Continue0: 
-    Continue1: 
+    Continue0: N006_0
+    Continue1: N006_1
     Continue2: 
   - ChoiceID: C006
     Choice0: "\uC74C...13\uC778\uAC00?"
@@ -1074,8 +984,8 @@ MonoBehaviour:
     Score0: -10
     Score1: 0
     Score2: 0
-    Continue0: 
-    Continue1: 
+    Continue0: N007_0
+    Continue1: N007_1
     Continue2: 
   - ChoiceID: C007
     Choice0: 0...?
@@ -1084,16 +994,6 @@ MonoBehaviour:
     Score0: 0
     Score1: -10
     Score2: 0
-    Continue0: 
-    Continue1: 
+    Continue0: N008_0
+    Continue1: N008_1
     Continue2: 
-  - ChoiceID: C008
-    Choice0: "\uC815\uB2F5! \uAC15\uC544\uC9C0!!"
-    Choice1: "\uC74C.. \uACE0\uC591\uC774?"
-    Choice2: "\uD558....\uC8FD\uAC19\uB2E4"
-    Score0: 0
-    Score1: -10
-    Score2: -10
-    Continue0: E020_0
-    Continue1: E020_1
-    Continue2: E020_2

@@ -1821,7 +1821,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1576970290}
   - component: {fileID: 1576970292}
-  - component: {fileID: 1576970291}
   m_Layer: 13
   m_Name: PlayerFixCam
   m_TagString: Player
@@ -1845,23 +1844,6 @@ Transform:
   - {fileID: 1480551461}
   m_Father: {fileID: 543450651615881990}
   m_LocalEulerAnglesHint: {x: 5, y: 0, z: 0}
---- !u!114 &1576970291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1576970289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ConfineMode: 1
-  m_BoundingVolume: {fileID: 369156864}
-  m_BoundingShape2D: {fileID: 0}
-  m_ConfineScreenEdges: 1
-  m_Damping: 0
 --- !u!114 &1576970292
 MonoBehaviour:
   m_ObjectHideFlags: 0

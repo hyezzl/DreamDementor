@@ -8,26 +8,26 @@ public class NPC : MonoBehaviour, IActionNpc
 {
     public string npcID;
     public bool isContacted = false;
-    private PlayerController pc;
-    private Dictionary<string, Dictionary<int, NPCDialogData>> allDialogs;
-    private Dictionary<int, NPCDialogData> initialDialog;
-    private NPCReDialogData reDialogData;
-    private IDatabase database;
+    protected PlayerController pc;
+    protected Dictionary<string, Dictionary<int, NPCDialogData>> allDialogs;
+    protected Dictionary<int, NPCDialogData> initialDialog;
+    protected NPCReDialogData reDialogData;
+    protected IDatabase database;
 
-    private bool isInDialog = false;
-    private bool isDelay = false;       // 대화 이후 Interact Delay 중인지
-    private float dialogDelay = 0.5f;   // 원하는 딜레이 시간 (초)
-    private float delayTimer = 0f;
+    protected bool isInDialog = false;
+    protected bool isDelay = false;       // 대화 이후 Interact Delay 중인지
+    protected float dialogDelay = 0.5f;   // 원하는 딜레이 시간 (초)
+    protected float delayTimer = 0f;
 
     public string GetNpcID() => npcID;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("NPC - Failed to Load PlayerController");
     }
 
-    public void Init(IDatabase db)
+    public virtual void Init(IDatabase db)
     {
         database = db;
         // 해당 npc의 전체 대화 이벤트 가져오기
@@ -39,18 +39,18 @@ public class NPC : MonoBehaviour, IActionNpc
         if (reDialogData == null) Debug.Log("NPC - Failed to Load NpcReDialogs");
     }
 
-    private void OnEnable()
+    protected void OnEnable()
     {
         EventBus.Instance.Subscribe<UIEvents.EndNpcDialog>(OnEndNpcDialog);
         EventBus.Instance.Subscribe<UIEvents.MakeChoice>(OnNpcChoice);
     }
-    private void OnDisable()
+    protected void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.EndNpcDialog>(OnEndNpcDialog);
         EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(OnNpcChoice);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         // 딜레이 타이밍 갱신
         if (isDelay) {
@@ -62,7 +62,7 @@ public class NPC : MonoBehaviour, IActionNpc
         }
     }
 
-    public void Interact()
+    public virtual void Interact()
     {
         if (isInDialog || isDelay) return; // 대화중이거나, 딜레이 중이면 무시
 
@@ -80,7 +80,7 @@ public class NPC : MonoBehaviour, IActionNpc
         }
     }
 
-    public void OnNpcChoice(UIEvents.MakeChoice evt) {
+    public virtual void OnNpcChoice(UIEvents.MakeChoice evt) {
         // npc선택지일때만
         if (evt.isNpc) {
             // ChoiceData에서 continue꺼냄
@@ -106,7 +106,7 @@ public class NPC : MonoBehaviour, IActionNpc
         }
     }
 
-    private void OnEndNpcDialog(UIEvents.EndNpcDialog evt) {
+    protected virtual void OnEndNpcDialog(UIEvents.EndNpcDialog evt) {
         if (evt.npcID == npcID) {
             isInDialog = false;
 

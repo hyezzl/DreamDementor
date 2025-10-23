@@ -28,6 +28,7 @@ public enum GameMode
     ChasedMode,
     EventInInspectMode,
     GameOverMode,
+    UIPuzzleMode,       // UI 통한 마우스 + 드래그 퍼즐
     None,
 }
 

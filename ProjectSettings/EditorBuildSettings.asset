@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01Scenes/RestScene.unity
     guid: 9ede4fccbc3b2e14990367a06917177b
+  - enabled: 1
+    path: Assets/01Scenes/SorrowScene.unity
+    guid: 77b80c9ba60016041a945f1b697cc9dc
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: a57b876db6cd5e5478eacf21fa87d1dd, type: 2}
