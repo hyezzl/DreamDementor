@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class InventoryDescription : MonoBehaviour
 {
     [Header("UI Refs")]
-    [SerializeField] private GameObject Description;
+    [SerializeField] public GameObject Description;
+    [SerializeField] private Button outsideBG;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemDescription;
@@ -22,6 +23,8 @@ public class InventoryDescription : MonoBehaviour
     private EatableData eatable;
     private PopupManager pm;
 
+    public bool isOpen = false;    // 현재 열려있는지?
+
     public void Init(IDatabase db) {
         database = db;
     }
@@ -32,14 +35,32 @@ public class InventoryDescription : MonoBehaviour
         if (pm == null) Debug.Log("InventoryDescription - Failed to Load PopupManager");
     }
 
+    private void Update()
+    {
+        // ESC 눌렀을 때 자체 세부창만 닫음
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Description.activeSelf)
+            {
+                CloseDescription();
+                // 여기서 return하면 이 프레임엔 인벤토리는 안 닫힘!
+                return;
+            }
+        }
+    }
+
     private void OnEnable()
     {
+        isOpen = false;
+
         EventBus.Instance.Subscribe<UIEvents.SlotClicked>(OnSlotClicked);
         exitBTN?.onClick.AddListener(CloseDescription);
 
         // Y & N
         yesBTN.onClick.AddListener(YesBTN);
         noBTN.onClick.AddListener(CloseDescription);
+
+        outsideBG?.onClick.AddListener(CloseDescription);
 
         Clear();
     }
@@ -50,11 +71,14 @@ public class InventoryDescription : MonoBehaviour
 
         yesBTN.onClick.RemoveListener(YesBTN);
         noBTN.onClick.RemoveListener(CloseDescription);
+
+        outsideBG?.onClick.RemoveListener(CloseDescription);
     }
 
     private void OnSlotClicked(UIEvents.SlotClicked evt) {
-        Description.SetActive(true);
+        isOpen = true;
 
+        Description.SetActive(true);
         ShowInformation(evt.item);
     }
 
@@ -95,6 +119,7 @@ public class InventoryDescription : MonoBehaviour
     }
 
     public void CloseDescription() {
+        isOpen = false;
         Description.SetActive(false);
     }
 

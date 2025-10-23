@@ -19,6 +19,8 @@ public class TeleportHappyScene : EventBase
     public override void Init(IDatabase db)  // start시점에 실행
     {
         base.Init(db);
+        pc.CurMode = GameMode.EventMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
 
         // PlayerPrefs사용한 첫방문 분기
         //bool happyFirstVisit = PlayerPrefs.GetInt("HappySceneFirstVisit", 0) == 0;  // 첫방문인가?
@@ -64,6 +66,9 @@ public class TeleportHappyScene : EventBase
         if (evt.eventID == this.eventID) {
             // 카메라 고정
             EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.PlayerFixCam, 1));
+
+            pc.CurMode = GameMode.InspectMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
         }
     }
 }

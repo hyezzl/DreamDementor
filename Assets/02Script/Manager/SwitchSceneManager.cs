@@ -15,8 +15,14 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
     private bool isPortal = false;      // 포탈이동에 의한 씬이동인지?
 
     public CharacterController ch;
+    private PlayerController pc;
 
-
+    protected override void DoAwake()
+    {
+        base.DoAwake();
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null) Debug.Log("SwitchSceneManager - Failed to Load PlayerController");
+    }
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.SwitchScene>(SwitchScene);
@@ -33,8 +39,11 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         Debug.Log($"{evt.nextScene}씬으로 이동~!");
         isPortal = false;
 
-        SceneManager.LoadScene(evt.nextScene.ToString());
+        // 씬 캐싱 변경
+        pc.CurScene = evt.nextScene;
         curScene = evt.nextScene; // 캐싱
+
+        SceneManager.LoadScene(evt.nextScene.ToString());
     }
 
     private void OnPortal(GameEvents.PortalSwitchScene evt) { 
@@ -49,13 +58,16 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
             return;
         }
 
+        // 씬 캐싱 변경
+        pc.CurScene = evt.nextScene;
+        curScene = evt.nextScene; // 캐싱
+
         Debug.Log($"{evt.nextScene}씬으로 이동~!");
         Debug.Log($"소환 위치 : {evt.nextScene.ToString()} - {evt.targetPoint}");
         isPortal = true;
         spawnPoint = evt.targetPoint;       // 소환위치 저장
 
         SceneManager.LoadScene(evt.nextScene.ToString());
-        curScene = evt.nextScene; // 캐싱
     }
 
     // 씬 로드 시 플레이어 위치 지정

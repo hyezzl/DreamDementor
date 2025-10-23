@@ -32,6 +32,7 @@ public class PopupManager : MonoBehaviour
     [SerializeField] private GameObject inventoryContent;
     [SerializeField] private GameObject memoContent;
     [SerializeField] private GameObject infoContent;
+    [SerializeField] private InventoryDescription invenDesc;    // 인벤토리 세부창
 
     [Header("UI Group")]
     [SerializeField] private CanvasGroup popupGroup;
@@ -84,6 +85,12 @@ public class PopupManager : MonoBehaviour
     }
 
     private void TogglePopup() {
+        // 세부설명창 우선 닫기 로직
+        //if (invenDesc != null && invenDesc.isOpen) {
+        //     invenDesc.CloseDescription();
+        //    return;
+        //}
+
         if (inputHandler.TogglePopup() || inputHandler.Escape()) // Tab OR ESC
         {
             if (!isOpen) // Open
