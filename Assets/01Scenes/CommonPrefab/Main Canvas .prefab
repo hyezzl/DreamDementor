@@ -2739,9 +2739,10 @@ GameObject:
   m_Component:
   - component: {fileID: 9179469431808353622}
   - component: {fileID: 2579038105326054595}
+  - component: {fileID: 6610057472404395571}
   - component: {fileID: 5596350156472099559}
   m_Layer: 5
-  m_Name: Image
+  m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2774,6 +2775,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1459250199398685173}
   m_CullTransparentMesh: 1
+--- !u!114 &6610057472404395571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459250199398685173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8883e239813f54e418a22adfe25559a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  img: {fileID: 5596350156472099559}
+  moons:
+  - {fileID: 21300000, guid: 9f14150adfb143642a84b0f86cf6a1ed, type: 3}
+  - {fileID: 21300000, guid: 070a497f45271b14b94bc51826b9f3f7, type: 3}
+  - {fileID: 21300000, guid: d2a06a9c31ffe7c4ea22ef8573be7554, type: 3}
+  - {fileID: 21300000, guid: 84fd0c09c4696c74a92c4e3e2ca6c53c, type: 3}
+  - {fileID: 21300000, guid: 66b2a93d355a6c34c8cf153c24bc723e, type: 3}
+  - {fileID: 21300000, guid: c94cdfb70b8c73f42bd3e5a7e885d266, type: 3}
+  - {fileID: 21300000, guid: 7869c097b6c30e04cb18420172a669b6, type: 3}
+  - {fileID: 21300000, guid: ae7a19a41079461488feded30aec8000, type: 3}
+  - {fileID: 21300000, guid: fe52c59e193997b40b14bfe83559c2b6, type: 3}
+  - {fileID: 21300000, guid: 1abac187a0616a44f8c10a1c363ff046, type: 3}
+  - {fileID: 21300000, guid: a4cdb9806d20c064a9f16346052c01e0, type: 3}
 --- !u!114 &5596350156472099559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2794,7 +2820,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3093b8c44875c0246a58e91600b78079, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a4cdb9806d20c064a9f16346052c01e0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
