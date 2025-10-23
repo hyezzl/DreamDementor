@@ -133,6 +133,17 @@ public static class GameEvents
         }
     }
 
+    // 강제 아이템 습득
+    public struct PutItem
+    {
+        public ItemType type;
+        public int itemID;
+        public PutItem(ItemType type, int itemID) {
+            this.type = type;
+            this.itemID = itemID;
+        }
+    }
+
 
     // EnemyState 변경 알림
     public struct UpdateEnemy { }

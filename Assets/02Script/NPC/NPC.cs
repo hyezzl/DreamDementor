@@ -114,7 +114,7 @@ public class NPC : MonoBehaviour, IActionNpc
             isDelay = true;
             delayTimer = dialogDelay;
 
-            // 게임모드 변경
+            // 게임모드 변경 (NPC와의 대화이후는 반드시 Inspect모드임을 전제)
             pc.CurMode = GameMode.InspectMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
         }

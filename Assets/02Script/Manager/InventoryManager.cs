@@ -22,13 +22,19 @@ public class InventoryManager : Singleton<InventoryManager>
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.GetItem>(OnGetItem);
+        EventBus.Instance.Subscribe<GameEvents.PutItem>(OnPutItem);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.GetItem>(OnGetItem);
+        EventBus.Instance.Unsubscribe<GameEvents.PutItem>(OnPutItem);
     }
     private void OnGetItem(GameEvents.GetItem evt) {
         AddItem(evt.item.GetItemType(), evt.item.GetItemID());
+    }
+
+    private void OnPutItem(GameEvents.PutItem evt) {
+        AddItem(evt.type, evt.itemID);
     }
 
 
