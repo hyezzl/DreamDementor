@@ -150,8 +150,8 @@ public class InventoryDescription : MonoBehaviour
         // 아이템에 따른 정신력 로직
 
         if (eatable != null) {
-            // item destroy
-            // ItemInstance 삭제
+            // ItemInstance 인벤토리에서 삭제
+            EventBus.Instance.Publish<GameEvents.UseItem>(new GameEvents.UseItem(eatable.itemID));
 
             // 정신력
             int? mental = eatable.mental;

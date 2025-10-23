@@ -144,6 +144,15 @@ public static class GameEvents
         }
     }
 
+    // 강제 아이템 삭제
+    public struct UseItem
+    {
+        public int itemID;
+        public UseItem(int itemID) { 
+            this.itemID = itemID;
+        }
+    }
+
 
     // EnemyState 변경 알림
     public struct UpdateEnemy { }

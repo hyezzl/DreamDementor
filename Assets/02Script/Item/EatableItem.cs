@@ -18,7 +18,6 @@ public class EatableItem : MonoBehaviour, IActionItem
 
     public void Interact()
     {
-        Debug.Log($"Eatable -  {data.itemName} : {data.description}");
         // 1. 아이템 주움
         Pickup();
 

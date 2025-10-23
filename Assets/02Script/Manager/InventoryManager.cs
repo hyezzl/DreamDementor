@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UIElements;
+using Unity.VisualScripting;
 
 /// <summary>
 /// 인벤토리 관리 / 아이템 습득
@@ -23,11 +24,13 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         EventBus.Instance.Subscribe<GameEvents.GetItem>(OnGetItem);
         EventBus.Instance.Subscribe<GameEvents.PutItem>(OnPutItem);
+        EventBus.Instance.Subscribe<GameEvents.UseItem>(OnUseItem);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.GetItem>(OnGetItem);
         EventBus.Instance.Unsubscribe<GameEvents.PutItem>(OnPutItem);
+        EventBus.Instance.Unsubscribe<GameEvents.UseItem>(OnUseItem);
     }
     private void OnGetItem(GameEvents.GetItem evt) {
         AddItem(evt.item.GetItemType(), evt.item.GetItemID());
@@ -35,6 +38,10 @@ public class InventoryManager : Singleton<InventoryManager>
 
     private void OnPutItem(GameEvents.PutItem evt) {
         AddItem(evt.type, evt.itemID);
+    }
+
+    private void OnUseItem(GameEvents.UseItem evt) {
+        RemoveItem(evt.itemID);
     }
 
 
@@ -68,12 +75,19 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
-    // todo : 아이템 사용 시, 지워지는 함수
+    // 아이템 사용 시, 지워지는 함수
     private void RemoveItem(int itemID) {
-        inventory.Remove(new ItemInstance(itemID, ""));
-        //if (item.uniqueID != 0) { 
-            
-        //}
+        // 조건에 맞는 첫 번째 ItemInstance 찾기
+        var item = inventory.FirstOrDefault(i => i.itemID == itemID);
+        if (item != null)
+        {
+            inventory.Remove(item);
+            EventBus.Instance.Publish<UIEvents.InventoryChanged>(new UIEvents.InventoryChanged());
+            Debug.Log($"{itemID} 삭제");
+        }
+        else {
+            Debug.Log($"{itemID} 가 인벤토리 내에 없음");
+        }
     }
 
 
