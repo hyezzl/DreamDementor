@@ -41,13 +41,13 @@ public class Selection : MonoBehaviour
     {
         if (!standbyInput) return;
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             int nextIdx = focusIdx + 1;
             //if (nextIdx >= buttons.Count) nextIdx = 0;
             SetFocus(nextIdx);
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             int preIdx = focusIdx - 1;
             //if (preIdx < 0) preIdx = buttons.Count - 1;
