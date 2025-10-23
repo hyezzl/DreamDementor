@@ -7,11 +7,13 @@ public static class UIEvents
     {
         public string eventID;
         public Dictionary<int, DialogData> texts;
+        public GameMode afterMode;
 
-        public OpenDialog(string eventID, Dictionary<int, DialogData> texts)
+        public OpenDialog(string eventID, Dictionary<int, DialogData> texts, GameMode afterMode = GameMode.None)
         {
             this.eventID = eventID;
             this.texts = texts;
+            this.afterMode = afterMode;
         }
     }
 

@@ -67,7 +67,7 @@ public class FluidBlockTriggerZone : MonoBehaviour, ITriggerZone
         }
         else
         {
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
+            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
             // 여러번 실행될수있으므로 종료이벤트 저장 생략
         }
     }

@@ -28,6 +28,7 @@ public enum GameMode
     ChasedMode,
     EventInInspectMode,
     GameOverMode,
+    None,
 }
 
 /// <summary>

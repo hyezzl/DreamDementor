@@ -39,7 +39,8 @@ public class DialogPopup : MonoBehaviour
 
     private string curEventID;  // 캐싱
     private string sentence;  // 캐싱
-    private GameMode preMode;  // 캐싱
+    private GameMode preMode;           // 대화 진입 전 모드 캐싱
+    private GameMode afterMode;         // 대화 진입 시 설정해준 모드
     private IInputHandler inputHandler;
     private TextMeshProUGUI textarea;  // 사용할 텍스트박스
     private CanvasGroup curTextbox;
@@ -111,7 +112,8 @@ public class DialogPopup : MonoBehaviour
     // 외부에서 대화창 열어주는 함수
     /// </summary>
     private void OnOpenDialog(UIEvents.OpenDialog evt) {
-        preMode = pc.CurMode; // 캐싱
+        preMode = pc.CurMode;           // 현재 모드 캐싱
+        afterMode = evt.afterMode;      // 설정 모드 캐싱
         
         // 모드 변경
         pc.CurMode = GameMode.DialogMode;
@@ -199,9 +201,19 @@ public class DialogPopup : MonoBehaviour
         yield return StartCoroutine(ClosePanel());  // 모든 대화가 끝나면 패널 닫음
 
         // 모드 변경
-        pc.CurMode = preMode;
-        Debug.Log($"ClosePanel에서 상태변경 : {preMode}로!");
-        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
+        if (afterMode != GameMode.None)
+        {
+            // 대화 진입 시 게임모드 지정
+            pc.CurMode = afterMode;
+            Debug.Log($"ClosePanel에서 상태변경 : {afterMode}로!");
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(afterMode));
+        }
+        else {
+            // 대화 진입 시 따로 게임모드를 정해주지 않은 경우
+            pc.CurMode = preMode;
+            Debug.Log($"ClosePanel에서 상태변경 : {preMode}로!");
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
+        }
     }
 
     // 스킵 시 바로 출력

@@ -43,7 +43,7 @@ public class TriggerZone : MonoBehaviour, ITriggerZone
     {
         if (!isContacted && initialDialog != null)
         {
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
+            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
         }
     }
 

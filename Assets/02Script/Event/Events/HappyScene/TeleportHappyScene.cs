@@ -57,7 +57,7 @@ public class TeleportHappyScene : EventBase
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(eventID));
 
         // 대화모드
-        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
+        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
     }
 
     protected override void CloseDialog(UIEvents.EndDialog evt) {
@@ -66,9 +66,6 @@ public class TeleportHappyScene : EventBase
         if (evt.eventID == this.eventID) {
             // 카메라 고정
             EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.PlayerFixCam, 1));
-
-            pc.CurMode = GameMode.InspectMode;
-            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
         }
     }
 }

@@ -92,7 +92,7 @@ public class IllustTriggerZone : MonoBehaviour, ITriggerZone
 
         if (initialDialog != null)
         {
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
+            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
         }
     }
 }

@@ -72,7 +72,7 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
         }
         else 
         {
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
+            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
 
             // 종료 이벤트 저장
             EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent(eventID));
