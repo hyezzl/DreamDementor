@@ -14,21 +14,85 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPC:
   - NpcID: N001
-    NpcName: "\uACF0\uC778\uD615"
+    NpcEventID: 
+    LogID: 0
+    Dialog: 
+    NextID: 0
+    Speaker: 
+    SpeakerName: 
+    ChoiceID: 
+    Textbox: 
+    Emotion: 0
   - NpcID: N002
-    NpcName: "\uC218\uC0C1\uD55C \uAF43"
+    NpcEventID: 
+    LogID: 0
+    Dialog: 
+    NextID: 0
+    Speaker: 
+    SpeakerName: 
+    ChoiceID: 
+    Textbox: 
+    Emotion: 0
   - NpcID: N003
-    NpcName: "\uC2DC\uB8E8"
+    NpcEventID: 
+    LogID: 0
+    Dialog: 
+    NextID: 0
+    Speaker: 
+    SpeakerName: 
+    ChoiceID: 
+    Textbox: 
+    Emotion: 0
   - NpcID: N004
-    NpcName: "\uC624\uB798\uB41C \uD48D\uC120"
+    NpcEventID: 
+    LogID: 0
+    Dialog: 
+    NextID: 0
+    Speaker: 
+    SpeakerName: 
+    ChoiceID: 
+    Textbox: 
+    Emotion: 0
   - NpcID: N005
-    NpcName: "\uC624\uB798\uB41C \uBB38"
+    NpcEventID: 
+    LogID: 0
+    Dialog: 
+    NextID: 0
+    Speaker: 
+    SpeakerName: 
+    ChoiceID: 
+    Textbox: 
+    Emotion: 0
   - NpcID: N006
-    NpcName: "\uC758\uBB38\uC758 \uBD84\uC218"
+    NpcEventID: 
+    LogID: 0
+    Dialog: 
+    NextID: 0
+    Speaker: 
+    SpeakerName: 
+    ChoiceID: 
+    Textbox: 
+    Emotion: 0
   - NpcID: N007
-    NpcName: "\uC758\uBB38\uC758 \uBD84\uC218"
+    NpcEventID: 
+    LogID: 0
+    Dialog: 
+    NextID: 0
+    Speaker: 
+    SpeakerName: 
+    ChoiceID: 
+    Textbox: 
+    Emotion: 0
   - NpcID: N008
-    NpcName: "\uC758\uBB38\uC758 \uBD84\uC218"
+    NpcEventID: 
+    LogID: 0
+    Dialog: 
+    NextID: 0
+    Speaker: 
+    SpeakerName: 
+    ChoiceID: 
+    Textbox: 
+    Emotion: 0
   NpcDialog:
   - NpcID: N001
     NpcEventID: N001
@@ -854,7 +918,7 @@ MonoBehaviour:
     NpcEventID: N008_1
     LogID: 8014
     Dialog: "\uAE84\uC545!!"
-    NextID: 8014
+    NextID: 8015
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
@@ -865,7 +929,7 @@ MonoBehaviour:
     LogID: 8015
     Dialog: "\uC774 \uBB38\uC81C\uC758 \uD5C8\uC810\uC744 \uCC3E\uC544\uB0B4\uC9C0
       \uBABB\uD588\uAD6C\uB098."
-    NextID: 8015
+    NextID: 8016
     Speaker: Extra
     SpeakerName: "\uBD84\uC218"
     ChoiceID: 
@@ -875,7 +939,7 @@ MonoBehaviour:
     NpcEventID: N008_1
     LogID: 8016
     Dialog: "\uB108\uB3C4 \uB2E4\uB978 \uC778\uAC04\uB4E4\uC774\uB791 \uAC19\uC544."
-    NextID: 8016
+    NextID: 8017
     Speaker: Extra
     SpeakerName: "\uBD84\uC218"
     ChoiceID: 
@@ -886,7 +950,7 @@ MonoBehaviour:
     LogID: 8017
     Dialog: "\uD2C0\uB9B0 \uB2F5\uC744 \uB9D0\uD558\uBA74 \uB300\uAC00\uB97C \uCE58\uB974\uAC8C
       \uB418\uC9C0!"
-    NextID: 8017
+    NextID: 8018
     Speaker: Extra
     SpeakerName: "\uBD84\uC218"
     ChoiceID: 
@@ -896,7 +960,7 @@ MonoBehaviour:
     NpcEventID: N008_1
     LogID: 8018
     Dialog: "\uD558\uC9C0\uB9CC \uBB38\uC81C\uAC00 \uB108\uBB34 \uC5B4\uB824\uC6B4\uAC78.."
-    NextID: 8018
+    NextID: 8019
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
@@ -907,7 +971,7 @@ MonoBehaviour:
     LogID: 8019
     Dialog: "\uBB38\uC81C \uC18D\uC5D0 \uB2F5\uC774 \uC788\uB2E4. \n\uC798 \uB4E4\uC5EC\uB2E4\uBCF4\uB3C4\uB85D
       \uD574!"
-    NextID: 8019
+    NextID: 8020
     Speaker: Extra
     SpeakerName: "\uBD84\uC218"
     ChoiceID: 
@@ -917,7 +981,7 @@ MonoBehaviour:
     NpcEventID: N008_1
     LogID: 8020
     Dialog: "\uC54C\uACA0\uC5B4.. \uC5B4\uB835\uC9C0\uB9CC \uB2E4\uC2DC \uD480\uC5B4\uBCFC\uAC8C.."
-    NextID: 8020
+    NextID: 8021
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 

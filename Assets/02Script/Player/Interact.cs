@@ -84,7 +84,6 @@ public class Interact : MonoBehaviour
             case AspectMode.OnepersonMode:
                 if (pc.CurMode == GameMode.InspectMode) {
                     if (inputHandler.DoInteract() && sight.curTarget != null) {
-                        Debug.Log("1ÀÎÄª");
                         sight.curTarget.Interact();
                     }
                 }

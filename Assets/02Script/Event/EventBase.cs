@@ -22,13 +22,18 @@ public class EventBase : MonoBehaviour, IGameEvent
     protected Dictionary<int, DialogData> initialDialog;
     protected List<NarrationData> narrations;
 
+    protected virtual void Awake() {
+        pc = FindAnyObjectByType<PlayerController>();
+        if (pc == null) Debug.Log($"*{this.GetType().Name} - Failed to Load PlayerController");
+    }
+
     // DB연결
     public virtual void Init(IDatabase db) {
         database = db;
         Debug.Log($"*{this.GetType().Name} 의 Init 완료!");
 
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) Debug.Log($"*{this.GetType().Name} - Failed to Load PlayerController");
+        //pc = FindAnyObjectByType<PlayerController>();
+        //if (pc == null) Debug.Log($"*{this.GetType().Name} - Failed to Load PlayerController");
 
         switch (eventtype)
         {

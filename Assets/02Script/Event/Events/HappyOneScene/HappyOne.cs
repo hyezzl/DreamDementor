@@ -9,19 +9,19 @@ using UnityEngine.UI;
 
 public class HappyOne : EventBase
 {
-    protected void Start()
+    protected override void Awake()
     {
+        base.Awake();
         // 시작 시 1인칭 모드
+        pc.CurAspect = AspectMode.OnepersonMode;
         EventBus.Instance.Publish<GameEvents.AspectChange>(new GameEvents.AspectChange(AspectMode.OnepersonMode));
-
-        // 게임모드 InspectorMode
-        pc.CurMode = GameMode.InspectMode;
-        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
     }
-
 
     public override void Init(IDatabase db)  // start시점에 실행
     {
+        // 시작 시 1인칭 모드
+        EventBus.Instance.Publish<GameEvents.AspectChange>(new GameEvents.AspectChange(AspectMode.OnepersonMode));
+        
         base.Init(db);
 
         StartCoroutine(PlayIntro());

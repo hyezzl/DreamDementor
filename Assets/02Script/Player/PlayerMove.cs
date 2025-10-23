@@ -225,8 +225,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
     private void HandleMovement()
     {
-        // todo :: PlayerStateºÐ±â
-
         Vector2 inputDir = inputHandler.GetMovement().normalized;
         Vector3 forward = sightCam.forward;
         forward.y = 0f;
@@ -238,7 +236,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
         Vector3 moveDir = forward * inputDir.y + right * inputDir.x;
 
-        //bool isRunning = inputHandler.Run()
         bool isRunning = inputHandler.Run() && inputDir.sqrMagnitude > 0.1f && canRunning && !forceRunning;
         bool isWalking = inputDir.sqrMagnitude > 0.1f && !isRunning;
 
