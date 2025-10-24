@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Flower : NeutralNPC
@@ -35,7 +34,6 @@ public class Flower : NeutralNPC
         if (!isFriend)
         {
             UpdateEyeDirection();
-            Debug.Log("들어오나?");
         }
     }
 
@@ -59,7 +57,6 @@ public class Flower : NeutralNPC
             eyeIndex = 4; // 오른쪽 끝
 
         sr.sprite = eyes[eyeIndex];
-        Debug.Log(eyeIndex);
     }
 
     protected override void OnEndNpcDialog(UIEvents.EndNpcDialog evt)

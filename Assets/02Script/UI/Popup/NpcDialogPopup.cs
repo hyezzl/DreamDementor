@@ -281,8 +281,6 @@ public class NpcDialogPopup : MonoBehaviour
         textarea.text = sentence;
         isTyping = false;
         standbyInput = true;
-        //if (blinkCor != null) StopCoroutine(blinkCor);
-        //blinkCor = StartCoroutine(blink.BlinkAnnounceMSG(group));
     }
 
     // ÆÐ³Î ´Ý±â
