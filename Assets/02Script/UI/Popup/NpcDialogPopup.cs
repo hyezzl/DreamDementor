@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ public class NpcDialogPopup : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemySpeaker;
 
     [SerializeField] private CanvasGroup LeftIll; // alpha값 조절.
-    [SerializeField] private Image playerIll;     // 바꿔치기
+    [SerializeField] private SkeletonGraphic playerSpine;
     [SerializeField] private CanvasGroup RightIll;
     [SerializeField] private Image otherIll;
 
@@ -67,8 +68,10 @@ public class NpcDialogPopup : MonoBehaviour
         SetCanvasGroup(basicTextBox, false);
         SetCanvasGroup(enemyTextBox, false);
 
+        LeftIll.alpha = 0f;
+        SetColor(true);
+
         // 투명처리
-        playerIll.color = new Color(1, 1, 1, 0);
         otherIll.color = new Color(1, 1, 1, 0);
     }
 
@@ -113,6 +116,12 @@ public class NpcDialogPopup : MonoBehaviour
     private void OnOpenNpcDialog(UIEvents.OpenNpcDialog evt)
     {
         preMode = pc.CurMode;
+
+        // 혹시모를 초기화
+        if (playerSpine != null)
+        {
+            SetColor(true);
+        }
 
         // 모드 변경
         pc.CurMode = GameMode.DialogMode;
@@ -164,7 +173,7 @@ public class NpcDialogPopup : MonoBehaviour
             isTyping = true;
             standbyInput = false;
             isSkip = false;
-            ShowIllust(npcDialogDict, curlogIdx);
+            //ShowIllust(npcDialogDict, curlogIdx);
 
             // Textbox에 따른 분기 (대화창 / 폰트)
             if (npcDialogDict[curlogIdx].textbox == Textbox.Basic || npcDialogDict[curlogIdx].textbox == Textbox.Monologue)
@@ -301,11 +310,15 @@ public class NpcDialogPopup : MonoBehaviour
         if(textarea != null)
             textarea.text = "";
 
+        // Spine 리셋
+        if (playerSpine != null)
+        {
+            SetColor(true);     // 스파인 색상초기화        
+        }
+
         // 일러스트 닫음 +  초기화
         LeftIll.alpha = 0f;
         RightIll.alpha = 0f;
-        playerIll.sprite = null;
-        playerIll.color = new Color(1, 1, 1, 0);
         otherIll.sprite = null;
         otherIll.color = new Color(1, 1, 1, 0);
 
@@ -423,7 +436,6 @@ public class NpcDialogPopup : MonoBehaviour
     // 스프라이트 Addressable로 비동기 로드
     public void LoadSprite(string address, Image targetImg)
     {
-
         // 현재 스프라이트와 같으면 교체하지 않음
         if (targetImg.sprite != null && targetImg.sprite.name == address)
         {
@@ -465,7 +477,7 @@ public class NpcDialogPopup : MonoBehaviour
             else
             {
                 RightIll.alpha = 0f;
-                playerIll.color = deactive;
+                SetColor(false);
             }
             return;   // 일러스트 없을 경우
         }
@@ -476,13 +488,16 @@ public class NpcDialogPopup : MonoBehaviour
                 if (curLeftIdx != npcDialogDict[curlogIdx].emotion)
                 {
                     curLeftIdx = npcDialogDict[curlogIdx].emotion; // cache
-                    var curAddress = (PlayerEmotion)npcDialogDict[curlogIdx].emotion;
+                    string animName = ((PlayerEmotion)npcDialogDict[curlogIdx].emotion).ToString();
 
-                    LoadSprite(npcDialogDict[curlogIdx].speaker.ToString() + "/" + curAddress.ToString()
-                                , playerIll);   // 폴더명(speaker) / 스프라이트이름(emotion)
+                    if (playerSpine != null)
+                    {
+                        SetColor(true);
+                        PlayAnim(animName);
+                    }
                 }
                 LeftIll.alpha = 1f;
-                playerIll.color = Color.white;
+                SetColor(true);
                 otherIll.color = deactive;
                 break;
 
@@ -498,7 +513,7 @@ public class NpcDialogPopup : MonoBehaviour
                 }
                 RightIll.alpha = 1f;
                 otherIll.color = Color.white;
-                playerIll.color = deactive;
+                SetColor(false);
                 break;
 
             case Speaker.Enemy:
@@ -513,7 +528,7 @@ public class NpcDialogPopup : MonoBehaviour
                 }
                 RightIll.alpha = 1f;
                 otherIll.color = Color.white;
-                playerIll.color = deactive;
+                SetColor(false);
                 break;
 
             case Speaker.Extra:
@@ -528,8 +543,26 @@ public class NpcDialogPopup : MonoBehaviour
                 }
                 RightIll.alpha = 1f;
                 otherIll.color = Color.white;
-                playerIll.color = deactive;
+                SetColor(false);
                 break;
+        }
+    }
+
+    // 스파인 애니메이션 재생 함수
+    private void PlayAnim(string name, bool loop = true)
+    {
+        if (playerSpine != null)
+        {
+            playerSpine.AnimationState.SetAnimation(0, name, loop);
+        }
+    }
+
+    // 스파인 활성/비활성 색 함수
+    private void SetColor(bool isActive)
+    {
+        if (playerSpine != null)
+        {
+            playerSpine.color = isActive ? Color.white : deactive;
         }
     }
 }

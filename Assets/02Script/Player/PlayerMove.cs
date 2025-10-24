@@ -380,7 +380,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         
         anim.SetBool("isRunning", false);       // 애니메이터
         pc.CurState = PlayerState.Walk;
-        Debug.Log("스태미나 고갈 !!! 달리기 제한");
+        //Debug.Log("스태미나 고갈 !!! 달리기 제한");
     }
 
     // 스태미너 충전 시 최소값 만족하면 다시 달릴 수 있음
@@ -390,14 +390,14 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         {
             canRunning = true;
             forceRunning = false;
-            Debug.Log("달리기 다시 가능!");
+            //Debug.Log("달리기 다시 가능!");
         }
         // 스태미나가 최소값 아래일때 달릴 수 없음 (달리기 시작이 불가능)
         else if (evt.curStamina < 33f && !IsPlayerRunning())
         {
             canRunning = false;
             forceRunning = true;
-            Debug.Log("스태미너 부족으로 달릴 수 없음!");
+            //Debug.Log("스태미너 부족으로 달릴 수 없음!");
         }
     }
 
@@ -406,7 +406,7 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     {
         canRunning = true;
         forceRunning = false;
-        Debug.Log("스태미너 완전 회복 - 달리기 가능!");
+        //Debug.Log("스태미너 완전 회복 - 달리기 가능!");
     }
 
 

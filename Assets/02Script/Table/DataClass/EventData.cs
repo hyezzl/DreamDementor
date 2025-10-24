@@ -49,12 +49,12 @@ public enum Emotion
 
 public enum PlayerEmotion
 { 
-    None            = -1,
-    Basic           = 0,
-    Sad             = 1,
-    Embrassed       = 2,
-    Blind           = 3,
-    Happy           = 4,
+    None                = -1,
+    Idle                = 0,
+    sad                 = 1,
+    flustered_Idle      = 2,
+    gooseflesh_Idle     = 3,
+    sad_Smaile          = 4,
 }
 
 public enum MomEmotion

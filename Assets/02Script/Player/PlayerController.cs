@@ -91,12 +91,11 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     private void OnDamaged(GameEvents.OnDamaged evt) {
-        //ChangeHp(Scene2Stage(evt.curScene), evt.damage);
+        Debug.Log($"***{evt.damage}");
         ChangeHp(Scene2Stage(CurScene), evt.damage);
     }
 
     private void OnHeal(GameEvents.OnHeal evt) {
-        //ChangeHp(Scene2Stage(evt.curScene), evt.heal);
         ChangeHp(Scene2Stage(CurScene), evt.heal);
     }
 

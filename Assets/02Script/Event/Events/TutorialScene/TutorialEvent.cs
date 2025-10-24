@@ -26,8 +26,9 @@ public class TutorialEvent : EventBase
     private bool isChoice = false;
 
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         pm = FindAnyObjectByType<PlayerMove>();
         if (pm == null) Debug.Log("TutorialEvent - Failed to Load PlayerMove");
 

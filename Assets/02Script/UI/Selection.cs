@@ -166,7 +166,8 @@ public class Selection : MonoBehaviour
         // 아직까지는 선택지에 "-" 로직밖에 없음
         if (curData != null && curData.scores != null) {
             int? curScore = curData.scores[idx];
-            if (curScore != null && curScore != 0) {
+            if (curScore != null && curScore != 0) 
+            {
                 // 정신력 피해
                 Debug.Log($"{curScore}만큼 피해입음!!");
                 EventBus.Instance.Publish<GameEvents.OnDamaged>(new GameEvents.OnDamaged(curData.scores[idx]));

@@ -32,9 +32,6 @@ public class EventBase : MonoBehaviour, IGameEvent
         database = db;
         Debug.Log($"*{this.GetType().Name} ÀÇ Init ¿Ï·á!");
 
-        //pc = FindAnyObjectByType<PlayerController>();
-        //if (pc == null) Debug.Log($"*{this.GetType().Name} - Failed to Load PlayerController");
-
         switch (eventtype)
         {
             case EventType.Conversation:

@@ -1,0 +1,165 @@
+illust_SR-Spine.png
+size:2009,2224
+filter:Linear,Linear
+Body a
+bounds:2,913,476,365
+offsets:0,76,476,444
+Body b
+bounds:2,195,544,902
+offsets:0,0,570,907
+rotate:90
+Eye L
+bounds:1357,2156,66,68
+offsets:0,0,67,69
+rotate:90
+Eye R
+bounds:1427,2155,67,68
+offsets:0,0,67,69
+rotate:90
+Hair c2
+bounds:906,2,906,555
+offsets:0,0,906,576
+Hair d1
+bounds:1634,2137,88,85
+offsets:0,9,88,95
+Hair d2
+bounds:1724,2137,85,100
+offsets:1,8,89,109
+rotate:90
+Hand L
+bounds:929,2022,177,150
+offsets:3,0,180,150
+Hand R
+bounds:1631,1937,198,161
+offsets:0,0,199,161
+Hood L b
+bounds:2,1701,241,276
+rotate:90
+Hood R a
+bounds:984,1808,201,438
+offsets:1,32,217,471
+rotate:90
+Hood R b
+bounds:801,1527,279,312
+rotate:90
+Jacket L
+bounds:1109,1073,323,472
+offsets:0,1,324,473
+rotate:90
+Jacket R
+bounds:280,1605,270,519
+offsets:1,0,271,519
+rotate:90
+Neck
+bounds:468,2050,140,178
+offsets:1,1,142,179
+rotate:90
+Neck Kara Back
+bounds:1497,2148,135,74
+offsets:0,33,135,107
+Pupil L
+bounds:577,2192,30,35
+offsets:1,1,32,37
+rotate:90
+Pupil R
+bounds:614,2192,30,35
+offsets:1,1,32,37
+rotate:90
+brachium L
+bounds:1108,2011,135,521
+rotate:90
+brachium R
+bounds:2,1944,140,436
+offsets:1,0,142,436
+rotate:90
+chest
+bounds:1583,1045,390,351
+offsets:0,3,462,357
+forearm L
+bounds:1424,1697,238,583
+offsets:0,4,240,587
+rotate:90
+forearm R
+bounds:708,1178,399,347
+offsets:0,0,400,354
+hair a
+bounds:480,741,435,624
+offsets:0,538,466,1215
+rotate:90
+hair a2
+bounds:1415,1398,514,297
+offsets:0,858,514,1155
+hair aa
+bounds:648,2041,135,279
+offsets:15,790,446,1215
+rotate:90
+hair ab
+bounds:440,1877,143,542
+rotate:90
+hair b
+bounds:1115,1465,341,298
+offsets:1,0,343,298
+rotate:90
+highlights L
+bounds:923,2178,61,44
+offsets:0,1,61,47
+highlights R
+bounds:860,2179,61,43
+offsets:0,1,61,47
+skirt
+bounds:1106,559,760,484
+sleeve R
+bounds:1826,2100,134,122
+offsets:0,0,135,122
+teardrop
+bounds:244,2086,222,109
+눈꺼풀 L
+bounds:409,2197,82,25
+offsets:1,0,83,26
+눈꺼풀 R
+bounds:493,2197,82,25
+offsets:1,0,83,26
+눈꺼풀 눈썹 L
+bounds:986,2174,121,48
+offsets:0,1,121,49
+눈꺼풀 눈썹 R
+bounds:1109,2174,120,48
+offsets:1,1,122,49
+눈꺼풀 아랫눈썹
+bounds:195,2199,212,23
+offsets:0,1,213,25
+눈썹 L
+bounds:2,2206,94,16
+offsets:0,1,95,17
+눈썹 R
+bounds:98,2206,95,16
+offsets:0,1,95,17
+두상
+bounds:333,1280,323,373
+rotate:90
+아랫입
+bounds:1231,2170,124,52
+offsets:1,0,125,63
+얼굴 그늘
+bounds:2,1281,322,329
+offsets:1,5,323,334
+rotate:90
+윗입
+bounds:651,2185,132,37
+offsets:3,0,138,39
+입속
+bounds:785,2181,73,41
+흰자
+bounds:2,2103,240,94
+offsets:1,0,242,94
+
+illust_SR-Spine_2.png
+size:1911,909
+filter:Linear,Linear
+Hair C
+bounds:2,2,905,1317
+offsets:0,3,905,1377
+rotate:90
+Leg
+bounds:1321,151,588,756
+offsets:2,0,624,757

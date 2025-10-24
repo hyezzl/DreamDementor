@@ -34,8 +34,9 @@ public class IntroEvent : EventBase
     [SerializeField] private float typingSpeed = 0.05f;
     Tweener typing;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (!TryGetComponent<BlinkAnnounce>(out blink)) Debug.Log("IntroEvent - Failed to Load BlinkAnnounce");
         fullIll = FindAnyObjectByType<FullIllustration>();
         if (fullIll == null) Debug.Log("IntroEvent - Failed to Load FullIllustation");

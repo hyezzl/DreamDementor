@@ -8,7 +8,14 @@ using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Sequence = DG.Tweening.Sequence;
+using Spine.Unity;
+using Spine;
 
+
+/// <summary>
+/// 스파인 적용 대화창 로직
+/// </summary>
+/// 
 public class DialogPopup : MonoBehaviour
 {
     [SerializeField] private float typingSpeed = 20f;
@@ -23,11 +30,11 @@ public class DialogPopup : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemyText;
     [SerializeField] private TextMeshProUGUI enemySpeaker;
 
-    [SerializeField] private CanvasGroup LeftIll; // alpha값 조절.
-    [SerializeField] private Image playerIll;     // 바꿔치기
+    [SerializeField] private CanvasGroup LeftIll;
+    [SerializeField] private SkeletonGraphic playerSpine;
     [SerializeField] private CanvasGroup RightIll;
     [SerializeField] private Image otherIll;
-    
+
 
     private PlayerController pc;
     Tweener typing;
@@ -52,9 +59,9 @@ public class DialogPopup : MonoBehaviour
 
     // 일러스트 변경 시 최적화
     private int curLeftIdx = -1;  // 주인공은 무조건 왼쪽
-    //private string curNpcID;
     private Speaker curRight = Speaker.Enemy;             // 오른쪽은 누구나 가능
     private int curRightIdx = -1;                         // 이모션 인덱스
+
     private Color deactive = new Color(0.4f, 0.4f, 0.4f, 1f);
 
 
@@ -72,8 +79,10 @@ public class DialogPopup : MonoBehaviour
         SetCanvasGroup(basicTextBox, false);
         SetCanvasGroup(enemyTextBox, false);
 
+        LeftIll.alpha = 0f;
+        SetColor(true);
+
         // 투명처리
-        playerIll.color = new Color(1, 1, 1, 0);
         otherIll.color = new Color(1, 1, 1, 0);
     }
 
@@ -92,9 +101,10 @@ public class DialogPopup : MonoBehaviour
     {
         if (inputTimer > 0f) // 0.4f 간격으로 입력가능
             inputTimer -= Time.deltaTime;
-        
 
-        if (inputHandler.DoSelect() && inputTimer <= 0f) {
+
+        if (inputHandler.DoSelect() && inputTimer <= 0f)
+        {
             if (isTyping && !isSkip) // 타이핑 중 스킵 한번만 허용 (꼬임방지)
             {
                 SkipDialog();
@@ -111,10 +121,16 @@ public class DialogPopup : MonoBehaviour
     /// <summary>
     // 외부에서 대화창 열어주는 함수
     /// </summary>
-    private void OnOpenDialog(UIEvents.OpenDialog evt) {
+    private void OnOpenDialog(UIEvents.OpenDialog evt)
+    {
         preMode = pc.CurMode;           // 현재 모드 캐싱
         afterMode = evt.afterMode;      // 설정 모드 캐싱
-        
+
+        // 혹시모를 초기화
+        if (playerSpine != null) {
+            SetColor(true);
+        }
+
         // 모드 변경
         pc.CurMode = GameMode.DialogMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
@@ -129,16 +145,19 @@ public class DialogPopup : MonoBehaviour
         StartCoroutine(TypeDialog(evt.texts));
     }
 
-    
 
-    private IEnumerator TypeDialog(Dictionary<int, DialogData> dialogDict) {
+
+    private IEnumerator TypeDialog(Dictionary<int, DialogData> dialogDict)
+    {
         seq = DOTween.Sequence();
 
         // 시작 logID의 최소값
         int curlogIdx = dialogDict.Keys.Min();
 
-        while (curlogIdx != -1) {
-            if (!dialogDict.TryGetValue(curlogIdx, out var curDialog)) {
+        while (curlogIdx != -1)
+        {
+            if (!dialogDict.TryGetValue(curlogIdx, out var curDialog))
+            {
                 Debug.Log($"{curlogIdx} : 존재하지 않는 대화 데이터");
                 yield break;
             }
@@ -146,7 +165,6 @@ public class DialogPopup : MonoBehaviour
             isTyping = true;
             standbyInput = false;
             isSkip = false;
-            ShowIllust(dialogDict, curlogIdx);
 
             // Textbox에 따른 분기 (대화창 / 폰트)
             if (dialogDict[curlogIdx].textbox == Textbox.Basic || dialogDict[curlogIdx].textbox == Textbox.Monologue)
@@ -173,7 +191,7 @@ public class DialogPopup : MonoBehaviour
             typing = textarea.DOText(curDialog.dialog, duration).SetEase(Ease.Linear);
 
             yield return typing.WaitForCompletion(); // 타이핑 완료까지 대기
-            
+
             isTyping = false;
             standbyInput = true;
 
@@ -184,7 +202,7 @@ public class DialogPopup : MonoBehaviour
             }
 
             // 선택지가 있으면 이벤트가 발생!
-            if (!string.IsNullOrEmpty(curDialog.choiceID)) 
+            if (!string.IsNullOrEmpty(curDialog.choiceID))
             {
                 EventBus.Instance.Publish<UIEvents.OccurSelection>
                     (new UIEvents.OccurSelection(dialogDict[curlogIdx].choices.texts.Count, dialogDict[curlogIdx].choices, false));
@@ -193,7 +211,7 @@ public class DialogPopup : MonoBehaviour
 
             // 입력 대기
             yield return new WaitUntil(() => inputHandler.DoSelect());
-            
+
             // Index++;
             curlogIdx = curDialog.nextID;
         }
@@ -208,7 +226,8 @@ public class DialogPopup : MonoBehaviour
             Debug.Log($"ClosePanel에서 상태변경 : {afterMode}로!");
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(afterMode));
         }
-        else {
+        else
+        {
             // 대화 진입 시 따로 게임모드를 정해주지 않은 경우
             pc.CurMode = preMode;
             Debug.Log($"ClosePanel에서 상태변경 : {preMode}로!");
@@ -231,7 +250,8 @@ public class DialogPopup : MonoBehaviour
 
 
     // 패널 닫기
-    public IEnumerator ClosePanel() {
+    public IEnumerator ClosePanel()
+    {
         yield return null;
         DialogFade(curTextbox, false);
 
@@ -242,11 +262,15 @@ public class DialogPopup : MonoBehaviour
         if (seq != null && seq.IsActive()) seq.Kill();
         textarea.text = "";
 
+        // Spine 리셋
+        if (playerSpine != null) {
+            SetColor(true);     // 스파인 색상초기화        
+            //playerSpine.gameObject.SetActive(false);
+        }
+
         // 일러스트 닫음 +  초기화
         LeftIll.alpha = 0f;
         RightIll.alpha = 0f;
-        playerIll.sprite = null;
-        playerIll.color = new Color(1, 1, 1, 0);
         otherIll.sprite = null;
         otherIll.color = new Color(1, 1, 1, 0);
         curLeftIdx = -1;
@@ -265,7 +289,8 @@ public class DialogPopup : MonoBehaviour
     private void CloseDialogPanel(UIEvents.CloseDialog evt)
     {
         // NPC가 아닌 이벤트 대화일때만
-        if (!evt.isNpc) {
+        if (!evt.isNpc)
+        {
             Debug.Log("이벤트창 닫습니다");
             StartCoroutine(ClosePanel());
         }
@@ -273,10 +298,12 @@ public class DialogPopup : MonoBehaviour
 
 
 
-    public void SetDialog(int popupIdx, string speakerName, Textbox boxType) {
+    public void SetDialog(int popupIdx, string speakerName, Textbox boxType)
+    {
         // 이전에 띄웠던 타입과 같으면 패널 그대로 둠
         // case 0 (basic)  / case 1 (monster)
-        if (curPanelIndex != -1 && curPanelIndex == popupIdx) {
+        if (curPanelIndex != -1 && curPanelIndex == popupIdx)
+        {
             switch (popupIdx)
             {
                 case 0:  // basic
@@ -287,7 +314,8 @@ public class DialogPopup : MonoBehaviour
                         basicText.enabled = true;
                         monologueText.enabled = false;
                     }
-                    else { 
+                    else
+                    {
                         textarea = monologueText;
                         basicText.enabled = false;
                         monologueText.enabled = true;
@@ -310,7 +338,8 @@ public class DialogPopup : MonoBehaviour
         CanvasGroup target = null;
 
         // 특정 팝업만 활성화
-        switch (popupIdx) {
+        switch (popupIdx)
+        {
             case 0:
                 basicSpeaker.text = speakerName;
                 if (boxType == Textbox.Basic)
@@ -333,7 +362,8 @@ public class DialogPopup : MonoBehaviour
                 textarea = enemyText;
                 break;
         }
-        if (target != null) {
+        if (target != null)
+        {
             DialogFade(target, true);
         }
         // 텍스트 초기화
@@ -342,7 +372,8 @@ public class DialogPopup : MonoBehaviour
     }
 
     // CanvasGroup 상태 제어 함수 (즉발)
-    private void SetCanvasGroup(CanvasGroup group, bool isActive) {
+    private void SetCanvasGroup(CanvasGroup group, bool isActive)
+    {
         group.alpha = isActive ? 1 : 0;
         group.interactable = isActive;
         group.blocksRaycasts = isActive;
@@ -360,15 +391,16 @@ public class DialogPopup : MonoBehaviour
     }
 
     // 스프라이트 Addressable로 비동기 로드
-    public void LoadSprite(string address, Image targetImg) {
-
+    public void LoadSprite(string address, Image targetImg)
+    {
         // 현재 스프라이트와 같으면 교체하지 않음
-        if (targetImg.sprite != null && targetImg.sprite.name == address) {
-            return; 
+        if (targetImg.sprite != null && targetImg.sprite.name == address)
+        {
+            return;
         }
-        
+
         targetImg.color = new Color(1, 1, 1, 0); // 투명
-        
+
         /// 첫 일러스트 나올 때 버벅임 삭제
         targetImg.DOKill();  // 현재 진행 중인 페이드 애니메이션 중지
         targetImg.DOFade(0f, 0f);  // 즉시 투명 처리
@@ -389,6 +421,7 @@ public class DialogPopup : MonoBehaviour
         };
     }
 
+
     public void ShowIllust(Dictionary<int, DialogData> dialogDict, int curlogIdx)
     {
         // 일러스트
@@ -402,7 +435,7 @@ public class DialogPopup : MonoBehaviour
             else
             {
                 RightIll.alpha = 0f;
-                playerIll.color = deactive;
+                SetColor(false);
             }
             return;   // 일러스트 없을 경우
         }
@@ -413,13 +446,15 @@ public class DialogPopup : MonoBehaviour
                 if (curLeftIdx != dialogDict[curlogIdx].emotion)
                 {
                     curLeftIdx = dialogDict[curlogIdx].emotion; // cache
-                    var curAddress = (PlayerEmotion)dialogDict[curlogIdx].emotion;
+                    string animName = ((PlayerEmotion)dialogDict[curlogIdx].emotion).ToString();
 
-                    LoadSprite(dialogDict[curlogIdx].speaker.ToString() + "/" + curAddress.ToString()
-                                , playerIll);   // 폴더명(speaker) / 스프라이트이름(emotion)
+                    if (playerSpine != null) {
+                        SetColor(true);
+                        PlayAnim(animName);
+                    }
                 }
                 LeftIll.alpha = 1f;
-                playerIll.color = Color.white;
+                SetColor(true);
                 otherIll.color = deactive;
                 break;
 
@@ -435,7 +470,7 @@ public class DialogPopup : MonoBehaviour
                 }
                 RightIll.alpha = 1f;
                 otherIll.color = Color.white;
-                playerIll.color = deactive;
+                SetColor(false);
                 break;
 
             case Speaker.Enemy:
@@ -450,7 +485,7 @@ public class DialogPopup : MonoBehaviour
                 }
                 RightIll.alpha = 1f;
                 otherIll.color = Color.white;
-                playerIll.color = deactive;
+                SetColor(false);
                 break;
 
             case Speaker.Extra:
@@ -465,15 +500,32 @@ public class DialogPopup : MonoBehaviour
                 }
                 RightIll.alpha = 1f;
                 otherIll.color = Color.white;
-                playerIll.color = deactive;
+                SetColor(false);
                 break;
         }
     }
 
-    public void LogInit() {
+    public void LogInit()
+    {
         basicText.text = "";
         monologueText.text = "";
         enemyText.text = "";
+    }
+
+    // 스파인 애니메이션 재생 함수
+    private void PlayAnim(string name, bool loop = true)
+    {
+        if (playerSpine != null)
+        {
+            playerSpine.AnimationState.SetAnimation(0, name, loop);
+        }
+    }
+
+    // 스파인 활성/비활성 색 함수
+    private void SetColor(bool isActive) {
+        if (playerSpine != null) { 
+            playerSpine.color = isActive ? Color.white : deactive;
+        }
     }
 
 }

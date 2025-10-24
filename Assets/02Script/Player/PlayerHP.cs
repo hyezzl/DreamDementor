@@ -21,6 +21,7 @@ public class PlayerHP : MonoBehaviour
 
     private void OnHpChange(GameEvents.OnHpChange evt) {
         int curHP = Mathf.Clamp(evt.newHp, 0, 100);
+        Debug.Log($"ÇöÀç HP : {curHP}");
         ChangeMoon(curHP);
     }
 
