@@ -58,3 +58,13 @@ public class InspectableEntity
 //    public string Narrative;
 //    public string Reply;
 //}
+
+[Serializable]
+public class NoteEntity
+{
+    public int ItemID;
+    public string ItemName;
+    public string Type;
+    public string Text;
+    public string Reply;
+}

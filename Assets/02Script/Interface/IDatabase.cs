@@ -12,6 +12,8 @@ public interface IDatabase
 
     //ReadableData GetReadable(int itemID);
 
+    NoteData GetNote(int itemID);
+
     EventData GetEventData(string eventID);
 
     List<NarrationData> GetNarration(string eventID);

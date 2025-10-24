@@ -44,12 +44,21 @@ public class InspectableData
     public string monologue;
 }
 
-public class ReadableData
+//public class ReadableData
+//{
+//    public int itemID;
+//    public string itemName;
+//    public ItemType type;
+//    public string monologue;
+//    public string narrative;
+//    public string reply;
+//}
+
+public class NoteData
 {
     public int itemID;
     public string itemName;
     public ItemType type;
-    public string monologue;
-    public string narrative;
+    public string text;
     public string reply;
 }

@@ -1,12 +1,13 @@
 
-public enum ItemType
-{ 
-    Pickable,
-    Eatable,
-    Interactable,
-    Inspectable,
-    //Readable,
-}
+//public enum ItemType
+//{ 
+//    Pickable,
+//    Eatable,
+//    Interactable,
+//    Inspectable,
+//    //Readable,
+//    Note,
+//}
 
 
 public class ItemManager : Singleton<ItemManager>

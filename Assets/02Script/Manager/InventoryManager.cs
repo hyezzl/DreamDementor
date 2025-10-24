@@ -57,6 +57,7 @@ public class InventoryManager : Singleton<InventoryManager>
                     return;
                 }
                 inventory.Add(new ItemInstance(itemID, dataP.pairID));
+                Debug.Log($"{itemID}가 정상적으로 추가됨!");
                 EventBus.Instance.Publish<UIEvents.InventoryChanged>(new UIEvents.InventoryChanged());
                 
                 break;
@@ -68,6 +69,7 @@ public class InventoryManager : Singleton<InventoryManager>
                     Debug.Log($"{itemID} : unknown EatableItem ERROR");
                     return;
                 }
+                Debug.Log($"{itemID}가 정상적으로 추가됨!");
                 inventory.Add(new ItemInstance(itemID, ""));
                 EventBus.Instance.Publish<UIEvents.InventoryChanged>(new UIEvents.InventoryChanged());
 

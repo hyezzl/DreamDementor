@@ -19,7 +19,6 @@ public class PickableItem : MonoBehaviour, IActionItem
 
     public void Interact()
     {
-        Debug.Log($"Pickable - {data.itemName} : {data.description}");
         // 1. æ∆¿Ã≈€ Ω¿µÊ
         Pickup();
 

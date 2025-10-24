@@ -5,6 +5,16 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UIElements;
 
+public enum ItemType
+{
+    Pickable,
+    Eatable,
+    Interactable,
+    Inspectable,
+    //Readable,
+    Note,
+}
+
 public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
 {
     [Header("Data SO 연결")]
@@ -19,6 +29,7 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
     private Dictionary<int, InteractableData> interactableDict = new();
     private Dictionary<int, InspectableData> inspectableDict = new();
     //private Dictionary<int, ReadableData> readableDict = new();
+    private Dictionary<int, NoteData> noteDict = new();
 
     // 이벤트 정보 (하나의 이벤트에 속해있는 Text의 집합은 List형태로 정의)
     private Dictionary<string, EventData> eventDict = new();
@@ -146,6 +157,21 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
         //    };
         //    readableDict[item.ItemID] = data;
         //}
+
+        // 4. Note
+        foreach (var item in SOobject.Note)
+        {
+            NoteData data = new NoteData
+            {
+                itemID = item.ItemID,
+                itemName = item.ItemName,
+                type = ItemType.Note,
+                text = item.Text,
+                reply = item.Reply,
+            };
+            noteDict[item.ItemID] = data;
+        }
+
 
         // 5. Event
         foreach (var evt in SOevent.Event) {
@@ -363,6 +389,15 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
     //    }
     //    return null;
     //}
+
+
+    public NoteData GetNote(int itemID) {
+        if (noteDict.TryGetValue(itemID, out var data)) {
+            return data;
+        }
+        return null;
+    }
+
 
     public EventData GetEventData(string eventID) {
         if (eventDict.TryGetValue(eventID, out var data)) {

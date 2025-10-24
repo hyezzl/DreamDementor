@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 34e02996d9f34184eb046c783cb53052
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 2434d8595f6c701469ebd1212e127bd4
+    m_Address: Assets/03Sprite/04 Icons/Pickable/Icon_E1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 22a5f4df5f4f653419d2b67e33bb1da6, type: 2}
   m_SchemaSet:

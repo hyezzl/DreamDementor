@@ -340,5 +340,17 @@ public static class GameEvents
 
 
     //////////////////////////////////////////
+    ///
+
+    // 룰쪽지 얻었을 때
+    public struct GetNote
+    {
+        public int itemID;
+        public string text;
+        public GetNote(int itemID, string text) { 
+            this.itemID = itemID;
+            this.text = text;
+        }
+    }
 
 }
