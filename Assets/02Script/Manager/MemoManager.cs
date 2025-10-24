@@ -13,6 +13,7 @@ public class MemoManager : MonoBehaviour
     [Header("Memo UI")]
     [SerializeField] private Image[] pieces;
     [SerializeField] private TextMeshProUGUI[] texts;
+    [SerializeField] private Button memoBTN;
 
     public static Dictionary<int, string> noteCollection = new();
 
@@ -29,12 +30,14 @@ public class MemoManager : MonoBehaviour
         foreach (var text in texts) { 
             text.enabled = false;
         }
+        UpdateMemoButton(); // 버튼 초기상태
     }
 
     private void OnEnable()
     {
         UpdateMemoText(noteCollection.Count);
         UpdateMemoImg(noteCollection.Count);
+        UpdateMemoButton();
 
         EventBus.Instance.Subscribe<GameEvents.GetNote>(OnGetNote);
     }
@@ -60,6 +63,7 @@ public class MemoManager : MonoBehaviour
 
         UpdateMemoText(noteCollection.Count);
         UpdateMemoImg(noteCollection.Count);
+        UpdateMemoButton();
     }
 
     private void UpdateMemoImg(int cnt) {
@@ -80,6 +84,15 @@ public class MemoManager : MonoBehaviour
             {
                 texts[i].enabled = true;
             }
+        }
+    }
+
+    private void UpdateMemoButton()
+    {
+        if (memoBTN != null)
+        {
+            // 메모가 하나도 없으면 버튼 비활성화
+            memoBTN.interactable = noteCollection.Count > 0;
         }
     }
 }
