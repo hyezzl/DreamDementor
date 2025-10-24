@@ -123,4 +123,5 @@ public class ChoiceData
     public List<string> texts;
     public List<int> scores;
     public List<string> continueIDs;
+    public string rootID;
 }

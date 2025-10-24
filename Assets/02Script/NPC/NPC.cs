@@ -82,9 +82,7 @@ public class NPC : MonoBehaviour, IActionNpc
 
     public virtual void OnNpcChoice(UIEvents.MakeChoice evt) {
         // npc선택지일때만
-        if (evt.isNpc) {
-            Debug.Log("여기가 여러번 반복되는건가?");
-            // npc아이디가지고 분기해야 모든 분수가 여기 들어오지않을듯
+        if (evt.isNpc && evt.data.rootID == npcID) {
             // ChoiceData에서 continue꺼냄
             string continueID = null;
             if (evt.data != null && evt.data.continueIDs.Count > evt.selectIdx)

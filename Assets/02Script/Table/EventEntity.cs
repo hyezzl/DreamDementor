@@ -44,4 +44,5 @@ public class ChoiceEntity
     public string Continue0;
     public string Continue1;
     public string Continue2;
+    public string RootID;
 }

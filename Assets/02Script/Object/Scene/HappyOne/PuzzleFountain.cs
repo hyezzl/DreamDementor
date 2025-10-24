@@ -7,46 +7,45 @@ using UnityEngine;
 /// </summary>
 public class PuzzleFountain : MonoBehaviour
 {
-    // 특정 대화가 마무리될때 (맞는 선택지를 골랐을때) AddItem + Key쌓임
+    public string npcID;
 
     private void OnEnable()
     {
-        EventBus.Instance.Subscribe<UIEvents.MakeChoice>(OnChoice);
+        EventBus.Instance.Subscribe<PuzzleEvents.PassedQuiz>(OnQuizPass);
     }
     private void OnDisable()
     {
-        EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(OnChoice);
+        EventBus.Instance.Unsubscribe<PuzzleEvents.PassedQuiz>(OnQuizPass);
     }
 
-    private void OnChoice(UIEvents.MakeChoice evt) {
-        if (evt.choiceID == "C005" && evt.isNpc == true)
+    private void OnQuizPass(PuzzleEvents.PassedQuiz evt)
+    {
+        if (evt.npcID == npcID)
         {
-            if (evt.selectIdx == 0) {
-                Debug.Log("정답이쟈나");
+            Debug.Log("정답이므로 강제 아이템습득!");
 
+            if (evt.npcID == "N006")
+            {
                 // 아이템 습득
                 EventBus.Instance.Publish<GameEvents.PutItem>(new GameEvents.PutItem(ItemType.Pickable, 10001002));
-            }
-        }
 
-        else if (evt.choiceID == "C006" && evt.isNpc == true)
-        {
-            if (evt.selectIdx == 1)
+                // 열쇠 습득 이벤트
+                EventBus.Instance.Publish<PuzzleEvents.HO_GetKey>(new PuzzleEvents.HO_GetKey());
+            }
+            else if (evt.npcID == "N007")
             {
-                Debug.Log("정답이쟈나");
                 // 아이템 습득
                 EventBus.Instance.Publish<GameEvents.PutItem>(new GameEvents.PutItem(ItemType.Pickable, 10001003));
-
+                
+                // 열쇠 습득 이벤트
+                EventBus.Instance.Publish<PuzzleEvents.HO_GetKey>(new PuzzleEvents.HO_GetKey());
             }
-
-        }
-
-        else if (evt.choiceID == "C007" && evt.isNpc == true) {
-            if (evt.selectIdx == 0)
-            {
-                Debug.Log("정답이쟈나");
+            else if (evt.npcID == "N008") {
                 // 아이템 습득
                 EventBus.Instance.Publish<GameEvents.PutItem>(new GameEvents.PutItem(ItemType.Pickable, 10001004));
+
+                // 열쇠 습득 이벤트
+                EventBus.Instance.Publish<PuzzleEvents.HO_GetKey>(new PuzzleEvents.HO_GetKey());
             }
         }
     }

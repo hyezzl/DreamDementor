@@ -9,6 +9,7 @@ public class HappyOnePuzzles : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log($"현재까지 모은 열쇠 갯수 : {HOcurKeyCnt}");
         EventBus.Instance.Subscribe<PuzzleEvents.HO_GetKey>(OnGetKey);
     }
     private void OnDisable()
@@ -20,6 +21,7 @@ public class HappyOnePuzzles : MonoBehaviour
 
     private void OnGetKey(PuzzleEvents.HO_GetKey evt) {
         HOcurKeyCnt++;
+        Debug.Log($"현재까지 모은 열쇠 갯수 : {HOcurKeyCnt}");
 
         ManageKeyCnt(HOcurKeyCnt);
     }

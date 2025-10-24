@@ -13,7 +13,7 @@ public class NeutralNPC : NPC
 
     public override void OnNpcChoice(UIEvents.MakeChoice evt)
     {
-        if (evt.isNpc)
+        if (evt.isNpc && evt.data.rootID == npcID)
         {
             // ChoiceData에서 score꺼내어 값이 0이면 정답처리
             int score;

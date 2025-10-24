@@ -229,6 +229,7 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                     evt.Continue1,
                     evt.Continue2,
                 },
+                rootID = evt.RootID,
             };
             choiceDict[evt.ChoiceID] = data;
         }

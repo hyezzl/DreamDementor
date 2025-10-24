@@ -15,7 +15,7 @@ public class QuizNPC : NPC
             // 퀴즈 통과 전 : 대화
             isInDialog = true;
             EventBus.Instance.Publish<UIEvents.OpenNpcDialog>(new UIEvents.OpenNpcDialog(npcID, initialDialog));
-            //isContacted = true;
+            isContacted = true;
         }
         else
         {
@@ -27,7 +27,7 @@ public class QuizNPC : NPC
 
     public override void OnNpcChoice(UIEvents.MakeChoice evt)
     {
-        if (evt.isNpc)
+        if (evt.isNpc && evt.data.rootID == npcID)
         {
             // ChoiceData에서 score꺼내어 값이 0이면 정답처리
             int score;
@@ -37,6 +37,9 @@ public class QuizNPC : NPC
                 if (score == 0) {
                     // 값이 0이면
                     isPass = true;
+
+                    // 퀴즈 합격
+                    EventBus.Instance.Publish<PuzzleEvents.PassedQuiz>(new PuzzleEvents.PassedQuiz(npcID));
                 }
             }
         }

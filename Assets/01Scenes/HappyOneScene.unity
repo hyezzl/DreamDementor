@@ -444,6 +444,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4914184709018069293, guid: 60c265a7685a6da48aa379cb83208984, type: 3}
       insertIndex: -1
       addedObject: {fileID: 177161381}
+    - targetCorrespondingSourceObject: {fileID: 4914184709018069293, guid: 60c265a7685a6da48aa379cb83208984, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 177161382}
   m_SourcePrefab: {fileID: 100100000, guid: 60c265a7685a6da48aa379cb83208984, type: 3}
 --- !u!1 &96403794 stripped
 GameObject:
@@ -493,6 +496,19 @@ MonoBehaviour:
   npcID: N008
   isContacted: 0
   isPass: 0
+--- !u!114 &177161382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96403794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692fb9c5948fb2146b0e83c6197ba76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcID: N008
 --- !u!1 &566554678
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,6 +2197,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4914184709018069293, guid: 60c265a7685a6da48aa379cb83208984, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1880364498}
+    - targetCorrespondingSourceObject: {fileID: 4914184709018069293, guid: 60c265a7685a6da48aa379cb83208984, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1880364499}
   m_SourcePrefab: {fileID: 100100000, guid: 60c265a7685a6da48aa379cb83208984, type: 3}
 --- !u!1 &1880364495 stripped
 GameObject:
@@ -2225,6 +2244,19 @@ MonoBehaviour:
   npcID: N007
   isContacted: 0
   isPass: 0
+--- !u!114 &1880364499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880364495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692fb9c5948fb2146b0e83c6197ba76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcID: N007
 --- !u!1 &1912062223
 GameObject:
   m_ObjectHideFlags: 0
@@ -129970,6 +130002,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4914184709018069293, guid: 60c265a7685a6da48aa379cb83208984, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1743494072566689570}
+    - targetCorrespondingSourceObject: {fileID: 4914184709018069293, guid: 60c265a7685a6da48aa379cb83208984, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1743494072566689571}
   m_SourcePrefab: {fileID: 100100000, guid: 60c265a7685a6da48aa379cb83208984, type: 3}
 --- !u!1 &1743494072566689567 stripped
 GameObject:
@@ -130014,6 +130049,19 @@ MonoBehaviour:
   npcID: N006
   isContacted: 0
   isPass: 0
+--- !u!114 &1743494072566689571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743494072566689567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692fb9c5948fb2146b0e83c6197ba76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcID: N006
 --- !u!23 &1743946284008035450
 MeshRenderer:
   m_ObjectHideFlags: 0
