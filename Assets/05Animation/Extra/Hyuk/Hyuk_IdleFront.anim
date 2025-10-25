@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Somi_IdleFront
+  m_Name: Hyuk_IdleFront
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 2100000, guid: dabbb36531dc5f0449453a8b1bf75c6b, type: 2}
+      value: {fileID: 2100000, guid: 22757b2bd0b3486469b9b1be68637ef1, type: 2}
     - time: 0.33333334
-      value: {fileID: 2100000, guid: c4a177a7c73d9f94d8ca80342503da1f, type: 2}
+      value: {fileID: 2100000, guid: d5e231e692f4be4409eadfb2f76af5e6, type: 2}
     - time: 0.6666667
-      value: {fileID: 2100000, guid: 536fabfeb7884c34d92976ce796681c5, type: 2}
+      value: {fileID: 2100000, guid: a9f10a4e9b34bd847b909053cffd334b, type: 2}
     - time: 1
-      value: {fileID: 2100000, guid: c4a177a7c73d9f94d8ca80342503da1f, type: 2}
+      value: {fileID: 2100000, guid: e8ac3e8f766c04d4a88a1be455bb8c3b, type: 2}
     attribute: m_Materials.Array.data[0]
     path: 
     classID: 23
@@ -50,10 +50,10 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 2100000, guid: dabbb36531dc5f0449453a8b1bf75c6b, type: 2}
-    - {fileID: 2100000, guid: c4a177a7c73d9f94d8ca80342503da1f, type: 2}
-    - {fileID: 2100000, guid: 536fabfeb7884c34d92976ce796681c5, type: 2}
-    - {fileID: 2100000, guid: c4a177a7c73d9f94d8ca80342503da1f, type: 2}
+    - {fileID: 2100000, guid: 22757b2bd0b3486469b9b1be68637ef1, type: 2}
+    - {fileID: 2100000, guid: d5e231e692f4be4409eadfb2f76af5e6, type: 2}
+    - {fileID: 2100000, guid: a9f10a4e9b34bd847b909053cffd334b, type: 2}
+    - {fileID: 2100000, guid: e8ac3e8f766c04d4a88a1be455bb8c3b, type: 2}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

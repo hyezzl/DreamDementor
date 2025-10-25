@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Somi_IdleFront
+  m_Name: Sena_IdleFront
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 2100000, guid: dabbb36531dc5f0449453a8b1bf75c6b, type: 2}
+      value: {fileID: 2100000, guid: d0db89b5dd2a6b14fae8bbd5aa4e36cf, type: 2}
     - time: 0.33333334
-      value: {fileID: 2100000, guid: c4a177a7c73d9f94d8ca80342503da1f, type: 2}
+      value: {fileID: 2100000, guid: b24c11f078d73b04eaaa047239102316, type: 2}
     - time: 0.6666667
-      value: {fileID: 2100000, guid: 536fabfeb7884c34d92976ce796681c5, type: 2}
+      value: {fileID: 2100000, guid: b522a0aab2d4b3546b07d3eca342a064, type: 2}
     - time: 1
-      value: {fileID: 2100000, guid: c4a177a7c73d9f94d8ca80342503da1f, type: 2}
+      value: {fileID: 2100000, guid: b24c11f078d73b04eaaa047239102316, type: 2}
     attribute: m_Materials.Array.data[0]
     path: 
     classID: 23
@@ -50,10 +50,10 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 2100000, guid: dabbb36531dc5f0449453a8b1bf75c6b, type: 2}
-    - {fileID: 2100000, guid: c4a177a7c73d9f94d8ca80342503da1f, type: 2}
-    - {fileID: 2100000, guid: 536fabfeb7884c34d92976ce796681c5, type: 2}
-    - {fileID: 2100000, guid: c4a177a7c73d9f94d8ca80342503da1f, type: 2}
+    - {fileID: 2100000, guid: d0db89b5dd2a6b14fae8bbd5aa4e36cf, type: 2}
+    - {fileID: 2100000, guid: b24c11f078d73b04eaaa047239102316, type: 2}
+    - {fileID: 2100000, guid: b522a0aab2d4b3546b07d3eca342a064, type: 2}
+    - {fileID: 2100000, guid: b24c11f078d73b04eaaa047239102316, type: 2}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

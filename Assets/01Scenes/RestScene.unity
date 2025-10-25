@@ -560,7 +560,6 @@ GameObject:
   - component: {fileID: 762334768}
   - component: {fileID: 762334772}
   - component: {fileID: 762334771}
-  - component: {fileID: 762334770}
   - component: {fileID: 762334769}
   m_Layer: 13
   m_Name: TransparencyWall1
@@ -605,28 +604,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10.000001, y: 0.01567077, z: 10.000001}
   m_Center: {x: 0, y: -0.0041285045, z: -4.5928906e-17}
---- !u!64 &762334770
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762334767}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &762334771
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2732,6 +2709,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   slot: {fileID: 6231613484070248407, guid: a37855780c0533e4e9936f3bae089dac, type: 3}
   nothing: {fileID: 21300000, guid: c517042eebbcdd54d83a39c171f49f62, type: 3}
+  nameBox: {fileID: 0}
 --- !u!1001 &2145129945
 PrefabInstance:
   m_ObjectHideFlags: 0

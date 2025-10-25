@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.ShaderData;
 
 /// <summary>
 /// 선택지 따라 적대적 / 친화적 나뉘는 NPC
