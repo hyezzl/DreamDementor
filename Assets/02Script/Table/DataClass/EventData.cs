@@ -16,6 +16,9 @@ public enum SceneType
     HorrorScene,
     HorrorOneScene,
     EndingScene,
+
+    ClassroomScene,
+    HomeScene,
 }
 
 public enum Speaker

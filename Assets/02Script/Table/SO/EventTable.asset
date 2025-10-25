@@ -1103,7 +1103,7 @@ MonoBehaviour:
     EventDetailID: E022
     LogID: 22005
     Dialog: "\uC5C4\uB9C8, \uC544\uBE60 \uBCF4\uACE0 \uC2F6\uB2E4.."
-    NextID: 22006
+    NextID: -1
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
@@ -1113,7 +1113,7 @@ MonoBehaviour:
     EventDetailID: E023
     LogID: 23001
     Dialog: "\uADF8\uB7EC\uACE0 \uBCF4\uB2C8..."
-    NextID: 22007
+    NextID: 23002
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
@@ -1124,7 +1124,7 @@ MonoBehaviour:
     LogID: 23002
     Dialog: "\uC544\uAE4C \uD559\uAD50\uC5D0\uC11C \uC7A0\uB4E4\uC5C8\uC744 \uB54C
       \uBB54\uAC00 \uAFC8\uC744 \uAFBC \uAC70 \uAC19\uC740\uB370.."
-    NextID: 22008
+    NextID: 23003
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
@@ -1135,7 +1135,7 @@ MonoBehaviour:
     LogID: 23003
     Dialog: "\uBB34\uC2A8 \uAFC8\uC774\uC5C8\uB354\uB77C... \uAE30\uC5B5\uC774 \uC798
       \uC548 \uB098\uB124."
-    NextID: 22009
+    NextID: 23004
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
@@ -1240,7 +1240,7 @@ MonoBehaviour:
     SpeakerName: ???
     ChoiceID: 
     Textbox: Monologue
-    Emotion: 0
+    Emotion: -1
   - EventID: E025
     EventDetailID: E025
     LogID: 25002
@@ -1260,7 +1260,7 @@ MonoBehaviour:
     SpeakerName: ???
     ChoiceID: 
     Textbox: Monologue
-    Emotion: 0
+    Emotion: -1
   - EventID: E025
     EventDetailID: E025
     LogID: 25004
@@ -1342,7 +1342,7 @@ MonoBehaviour:
     SpeakerName: "\uC18C\uBBF8"
     ChoiceID: 
     Textbox: Monologue
-    Emotion: 0
+    Emotion: -1
   - EventID: E028
     EventDetailID: E028
     LogID: 28002
@@ -1352,7 +1352,7 @@ MonoBehaviour:
     SpeakerName: "\uC138\uB098"
     ChoiceID: 
     Textbox: Monologue
-    Emotion: 0
+    Emotion: -1
   - EventID: E028
     EventDetailID: E028
     LogID: 28003
@@ -1433,7 +1433,7 @@ MonoBehaviour:
     SpeakerName: ???
     ChoiceID: 
     Textbox: Monologue
-    Emotion: 0
+    Emotion: -1
   - EventID: E032
     EventDetailID: E032
     LogID: 32002
@@ -1444,7 +1444,7 @@ MonoBehaviour:
     SpeakerName: ???
     ChoiceID: 
     Textbox: Monologue
-    Emotion: 0
+    Emotion: -1
   - EventID: E032
     EventDetailID: E032
     LogID: 32003
@@ -1455,7 +1455,7 @@ MonoBehaviour:
     SpeakerName: ???
     ChoiceID: 
     Textbox: Monologue
-    Emotion: 0
+    Emotion: -1
   - EventID: E032
     EventDetailID: E032
     LogID: 32004
@@ -1515,7 +1515,7 @@ MonoBehaviour:
     SpeakerName: "\uD601\uC774"
     ChoiceID: 
     Textbox: Monologue
-    Emotion: 0
+    Emotion: -1
   - EventID: E034
     EventDetailID: E034
     LogID: 34002
@@ -1525,7 +1525,7 @@ MonoBehaviour:
     SpeakerName: "\uD601\uC774"
     ChoiceID: 
     Textbox: Monologue
-    Emotion: 0
+    Emotion: -1
   - EventID: E034
     EventDetailID: E034
     LogID: 34003

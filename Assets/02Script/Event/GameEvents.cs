@@ -92,6 +92,17 @@ public static class GameEvents
         }
     }
 
+
+    // ¾À ½ÃÀÛ
+    public struct SceneStart
+    {
+        public SceneType curScene;
+        public SceneStart(SceneType curScene) { 
+            this.curScene = curScene;
+        }
+    }
+
+
     // (°­Á¦) ¾ÀÀÌµ¿ ÀÌº¥Æ®
     public struct SwitchScene
     {
@@ -101,7 +112,7 @@ public static class GameEvents
         }
     }
 
-    // (Æ÷Å») ¾ÀÀÌµ¿
+    // (Æ÷Å») ¾ÀÀÌµ¿ 
     public struct PortalSwitchScene
     { 
         public SceneType nextScene;
@@ -113,6 +124,17 @@ public static class GameEvents
             this.targetDir = targetDir;
         }
     }
+
+
+    // Æ÷Å» »ç¿ë (°°Àº ¾À ³»)
+    public struct UsePortal
+    {
+        public string portalID;
+        public UsePortal(string portalID) { 
+            this.portalID = portalID;
+        }
+    }
+
 
     // ÀÎÄª º¯°æ
     public struct AspectChange

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// 씬 전환 관리
@@ -70,9 +71,19 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         SceneManager.LoadScene(evt.nextScene.ToString());
     }
 
-    // 씬 로드 시 플레이어 위치 지정
+    // 씬 로드 시
+    // + 플레이어 위치 지정
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        string sceneName = scene.name;
+        if (System.Enum.TryParse(sceneName, out SceneType sceneType))
+        {
+            // 변환 성공 시 씬의 시작 이벤트 발행
+            EventBus.Instance.Publish<GameEvents.SceneStart>(new GameEvents.SceneStart(sceneType));
+        }
+        else { Debug.Log($"씬 {sceneName} -> SceneType 변환 실패 "); }
+
+
         if (isPortal)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -86,24 +97,4 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
             isPortal = false;
         }
     }
-
-    //// 같은 씬에서 이동 시 위치만 이동
-    //private void MoveTransform(){
-    //    if(isPortal)
-    //    {
-    //        Debug.Log($"이동할 좌표!!! : {spawnPoint}");
-    //        //GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-    //        if(player != null){
-    //            //ch.enabled = false;
-    //            player.transform.position = spawnPoint; // 스폰포인트 설정
-
-    //            // 플레이어 방향 강제 설정
-    //            EventBus.Instance.Publish(new GameEvents.ForceDir())
-
-    //            //ch.enabled = true;
-    //        }
-    //        isPortal = false;
-    //    }
-    //}
 }
