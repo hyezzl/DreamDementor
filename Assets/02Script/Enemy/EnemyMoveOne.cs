@@ -7,8 +7,6 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
 {
     [SerializeField] private Transform player;
     [SerializeField] private Animator anim;
-    public EnemyState curState;
-    public bool moveable = true;
 
     [Header("Enemy Movement Setting")]
     [SerializeField] private float moveSpeed = 3f;
@@ -19,7 +17,11 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
     private NavMeshAgent na;
 
     // 상태값
+    public bool moveable = true;
     private bool isWalk = false;
+
+    public EnemyState curState;
+    private Vector3 preMoveDir = Vector3.zero;      // 이전프레임 이동각도
 
     private void Awake()
     {
@@ -38,6 +40,7 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
         {
             Debug.Log("EnemyMove - Failed to Load NavMeshAgent");
         }
+        na.updateRotation = false;      // 자동회전값 끄기
         na.speed = moveSpeed;
     }
 
@@ -75,6 +78,18 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
             Vector3 moveDir = na.velocity.normalized;
             float speed = na.velocity.magnitude;
 
+            // 방향변화 감지
+            float deltaDir = Vector3.Angle(preMoveDir, (player.position - transform.position).normalized);
+
+            // 이전 프레임과 현재 프레임 방향차이가 특정각도 이상하면 멈춤 (관성 제거)
+            if (deltaDir > 45f)
+            {
+                na.isStopped = true;
+            }
+            preMoveDir = (player.position - transform.position).normalized;
+
+            /////////////////////
+
             // 플레이어 이동에 따른 벡터 기준 변경
             Vector3 playerForward = player.forward;
             playerForward.y = 0f;
@@ -103,6 +118,7 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
                 moveDir = Vector3.zero;
             }
 
+            // 목적지 도달 시 멈춤
             if (Vector3.Distance(transform.position, player.position) <= na.stoppingDistance + 0.3f)
             {
                 speed = 0f;
@@ -148,7 +164,8 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
 
     public void ModeChange(GameEvents.GameModeChange evt)
     {
-        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode)
+        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode ||
+            evt.mode == GameMode.PauseMode || evt.mode == GameMode.UIPuzzleMode)
         {
             StopGame();
         }

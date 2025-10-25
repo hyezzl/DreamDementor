@@ -23,10 +23,9 @@ public enum GameMode
     InspectMode,
     PauseMode,          // Popup
     DialogMode,
-    NarrativeMode,
     EventMode,
     ChasedMode,
-    EventInInspectMode,
+    EventInInspectMode,      // 걷기만 가능
     GameOverMode,
     UIPuzzleMode,       // UI 통한 마우스 + 드래그 퍼즐
     None,

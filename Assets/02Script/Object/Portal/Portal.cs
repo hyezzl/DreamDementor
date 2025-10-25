@@ -12,13 +12,16 @@ public class Portal : MonoBehaviour
     public Vector3 spawnPoint;
     public Direction4 spawnDir;
 
-    public GameObject player;
-    public PlayerController pc;
+    private GameObject player;
+    private PlayerController pc;
 
     private void Awake()
     {
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log($"{portalID} - Failed to Load PlayerController");
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) Debug.Log($"{portalID} - Failed to Load player");
     }
 
 

@@ -134,7 +134,8 @@ public class EnemyMoveSprite : MonoBehaviour, IMoveObject
 
     public void ModeChange(GameEvents.GameModeChange evt)
     {
-        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode)
+        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode ||
+            evt.mode == GameMode.PauseMode || evt.mode == GameMode.UIPuzzleMode)
         {
             StopGame();
         }

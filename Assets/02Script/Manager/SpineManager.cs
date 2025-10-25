@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
+/// <summary>
+/// 일러스트 감상 시, 스파인 비활성화
+/// </summary>
 
 public class SpineManager : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup spine;
-    [SerializeField] private GameObject spine1;
+    [SerializeField] private GameObject spine;
 
     private void OnEnable()
     {
@@ -24,13 +25,10 @@ public class SpineManager : MonoBehaviour
 
     // 일러스트 등장
     private void OnCover(UIEvents.SceneCover evt) {
-        //spine.alpha = 0f;
-        spine1.SetActive(false);
+        spine.SetActive(false);
     }
 
     private void OnDiscover(UIEvents.SceneDiscover evt) {
-        //spine.alpha = 1f;
-        Debug.Log("여기안불려?");
-        spine1.SetActive(true);
+        spine.SetActive(true);
     }
 }
