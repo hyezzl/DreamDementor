@@ -791,9 +791,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 595646753}
-  - component: {fileID: 595646754}
   - component: {fileID: 595646757}
   - component: {fileID: 595646758}
+  - component: {fileID: 595646759}
   m_Layer: 0
   m_Name: EventFlowManager
   m_TagString: Untagged
@@ -816,20 +816,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1867619498}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &595646754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 595646752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 742d546e7d192c044a3c528aef71bef6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventID: E018
-  eventtype: 2
 --- !u!114 &595646757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -860,6 +846,21 @@ MonoBehaviour:
   SP02: {fileID: 1839310773}
   SP03: {fileID: 1065858492}
   enemy: {fileID: 719796413}
+--- !u!114 &595646759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595646752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b73c0b5d5b7055418dfd8fe7ced7677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curScene: 3
+  startEventID: E018
+  eventtype: 2
 --- !u!1001 &719796412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -930,7 +931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5b4b8e1582567cc4790329acfd9a8d21, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1204,6 +1205,7 @@ GameObject:
   - component: {fileID: 831339863}
   - component: {fileID: 831339862}
   - component: {fileID: 831339861}
+  - component: {fileID: 831339864}
   m_Layer: 0
   m_Name: TempManager
   m_TagString: Untagged
@@ -1290,6 +1292,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d7352bcf569f534a87331be67060a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &831339864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831339855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27ba370bc3058f498134c73d247bc4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &876800390
@@ -642788,8 +642802,6 @@ MonoBehaviour:
   targetScene: 2
   spawnPoint: {x: 40, y: 0, z: 24}
   spawnDir: 0
-  player: {fileID: 0}
-  pc: {fileID: 0}
 --- !u!1 &8739487595234973054
 GameObject:
   m_ObjectHideFlags: 0

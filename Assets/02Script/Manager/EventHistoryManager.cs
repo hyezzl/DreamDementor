@@ -4,11 +4,15 @@ using UnityEngine;
 
 /// <summary>
 /// 해당 씬 내에서 끝난 이벤트 / 대화 데이터 보관
+/// 씬 방문
 /// </summary>
-public class EventHistoryManager : MonoBehaviour
+public class EventHistoryManager : Singleton<EventHistoryManager>
 {
     // 실행된 이벤트 목록 관리
-    private List<string> completedEvents = new();  // 실행된 이벤트 저장
+    private static List<string> completedEvents = new();  // 실행된 이벤트 저장
+
+    // 씬 방문 기록
+    private Dictionary<SceneType, bool> visitScene = new();
 
     private void OnEnable()
     {
@@ -23,9 +27,9 @@ public class EventHistoryManager : MonoBehaviour
         EventBus.Instance.Unsubscribe<UIEvents.EndNpcDialog>(RecordNpcDialog);
     }
 
+
     // 종료된 이벤트 기록
     public void RecordEvent(GameEvents.EndEvent evt) {
-        completedEvents.Add(evt.eventID);
         if (!completedEvents.Exists(e => e == evt.eventID))
         {
             completedEvents.Add(evt.eventID);
@@ -59,8 +63,23 @@ public class EventHistoryManager : MonoBehaviour
         return completedEvents.Exists(e => e == eventID);
     }
 
-    //// 외부 호출
-    //public IReadOnlyList<string> GetEndedEvents() {
-    //    return completedEvents.AsReadOnly();
-    //}
+
+
+
+    //=========================================================//
+
+    // 씬 첫방문 여부 확인
+    public bool isFirstVisit(SceneType scene) {
+        if (visitScene.TryGetValue(scene, out bool isVisit)) {
+            return !isVisit;
+        }
+        // 없으면 첫방문
+        return true;
+    }
+
+    // 씬 방문 기록 추가
+    public void RecordVisit(SceneType scene) {
+        //Debug.Log($"{scene} 방문 기록!");
+        visitScene[scene] = true;
+    }
 }
