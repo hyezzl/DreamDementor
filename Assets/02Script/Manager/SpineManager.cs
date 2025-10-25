@@ -7,15 +7,30 @@ using UnityEngine;
 
 public class SpineManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private CanvasGroup spine;
+    [SerializeField] private GameObject spine1;
+
+    private void OnEnable()
     {
-        
+        EventBus.Instance.Subscribe<UIEvents.SceneCover>(OnCover);
+        EventBus.Instance.Subscribe<UIEvents.SceneDiscover>(OnDiscover);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        EventBus.Instance.Unsubscribe<UIEvents.SceneCover>(OnCover);
+        EventBus.Instance.Unsubscribe<UIEvents.SceneDiscover>(OnDiscover);
+    }
+
+    // 일러스트 등장
+    private void OnCover(UIEvents.SceneCover evt) {
+        //spine.alpha = 0f;
+        spine1.SetActive(false);
+    }
+
+    private void OnDiscover(UIEvents.SceneDiscover evt) {
+        //spine.alpha = 1f;
+        Debug.Log("여기안불려?");
+        spine1.SetActive(true);
     }
 }

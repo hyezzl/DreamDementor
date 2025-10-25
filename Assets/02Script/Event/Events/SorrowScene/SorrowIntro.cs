@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SorrowIntro : EventBase
 {
-    private static bool SorrowSceneFirstVisit = true;
+    private static bool SorrowSceneFirstVisit = false;
 
     public override void Init(IDatabase db)  // start시점에 실행
     {
@@ -29,8 +29,12 @@ public class SorrowIntro : EventBase
 
             // 브금 재생
             EventBus.Instance.Publish<GameEvents.PlayBGM>(new GameEvents.PlayBGM(BGMType.HappyBGM));
-            
+
             SorrowStart();
+        }
+        else {
+            pc.CurMode = GameMode.InspectMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
         }
 
     }

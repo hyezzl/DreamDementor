@@ -30,15 +30,6 @@ public enum Speaker
 // (일러스트에 표시될) 등장인물 감정
 public enum Emotion
 {
-    //None            = -1,
-    //Pbasic          = 0,
-    //Psad            = 1,
-    //Pembrassed      = 2, 
-    //Pblind          = 3,
-    //Psadhappy       = 4,
-    //Ebasic          = 5,
-    //Esmile          = 6,
-    //EchillingSmile  = 7,
     None,
     PlayerEmotion,
     MomEmotion,
@@ -74,7 +65,19 @@ public enum EnemyEmotion
 
 public enum ExtraEmotion
 { 
-    None        = -1,
+    None                = -1,
+    Somi_normal         = 0,
+    Somi_cackle         = 1,
+    Somi_smile          = 2,
+    Somi_serious        = 3,
+    Sena_normal         = 4,
+    Sena_cackle         = 5,
+    Sena_angry          = 6,
+    Sena_serious        = 7,
+    Hyuk_normal         = 8,
+    Hyuk_cackle         = 9,
+    Hyuk_smile          = 10,
+    Hyuk_angry          = 11,
 }
 
 

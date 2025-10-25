@@ -460,6 +460,7 @@ public class DialogPopup : MonoBehaviour
                 break;
 
             case Speaker.Mom:
+                //if (curRight != dialogDict[curlogIdx].speaker && curRightIdx != dialogDict[curlogIdx].emotion)
                 if (curRight != dialogDict[curlogIdx].speaker || curRightIdx != dialogDict[curlogIdx].emotion)
                 {
                     curRight = Speaker.Mom; // cache
@@ -475,7 +476,8 @@ public class DialogPopup : MonoBehaviour
                 break;
 
             case Speaker.Enemy:
-                if (curRight != dialogDict[curlogIdx].speaker && curRightIdx != dialogDict[curlogIdx].emotion)
+                //if (curRight != dialogDict[curlogIdx].speaker && curRightIdx != dialogDict[curlogIdx].emotion)
+                if (curRight != dialogDict[curlogIdx].speaker || curRightIdx != dialogDict[curlogIdx].emotion)
                 {
                     curRight = Speaker.Enemy;
                     var curAddress = (EnemyEmotion)dialogDict[curlogIdx].emotion;
@@ -490,7 +492,8 @@ public class DialogPopup : MonoBehaviour
                 break;
 
             case Speaker.Extra:
-                if (curRight != dialogDict[curlogIdx].speaker && curRightIdx != dialogDict[curlogIdx].emotion)
+                //if (curRight != dialogDict[curlogIdx].speaker && curRightIdx != dialogDict[curlogIdx].emotion)
+                if (curRight != dialogDict[curlogIdx].speaker || curRightIdx != dialogDict[curlogIdx].emotion)
                 {
                     curRight = Speaker.Extra;
                     var curAddress = (ExtraEmotion)dialogDict[curlogIdx].emotion;

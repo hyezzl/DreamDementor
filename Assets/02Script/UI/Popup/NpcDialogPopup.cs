@@ -519,6 +519,7 @@ public class NpcDialogPopup : MonoBehaviour
                 break;
 
             case Speaker.Mom:
+                //if (curRight != npcDialogDict[curlogIdx].speaker && curRightIdx != npcDialogDict[curlogIdx].emotion)
                 if (curRight != npcDialogDict[curlogIdx].speaker || curRightIdx != npcDialogDict[curlogIdx].emotion)
                 {
                     curRight = Speaker.Mom; // cache
@@ -534,7 +535,8 @@ public class NpcDialogPopup : MonoBehaviour
                 break;
 
             case Speaker.Enemy:
-                if (curRight != npcDialogDict[curlogIdx].speaker && curRightIdx != npcDialogDict[curlogIdx].emotion)
+                //if (curRight != npcDialogDict[curlogIdx].speaker && curRightIdx != npcDialogDict[curlogIdx].emotion)
+                if (curRight != npcDialogDict[curlogIdx].speaker || curRightIdx != npcDialogDict[curlogIdx].emotion)
                 {
                     curRight = Speaker.Enemy;
                     var curAddress = (EnemyEmotion)npcDialogDict[curlogIdx].emotion;
@@ -549,7 +551,8 @@ public class NpcDialogPopup : MonoBehaviour
                 break;
 
             case Speaker.Extra:
-                if (curRight != npcDialogDict[curlogIdx].speaker && curRightIdx != npcDialogDict[curlogIdx].emotion)
+                //if (curRight != npcDialogDict[curlogIdx].speaker && curRightIdx != npcDialogDict[curlogIdx].emotion)
+                if (curRight != npcDialogDict[curlogIdx].speaker || curRightIdx != npcDialogDict[curlogIdx].emotion)
                 {
                     curRight = Speaker.Extra;
                     var curAddress = (ExtraEmotion)npcDialogDict[curlogIdx].emotion;
