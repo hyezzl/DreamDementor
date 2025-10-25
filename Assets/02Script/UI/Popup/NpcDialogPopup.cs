@@ -38,8 +38,10 @@ public class NpcDialogPopup : MonoBehaviour
     private bool isSkip = false;
 
     private string curNpcID;    // 캐싱
+    private string curNpcEventID;   // 캐싱
     private string sentence;  // 캐싱
     private GameMode preMode;  // 캐싱
+    private GameMode afterMode;     // 설정값
     private IInputHandler inputHandler;
     private TextMeshProUGUI textarea;  // 사용할 텍스트박스
     private CanvasGroup curTextbox;
@@ -115,7 +117,7 @@ public class NpcDialogPopup : MonoBehaviour
     /// </summary>
     private void OnOpenNpcDialog(UIEvents.OpenNpcDialog evt)
     {
-        preMode = pc.CurMode;
+        afterMode = evt.afterMode;      // 설정 모드 캐싱
 
         // 혹시모를 초기화
         if (playerSpine != null)
@@ -132,6 +134,7 @@ public class NpcDialogPopup : MonoBehaviour
 
         // NPC 
         curNpcID = evt.npcID;
+        curNpcEventID = evt.npcEventID;
 
         // 타이핑
         StartCoroutine(TypeDialog(evt.texts));
@@ -149,6 +152,7 @@ public class NpcDialogPopup : MonoBehaviour
 
         // NPC 
         curNpcID = evt.npcID;
+        curNpcEventID = null;
 
         // 타이핑
         StartCoroutine(TypeReDialog(evt.data));
@@ -226,6 +230,21 @@ public class NpcDialogPopup : MonoBehaviour
         }
 
         yield return StartCoroutine(ClosePanel());  // 모든 대화가 끝나면 패널 닫음
+
+        // 모드 변경
+        if (afterMode != GameMode.None)
+        {
+            // 대화 진입 시 게임모드 지정
+            pc.CurMode = afterMode;
+            Debug.Log($"ClosePanel에서 상태변경 : {afterMode}로!");
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(afterMode));
+        }
+        else
+        {
+            // 대화 진입 시 따로 게임모드를 정해주지 않은 경우 (Inspector고정)
+            pc.CurMode = GameMode.InspectMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+        }
     }
 
 
@@ -237,7 +256,6 @@ public class NpcDialogPopup : MonoBehaviour
         isTyping = true;
         standbyInput = false;
         isSkip = false;
-        //ShowIllust(npcDialogDict, curlogIdx);
 
         // Textbox에 따른 분기 (대화창 / 폰트)
         if (data.textbox == Textbox.Basic || data.textbox == Textbox.Monologue)
@@ -246,7 +264,6 @@ public class NpcDialogPopup : MonoBehaviour
             DialogFade(curTextbox, true);
             SetDialog(0, data.speakerName, data.textbox);
 
-            //ShowIllust(npcDialogDict, curlogIdx);
         }
         else if (data.textbox == Textbox.Monster)  // 몬스터 텍스트 박스
         {
@@ -254,7 +271,6 @@ public class NpcDialogPopup : MonoBehaviour
             DialogFade(curTextbox, true);
             SetDialog(1, data.speakerName, data.textbox);
 
-            //ShowIllust(npcDialogDict, curlogIdx);
         }
 
         // Typing
@@ -276,6 +292,11 @@ public class NpcDialogPopup : MonoBehaviour
         yield return new WaitUntil(() => inputHandler.DoSelect());
 
         yield return StartCoroutine(ClosePanel());  // 모든 대화가 끝나면 패널 닫음
+
+
+        // NPCReDialog 이후엔 반드시 inspect모드임을 전제!!!!!!!!!!!!!!
+        pc.CurMode = GameMode.InspectMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
     }
 
 
@@ -299,10 +320,6 @@ public class NpcDialogPopup : MonoBehaviour
         DialogFade(curTextbox, false);
 
         yield return new WaitForSeconds(0.3f);  //Fade Wait
-
-        // 모드 변경
-        pc.CurMode = preMode;
-        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(preMode));
 
         // 값 초기화
         if (typing != null && typing.IsActive()) typing.Kill();
@@ -328,7 +345,7 @@ public class NpcDialogPopup : MonoBehaviour
         yield return null;
 
         // 대화끝 이벤트 (대화 NPC ID 전달)
-        EventBus.Instance.Publish<UIEvents.EndNpcDialog>(new UIEvents.EndNpcDialog(curNpcID));
+        EventBus.Instance.Publish<UIEvents.EndNpcDialog>(new UIEvents.EndNpcDialog(curNpcID, curNpcEventID));
     }
 
     // 외부에서 강제 대화창 닫음

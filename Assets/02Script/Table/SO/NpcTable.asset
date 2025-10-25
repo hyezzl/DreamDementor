@@ -35,6 +35,8 @@ MonoBehaviour:
     NpcName: "\uC18C\uBBF8,\uC138\uB098"
   - NpcID: N011
     NpcName: "\uD601\uC774"
+  - NpcID: N012
+    NpcName: "\uC11C\uB9B0\uC774 \uBC29 \uCE68\uB300"
   NpcDialog:
   - NpcID: N001
     NpcEventID: N001
@@ -1410,6 +1412,58 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Basic
     Emotion: 1
+  - NpcID: N012
+    NpcEventID: N012
+    LogID: 12001
+    Dialog: "\uC790\uACE0 \uC77C\uC5B4\uB098\uBA74 \uB0B4\uC77C\uB3C4 \uD559\uAD50\uB97C
+      \uAC00\uC57C\uACA0\uC9C0..."
+    NextID: 12002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N012
+    NpcEventID: N012
+    LogID: 12002
+    Dialog: "\uD559\uAD50...\uADF8\uB9CC\uB450\uACE0 \uC2F6\uB2E4.."
+    NextID: 12003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N012
+    NpcEventID: N012
+    LogID: 12003
+    Dialog: "\uC5C4\uB9C8....\uC544\uBE60....\uBCF4\uACE0 \uC2F6\uC5B4\uC694..."
+    NextID: 12004
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N012
+    NpcEventID: N012
+    LogID: 12004
+    Dialog: "\uAFC8\uC18D\uC5D0\uC11C\uB77C\uB3C4 \uBCFC \uC218 \uC788\uC73C\uBA74
+      \uCC38 \uC88B\uC744 \uD150\uB370..."
+    NextID: 12005
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N012
+    NpcEventID: N012
+    LogID: 12005
+    Dialog: "\uC5B4\uC11C \uC7A0\uC774\uB098 \uC790\uC57C\uC9C0..."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: -1
   NpcReDialog:
   - NpcID: N001
     Dialog: ......................
@@ -1476,5 +1530,11 @@ MonoBehaviour:
     Dialog: "\uC544\uC9C1 \uD560\uB9D0 \uB0A8\uC558\uC5B4?"
     Speaker: Extra
     SpeakerName: "\uD601\uC774"
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N012
+    Dialog: ......................
+    Speaker: Extra
+    SpeakerName: "\uCE68\uB300"
     Textbox: Basic
     Emotion: -1

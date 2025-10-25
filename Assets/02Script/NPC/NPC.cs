@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class NPC : MonoBehaviour, IActionNpc
 {
     public string npcID;
+    public string curNpcEventID = null;
     public bool isContacted = false;
     protected PlayerController pc;
     protected Dictionary<string, Dictionary<int, NPCDialogData>> allDialogs;
@@ -18,6 +19,7 @@ public class NPC : MonoBehaviour, IActionNpc
     protected bool isDelay = false;       // 대화 이후 Interact Delay 중인지
     protected float dialogDelay = 0.5f;   // 원하는 딜레이 시간 (초)
     protected float delayTimer = 0f;
+
 
     public string GetNpcID() => npcID;
 
@@ -70,7 +72,8 @@ public class NPC : MonoBehaviour, IActionNpc
         {
             // 첫 대면 : 대화
             isInDialog = true;
-            EventBus.Instance.Publish<UIEvents.OpenNpcDialog>(new UIEvents.OpenNpcDialog(npcID, initialDialog));
+            EventBus.Instance.Publish<UIEvents.OpenNpcDialog>(new UIEvents.OpenNpcDialog(npcID, npcID, initialDialog));
+            curNpcEventID = npcID;
             isContacted = true;
         }
         else {
@@ -95,7 +98,8 @@ public class NPC : MonoBehaviour, IActionNpc
                 if (allDialogs.TryGetValue(continueID, out var branchDialog))
                 {
                     // 선택지 이후 분기대화
-                    EventBus.Instance.Publish<UIEvents.OpenNpcDialog>(new UIEvents.OpenNpcDialog(npcID, branchDialog));
+                    EventBus.Instance.Publish<UIEvents.OpenNpcDialog>(new UIEvents.OpenNpcDialog(npcID, continueID, branchDialog));
+                    curNpcEventID = continueID;
                 }
                 else { Debug.Log($"{continueID}에 대한 분기대화 없음"); }
             }
@@ -107,7 +111,8 @@ public class NPC : MonoBehaviour, IActionNpc
     }
 
     protected virtual void OnEndNpcDialog(UIEvents.EndNpcDialog evt) {
-        if (evt.npcID == npcID) {
+        //if (evt.npcID == npcID) {
+        if (evt.npcID == npcID && evt.npcEventID == curNpcEventID) {
             isInDialog = false;
 
             // 대화 종료 후 다음 Interact 사이 딜레이 시작
@@ -115,9 +120,11 @@ public class NPC : MonoBehaviour, IActionNpc
             delayTimer = dialogDelay;
 
             // 게임모드 변경 (NPC와의 대화이후는 반드시 Inspect모드임을 전제)
-            pc.CurMode = GameMode.InspectMode;
-            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+            //pc.CurMode = GameMode.InspectMode;
+            //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
         }
+
+        curNpcEventID = null;       // 대화가끝나면 초기화
     }
 
 }

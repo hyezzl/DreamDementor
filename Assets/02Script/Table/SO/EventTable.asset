@@ -133,6 +133,9 @@ MonoBehaviour:
   - EventID: E039
     EventName: 
     EventType: Conversation
+  - EventID: E040
+    EventName: 
+    EventType: Conversation
   Narration:
   - EventID: E001
     Order: 1
@@ -1657,6 +1660,37 @@ MonoBehaviour:
     EventDetailID: E039
     LogID: 39001
     Dialog: "\uD655\uC778\uD558\uB294 \uAC8C \uB9C8\uC74C\uC774 \uD3B8\uD558\uACA0\uC5B4.."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E040
+    EventDetailID: E040
+    LogID: 40000
+    Dialog: "\uBB50...\uBB50\uC57C. \uC774\uC18C\uB9AC\uB294."
+    NextID: 40001
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E040
+    EventDetailID: E040
+    LogID: 40001
+    Dialog: "\uC124\uB9C8.... \uC544\uAE4C \uBD24\uB358 \uADF8 \uAD34\uBB3C\uC758
+      \uC18C\uB9AC...?"
+    NextID: 40002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E040
+    EventDetailID: E040
+    LogID: 40002
+    Dialog: "\uB3C4\uB9DD\uCCD0\uC57C\uD574...!"
     NextID: -1
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"

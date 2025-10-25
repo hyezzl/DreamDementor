@@ -20,11 +20,15 @@ public static class UIEvents
     public struct OpenNpcDialog
     {
         public string npcID;
+        public string npcEventID;
         public Dictionary<int, NPCDialogData> texts;
-        public OpenNpcDialog(string npcID, Dictionary<int, NPCDialogData> texts)
+        public GameMode afterMode;
+        public OpenNpcDialog(string npcID, string npcEventID, Dictionary<int, NPCDialogData> texts, GameMode afterMode = GameMode.None)
         {
             this.npcID = npcID;
+            this.npcEventID = npcEventID;
             this.texts = texts;
+            this.afterMode = afterMode;
         }
     }
 
@@ -97,8 +101,10 @@ public static class UIEvents
     public struct EndNpcDialog
     {
         public string npcID;
-        public EndNpcDialog(string npcID) { 
+        public string npcEventID;
+        public EndNpcDialog(string npcID, string npcEventID = null) { 
             this.npcID = npcID;
+            this.npcEventID = npcEventID;
         }
     }
 

@@ -47,13 +47,13 @@ public class EventBase : MonoBehaviour, IGameEvent
         }
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.PlayEvent>(PlayEvent);
         EventBus.Instance.Subscribe<UIEvents.MakeChoice>(EndChoice);
         EventBus.Instance.Subscribe<UIEvents.EndDialog>(CloseDialog);
     }
-    private void OnDisable()
+    protected virtual void  OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.PlayEvent>(PlayEvent);
         EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(EndChoice);

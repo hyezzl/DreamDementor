@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Happy NPC
+/// HappyOne NPC
 /// </summary>
 public class PuzzleFountain : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class PuzzleFountain : MonoBehaviour
                 EventBus.Instance.Publish<GameEvents.PutItem>(new GameEvents.PutItem(ItemType.Pickable, 10001002));
 
                 // ø≠ºË Ω¿µÊ ¿Ã∫•∆Æ
-                EventBus.Instance.Publish<PuzzleEvents.HO_GetKey>(new PuzzleEvents.HO_GetKey());
+                EventBus.Instance.Publish<PuzzleEvents.HO_GetKey>(new PuzzleEvents.HO_GetKey(evt.npcID));
             }
             else if (evt.npcID == "N007")
             {
@@ -38,14 +38,14 @@ public class PuzzleFountain : MonoBehaviour
                 EventBus.Instance.Publish<GameEvents.PutItem>(new GameEvents.PutItem(ItemType.Pickable, 10001003));
                 
                 // ø≠ºË Ω¿µÊ ¿Ã∫•∆Æ
-                EventBus.Instance.Publish<PuzzleEvents.HO_GetKey>(new PuzzleEvents.HO_GetKey());
+                EventBus.Instance.Publish<PuzzleEvents.HO_GetKey>(new PuzzleEvents.HO_GetKey(evt.npcID));
             }
             else if (evt.npcID == "N008") {
                 // æ∆¿Ã≈€ Ω¿µÊ
                 EventBus.Instance.Publish<GameEvents.PutItem>(new GameEvents.PutItem(ItemType.Pickable, 10001004));
 
                 // ø≠ºË Ω¿µÊ ¿Ã∫•∆Æ
-                EventBus.Instance.Publish<PuzzleEvents.HO_GetKey>(new PuzzleEvents.HO_GetKey());
+                EventBus.Instance.Publish<PuzzleEvents.HO_GetKey>(new PuzzleEvents.HO_GetKey(evt.npcID));
             }
         }
     }

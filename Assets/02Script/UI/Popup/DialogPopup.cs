@@ -152,6 +152,7 @@ public class DialogPopup : MonoBehaviour
         seq = DOTween.Sequence();
 
         // 시작 logID의 최소값
+        if (dialogDict == null) Debug.Log("dialogdict가 널임");
         int curlogIdx = dialogDict.Keys.Min();
 
         while (curlogIdx != -1)

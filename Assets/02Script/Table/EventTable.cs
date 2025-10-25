@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExcelAsset(AssetPath = "02Script/Table/SO")]
+
 public class EventTable : ScriptableObject
 {
 	public List<EventEntity> Event; // Replace 'EntityType' to an actual type that is serializable.
