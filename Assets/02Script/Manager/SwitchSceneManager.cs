@@ -36,7 +36,7 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         if (mainCam != null)
             spot = mainCam.GetComponent<CameraFilterPack_FX_Spot>();
         if (spot == null)
-            Debug.LogError("SwitchSceneManager - CameraFilterPack_FX_Spot 없음!");
+            Debug.Log("SwitchSceneManager - CameraFilterPack_FX_Spot 없음!");
         else
             // 초기값
             spot.Radius = fadeInVal;
