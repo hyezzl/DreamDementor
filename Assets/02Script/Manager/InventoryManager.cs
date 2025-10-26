@@ -18,6 +18,11 @@ public class InventoryManager : Singleton<InventoryManager>
     public void Init(IDatabase db)
     {
         database = db;
+
+        // юс╫ц
+        AddItem(ItemType.Pickable, 10001002);
+        AddItem(ItemType.Pickable, 10001003);
+        AddItem(ItemType.Pickable, 10001004);
     }
 
     private void OnEnable()

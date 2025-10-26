@@ -167,4 +167,14 @@ public static class UIEvents
             this.isNpc = isNpc;
         }
     }
+
+
+    // ∆€¡Ò UI ø≠±‚
+    public struct OpenPuzzle
+    {
+        public SceneType curScene;
+        public OpenPuzzle(SceneType curScene) { 
+            this.curScene = curScene;
+        }
+    }
 }

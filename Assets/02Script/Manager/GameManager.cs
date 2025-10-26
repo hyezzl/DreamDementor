@@ -63,6 +63,7 @@ public class GameManager : Singleton<GameManager>
                 break;
 
             case GameMode.PauseMode:
+            case GameMode.UIPuzzleMode:
                 // Ä¿¼­ »ý±è
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
