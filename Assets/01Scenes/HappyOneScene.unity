@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 23178421}
   - component: {fileID: 23178420}
   - component: {fileID: 23178423}
+  - component: {fileID: 23178424}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -322,6 +323,21 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &23178424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23178419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3490431af37405d4bbbf05d48ad32ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SCShader: {fileID: 4800000, guid: 1907cd4a62adc714fbdef023190080e8, type: 3}
+  center: {x: 0.5, y: 0.5}
+  Radius: 1
 --- !u!1 &41300189
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +547,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcID: N008
-  curNpcEventID: 
   isContacted: 0
   isPass: 0
   isDeactive: 0
@@ -1203,9 +1218,9 @@ GameObject:
   - component: {fileID: 831339857}
   - component: {fileID: 831339860}
   - component: {fileID: 831339863}
-  - component: {fileID: 831339862}
   - component: {fileID: 831339861}
   - component: {fileID: 831339864}
+  - component: {fileID: 831339865}
   m_Layer: 0
   m_Name: TempManager
   m_TagString: Untagged
@@ -1267,21 +1282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f4f34d44188b3489f3575129063ad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &831339862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 831339855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 039feeda078fa944586d230f7800997e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curScene: 0
-  player: {fileID: 0}
-  ch: {fileID: 0}
 --- !u!114 &831339863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1306,6 +1306,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27ba370bc3058f498134c73d247bc4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &831339865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831339855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 039feeda078fa944586d230f7800997e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curScene: 3
+  player: {fileID: 5983583959999828007}
+  fadeDuration: 2.5
+  fadeInVal: 1
+  fadeOutVal: -0.15
 --- !u!1 &876800390
 GameObject:
   m_ObjectHideFlags: 0
@@ -2506,7 +2523,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcID: N007
-  curNpcEventID: 
   isContacted: 0
   isPass: 0
   isDeactive: 0
@@ -130317,7 +130333,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcID: N006
-  curNpcEventID: 
   isContacted: 0
   isPass: 0
   isDeactive: 0
