@@ -125,6 +125,12 @@ public class TutorialTimeline : EventBase
     // 변신 시 글리치 필터
     public void EnemyTransform() {
         if (glitch != null)
-            glitch.Glitch = 0.5f;
+            glitch.Glitch = 1f;
+    }
+
+    // 변신 이후 글리치 약화
+    public void LowerGlitch() {
+        if (glitch != null)
+            glitch.Glitch = 0.1f;
     }
 }

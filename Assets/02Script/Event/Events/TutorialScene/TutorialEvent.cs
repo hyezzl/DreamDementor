@@ -73,16 +73,18 @@ public class TutorialEvent : EventBase
         // 선택까지 대기
         yield return new WaitUntil(() => isChoice == true); // 이벤트 발생
 
-        
+
+
+        // 카메라 필터 (괴물 변신)
+        EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.Glitch, true));
+        if (glitch != null)
+            glitch.Glitch = 1f;
+
 
         // 3. 두번째 타임라인 재생
         timeline02.Play();
         yield return new WaitUntil(() => timeline02.state != PlayState.Playing);
 
-        // 카메라 필터
-        EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.Glitch, true));
-        if(glitch != null)
-            glitch.Glitch = 0.4f;
 
         yield return null;
 

@@ -9499,6 +9499,8 @@ MonoBehaviour:
     m_Signals:
     - {fileID: 11400000, guid: a8881cf4909c90441a7fd5f872dcfdb5, type: 2}
     - {fileID: 11400000, guid: 81c0871560c7ddf4bb4554253932b886, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: c65411dc70622e64289ad8efb0be9957, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -9519,6 +9521,22 @@ MonoBehaviour:
         - m_Target: {fileID: 843929495}
           m_TargetAssemblyTypeName: TutorialTimeline, Assembly-CSharp
           m_MethodName: OOCloseDialog
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls: []
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 843929495}
+          m_TargetAssemblyTypeName: TutorialTimeline, Assembly-CSharp
+          m_MethodName: LowerGlitch
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -21662,7 +21680,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2039305650}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c10108a07306cec44a642fce55f0a5c9, type: 3}
   m_Name: 
@@ -192424,7 +192442,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.47, y: 0.73}
+  m_Size: {x: 0.39, y: 0.7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

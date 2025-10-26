@@ -100,7 +100,7 @@ public class IntroEvent : EventBase
 
         // 4. 배경 페이드인
         //yield return StartCoroutine(FadeInBackground(1f, true));
-        yield return StartCoroutine(FadeGroup(book, 1.5f, 0f, 0.1f));
+        yield return StartCoroutine(FadeGroup(book, 1.5f, 0f, 0.04f));
 
         // 5. 나레이션 시작 및 완료 대기
         yield return StartCoroutine(PlayNarration());

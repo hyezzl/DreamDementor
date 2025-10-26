@@ -10,10 +10,13 @@ public class CoveringUI : MonoBehaviour
 
     private void OnEnable()
     {
+        // 초기값
+        group.alpha = 0f;
+
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(OnModeChange);
         EventBus.Instance.Subscribe<GameEvents.SceneStart>(OnNewScene);
     }
-    private void OnDisable() { 
+    private void OnDisable() {
         EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(OnModeChange);
         EventBus.Instance.Unsubscribe<GameEvents.SceneStart>(OnNewScene);
     }
@@ -31,7 +34,8 @@ public class CoveringUI : MonoBehaviour
     // 우선순위 지정을 위한 두 조건의 합집합
     private void UpdateCovering() {
         // RestScene에서는 무조건 숨김
-        if (curScene == SceneType.RestScene)
+        if (curScene == SceneType.RestScene || curScene == SceneType.TutorialScene ||
+            curScene == SceneType.TitleScene)
         {
             ShowUI(false);
             return;
