@@ -19,8 +19,10 @@ public class IntroEvent : EventBase
     [SerializeField] private Image background_white;    // 하얀배경
     [SerializeField] private Image background;      // 검은배경
     [SerializeField] private CanvasGroup backgroundGroup;
+    [SerializeField] private CanvasGroup background_black;      // 검은배경 캔버스그룹
     [SerializeField] private Image illust;          // 일러스트
     [SerializeField] private CanvasGroup illustGroup;
+    [SerializeField] private CanvasGroup book;
     [SerializeField] private TextMeshProUGUI textArea;
     [SerializeField] private CanvasGroup arrow;
     
@@ -64,12 +66,13 @@ public class IntroEvent : EventBase
 
         // 하얀배경 끄기
         background_white.gameObject.SetActive(false);
+        background.gameObject.SetActive(true);
 
         // 2. 일러스트 이미지 확대
         Vector2 zoomPivot = new Vector2(0.6265317f, 0.320314f);
         Vector3 zoomPosition = Vector3.zero;
-        float zoomScale = 4.3f;
-        float zoomDuration = 7f;
+        float zoomScale = 2f;
+        float zoomDuration = 4f;
 
         yield return StartCoroutine(fullIll.ZoomInAtPoint(
             illust.rectTransform,
@@ -78,15 +81,26 @@ public class IntroEvent : EventBase
             zoomScale,
             zoomDuration));
 
+        // 책 등장
+        //book.alpha = 1f;
+        //yield return StartCoroutine(FadeGroup(book, 1f, 0f, 1f));
+        // 과 동시에 페이드 아웃
+        //yield return StartCoroutine(FadeGroup(book, 1f, 0f, 0.15f));
+        //StartCoroutine(FadeGroup(book, 1.5f, 1f, 0.1f));
+
 
         // 3. 검은 배경과 텍스트 활성화
-        background.gameObject.SetActive(true);
+        //book.alpha = 0.1f;
+        //background.gameObject.SetActive(true);
         textArea.gameObject.SetActive(true);
         textArea.text = "";
 
-        // 4. 배경 페이드인
-        yield return StartCoroutine(FadeInBackground(1f, true));
+        // 일러스트 끔
+        EventBus.Instance.Publish<UIEvents.SceneDiscover>(new UIEvents.SceneDiscover());
 
+        // 4. 배경 페이드인
+        //yield return StartCoroutine(FadeInBackground(1f, true));
+        yield return StartCoroutine(FadeGroup(book, 1.5f, 0f, 0.1f));
 
         // 5. 나레이션 시작 및 완료 대기
         yield return StartCoroutine(PlayNarration());
@@ -167,21 +181,36 @@ public class IntroEvent : EventBase
             {
                 elapsed += Time.deltaTime;
                 backgroundGroup.alpha = Mathf.Clamp01(elapsed / duration);
+                background_black.alpha = Mathf.Clamp01(elapsed / duration);
                 yield return null;
             }
             backgroundGroup.alpha = 1f;
         }
         else {
             illustGroup.alpha = 0f;
+            book.alpha = 0f;
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
                 //illustGroup.alpha = 1 - Mathf.Clamp01(elapsed / duration);
                 backgroundGroup.alpha = 1 - Mathf.Clamp01(elapsed / duration);
+                background_black.alpha = 1 - Mathf.Clamp01(elapsed / duration);
                 yield return null;
             }
             backgroundGroup.alpha = 0f;
+            background_black.alpha = 0f;
         }
+    }
+
+    private IEnumerator FadeGroup(CanvasGroup group, float duration, float startVal, float endVal) {
+        float elapsed = 0f;
+
+        while (elapsed < duration) { 
+            elapsed += Time.deltaTime;
+            group.alpha = Mathf.Lerp(startVal, endVal, elapsed / duration);
+            yield return null;
+        }
+        group.alpha = endVal;
     }
 
 }

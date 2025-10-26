@@ -28,6 +28,8 @@ public class InventoryUI : MonoBehaviour
                 slots.Add(slot);
             }
         }
+
+        RefreshInventory();
     }
 
 

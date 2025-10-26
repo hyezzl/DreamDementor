@@ -59,7 +59,6 @@ public class IllustTriggerZone : MonoBehaviour, ITriggerZone
     {
         if (evt.eventID == eventID)
         {
-            Debug.Log("뭔데???????????/");
             EventBus.Instance.Publish<UIEvents.SceneDiscover>(new UIEvents.SceneDiscover());
 
             Debug.Log($"{evt.eventID} 이벤트 트리거 삭제@");

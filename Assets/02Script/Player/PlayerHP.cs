@@ -13,10 +13,20 @@ public class PlayerHP : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.OnHpChange>(OnHpChange);
+        EventBus.Instance.Subscribe<GameEvents.SceneStart>(OnSceneStart);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.OnHpChange>(OnHpChange);
+        EventBus.Instance.Unsubscribe<GameEvents.SceneStart>(OnSceneStart);
+    }
+
+    private void OnSceneStart(GameEvents.SceneStart evt) {
+        //씬이 새로 시작되면 이전 값 업데이트
+        int curHP = PlayerController.Instance.GetCurHP(evt.curScene);
+        Debug.Log($"씬시작! : 기존 HP : {curHP}");
+
+        ChangeMoon(curHP);
     }
 
     private void OnHpChange(GameEvents.OnHpChange evt) {

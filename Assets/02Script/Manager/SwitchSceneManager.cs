@@ -10,7 +10,8 @@ using UnityEngine.UIElements;
 /// </summary>
 public class SwitchSceneManager : Singleton<SwitchSceneManager>
 {
-    public SceneType curScene;   // 현재씬
+    private SceneType curScene;   // 현재씬
+    public SceneType CurScene => curScene;
     public GameObject player;
     private Vector3 spawnPoint = Vector3.zero;
     private Direction4 spawnDir;
@@ -22,13 +23,13 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
     [SerializeField] private float fadeOutVal = -0.15f;
 
     private CameraFilterPack_FX_Spot spot;
-    private PlayerController pc;
+    //private PlayerController pc;
 
     protected override void DoAwake()
     {
         base.DoAwake();
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) Debug.Log("SwitchSceneManager - Failed to Load PlayerController");
+        //pc = FindAnyObjectByType<PlayerController>();
+        //if (pc == null) Debug.Log("SwitchSceneManager - Failed to Load PlayerController");
 
         // 메인 카메라에서 필터 컴포넌트 받아오기
         Camera mainCam = Camera.main;
@@ -94,6 +95,25 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         else { Debug.Log($"씬 {sceneName} -> SceneType 변환 실패 "); }
 
 
+        //if (isPortal)
+        //{
+        //    GameObject player = GameObject.FindGameObjectWithTag("Player");
+        //    if (player != null)
+        //    {
+        //        player.transform.position = spawnPoint;
+
+        //        // 플레이어 방향 강제 설정
+        //        EventBus.Instance.Publish(new GameEvents.ForceDir(spawnDir));
+        //    }
+        //    isPortal = false;
+        //}
+        StartCoroutine(temp());
+    }
+
+    private IEnumerator temp() { 
+        yield return null;
+        yield return null;
+
         if (isPortal)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -113,7 +133,6 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
     private IEnumerator CloseScene(SceneType nextScene) {
         yield return StartCoroutine(FadeOutScene());
 
-        pc.CurScene = nextScene;
         curScene = nextScene;
 
         SceneManager.LoadScene(nextScene.ToString());

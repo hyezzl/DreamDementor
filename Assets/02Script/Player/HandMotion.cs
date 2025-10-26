@@ -12,6 +12,7 @@ public class HandMotion : MonoBehaviour
     private Animator anim;
     private PlayerController pc;
 
+
     private void Awake()
     {
         pc = FindAnyObjectByType<PlayerController>();
@@ -24,27 +25,44 @@ public class HandMotion : MonoBehaviour
     {
         if (pc.CurAspect != AspectMode.OnepersonMode)
         {
+            Debug.Log("여기가 실행되나요??");
             // 3인칭일때
-            gameObject.SetActive(false);
+            anim.enabled = false;
         }
     }
 
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(OnModeChange);
+        EventBus.Instance.Subscribe<GameEvents.AspectChange>(OnAspectChange);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(OnModeChange);
+        EventBus.Instance.Unsubscribe<GameEvents.AspectChange>(OnAspectChange);
     }
 
-    private void OnModeChange(GameEvents.GameModeChange evt) {
+    private void OnModeChange(GameEvents.GameModeChange evt)
+    {
         if (evt.mode == GameMode.InspectMode)
         {
 
         }
-        else {
+        else
+        {
             anim.SetBool("isMove", false);
+        }
+    }
+
+    private void OnAspectChange(GameEvents.AspectChange evt)
+    {
+        if (evt.mode == AspectMode.OnepersonMode)
+        {
+            anim.enabled = true;
+        }
+        else
+        {
+            anim.enabled = false;
         }
     }
 }

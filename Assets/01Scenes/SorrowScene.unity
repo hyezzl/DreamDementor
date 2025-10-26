@@ -1652,7 +1652,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1581899396}
-  - component: {fileID: 1581899398}
   - component: {fileID: 1581899397}
   m_Layer: 0
   m_Name: EventFlowManager
@@ -1690,18 +1689,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventID: E024
   eventtype: 2
---- !u!114 &1581899398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581899395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e27ba370bc3058f498134c73d247bc4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1597476741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2353,6 +2340,7 @@ GameObject:
   - component: {fileID: 2073805367}
   - component: {fileID: 2073805366}
   - component: {fileID: 2073805371}
+  - component: {fileID: 2073805372}
   m_Layer: 0
   m_Name: TempManager
   m_TagString: Untagged
@@ -2453,6 +2441,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2f4f34d44188b3489f3575129063ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2073805372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073805364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27ba370bc3058f498134c73d247bc4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &6206054152881622

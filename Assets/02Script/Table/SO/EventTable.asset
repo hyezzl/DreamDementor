@@ -1697,6 +1697,17 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
+  - EventID: E041
+    EventDetailID: E041
+    LogID: 41001
+    Dialog: "\uBC16\uC5D0 \uB098\uAC00\uAE30\uC5D4 \uB2A6\uC740 \uC2DC\uAC04\uC774\uC57C..\n\uB0B4\uC77C\uC744
+      \uC704\uD574\uC11C \uC5B4\uC11C \uC790\uC57C \uD574."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Monologue
+    Emotion: -1
   Choice:
   - ChoiceID: C001
     Choice0: " \uB2F9\uC2E0\uC740 \uC5C4\uB9C8\uAC00 \uC544\uB2C8\uC57C.\n\uB108..\uB204\uAD6C\uC57C?"
@@ -1741,8 +1752,8 @@ MonoBehaviour:
     Score0: -10
     Score1: 0
     Score2: 0
-    Continue0: 
-    Continue1: 
+    Continue0: N004_0
+    Continue1: N004_1
     Continue2: 
     RootID: N004
   - ChoiceID: C005

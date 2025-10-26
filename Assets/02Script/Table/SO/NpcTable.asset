@@ -367,6 +367,36 @@ MonoBehaviour:
     ChoiceID: C004
     Textbox: Basic
     Emotion: 0
+  - NpcID: N004
+    NpcEventID: N004_0
+    LogID: 4003
+    Dialog: "\uAE84\uC545!!!"
+    NextID: 4004
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 2
+  - NpcID: N004
+    NpcEventID: N004_0
+    LogID: 4004
+    Dialog: "\uC774\uBC88\uC5D0\uB3C4 \uBB54\uAC00 \uC798\uBABB \uC0DD\uAC01\uD55C\uAC78\uAE4C..?"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N004
+    NpcEventID: N004_1
+    LogID: 4005
+    Dialog: "\uC544\uBB34\uB798\uB3C4 \uADF8\uB807\uACA0\uC9C0.."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
   - NpcID: N005
     NpcEventID: N005
     LogID: 5001

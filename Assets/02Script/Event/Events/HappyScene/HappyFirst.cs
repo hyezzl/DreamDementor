@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Timeline;
 
 public class HappyFirst : SceneStart
 {
     [SerializeField] PlayableDirector eyesOpen;
     [SerializeField] private Canvas eyeCanvas;
+    [SerializeField] private PostProcessVolume pp;
 
 
     protected override void OnFirstVisit() {
         base.OnFirstVisit();
         PlayTeleport();
+    }
+
+    protected override void OnRevisit()
+    {
+        base.OnRevisit();
+        pp.gameObject.SetActive(false);
     }
 
 

@@ -160,9 +160,13 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
     public void StopGame()
     {
         moveable = false;
+        if (na != null)
+        {
+            na.isStopped = true;
+            na.velocity = Vector3.zero;
+        }
     }
-
-    public void ModeChange(GameEvents.GameModeChange evt)
+public void ModeChange(GameEvents.GameModeChange evt)
     {
         if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode ||
             evt.mode == GameMode.PauseMode || evt.mode == GameMode.UIPuzzleMode)

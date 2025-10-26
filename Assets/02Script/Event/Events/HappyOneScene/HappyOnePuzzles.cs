@@ -29,9 +29,9 @@ public class HappyOnePuzzles : EventBase
     }
 
     private void ManageKeyCnt(int curKeyCnt, string npcID) {
-        if (curKeyCnt == 2) {
-            // key개수가 2개에 도달하면 귀신 등장
-            Debug.Log("열쇠 두개 모았으므로 괴물이 등장!");
+        if (curKeyCnt == 3) {
+            // key개수가 3개에 도달하면 귀신 등장
+            Debug.Log("열쇠 세개 모았으므로 괴물이 등장!");
 
             // EnemySpawn
             EventBus.Instance.Publish<PuzzleEvents.HO_AppearEnemy>(new PuzzleEvents.HO_AppearEnemy(npcID));
