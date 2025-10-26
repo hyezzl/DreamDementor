@@ -13,8 +13,8 @@ public class TitleFirst : MonoBehaviour
         if (spine != null) {
             spine.AnimationState.SetAnimation(0, "Idle", true);
         }
+
+        // 브금
+        EventBus.Instance.Publish<GameEvents.PlayBGM>(new GameEvents.PlayBGM(BGMType.TitleBGM));
     }
-
-    // 브금
-
 }
