@@ -5,10 +5,15 @@ using UnityEngine;
 public class HappyOnePuzzles : EventBase
 {
     public static int HOcurKeyCnt = 0;       // 현재 플레이어가 가진 열쇠 갯수
+    public CameraFilterPack_FX_Glitch1 glitch;
 
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        glitch = Camera.main.GetComponent<CameraFilterPack_FX_Glitch1>();
+        if (glitch == null) Debug.Log("HappyOnePuzzles - Failed to Load CameraFilter");
+        glitch.enabled = false;
 
         Debug.Log($"현재까지 모은 열쇠 갯수 : {HOcurKeyCnt}");
         EventBus.Instance.Subscribe<PuzzleEvents.HO_GetKey>(OnGetKey);
@@ -59,6 +64,11 @@ public class HappyOnePuzzles : EventBase
             Debug.Log("술래잡기 시작!");
             EventBus.Instance.Publish<GameEvents.EnemyStateChange>(new GameEvents.EnemyStateChange(EnemyState.Chase));
 
+            // 카메라효과
+            EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.Glitch, true));
+            if (glitch != null)
+                glitch.enabled = true;
+                glitch.Glitch = 0.2f;
         }
         base.CloseDialog(evt);
     }
