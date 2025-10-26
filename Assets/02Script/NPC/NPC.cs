@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class NPC : MonoBehaviour, IActionNpc
 {
     public string npcID;
-    public string curNpcEventID = null;
+    protected string curNpcEventID = null;
     public bool isContacted = false;
     protected PlayerController pc;
     protected Dictionary<string, Dictionary<int, NPCDialogData>> allDialogs;
@@ -111,17 +111,12 @@ public class NPC : MonoBehaviour, IActionNpc
     }
 
     protected virtual void OnEndNpcDialog(UIEvents.EndNpcDialog evt) {
-        //if (evt.npcID == npcID) {
         if (evt.npcID == npcID && evt.npcEventID == curNpcEventID) {
             isInDialog = false;
 
             // 대화 종료 후 다음 Interact 사이 딜레이 시작
             isDelay = true;
             delayTimer = dialogDelay;
-
-            // 게임모드 변경 (NPC와의 대화이후는 반드시 Inspect모드임을 전제)
-            //pc.CurMode = GameMode.InspectMode;
-            //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
         }
 
         curNpcEventID = null;       // 대화가끝나면 초기화
