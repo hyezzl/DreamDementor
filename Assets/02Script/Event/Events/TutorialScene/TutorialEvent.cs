@@ -22,6 +22,7 @@ public class TutorialEvent : EventBase
 
     [Header("Filter Refs")]
     [SerializeField] private CameraFilterPack_FX_Glitch1 glitch;
+    [SerializeField] private CameraFilterPack_Colors_Adjust_PreFilters colorAdjust;
 
     private bool isChoice = false;
 
@@ -80,6 +81,12 @@ public class TutorialEvent : EventBase
         if (glitch != null)
             glitch.Glitch = 1f;
 
+        EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.ColorAdjust, true));
+        if (colorAdjust != null) {
+            colorAdjust.enabled = true;
+            colorAdjust.filterchoice = CameraFilterPack_Colors_Adjust_PreFilters.filters.RedWhite;
+            colorAdjust.FadeFX = 0.5f;
+        }
 
         // 3. 두번째 타임라인 재생
         timeline02.Play();

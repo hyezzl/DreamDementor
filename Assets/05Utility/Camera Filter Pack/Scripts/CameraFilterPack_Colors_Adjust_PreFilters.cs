@@ -6,7 +6,8 @@ using UnityEngine;
 using System.Collections;
 [ExecuteInEditMode]
 [AddComponentMenu ("Camera Filter Pack/ColorsAdjust/Photo Filters")]
-public class CameraFilterPack_Colors_Adjust_PreFilters : MonoBehaviour {
+public class CameraFilterPack_Colors_Adjust_PreFilters : MonoBehaviour ,ICameraFilter
+{
 #region Variables
 private string ShaderName="CameraFilterPack/Colors_Adjust_PreFilters";
 public Shader SCShader;

@@ -37,6 +37,7 @@ public class CoveringUI : MonoBehaviour
         if (curScene == SceneType.RestScene || curScene == SceneType.TutorialScene ||
             curScene == SceneType.TitleScene)
         {
+            Debug.Log($"ÇöÀç¾ÀÀº {curScene} ÀÌ¶ó¼­ UI¼û±è!!!!");
             ShowUI(false);
             return;
         }

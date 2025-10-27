@@ -119,7 +119,7 @@ public class PlayerController : Singleton<PlayerController>
         int newHp = Mathf.Clamp(preHp + val, 0, 100);
         curHp[stage] = newHp;
 
-        EventBus.Instance.Publish<GameEvents.OnHpChange>(new GameEvents.OnHpChange());
+        //EventBus.Instance.Publish<GameEvents.OnHpChange>(new GameEvents.OnHpChange());
 
         // 정신력 0 도달 (씬알려주기) -> 게임오버
         if (newHp <= 0 && preHp > 0)
@@ -130,6 +130,7 @@ public class PlayerController : Singleton<PlayerController>
 
         // HP 변경
         if (val != 0) {
+            Debug.Log("Hp 변경!!!!!!!!!!!!!!");
             SceneType curScene = SwitchSceneManager.Instance.CurScene;
             EventBus.Instance.Publish<GameEvents.OnHpChange>(new GameEvents.OnHpChange(Scene2Stage(curScene), preHp, newHp));
         }

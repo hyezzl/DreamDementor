@@ -8,6 +8,7 @@ public enum FilterType
     Glitch,             // 대사 중간중간 / 1인칭 맵에서 귀신과의 거리가 가까워질 때
     HorrorReverse,      // Red White / 귀신이 등장해 있을 때
     Spot,               // 씬 전환효과
+    ColorAdjust,        // 색 반전
 }
 
 

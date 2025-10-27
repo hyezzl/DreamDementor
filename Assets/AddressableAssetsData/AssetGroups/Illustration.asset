@@ -17,18 +17,13 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: f9f1ca2ebd2075d4ab4eb4c6decf4725
   m_SerializeEntries:
-  - m_GUID: 0831ba3b2741dcd47a7a82835adf2f1d
-    m_Address: Extra/Somi_cackle
+  - m_GUID: 06cfa9dfe814dac4a8f295f3dfb6ae73
+    m_Address: Extra/Sena_normal
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1236d796a823fbe419ad442bc1d52ce9
     m_Address: Player/Embrassed
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1b5e106546c6aec499fecd99800c3fdc
-    m_Address: Extra/Hyuk_normal
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -42,23 +37,33 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 331db1b911a59594285ec7b8b21b6591
+    m_Address: Extra/Somi_smile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c784b62c5f60b040abdcf93928791d5
+    m_Address: Extra/Hyuk_normal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 50567e3002d23d44aaabb7c44c2c944a
     m_Address: Player/Basic
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 60398f2735cf2ab4782f4eaa2977e134
-    m_Address: Extra/Somi_smile
+  - m_GUID: 628c645f5c0241f408be620ccd1ffcf5
+    m_Address: Extra/Sena_serious
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6d4cbf7699f69b64ab88d1b9e67f4463
-    m_Address: Extra/Hyuk_cackle
+  - m_GUID: 85fe941b74d2e404887512ac35d86a1f
+    m_Address: Mom/Basic
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 938eb98a35e8b9f4996123f9b352105a
-    m_Address: Extra/Hyuk_smile
+  - m_GUID: 868dcf0abd6bb294081bbb69f9cf95e5
+    m_Address: Extra/Somi_normal
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -67,53 +72,48 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 966797da9bcf3b149bae08c8b543f11d
-    m_Address: Extra/Sena_normal
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ab5048623188b7f48ba042b412598fc7
-    m_Address: Mom/ChillingSmile
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b225c8d0ca450ec42a83a43a25c9305a
-    m_Address: Extra/Sena_serious
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b5bcbe268e97575489e5c3c5275f2530
-    m_Address: Extra/Somi_serious
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ba3d6b08116fbc34384c88b55ffd2ce5
-    m_Address: Extra/Somi_normal
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d0456a08aba720e4f95a02df2aa04853
-    m_Address: Extra/Sena_cackle
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dc203f7848da08747beebbb72143a21a
-    m_Address: Mom/Basic
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e5a41f9967828944baa80beab08694c5
-    m_Address: Extra/Sena_angry
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f518c9506bbfe994091fe7fec8946650
+  - m_GUID: 9e7444ab1874fdf4aaff5934df6df3bb
     m_Address: Mom/Smile
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fd8e92b8f9037e6448d6d33aad6495f4
+  - m_GUID: a14f7a9a8b7caf9428e6f91d4e71b644
+    m_Address: Mom/ChillingSmile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3050b67e2f2ca441be114a1e0b0e1e1
+    m_Address: Extra/Somi_cackle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3c518fe674e37347a3deadbe78cdbac
     m_Address: Extra/Hyuk_angry
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba8c0ca2c7fe865468cd254312a1b3be
+    m_Address: Extra/Hyuk_smile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c6531c7660cfb05488900346c29f61e6
+    m_Address: Extra/Sena_angry
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c9ba7c8778018aa46abbb568539be543
+    m_Address: Extra/Somi_serious
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cfc6ca8555ecdff4e8000c2c28137061
+    m_Address: Extra/Sena_cackle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ddf753d25c82ee94686adfbf3abb0278
+    m_Address: Extra/Hyuk_cackle
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
