@@ -167,6 +167,7 @@ public class UIApps : MonoBehaviour
     {
         if (popupManager != null && popupManager.isAnimating) return;
         Debug.Log("Really? 게임종료");
+        Application.Quit();
     }
 
     // 현재 선택된 탭을 제외한 3개탭 반환

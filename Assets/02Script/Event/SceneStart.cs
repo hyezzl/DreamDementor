@@ -26,7 +26,7 @@ public class SceneStart : MonoBehaviour, IGameEvent
 
     protected virtual void Awake()
     {
-        SwitchSceneManager.Instance.CurScene = curScene;
+        //SwitchSceneManager.Instance.CurScene = curScene;
     }
 
     protected virtual void OnEnable() 
@@ -72,6 +72,8 @@ public class SceneStart : MonoBehaviour, IGameEvent
         //    //브금 재생
         //}
 
+        isFirst = EventHistoryManager.Instance.isFirstVisit(curScene);
+
         // 씬 재방문 조사
         if (EventHistoryManager.Instance.isFirstVisit(curScene))
         {
@@ -87,9 +89,7 @@ public class SceneStart : MonoBehaviour, IGameEvent
         }
     }
 
-    /// <summary>
     /// 첫방문일 때 실행될 함수
-    /// </summary>
     protected virtual void OnFirstVisit() {
         Debug.Log($"{curScene} : 첫방문입니다.");
 
@@ -97,9 +97,7 @@ public class SceneStart : MonoBehaviour, IGameEvent
         EventBus.Instance.Publish<GameEvents.SceneStartEffect>(new GameEvents.SceneStartEffect(curScene));
     }
 
-    /// <summary>
     /// 재방문일 때 실행될 함수
-    /// </summary>
     protected virtual void OnRevisit() {
         Debug.Log($"{curScene} : 재방문입니다.");
 
@@ -108,12 +106,15 @@ public class SceneStart : MonoBehaviour, IGameEvent
     }
 
     /// <summary>
-    /// 씬전환 이후에 (한번) 실행될 함수
+    /// 씬 첫방문 + 열리는 연출 직후 실행될 함수
     /// </summary>
-    protected virtual void OnSceneStart() {
-        Debug.Log("실행되나요??");
-    }
+    protected virtual void OnSceneStart() { }
 
+
+    /// <summary>
+    /// 씬 재방문 + 열리는 연출 직후 실행될 함수
+    /// </summary>
+    protected virtual void OnSceneRestart() { }
 
 
 
@@ -121,15 +122,25 @@ public class SceneStart : MonoBehaviour, IGameEvent
     // 씬전환 이벤트 끝나고
     protected void EndSceneEffect(GameEvents.SceneEffectEnd evt) {
         if (SwitchSceneManager.Instance.CurScene == evt.scene) {
-            OnSceneStart();
+            if (isFirst)
+            {
+                // 첫방문 + 씬오픈효과 직후
+                OnSceneStart();
+                isFirst = false;
+            }
+            else {
+                // 재방문 + 씬오픈효과 직후
+                OnSceneRestart();
+            }
         }
     }
 
     // 첫 이벤트 끝나고 난 후
     protected virtual void AfterDialog(UIEvents.EndDialog evt) {
         if (evt.eventID == startEventID) 
-        { 
+        {
             // 첫 대화 이벤트 끝난 후
+            isFirst = false;
         }
     }
 }

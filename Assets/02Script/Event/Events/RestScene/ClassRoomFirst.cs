@@ -5,6 +5,14 @@ using UnityEngine.UIElements;
 
 public class ClassRoomFirst : SceneStart
 {
+
+    protected override void Awake()
+    {
+        base.Awake();
+        SwitchSceneManager.Instance.CurScene = SceneType.RestScene;
+    }
+
+
     public override void Init(IDatabase db)
     {
         base.Init(db);
@@ -22,6 +30,12 @@ public class ClassRoomFirst : SceneStart
         // 플레이어 방향 강제
         EventBus.Instance.Publish(new GameEvents.ForceDir(Direction4.Right));
 
+        //EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(startEventID));
+        //EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.InspectMode));
+    }
+
+    protected override void OnSceneStart()
+    {
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(startEventID));
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.InspectMode));
     }

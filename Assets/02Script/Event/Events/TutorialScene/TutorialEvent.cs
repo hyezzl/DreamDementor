@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
 public class TutorialEvent : EventBase
 {
@@ -15,6 +16,7 @@ public class TutorialEvent : EventBase
     [Header("UIRefs")]
     [SerializeField] private CanvasGroup dialog;
     [SerializeField] private GameObject tutorialPopup;
+    [SerializeField] private Button yesBTN;
 
     [Header("Animator")]
     [SerializeField] private Animator playerAnim;
@@ -25,6 +27,7 @@ public class TutorialEvent : EventBase
     [SerializeField] private CameraFilterPack_Colors_Adjust_PreFilters colorAdjust;
 
     private bool isChoice = false;
+    private bool clickYes = false;
 
 
     protected override void Awake()
@@ -117,9 +120,8 @@ public class TutorialEvent : EventBase
         // 튜토리얼 화면 나오게
         tutorialPopup.SetActive(true);
 
-        yield return new WaitUntil(() => Input.anyKeyDown);
-
-        
+        // 확인버튼 눌릴 때 까지 대기
+        yield return WaitForYesButton();
 
         // 시간 재개
         EventBus.Instance.Publish<GameEvents.FlowTime>(new GameEvents.FlowTime(false));
@@ -149,6 +151,20 @@ public class TutorialEvent : EventBase
         if (evt.selectIdx == 0 || evt.selectIdx == 1) { 
             isChoice = true;
         }
+    }
+
+    // 버튼
+    private IEnumerator WaitForYesButton() {
+        clickYes = false;
+        yesBTN.onClick.AddListener(OnClickYes);
+
+        yield return new WaitUntil(() => clickYes);
+
+        yesBTN.onClick.RemoveListener(OnClickYes);
+    }
+
+    private void OnClickYes() {
+        clickYes = true;
     }
 
 }

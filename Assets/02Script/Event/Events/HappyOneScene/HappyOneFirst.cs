@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HappyOneFirst : SceneStart
 {
     [SerializeField] private GameObject happyOneTuto;
     [SerializeField] private GameObject miniQuest;
+
+    [SerializeField] private Button yesBTN;
+    private bool clickYes = false;
 
 
     protected override void Awake()
@@ -22,7 +26,6 @@ public class HappyOneFirst : SceneStart
         PlayerController.Instance.CurAspect = AspectMode.OnepersonMode;
         EventBus.Instance.Publish<GameEvents.AspectChange>(new GameEvents.AspectChange(AspectMode.OnepersonMode));
 
-        // Inspector모드
         PlayerController.Instance.CurMode = GameMode.EventMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
     }
@@ -36,15 +39,6 @@ public class HappyOneFirst : SceneStart
 
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(startEventID));
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.InspectMode));
-    }
-
-    private IEnumerator PlayIntro()
-    {
-        yield return null;
-
-        // 맵 입장하자마자 이벤트 (대화 이벤트)
-        //EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(startEventID));
-        //EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.InspectMode));
     }
 
     protected override void AfterDialog(UIEvents.EndDialog evt)
@@ -64,7 +58,8 @@ public class HappyOneFirst : SceneStart
         // 튜토리얼 화면 나오게
         happyOneTuto.SetActive(true);
 
-        yield return new WaitUntil(() => Input.anyKeyDown);
+        // 확인버튼 눌릴 때 까지 대기
+        yield return WaitForYesButton();
 
 
 
@@ -75,6 +70,22 @@ public class HappyOneFirst : SceneStart
 
         // 퀘스트 생성
         miniQuest.SetActive(true);
+    }
+
+    // 버튼
+    private IEnumerator WaitForYesButton()
+    {
+        clickYes = false;
+        yesBTN.onClick.AddListener(OnClickYes);
+
+        yield return new WaitUntil(() => clickYes);
+
+        yesBTN.onClick.RemoveListener(OnClickYes);
+    }
+
+    private void OnClickYes()
+    {
+        clickYes = true;
     }
 
 

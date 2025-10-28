@@ -5240,14 +5240,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2736795488446341184}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5335,6 +5335,7 @@ MonoBehaviour:
   - {fileID: 3428396193427989684}
   - {fileID: 554896789213473623}
   - {fileID: 8261526938587069031}
+  - {fileID: 386584166749616816}
   escapeBTN: {fileID: 386584166749616816}
   exitBTN: {fileID: 3090286974975142044}
   backBTN: {fileID: 8735496047640410549}
@@ -14683,7 +14684,6 @@ GameObject:
   - component: {fileID: 800648389689845326}
   - component: {fileID: 2503629265935857429}
   - component: {fileID: 2116673201507035964}
-  - component: {fileID: 4534950388092498382}
   - component: {fileID: 3314747036595254697}
   m_Layer: 5
   m_Name: TutorialPopup
@@ -14755,19 +14755,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4534950388092498382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6937083281434544008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d6ae8a2803fc944194f5eeb30ce404d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  group: {fileID: 3651230437869983673}
 --- !u!114 &3314747036595254697
 MonoBehaviour:
   m_ObjectHideFlags: 0

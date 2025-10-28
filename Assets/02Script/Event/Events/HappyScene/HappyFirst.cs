@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.UI;
 
 public class HappyFirst : SceneStart
 {
     [SerializeField] PlayableDirector eyesOpen;
     [SerializeField] private Canvas eyeCanvas;
     [SerializeField] private PostProcessVolume pp;
+
+    // 튜토리얼
     [SerializeField] private GameObject happyTutorial;
+    [SerializeField] private Button yesBTN;
+
+    private bool isClickY = false;      // 확인 버튼 눌렸는가?
+
 
     private int[] requireIDs = { 10001002, 10001003, 10001004 };
 
@@ -100,13 +107,29 @@ public class HappyFirst : SceneStart
         // 튜토리얼 화면 나오게
         happyTutorial.SetActive(true);
 
-        yield return new WaitUntil(() => Input.anyKeyDown);
+        // 확인 버튼 눌릴 때 까지 대기
+        yield return WaitForYesButton();
 
 
         // 시간 재개
         EventBus.Instance.Publish<GameEvents.FlowTime>(new GameEvents.FlowTime(false));
 
         happyTutorial.SetActive(false);
+    }
+
+    private IEnumerator WaitForYesButton()
+    {
+        isClickY = false;
+        yesBTN.onClick.AddListener(OnYesClicked);  // 리스너 등록
+
+        yield return new WaitUntil(() => isClickY);
+
+        yesBTN.onClick.RemoveListener(OnYesClicked);  // 리스너 해제
+    }
+
+    private void OnYesClicked()
+    {
+        isClickY = true;
     }
 
 }

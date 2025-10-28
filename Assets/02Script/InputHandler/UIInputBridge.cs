@@ -18,10 +18,10 @@ public class UIInputBridge : MonoBehaviour
     {
         if (joyHandler != null)
         {
-            interactBTN.onClick.AddListener(() => { joyHandler.isInteractClicked = true; EventSystem.current.SetSelectedGameObject(null); });
-            popupBTN.onClick.AddListener(() => { joyHandler.isPopupClicked = true; EventSystem.current.SetSelectedGameObject(null); });
-            lightBTN.onClick.AddListener(() => { joyHandler.isLightClicked = true; EventSystem.current.SetSelectedGameObject(null); });
-            menuBTN.onClick.AddListener(() => { joyHandler.isEscapeClicked = true; EventSystem.current.SetSelectedGameObject(null); });
+            //interactBTN.onClick.AddListener(() => { joyHandler.isInteractClicked = true; EventSystem.current.SetSelectedGameObject(null); });
+            //popupBTN.onClick.AddListener(() => { joyHandler.isPopupClicked = true; EventSystem.current.SetSelectedGameObject(null); });
+            //lightBTN.onClick.AddListener(() => { joyHandler.isLightClicked = true; EventSystem.current.SetSelectedGameObject(null); });
+            //menuBTN.onClick.AddListener(() => { joyHandler.isEscapeClicked = true; EventSystem.current.SetSelectedGameObject(null); });
         }
         else { Debug.Log("UIInputBridge - Failed to Load JoyStickInputHandler"); }
     }
