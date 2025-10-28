@@ -32,19 +32,27 @@ public class AudioController : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            sliders[i].value = 1f;
-            preVol[i] = 1f;
-            isPlaying[i] = true;
+        // SoundManager의 볼륨값으로 초기화
+        //sliders[(int)SoundType.Master].value = SoundManager.Instance.masterVol;
+        //sliders[(int)SoundType.BGM].value = SoundManager.Instance.bgmVol;
+        //sliders[(int)SoundType.SFX].value = SoundManager.Instance.sfxVol;
 
-            texts[i].text = "100 %";
-            images[i].sprite = playIcon;
-        }
+
+        //for (int i = 0; i < sliders.Count; i++)
+        //{
+        //    float val = sliders[i].value;
+        //    preVol[i] = val;
+        //    isPlaying[i] = val > 0f;
+
+        //    texts[i].text = Mathf.RoundToInt(val * 100) + " %";
+        //    images[i].sprite = isPlaying[i] ? playIcon : muteIcon;
+        //}
     }
 
     private void OnEnable()
     {
+        InitializeSliders();
+
         for (int i = 0; i < 3; i++) {
             int idx = i;
             sliders[idx].onValueChanged.AddListener(value => SliderValueChanged((SoundType)idx, value));
@@ -79,6 +87,23 @@ public class AudioController : MonoBehaviour
         }
         string parameter = type.ToString() + "Vol";
         am.SetFloat(parameter, db);
+
+        // SoundManager와 상태 동기화
+        switch (type) 
+        {
+            case SoundType.Master:
+                SoundManager.Instance.SetMasterVol(value);
+                break;
+
+            case SoundType.BGM:
+                SoundManager.Instance.SetBGMVol(value);
+                break;
+
+            case SoundType.SFX:
+                SoundManager.Instance.SetSFXVol(value);
+                break;
+        }
+
     }
 
     public void SoundMute(SoundType type) {
@@ -102,6 +127,27 @@ public class AudioController : MonoBehaviour
             images[(int)type].sprite = playIcon;
             texts[(int)type].text = Mathf.RoundToInt(preVol[(int)type] * 100) + " %";
             SliderValueChanged(type, preVol[(int)type]);
+        }
+    }
+
+
+    //temp
+    public void InitializeSliders()
+    {
+        // SoundManager가 준비된 상태에서 호출되어야 함
+        if (SoundManager.Instance == null) Debug.LogError("매니저가 널");
+        sliders[(int)SoundType.Master].value = SoundManager.Instance.masterVol;
+        sliders[(int)SoundType.BGM].value = SoundManager.Instance.bgmVol;
+        sliders[(int)SoundType.SFX].value = SoundManager.Instance.sfxVol;
+
+        for (int i = 0; i < sliders.Count; i++)
+        {
+            float val = sliders[i].value;
+            preVol[i] = val;
+            isPlaying[i] = val > 0f;
+
+            texts[i].text = Mathf.RoundToInt(val * 100) + " %";
+            images[i].sprite = isPlaying[i] ? playIcon : muteIcon;
         }
     }
 

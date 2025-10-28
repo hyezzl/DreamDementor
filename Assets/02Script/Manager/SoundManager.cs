@@ -15,6 +15,10 @@ public enum SFXType
 
 }
 
+/// <summary>
+/// 사운드 전체 관리 ( 브금/효과음 + 설정값에 따른 변화값 저장 )
+/// </summary>
+
 public class SoundManager : Singleton<SoundManager>
 {
     [Header("AudioMixer")]
@@ -38,7 +42,22 @@ public class SoundManager : Singleton<SoundManager>
     private Coroutine bgmCoroutine;
 
 
+    /// 현재 사운드설정값 저장
+    private const string MasterVolKey = "MasterVolPref";
+    private const string BGMVolKey = "BGMVolPref";
+    private const string SFXVolKey = "SFXVolPref";
 
+    public float masterVol = 1f; // 마스터 볼륨 저장
+    public float bgmVol = 1f;    // BGM 볼륨 저장
+    public float sfxVol = 1f;    // SFX 볼륨 저장
+
+
+    protected override void DoAwake()
+    {
+        base.DoAwake();
+        // 초기화 시 볼륨 설정 로드
+        LoadVolumeSettings();
+    }  
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.PlayBGM>(OnPlayBGM);
@@ -150,5 +169,42 @@ public class SoundManager : Singleton<SoundManager>
             return Mathf.Pow(10, BGMVol / 20f);
         }
         else return 1f;
+    }
+
+
+    // Pref에 설정값 저장
+    public void SetMasterVol(float val)
+    {
+        masterVol = val;
+        am.SetFloat("MasterVol", Mathf.Log10(val) * 20f);
+        PlayerPrefs.SetFloat(MasterVolKey, val);   // 저장
+        PlayerPrefs.Save();
+    }
+
+    public void SetBGMVol(float val) {
+        bgmVol = val;
+        am.SetFloat("BGMVol", Mathf.Log10(val) * 20f);
+        PlayerPrefs.SetFloat(BGMVolKey, val);       // 저장
+        PlayerPrefs.Save();
+    }
+
+    public void SetSFXVol(float val)
+    {
+        sfxVol = val;
+        am.SetFloat("SFXVol", Mathf.Log10(val) * 20f);
+        PlayerPrefs.SetFloat(SFXVolKey, val);     // 저장
+        PlayerPrefs.Save();
+    }
+
+    // 로드
+    private void LoadVolumeSettings()
+    {
+        masterVol = PlayerPrefs.GetFloat(MasterVolKey, 1f);
+        bgmVol = PlayerPrefs.GetFloat(BGMVolKey, 1f);
+        sfxVol = PlayerPrefs.GetFloat(SFXVolKey, 1f);
+
+        SetMasterVol(masterVol);
+        SetBGMVol(bgmVol);
+        SetSFXVol(sfxVol);
     }
 }

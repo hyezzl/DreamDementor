@@ -135,6 +135,8 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
     private IEnumerator CloseScene(SceneType nextScene) {
         yield return StartCoroutine(FadeOutScene());
 
+        yield return null;
+
         curScene = nextScene;
 
         SceneManager.LoadScene(nextScene.ToString());
@@ -161,6 +163,9 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
             yield return null;
         }
         spot.Radius = fadeOutVal;
+
+
+        yield return null;
     }
 
 }

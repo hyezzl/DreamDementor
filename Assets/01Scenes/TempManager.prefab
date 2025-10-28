@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 1298855163209459716}
   - component: {fileID: 2920299858745259832}
   - component: {fileID: 7433942643447048091}
-  - component: {fileID: 5766461039674849599}
   m_Layer: 0
   m_Name: TempManager
   m_TagString: Untagged
@@ -130,23 +129,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27ba370bc3058f498134c73d247bc4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5766461039674849599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8095682131951148785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a6b4d9a84da8848b32d6307281e5de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  am: {fileID: 0}
-  bgmSource: {fileID: 0}
-  sfxSource: {fileID: 0}
-  bgmClips: []
-  sfxClips: []
-  fadeDuration: 1
-  isBGMPlaying: 0
-  isSFXPlaying: 0

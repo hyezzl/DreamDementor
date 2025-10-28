@@ -28,25 +28,25 @@ public class SwitchSceneEffect : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.Instance.Subscribe<GameEvents.SwitchScene>(SwitchScene1);
-        EventBus.Instance.Subscribe<GameEvents.PortalSwitchScene>(SwitchScene2);
+        //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(SwitchScene1);
+        //EventBus.Instance.Subscribe<GameEvents.PortalSwitchScene>(SwitchScene2);
         EventBus.Instance.Subscribe<GameEvents.SceneStartEffect>(SceneStarted);
     }
     private void OnDisable()
     {
-        EventBus.Instance.Unsubscribe<GameEvents.SwitchScene>(SwitchScene1);
-        EventBus.Instance.Unsubscribe<GameEvents.PortalSwitchScene>(SwitchScene2);
+        //EventBus.Instance.Unsubscribe<GameEvents.SwitchScene>(SwitchScene1);
+        //EventBus.Instance.Unsubscribe<GameEvents.PortalSwitchScene>(SwitchScene2);
         EventBus.Instance.Unsubscribe<GameEvents.SceneStartEffect>(SceneStarted);
     }
 
-    private void SwitchScene1(GameEvents.SwitchScene evt) {
-        Debug.Log("페이드아웃!");
-        StartCoroutine(FadeOutScene());
-    }
-    private void SwitchScene2(GameEvents.PortalSwitchScene evt) { 
-        Debug.Log("페이드아웃!");
-        StartCoroutine(FadeOutScene());
-    }
+    //private void SwitchScene1(GameEvents.SwitchScene evt) {
+    //    Debug.Log("페이드아웃!");
+    //    StartCoroutine(FadeOutScene());
+    //}
+    //private void SwitchScene2(GameEvents.PortalSwitchScene evt) { 
+    //    Debug.Log("페이드아웃!");
+    //    StartCoroutine(FadeOutScene());
+    //}
     private void SceneStarted(GameEvents.SceneStartEffect evt) {
         Debug.Log("페이드인!");
         curScene = evt.scene;

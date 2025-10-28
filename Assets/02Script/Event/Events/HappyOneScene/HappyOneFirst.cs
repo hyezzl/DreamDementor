@@ -55,12 +55,19 @@ public class HappyOneFirst : SceneStart
         // 시간 멈춤
         EventBus.Instance.Publish<GameEvents.StopTime>(new GameEvents.StopTime(false));
 
+        // 마우스 임시 활성화 
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+
         // 튜토리얼 화면 나오게
         happyOneTuto.SetActive(true);
 
         // 확인버튼 눌릴 때 까지 대기
         yield return WaitForYesButton();
 
+        // 마우스 임시 비활성화 
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
 
         // 시간 재개

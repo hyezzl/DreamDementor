@@ -34,5 +34,4 @@ public class SorrowFirst : SceneStart
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.InspectMode));
     }
 
-
 }
