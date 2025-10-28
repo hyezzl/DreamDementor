@@ -23,6 +23,8 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
     public EnemyState curState;
     private Vector3 preMoveDir = Vector3.zero;      // 이전프레임 이동각도
 
+    private Billboard billboard;
+
     private void Awake()
     {
         if (!TryGetComponent<Rigidbody>(out rig))
@@ -40,6 +42,9 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
         {
             Debug.Log("EnemyMove - Failed to Load NavMeshAgent");
         }
+
+        if (!TryGetComponent<Billboard>(out billboard)) Debug.Log("EnemyMove - Failed to Load Billboard");
+
         na.updateRotation = false;      // 자동회전값 끄기
         na.speed = moveSpeed;
     }
@@ -48,6 +53,8 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
     {
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(ModeChange);
         EventBus.Instance.Subscribe<GameEvents.UpdateEnemy>(OnChange);
+
+        billboard.enabled = false;
     }
     private void OnDisable()
     {
@@ -73,6 +80,9 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
         if (curState == EnemyState.Chase)
         {
             na.SetDestination(player.position);
+
+            // 빌보드 킴
+            billboard.enabled = true;
 
             // 애니메이션
             Vector3 moveDir = na.velocity.normalized;
@@ -111,7 +121,8 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
                 isWalk = true;
                 na.isStopped = false;
             }
-            else {
+            else
+            {
                 isWalk = false;
                 na.isStopped = true;
                 na.velocity = Vector3.zero;
@@ -148,6 +159,9 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
             //anim.SetBool("isWalk", isWalk);
             //anim.SetFloat("xDir", relX);
             //anim.SetFloat("yDir", relY);
+        }
+        else {
+            billboard.enabled = false;
         }
     }
 

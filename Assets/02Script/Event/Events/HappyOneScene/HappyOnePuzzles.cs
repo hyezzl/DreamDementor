@@ -1,7 +1,10 @@
 using Cinemachine;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class HappyOnePuzzles : EventBase
 {
@@ -13,7 +16,11 @@ public class HappyOnePuzzles : EventBase
     [SerializeField] private CinemachineVirtualCamera playerCam;
     [SerializeField] private CinemachineVirtualCamera enemyCam;
 
-    // 귀신 비춰줄 
+    [SerializeField] PlayableDirector appearEnemy;     // 귀신등장 타임라인
+
+    // 임시로 카메라 ....
+    private float lookEnemyDuration = 6f;
+
 
     protected override void OnEnable()
     {
@@ -31,8 +38,6 @@ public class HappyOnePuzzles : EventBase
         base.OnDisable();
         EventBus.Instance.Unsubscribe<PuzzleEvents.HO_GetKey>(OnGetKey);
     }
-
-
 
     private void OnGetKey(PuzzleEvents.HO_GetKey evt) {
         HOcurKeyCnt++;
@@ -60,6 +65,10 @@ public class HappyOnePuzzles : EventBase
 
         // 40번 이벤트 발행
         // 카메라 이동
+        // 귀신 등장 브금
+        //StartCoroutine(MoveCam());
+        appearEnemy.Play();
+        yield return new WaitUntil(() => appearEnemy.state != PlayState.Playing);
 
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
     }
@@ -91,5 +100,13 @@ public class HappyOnePuzzles : EventBase
         base.CloseDialog(evt);
     }
 
-    
+    // 카메라 이동 이벤트
+    private IEnumerator MoveCam() {
+        enemyCam.Priority = 100;
+
+        yield return new WaitForSeconds(lookEnemyDuration);
+
+        enemyCam.Priority = 1;
+    }
+
 }

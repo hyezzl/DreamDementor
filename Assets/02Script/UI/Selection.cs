@@ -20,12 +20,14 @@ public class Selection : MonoBehaviour
     private bool isNpcChoice = true;    // NPC의 선택지인가?
     private ChoiceData curData;
 
+
     // 선택
     private int focusIdx = -1;
     private Tween focusTween;
 
     // 입력 제어 변수
     private float blockTime = 1f;
+    private bool inputBlock = false;
 
     private void OnEnable()
     {
@@ -55,7 +57,10 @@ public class Selection : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space)) // 모바일에서는...상호작용키보다 클릭이겠죠..?
         {
-            OnChoice(focusIdx);
+            if (!inputBlock) {
+                Debug.Log("이게왜눌려?????????????????????????????");
+                OnChoice(focusIdx);
+            }
         }
     }
 
@@ -108,9 +113,16 @@ public class Selection : MonoBehaviour
             // 버튼 클릭 이벤트 연결 (예: i번째 선택지를 넘기는 커스텀 함수에 연결)
             btn.GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();  // 초기화
             int choiceIndex = i;
-            btn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => OnChoice(choiceIndex));
+            btn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() =>
+            {
+                if (!inputBlock) OnChoice(choiceIndex);
+            });
         }
         SetFocus(0);
+
+        // 여기서 딜레이시작
+        Debug.Log("딜레이 시작");
+        StartCoroutine(BlockInput(blockTime));
     }
 
 
@@ -183,5 +195,16 @@ public class Selection : MonoBehaviour
         curChoiceID = null;
         curData = null;
         standbyInput = false;
+    }
+
+
+    private IEnumerator BlockInput(float sec) {
+        inputBlock = true;
+        Debug.Log("Input Block started");
+
+        yield return new WaitForSeconds(sec);
+
+        inputBlock = false;
+        Debug.Log("Input Block ended");
     }
 }
