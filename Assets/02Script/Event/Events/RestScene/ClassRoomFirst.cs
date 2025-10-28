@@ -10,7 +10,7 @@ public class ClassRoomFirst : SceneStart
         base.Init(db);
 
         // 시작 시 3인칭 모드
-        pc.CurAspect = AspectMode.ThirdpersonMode;
+        PlayerController.Instance.CurAspect = AspectMode.ThirdpersonMode;
         EventBus.Instance.Publish<GameEvents.AspectChange>(new GameEvents.AspectChange(AspectMode.ThirdpersonMode));
 
     }

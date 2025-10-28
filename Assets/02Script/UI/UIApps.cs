@@ -40,18 +40,45 @@ public class UIApps : MonoBehaviour
     }
 
 
+    //private void OnEnable()
+    //{
+    //    for (int i = 0; i < buttons.Count; i++)
+    //    {
+    //        int idx = i;
+    //        buttons[idx].onClick.AddListener(() => OnClicked(idx));
+    //    }
+
+    //    backBTN.onClick.AddListener(() => StartCoroutine(HorToVer()));
+    //    exitBTN.onClick.AddListener(ExitPopup);
+    //    escapeBTN.onClick.AddListener(EndGame);
+    //}
     private void OnEnable()
     {
         for (int i = 0; i < buttons.Count; i++)
         {
             int idx = i;
-            buttons[idx].onClick.AddListener(() => OnClicked(idx));
+            buttons[idx].onClick.AddListener(() =>
+            {
+                if (popupManager != null && popupManager.isAnimating) return; // 애니메이션 중엔 입력 무시
+                OnClicked(idx);
+            });
         }
 
-        backBTN.onClick.AddListener(() => StartCoroutine(HorToVer()));
-        exitBTN.onClick.AddListener(ExitPopup);
-        escapeBTN.onClick.AddListener(EndGame);
+        backBTN.onClick.AddListener(() => {
+            if (popupManager == null || !popupManager.isAnimating)
+                StartCoroutine(HorToVer());
+        });
+        exitBTN.onClick.AddListener(() => {
+            if (popupManager == null || !popupManager.isAnimating)
+                ExitPopup();
+        });
+        escapeBTN.onClick.AddListener(() => {
+            if (popupManager == null || !popupManager.isAnimating)
+                EndGame();
+        });
     }
+
+
     private void OnDisable()
     {
         foreach (var BTN in buttons) BTN.onClick.RemoveAllListeners();
@@ -66,7 +93,9 @@ public class UIApps : MonoBehaviour
         curTab = idx;
         UIApp app = (UIApp)idx;
 
-        if (popupManager != null) popupManager.ShowHorizontal();
+        if (popupManager != null && popupManager.isAnimating) return;
+        if (popupManager != null) 
+            popupManager.ShowHorizontal();
 
         StartCoroutine(TabChange());
     }
@@ -82,8 +111,15 @@ public class UIApps : MonoBehaviour
 
     private IEnumerator HorToVer()
     {
-        yield return null;
-        popupManager.ShowVertical();
+        if (popupManager != null && popupManager.isAnimating) yield break;
+        
+        yield return new WaitForSeconds(0.2f);
+
+        if (popupManager != null)
+        {
+            popupManager.ShowVertical();
+            popupManager.isAnimating = false;
+        }
     }
 
     // 애니메이션 끝난 후 탭 체인지
@@ -102,6 +138,8 @@ public class UIApps : MonoBehaviour
     // 단순 탭체인지 함수
     private void OpenTab(int idx)
     {
+        if (popupManager != null && popupManager.isAnimating) return; // 애니메이션 중 취소
+
         foreach (var tab in tabs) { tab.gameObject.SetActive(false); }
         tabs[idx].gameObject.SetActive(true);
 
@@ -127,6 +165,7 @@ public class UIApps : MonoBehaviour
     // 게임종료
     private void EndGame()
     {
+        if (popupManager != null && popupManager.isAnimating) return;
         Debug.Log("Really? 게임종료");
     }
 
@@ -144,6 +183,8 @@ public class UIApps : MonoBehaviour
 
     private void UpdateTabBTN(int selectedTab)
     {
+        if (popupManager != null && popupManager.isAnimating) return; // 애니 중 입력 무시
+
         // 선택탭 외 나머지탭 인덱스
         List<int> otherTabs = OtherTabs(selectedTab);
 
@@ -162,6 +203,8 @@ public class UIApps : MonoBehaviour
     }
 
     private void ExitPopup() {
+        if (popupManager != null && popupManager.isAnimating) return;
+
         popupManager.ClosePopup();
     }
 
