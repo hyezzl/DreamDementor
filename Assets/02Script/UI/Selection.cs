@@ -26,7 +26,7 @@ public class Selection : MonoBehaviour
     private Tween focusTween;
 
     // 입력 제어 변수
-    private float blockTime = 1f;
+    private float blockTime = 0.7f;
     private bool inputBlock = false;
 
     private void OnEnable()

@@ -22,8 +22,6 @@ public class HappyFirst : SceneStart
 
 
     protected override void OnFirstVisit() {
-        base.OnFirstVisit();
-
         // 씬여는 효과 생략하고 개인 이벤트시작
         StartCoroutine(PlayEvents());
     }
@@ -50,7 +48,7 @@ public class HappyFirst : SceneStart
 
     private IEnumerator PlayEvents()
     {
-        pc.CurMode = GameMode.EventMode;
+        PlayerController.Instance.CurMode = GameMode.EventMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
 
         // 눈열리는 연출

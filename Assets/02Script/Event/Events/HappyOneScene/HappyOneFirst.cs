@@ -5,6 +5,7 @@ using UnityEngine;
 public class HappyOneFirst : SceneStart
 {
     [SerializeField] private GameObject happyOneTuto;
+    [SerializeField] private GameObject miniQuest;
 
 
     protected override void Awake()
@@ -71,6 +72,9 @@ public class HappyOneFirst : SceneStart
         EventBus.Instance.Publish<GameEvents.FlowTime>(new GameEvents.FlowTime(false));
 
         happyOneTuto.SetActive(false);
+
+        // Äù½ºÆ® »ý¼º
+        miniQuest.SetActive(true);
     }
 
 
