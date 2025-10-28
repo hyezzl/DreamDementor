@@ -1445,17 +1445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980dbb444e49918429322a5af9f65210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1373913033 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1935738099502041778, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-  m_PrefabInstance: {fileID: 3641867230341147558}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1398822728
 GameObject:
   m_ObjectHideFlags: 0
@@ -2344,7 +2333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 039feeda078fa944586d230f7800997e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curScene: 0
   player: {fileID: 0}
   fadeDuration: 2.5
   fadeInVal: 1
@@ -2623,13 +2611,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1698170699374761402, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 730
+      objectReference: {fileID: 0}
     - target: {fileID: 1850129256627395640, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_Name
       value: 'Main Canvas '
       objectReference: {fileID: 0}
     - target: {fileID: 1850129256627395640, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3335597865207581682, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_Camera
@@ -2641,27 +2633,27 @@ PrefabInstance:
       objectReference: {fileID: 2039305652}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 400
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 52
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 225
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -26
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5250874884771018152, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: targetCam
@@ -2749,35 +2741,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8056663043807565140, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8056663043807565140, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 400
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 52
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 225
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -78
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3036,7 +3028,7 @@ MonoBehaviour:
   recoverRate: 33
   recoverDelay: 3
   minStaminaVal: 33
-  staminaBar: {fileID: 1373913033}
+  staminaBar: {fileID: 0}
   staminaText: {fileID: 0}
 --- !u!95 &8974041524764188694 stripped
 Animator:

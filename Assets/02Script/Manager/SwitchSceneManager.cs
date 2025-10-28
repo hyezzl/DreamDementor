@@ -10,8 +10,13 @@ using UnityEngine.UIElements;
 /// </summary>
 public class SwitchSceneManager : Singleton<SwitchSceneManager>
 {
-    private SceneType curScene;   // 현재씬
-    public SceneType CurScene => curScene;
+    private SceneType curScene;
+    public SceneType CurScene
+    {
+        get => curScene;
+        set => curScene = value;
+    }
+
     public GameObject player;
     private Vector3 spawnPoint = Vector3.zero;
     private Direction4 spawnDir;
@@ -23,13 +28,10 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
     [SerializeField] private float fadeOutVal = -0.15f;
 
     private CameraFilterPack_FX_Spot spot;
-    //private PlayerController pc;
 
     protected override void DoAwake()
     {
         base.DoAwake();
-        //pc = FindAnyObjectByType<PlayerController>();
-        //if (pc == null) Debug.Log("SwitchSceneManager - Failed to Load PlayerController");
 
         // 메인 카메라에서 필터 컴포넌트 받아오기
         Camera mainCam = Camera.main;
@@ -161,25 +163,4 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         spot.Radius = fadeOutVal;
     }
 
-
-    // 씬 열릴 때 효과
-    private IEnumerator FadeInScene()
-    {
-        if (spot == null) yield break;
-        Debug.Log("씬들어오면 여기가 실행되어야함!!!");
-
-        float elapsed = 0f;
-        spot.Radius = fadeOutVal;
-
-        while (elapsed < fadeDuration)
-        {
-            elapsed += Time.deltaTime;
-
-            float t = Mathf.Clamp01(elapsed / fadeDuration);
-            spot.Radius = Mathf.Lerp(fadeOutVal, fadeInVal, t);
-
-            yield return null;
-        }
-        spot.Radius = fadeInVal;
-    }
 }

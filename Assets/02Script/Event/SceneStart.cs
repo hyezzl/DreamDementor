@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UIEvents;
 
 
 /// <summary>
@@ -21,11 +22,22 @@ public class SceneStart : MonoBehaviour, IGameEvent
     protected Dictionary<string, Dictionary<int, DialogData>> allDialogs;
     protected Dictionary<int, DialogData> initialDialog;
     protected List<NarrationData> narrations;
+    protected bool isFirst = true;  // 첫방문인지
 
     protected virtual void Awake()
     {
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) Debug.Log($"*{this.GetType().Name} - Failed to Load PlayerController");
+        SwitchSceneManager.Instance.CurScene = curScene;
+    }
+
+    protected virtual void OnEnable() 
+    {
+        EventBus.Instance.Subscribe<UIEvents.EndDialog>(AfterDialog);
+        EventBus.Instance.Subscribe<GameEvents.SceneEffectEnd>(EndSceneEffect);
+    }
+    protected virtual void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<UIEvents.EndDialog>(AfterDialog);
+        EventBus.Instance.Unsubscribe<GameEvents.SceneEffectEnd>(EndSceneEffect);
     }
 
 
@@ -65,6 +77,7 @@ public class SceneStart : MonoBehaviour, IGameEvent
         {
             // 첫방문이면
             OnFirstVisit();
+            EventHistoryManager.Instance.RecordVisit(curScene);
 
             // 브금재생
         }
@@ -79,7 +92,9 @@ public class SceneStart : MonoBehaviour, IGameEvent
     /// </summary>
     protected virtual void OnFirstVisit() {
         Debug.Log($"{curScene} : 첫방문입니다.");
-        EventHistoryManager.Instance.RecordVisit(curScene);
+
+        // 씬여는 효과 생략? or not? (base)
+        EventBus.Instance.Publish<GameEvents.SceneStartEffect>(new GameEvents.SceneStartEffect(curScene));
     }
 
     /// <summary>
@@ -87,6 +102,34 @@ public class SceneStart : MonoBehaviour, IGameEvent
     /// </summary>
     protected virtual void OnRevisit() {
         Debug.Log($"{curScene} : 재방문입니다.");
+
+        // 씬여는 효과
+        EventBus.Instance.Publish<GameEvents.SceneStartEffect>(new GameEvents.SceneStartEffect(curScene));
     }
 
+    /// <summary>
+    /// 씬전환 이후에 (한번) 실행될 함수
+    /// </summary>
+    protected virtual void OnSceneStart() {
+        Debug.Log("실행되나요??");
+    }
+
+
+
+
+
+    // 씬전환 이벤트 끝나고
+    protected void EndSceneEffect(GameEvents.SceneEffectEnd evt) {
+        if (SwitchSceneManager.Instance.CurScene == evt.scene) {
+            OnSceneStart();
+        }
+    }
+
+    // 첫 이벤트 끝나고 난 후
+    protected virtual void AfterDialog(UIEvents.EndDialog evt) {
+        if (evt.eventID == startEventID) 
+        { 
+            // 첫 대화 이벤트 끝난 후
+        }
+    }
 }

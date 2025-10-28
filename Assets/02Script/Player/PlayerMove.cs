@@ -92,12 +92,23 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
     private void Update()
     {
-        if (moveable && isThree)
+        //if (moveable && isThree)
+        //{
+        //    Movement();
+        //    ApplyGravity();
+        //}
+        //else if (moveable && !isThree) {
+        //    HandleMouse();
+        //    HandleMovement();
+        //    ApplyGravity();
+        //}
+        if (moveable && isThree && !GameManager.IsPaused)
         {
             Movement();
             ApplyGravity();
         }
-        else if (moveable && !isThree) {
+        else if (moveable && !isThree && !GameManager.IsPaused)
+        {
             HandleMouse();
             HandleMovement();
             ApplyGravity();
@@ -212,6 +223,8 @@ public class PlayerMove : MonoBehaviour, IMoveObject
     /// </summary>
     private void HandleMouse()
     {
+        if(GameManager.IsPaused) return;
+
         float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 

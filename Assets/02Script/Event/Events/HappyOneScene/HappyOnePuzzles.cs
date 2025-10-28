@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,13 @@ public class HappyOnePuzzles : EventBase
 {
     public static int HOcurKeyCnt = 0;       // 현재 플레이어가 가진 열쇠 갯수
     public CameraFilterPack_FX_Glitch1 glitch;
+    public CameraFilterPack_Colors_Adjust_PreFilters colorAdjust;
+
+    [Header("Camera Ref")]
+    [SerializeField] private CinemachineVirtualCamera playerCam;
+    [SerializeField] private CinemachineVirtualCamera enemyCam;
+
+    // 귀신 비춰줄 
 
     protected override void OnEnable()
     {
@@ -51,7 +59,8 @@ public class HappyOnePuzzles : EventBase
         yield return new WaitForSeconds(2f);
 
         // 40번 이벤트 발행
-        //EventBus.Instance.Publish<GameEvents.PlayEvent>();
+        // 카메라 이동
+
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog));
     }
 
@@ -66,9 +75,18 @@ public class HappyOnePuzzles : EventBase
 
             // 카메라효과
             EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.Glitch, true));
-            if (glitch != null)
+            if (glitch != null) { 
                 glitch.enabled = true;
                 glitch.Glitch = 0.2f;
+            }
+
+            EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.ColorAdjust, true));
+            if (colorAdjust != null)
+            {
+                colorAdjust.enabled = true;
+                colorAdjust.filterchoice = CameraFilterPack_Colors_Adjust_PreFilters.filters.RedWhite;
+                colorAdjust.FadeFX = 0.5f;
+            }
         }
         base.CloseDialog(evt);
     }

@@ -19,6 +19,7 @@ public enum SceneType
 
     ClassroomScene,
     HomeScene,
+    None,
 }
 
 public enum Speaker

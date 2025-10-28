@@ -16,6 +16,7 @@ public class SwitchSceneEffect : MonoBehaviour
     [SerializeField] private float fadeOutVal = -0.15f;
 
     private CameraFilterPack_FX_Spot spot;
+    private SceneType curScene = SceneType.None;
 
     private void Awake()
     {
@@ -29,13 +30,13 @@ public class SwitchSceneEffect : MonoBehaviour
     {
         EventBus.Instance.Subscribe<GameEvents.SwitchScene>(SwitchScene1);
         EventBus.Instance.Subscribe<GameEvents.PortalSwitchScene>(SwitchScene2);
-        EventBus.Instance.Subscribe<GameEvents.SceneStart>(SceneStarted);
+        EventBus.Instance.Subscribe<GameEvents.SceneStartEffect>(SceneStarted);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.SwitchScene>(SwitchScene1);
         EventBus.Instance.Unsubscribe<GameEvents.PortalSwitchScene>(SwitchScene2);
-        EventBus.Instance.Unsubscribe<GameEvents.SceneStart>(SceneStarted);
+        EventBus.Instance.Unsubscribe<GameEvents.SceneStartEffect>(SceneStarted);
     }
 
     private void SwitchScene1(GameEvents.SwitchScene evt) {
@@ -46,8 +47,10 @@ public class SwitchSceneEffect : MonoBehaviour
         Debug.Log("페이드아웃!");
         StartCoroutine(FadeOutScene());
     }
-    private void SceneStarted(GameEvents.SceneStart evt) {
+    private void SceneStarted(GameEvents.SceneStartEffect evt) {
         Debug.Log("페이드인!");
+        curScene = evt.scene;
+
         StartCoroutine(FadeInScene());
     }
 
@@ -71,7 +74,7 @@ public class SwitchSceneEffect : MonoBehaviour
     }
 
 
-    // 씬 열릴 때 효과
+    // 씬 열릴 때 효과 (일반)
     private IEnumerator FadeInScene() {
         if (spot == null) yield break;
 
@@ -88,5 +91,10 @@ public class SwitchSceneEffect : MonoBehaviour
             yield return null;
         }
         spot.Radius = fadeInVal;
+
+        // 효과가 모두 끝나고 실행
+        if (curScene != SceneType.None) { 
+            EventBus.Instance.Publish<GameEvents.SceneEffectEnd>(new GameEvents.SceneEffectEnd(curScene));
+        }
     }
 }

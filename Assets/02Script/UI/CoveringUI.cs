@@ -8,6 +8,11 @@ public class CoveringUI : MonoBehaviour
     private SceneType curScene;
     private GameMode curMode;
 
+    private void Start()
+    {
+        SwitchSceneManager.Instance.CurScene = curScene;
+    }
+
     private void OnEnable()
     {
         // �ʱⰪ

@@ -124,12 +124,14 @@ public class TutorialEvent : EventBase
         // 시간 재개
         EventBus.Instance.Publish<GameEvents.FlowTime>(new GameEvents.FlowTime(false));
 
-        // 술래 잡기 시작
-        tutorialPopup.SetActive(false);
 
         // 필터 강도 변경
         if(glitch != null)
             glitch.Glitch = 0.1f;
+
+
+        // 술래 잡기 시작
+        tutorialPopup.SetActive(false);
 
         pc.CurMode = GameMode.EventInInspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventInInspectMode));

@@ -66,7 +66,7 @@ public static class GameEvents
     public struct StopTime
     {
         public bool audioStop;
-        public StopTime(bool audioStop) {
+        public StopTime(bool audioStop = false) {
             this.audioStop = audioStop;
         }
     }
@@ -372,6 +372,24 @@ public static class GameEvents
         public GetNote(int itemID, string text) { 
             this.itemID = itemID;
             this.text = text;
+        }
+    }
+
+
+    /// 씬여는 효과
+    public struct SceneStartEffect {
+        public SceneType scene;
+        public SceneStartEffect(SceneType scene) {
+            this.scene = scene;
+        }
+    }
+
+    // 씬여는 효과 끝
+    public struct SceneEffectEnd
+    {
+        public SceneType scene;
+        public SceneEffectEnd(SceneType scene) {
+            this.scene = scene;
         }
     }
 

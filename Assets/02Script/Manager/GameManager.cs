@@ -74,19 +74,27 @@ public class GameManager : Singleton<GameManager>
     private void OnStop(GameEvents.StopTime evt) {
         if (evt.audioStop)
         {
+            IsPaused = true;
             StopTime();
         }
         else
+        {
+            IsPaused = true;
             HalfStop();
+        }
     }
 
     private void OnFlow(GameEvents.FlowTime evt) {
-        if (evt.audioPlay) {
+        if (evt.audioPlay)
+        {
             FlowTime();
             AudioListener.pause = false;
+            IsPaused = false;
         }
-        else
+        else { 
             FlowTime();
+            IsPaused = false;
+        }
     }
 
 
