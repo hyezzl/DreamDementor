@@ -28,51 +28,18 @@ public class SwitchSceneEffect : MonoBehaviour
 
     private void OnEnable()
     {
-        //EventBus.Instance.Subscribe<GameEvents.SwitchScene>(SwitchScene1);
-        //EventBus.Instance.Subscribe<GameEvents.PortalSwitchScene>(SwitchScene2);
         EventBus.Instance.Subscribe<GameEvents.SceneStartEffect>(SceneStarted);
     }
     private void OnDisable()
     {
-        //EventBus.Instance.Unsubscribe<GameEvents.SwitchScene>(SwitchScene1);
-        //EventBus.Instance.Unsubscribe<GameEvents.PortalSwitchScene>(SwitchScene2);
         EventBus.Instance.Unsubscribe<GameEvents.SceneStartEffect>(SceneStarted);
     }
 
-    //private void SwitchScene1(GameEvents.SwitchScene evt) {
-    //    Debug.Log("∆‰¿ÃµÂæ∆øÙ!");
-    //    StartCoroutine(FadeOutScene());
-    //}
-    //private void SwitchScene2(GameEvents.PortalSwitchScene evt) { 
-    //    Debug.Log("∆‰¿ÃµÂæ∆øÙ!");
-    //    StartCoroutine(FadeOutScene());
-    //}
     private void SceneStarted(GameEvents.SceneStartEffect evt) {
-        Debug.Log("∆‰¿ÃµÂ¿Œ!");
         curScene = evt.scene;
 
         StartCoroutine(FadeInScene());
     }
-
-
-    // æ¿ ¥›»˙ ∂ß »ø∞˙
-    private IEnumerator FadeOutScene() {
-        if (spot == null) yield break;
-
-        float elapsed = 0f;
-        spot.Radius = fadeInVal;
-
-        while (elapsed < fadeDuration) {
-            elapsed += Time.deltaTime;
-
-            float t = Mathf.Clamp01(elapsed / fadeDuration);
-            spot.Radius = Mathf.Lerp(fadeInVal, fadeOutVal, t);
-
-            yield return null;
-        }
-        spot.Radius = fadeOutVal;
-    }
-
 
     // æ¿ ø≠∏± ∂ß »ø∞˙ (¿œπ›)
     private IEnumerator FadeInScene() {

@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using static GameEvents;
 
 /// <summary>
 /// 해당 씬 내에서 끝난 이벤트 / 대화 데이터 보관
@@ -19,12 +20,14 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
         EventBus.Instance.Subscribe<GameEvents.EndEvent>(RecordEvent);
         EventBus.Instance.Subscribe<UIEvents.EndDialog>(RecordDialog);
         EventBus.Instance.Subscribe<UIEvents.EndNpcDialog>(RecordNpcDialog);
+        EventBus.Instance.Subscribe<GameEvents.GameOver>(OnGameOver);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.EndEvent>(RecordEvent);
         EventBus.Instance.Unsubscribe<UIEvents.EndDialog>(RecordDialog);
         EventBus.Instance.Unsubscribe<UIEvents.EndNpcDialog>(RecordNpcDialog);
+        EventBus.Instance.Unsubscribe<GameEvents.GameOver>(OnGameOver);
     }
 
 
@@ -56,6 +59,14 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
     }
 
 
+    // 게임오버 시 죽은 씬 방문기록 초기화
+    private void OnGameOver(GameEvents.GameOver evt)
+    {
+        // 죽은 씬 방문 기록 초기화 - 다시 그 씬 방문 시 첫방문 처리되도록
+        ResetVisitSceneRecord(evt.scene);
+    }
+
+
 
     // 외부호출 : 이벤트 완료 여부 확인
     public bool IsEventComplete(string eventID)
@@ -81,5 +92,28 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
     public void RecordVisit(SceneType scene) {
         //Debug.Log($"{scene} 방문 기록!");
         visitScene[scene] = true;
+    }
+
+    // 씬 방문 기록 초기화 함수
+    public void ResetVisitSceneRecord(SceneType scene)
+    {
+        if (visitScene.ContainsKey(scene))
+        {
+            visitScene[scene] = false; // 다시 첫 방문 상태로 설정
+        }
+    }
+
+
+    // 내보내기
+    public void LoadCompletedEvents(List<string> events)
+    {
+        if (events == null) return;
+        completedEvents = new List<string>(events);
+    }
+
+    public void LoadVisitScenes(Dictionary<SceneType, bool> scenes)
+    {
+        if (scenes == null) return;
+        visitScene = new Dictionary<SceneType, bool>(scenes);
     }
 }

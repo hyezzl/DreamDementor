@@ -54,6 +54,7 @@ public enum Stage
 /// <summary>
 /// 플레이어의 현재 Hp(정신력) 관리 + 현재 상태 / 현재 게임모드 / 현재 인칭 관리
 /// </summary>
+/// 
 public class PlayerController : Singleton<PlayerController>
 {
     // 플레이어 정신력 관리
@@ -122,10 +123,15 @@ public class PlayerController : Singleton<PlayerController>
         //EventBus.Instance.Publish<GameEvents.OnHpChange>(new GameEvents.OnHpChange());
 
         // 정신력 0 도달 (씬알려주기) -> 게임오버
+        Debug.Log($"~~~~new : {newHp} , val : {val} , preHp : {preHp}");
         if (newHp <= 0 && preHp > 0)
         {
             SceneType curScene = SwitchSceneManager.Instance.CurScene;
             EventBus.Instance.Publish<GameEvents.OnHpDepeleted>(new GameEvents.OnHpDepeleted(curScene));
+
+            
+            //게임오버
+            EventBus.Instance.Publish<GameEvents.GameOver>(new GameEvents.GameOver(curScene, DeathType.BadChoice));
         }
 
         // HP 변경
@@ -173,10 +179,4 @@ public class PlayerController : Singleton<PlayerController>
                 return Stage.Happy;
         }
     }
-
 }
-
-
-
-
-

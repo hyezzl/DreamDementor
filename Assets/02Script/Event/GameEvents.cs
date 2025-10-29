@@ -135,6 +135,12 @@ public static class GameEvents
         }
     }
 
+    // 데스이후 씬 리로드
+    public struct ReloadScene
+    { 
+        
+    }
+
 
     // 인칭 변경
     public struct AspectChange

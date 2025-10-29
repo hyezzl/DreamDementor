@@ -37,15 +37,18 @@ public class InventoryManager : Singleton<InventoryManager>
         EventBus.Instance.Unsubscribe<GameEvents.PutItem>(OnPutItem);
         EventBus.Instance.Unsubscribe<GameEvents.UseItem>(OnUseItem);
     }
-    private void OnGetItem(GameEvents.GetItem evt) {
+    private void OnGetItem(GameEvents.GetItem evt)
+    {
         AddItem(evt.item.GetItemType(), evt.item.GetItemID());
     }
 
-    private void OnPutItem(GameEvents.PutItem evt) {
+    private void OnPutItem(GameEvents.PutItem evt)
+    {
         AddItem(evt.type, evt.itemID);
     }
 
-    private void OnUseItem(GameEvents.UseItem evt) {
+    private void OnUseItem(GameEvents.UseItem evt)
+    {
         RemoveItem(evt.itemID);
     }
 
@@ -53,7 +56,8 @@ public class InventoryManager : Singleton<InventoryManager>
     public void AddItem(ItemType type, int itemID)
     {
         // 필요한 정보
-        switch (type) {
+        switch (type)
+        {
             case ItemType.Pickable:
                 PickableData dataP = database.GetPickable(itemID);
                 if (dataP == null)
@@ -64,7 +68,7 @@ public class InventoryManager : Singleton<InventoryManager>
                 inventory.Add(new ItemInstance(itemID, dataP.pairID));
                 Debug.Log($"{itemID}가 정상적으로 추가됨!");
                 EventBus.Instance.Publish<UIEvents.InventoryChanged>(new UIEvents.InventoryChanged());
-                
+
                 break;
 
             case ItemType.Eatable:
@@ -83,7 +87,8 @@ public class InventoryManager : Singleton<InventoryManager>
     }
 
     // 아이템 사용 시, 지워지는 함수
-    private void RemoveItem(int itemID) {
+    private void RemoveItem(int itemID)
+    {
         // 조건에 맞는 첫 번째 ItemInstance 찾기
         var item = inventory.FirstOrDefault(i => i.itemID == itemID);
         if (item != null)
@@ -92,11 +97,24 @@ public class InventoryManager : Singleton<InventoryManager>
             EventBus.Instance.Publish<UIEvents.InventoryChanged>(new UIEvents.InventoryChanged());
             Debug.Log($"{itemID} 삭제");
         }
-        else {
+        else
+        {
             Debug.Log($"{itemID} 가 인벤토리 내에 없음");
         }
     }
 
 
     public IReadOnlyList<ItemInstance> GetInventory() => inventory.AsReadOnly();
+
+
+    // Save호출함수
+    public void LoadInventoryFromSave(List<ItemInstance> savedInventory)
+    {
+        inventory.Clear();
+        if (savedInventory != null)
+        {
+            inventory.AddRange(savedInventory);
+        }
+        EventBus.Instance.Publish<UIEvents.InventoryChanged>(new UIEvents.InventoryChanged());
+    }
 }

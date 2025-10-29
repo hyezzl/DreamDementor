@@ -28,6 +28,8 @@ public class HappyOneFirst : SceneStart
 
         PlayerController.Instance.CurMode = GameMode.EventMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
+
+        SaveManager.Instance.SaveGame();
     }
 
     protected override void OnFirstVisit() { 
@@ -38,7 +40,7 @@ public class HappyOneFirst : SceneStart
     {
 
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(startEventID));
-        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.InspectMode));
+        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.EventMode));
     }
 
     protected override void AfterDialog(UIEvents.EndDialog evt)
@@ -52,47 +54,40 @@ public class HappyOneFirst : SceneStart
 
     private IEnumerator PlayTuto()
     {
-        // 시간 멈춤
-        EventBus.Instance.Publish<GameEvents.StopTime>(new GameEvents.StopTime(false));
-
-        // 마우스 임시 활성화 
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-
         // 튜토리얼 화면 나오게
         happyOneTuto.SetActive(true);
 
         // 확인버튼 눌릴 때 까지 대기
-        yield return WaitForYesButton();
-
-        // 마우스 임시 비활성화 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-
-        // 시간 재개
-        EventBus.Instance.Publish<GameEvents.FlowTime>(new GameEvents.FlowTime(false));
+        yield return WaitForSpace();
 
         happyOneTuto.SetActive(false);
 
         // 퀘스트 생성
         miniQuest.SetActive(true);
+
+        // 게임모드 변경
+        PlayerController.Instance.CurMode = GameMode.InspectMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
     }
 
     // 버튼
-    private IEnumerator WaitForYesButton()
+    private IEnumerator WaitForSpace()
     {
-        clickYes = false;
-        yesBTN.onClick.AddListener(OnClickYes);
+        // 3.5초 동안 스페이스 입력 무시 (딜레이)
+        float delayTime = 3.3f;
+        float timer = 0f;
 
-        yield return new WaitUntil(() => clickYes);
+        while (timer < delayTime)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
 
-        yesBTN.onClick.RemoveListener(OnClickYes);
-    }
-
-    private void OnClickYes()
-    {
-        clickYes = true;
+        // 딜레이 후부터 스페이스 입력 대기
+        while (!Input.GetKeyDown(KeyCode.Space))
+        {
+            yield return null;
+        }
     }
 
 

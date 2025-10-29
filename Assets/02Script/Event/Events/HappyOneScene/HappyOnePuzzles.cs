@@ -19,6 +19,8 @@ public class HappyOnePuzzles : EventBase
 
     [SerializeField] PlayableDirector appearEnemy;     // 귀신등장 타임라인
 
+    [SerializeField] GameObject hand;
+
     // 임시 퀘스트
     [SerializeField] private TextMeshProUGUI quest;
 
@@ -128,6 +130,10 @@ public class HappyOnePuzzles : EventBase
         //EventBus.Instance.Publish<GameEvents.FilterOff>
         glitch.enabled = false;
         colorAdjust.enabled = false;
+
+        // 임시? 열쇠개수 초기화
+        HOcurKeyCnt = 0;
+
     }
 
 }

@@ -927,12 +927,23 @@ MonoBehaviour:
     LogID: 18002
     Dialog: "\uAE38\uC774 \uC798 \uB6AB\uB824\uC788\uB124.. \uC5EC\uAE30 \uC5B4\uB518\uAC00
       \uC5F4\uC1E0\uAC00 \uC788\uACA0\uC9C0?"
-    NextID: -1
+    NextID: 18003
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
+  - EventID: E018
+    EventDetailID: E018
+    LogID: 18003
+    Dialog: "\uBBF8\uB85C \uACF3\uACF3\uC5D0 \uC228\uACA8\uC838 \uC788\uB294\n\uC5F4\uC1E0\uB97C
+      \uCC3E\uC544\uBCF4\uC790!"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Monologue
+    Emotion: -1
   - EventID: E019
     EventDetailID: E019
     LogID: 19001
@@ -1669,7 +1680,8 @@ MonoBehaviour:
   - EventID: E040
     EventDetailID: E040
     LogID: 40000
-    Dialog: "\uBB50...\uBB50\uC57C. \uC774\uC18C\uB9AC\uB294."
+    Dialog: "\uC124\uB9C8.... \uC544\uAE4C \uBD24\uB358 \uADF8 \uAD34\uBB3C\uC758
+      \uC18C\uB9AC...?"
     NextID: 40001
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -1679,17 +1691,6 @@ MonoBehaviour:
   - EventID: E040
     EventDetailID: E040
     LogID: 40001
-    Dialog: "\uC124\uB9C8.... \uC544\uAE4C \uBD24\uB358 \uADF8 \uAD34\uBB3C\uC758
-      \uC18C\uB9AC...?"
-    NextID: 40002
-    Speaker: Player
-    SpeakerName: "\uC11C\uB9B0"
-    ChoiceID: 
-    Textbox: Basic
-    Emotion: 0
-  - EventID: E040
-    EventDetailID: E040
-    LogID: 40002
     Dialog: "\uB3C4\uB9DD\uCCD0\uC57C\uD574...!"
     NextID: -1
     Speaker: Player

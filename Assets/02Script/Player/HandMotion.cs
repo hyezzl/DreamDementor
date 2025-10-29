@@ -25,7 +25,6 @@ public class HandMotion : MonoBehaviour
     {
         if (pc.CurAspect != AspectMode.OnepersonMode)
         {
-            Debug.Log("여기가 실행되나요??");
             // 3인칭일때
             anim.enabled = false;
         }

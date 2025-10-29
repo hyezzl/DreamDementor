@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 /// </summary>
 public class SwitchSceneManager : Singleton<SwitchSceneManager>
 {
-    private SceneType curScene;
+    private SceneType curScene = SceneType.TitleScene;
     public SceneType CurScene
     {
         get => curScene;
@@ -49,12 +49,14 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
     {
         EventBus.Instance.Subscribe<GameEvents.SwitchScene>(SwitchScene);
         EventBus.Instance.Subscribe<GameEvents.PortalSwitchScene>(OnPortal);
+        EventBus.Instance.Subscribe<GameEvents.ReloadScene>(OnReload);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.SwitchScene>(SwitchScene);
         EventBus.Instance.Unsubscribe<GameEvents.PortalSwitchScene>(OnPortal);
+        EventBus.Instance.Unsubscribe<GameEvents.ReloadScene>(OnReload);
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -66,11 +68,12 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         StartCoroutine(CloseScene(evt.nextScene));
     }
 
-    private void OnPortal(GameEvents.PortalSwitchScene evt) { 
+    private void OnPortal(GameEvents.PortalSwitchScene evt) {
         // 이동하려는 씬과 현재 씬이 같을 때
-        if(curScene == evt.nextScene){
+        if (curScene == evt.nextScene) {
+            Debug.Log($"{curScene} : 이동하려는 씬과 현재씬이 같음!");
             isPortal = true;
-            spawnPoint = evt.targetPoint; 
+            spawnPoint = evt.targetPoint;
             return;
         }
 
@@ -82,12 +85,16 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         StartCoroutine(CloseScene(evt.nextScene));
     }
 
+    // 씬 리로드
+    private void OnReload(GameEvents.ReloadScene evt) {
+        SceneManager.LoadScene(curScene.ToString());
+    }
+
+
     // 씬 로드 시
     // + 플레이어 위치 지정
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //StartCoroutine(FadeInScene());
-
         string sceneName = scene.name;
         if (System.Enum.TryParse(sceneName, out SceneType sceneType))
         {
@@ -96,23 +103,10 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         }
         else { Debug.Log($"씬 {sceneName} -> SceneType 변환 실패 "); }
 
-
-        //if (isPortal)
-        //{
-        //    GameObject player = GameObject.FindGameObjectWithTag("Player");
-        //    if (player != null)
-        //    {
-        //        player.transform.position = spawnPoint;
-
-        //        // 플레이어 방향 강제 설정
-        //        EventBus.Instance.Publish(new GameEvents.ForceDir(spawnDir));
-        //    }
-        //    isPortal = false;
-        //}
         StartCoroutine(temp());
     }
 
-    private IEnumerator temp() { 
+    private IEnumerator temp() {
         yield return null;
         yield return null;
 
@@ -133,7 +127,12 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
 
     // 전환 효과 후 씬이동
     private IEnumerator CloseScene(SceneType nextScene) {
-        yield return StartCoroutine(FadeOutScene());
+
+        if (curScene != SceneType.TutorialScene && curScene != SceneType.TitleScene) 
+        {
+            yield return StartCoroutine(FadeOutScene());
+            Debug.Log($"{curScene} > {nextScene} 으로의 씬 페이드아웃 실행! (완료시점)");
+        }
 
         yield return null;
 
@@ -155,6 +154,7 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
 
         while (elapsed < fadeDuration)
         {
+            Debug.Log("~~~~코루틴중~~~~");
             elapsed += Time.deltaTime;
 
             float t = Mathf.Clamp01(elapsed / fadeDuration);

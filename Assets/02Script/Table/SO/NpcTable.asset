@@ -105,7 +105,7 @@ MonoBehaviour:
   - NpcID: N001
     NpcEventID: N001_1
     LogID: 1007
-    Dialog: "\uB098 \uBB54\uAC00 \uC798\uBABB \uC120\uD0DD\uD55C \uAC78\uAE4C...?"
+    Dialog: "\uC774\uB7F0 \uC0DD\uAC01\uC744 \uD558\uBA74 \uC548\uB418\uB098...?"
     NextID: -1
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
@@ -1046,7 +1046,7 @@ MonoBehaviour:
   - NpcID: N009
     NpcEventID: N009_1
     LogID: 9005
-    Dialog: "\uC544\uBB34\uB9AC \uC624\uB798\uB418\uB3C4.. \uC798 \uC548\uC78A\uD600\uC9C0\uB124.."
+    Dialog: "\uC544\uBB34\uB9AC \uC624\uB798\uB3FC\uB3C4.. \uC798 \uC548 \uC78A\uD788\uB124.."
     NextID: 9006
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"

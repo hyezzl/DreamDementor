@@ -64,7 +64,8 @@ public class HappyFirst : SceneStart
 
         // 이벤트 시작 (대화)
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(startEventID));
-        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.InspectMode));
+        //EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.InspectMode));
+        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.EventMode));
     }
 
 
@@ -101,44 +102,41 @@ public class HappyFirst : SceneStart
     }
 
     private IEnumerator PlayTuto() {
-        // 시간 멈춤
-        EventBus.Instance.Publish<GameEvents.StopTime>(new GameEvents.StopTime(false));
 
-        // 마우스 임시 활성화 
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-
+        // 강제 이벤트모드
+        //PlayerController.Instance.CurMode = GameMode.EventMode;
+        //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
 
         // 튜토리얼 화면 나오게
         happyTutorial.SetActive(true);
 
         // 확인 버튼 눌릴 때 까지 대기
-        yield return WaitForYesButton();
-
-        // 마우스 임시 비활성화 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-
-        // 시간 재개
-        EventBus.Instance.Publish<GameEvents.FlowTime>(new GameEvents.FlowTime(false));
+        yield return WaitForSpace();
 
         happyTutorial.SetActive(false);
+
+        PlayerController.Instance.CurMode = GameMode.InspectMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
     }
 
-    private IEnumerator WaitForYesButton()
+
+    private IEnumerator WaitForSpace()
     {
-        isClickY = false;
-        yesBTN.onClick.AddListener(OnYesClicked);  // 리스너 등록
+        // 3.5초 동안 스페이스 입력 무시 (딜레이)
+        float delayTime = 3.3f;
+        float timer = 0f;
 
-        yield return new WaitUntil(() => isClickY);
+        while (timer < delayTime)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
 
-        yesBTN.onClick.RemoveListener(OnYesClicked);  // 리스너 해제
-    }
-
-    private void OnYesClicked()
-    {
-        isClickY = true;
+        // 딜레이 후부터 스페이스 입력 대기
+        while (!Input.GetKeyDown(KeyCode.Space))
+        {
+            yield return null;
+        }
     }
 
 }

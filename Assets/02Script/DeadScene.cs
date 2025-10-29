@@ -17,6 +17,10 @@ public class DeadScene : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] private Image backImg;
     [SerializeField] private CanvasGroup loadGroup;
 
+    [SerializeField] private Button exitBTN;
+    [SerializeField] private Image backImg2;
+    [SerializeField] private CanvasGroup exitGroup;
+
 
     //  현재 죽음에 대한 정보 캐싱값
     private SceneType scene;
@@ -33,17 +37,22 @@ public class DeadScene : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         backImg.enabled = false;
         loadBTN.gameObject.SetActive(false);        // 버튼 비활성화 상태로 시작
+
+        backImg2.enabled = false;
+        exitBTN.gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.GameOver>(OnOver);
         loadBTN.onClick.AddListener(LoadGame);
+        exitBTN.onClick.AddListener(ExitGame);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.GameOver>(OnOver);
         loadBTN.onClick.RemoveListener(LoadGame);
+        exitBTN.onClick.RemoveListener(ExitGame);
     }
 
     private void OnOver(GameEvents.GameOver evt) {
@@ -52,6 +61,10 @@ public class DeadScene : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         // 배경
         topBack.SetActive(true);
         bottomBack.SetActive(true);
+
+        // 게임모드
+        PlayerController.Instance.CurMode = GameMode.GameOverMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.GameOverMode));
 
         // 게임오버 정보 캐싱
         scene = evt.scene;
@@ -109,6 +122,7 @@ public class DeadScene : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     // 버튼 생성 함수
     private IEnumerator ShowLoadButton() { 
         loadBTN.gameObject.SetActive(true);
+        exitBTN.gameObject.SetActive(true);
 
         float elapsed = 0f;
         float duration = 1.5f;      // 페이드인
@@ -133,29 +147,92 @@ public class DeadScene : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         imgColor.a = 1f;
         backImg.color = imgColor;
         loadGroup.alpha = 1f;
+        exitGroup.alpha = 1f;
+
+        // 포커스 강제지정
+        //FocusLoadButton();
+
+        //마우스 임시 On
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        yield return null;
     }
 
 
 
     /// 버튼
 
-    // 마우스가 버튼 위에 들어올 때
-    public void OnPointerEnter(PointerEventData eventData)
+    // loadBTN 전용
+    public void OnLoadButtonPointerEnter(PointerEventData eventData)
     {
         if (backImg != null)
             backImg.enabled = true;
     }
-    // 마우스가 버튼 위에서 나갈 때
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnLoadButtonPointerExit(PointerEventData eventData)
     {
         if (backImg != null)
             backImg.enabled = false;
     }
 
+    // exitBTN 전용
+    public void OnExitButtonPointerEnter(PointerEventData eventData)
+    {
+        if (backImg2 != null)
+            backImg2.enabled = true;
+    }
+    public void OnExitButtonPointerExit(PointerEventData eventData)
+    {
+        if (backImg2 != null)
+            backImg2.enabled = false;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (eventData.pointerEnter == loadBTN.gameObject)
+        {
+            if (backImg != null) backImg.enabled = true;
+        }
+        else if (eventData.pointerEnter == exitBTN.gameObject)
+        {
+            if (backImg2 != null) backImg2.enabled = true;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (eventData.pointerEnter == loadBTN.gameObject)
+        {
+            if (backImg != null) backImg.enabled = false;
+        }
+        else if (eventData.pointerEnter == exitBTN.gameObject)
+        {
+            if (backImg2 != null) backImg2.enabled = false;
+        }
+    }
+
+
+
     private void LoadGame() {
         // 로드 버튼 눌렸을때
         Debug.Log("게임이 로드 됩니다!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        // 저장 데이터 불러오기
+        SaveManager.Instance.LoadGame();
+
+        // 불러온 데이터 게임 내 반영
+        SaveManager.Instance.ApplyLoadedData();
+
+        // 현재 씬 재시작 (불러온 상태 반영 위해 씬 다시 로드)
+        //var currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
+
+        EventBus.Instance.Publish<GameEvents.ReloadScene>(new GameEvents.ReloadScene());
     }
 
+    private void ExitGame() {
+        // 종료버튼
+        Application.Quit();
+    }
 
 }
