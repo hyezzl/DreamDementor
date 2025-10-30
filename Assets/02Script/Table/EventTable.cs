@@ -10,4 +10,5 @@ public class EventTable : ScriptableObject
 	public List<NarrationEntity> Narration; // Replace 'EntityType' to an actual type that is serializable.
 	public List<DialogEntity> Dialog; // Replace 'EntityType' to an actual type that is serializable.
 	public List<ChoiceEntity> Choice; // Replace 'EntityType' to an actual type that is serializable.
+	public List<QuestEntity> Quest; // Replace 'EntityType' to an actual type that is serializable.
 }

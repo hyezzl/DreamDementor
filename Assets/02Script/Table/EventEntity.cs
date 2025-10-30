@@ -46,3 +46,12 @@ public class ChoiceEntity
     public string Continue2;
     public string RootID;
 }
+
+[Serializable]
+public class QuestEntity
+{ 
+    public string QuestID;
+    public string ActiveID;
+    public string DeactiveID;
+    public string Text;
+}

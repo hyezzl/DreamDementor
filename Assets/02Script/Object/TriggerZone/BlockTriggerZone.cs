@@ -10,17 +10,17 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
     public bool isContacted = false;
     public string deactiveConditionID;  // 블락 비활성화 조건
 
-    private PlayerController pc;
-    private PlayerMove pm;
-    private EventHistoryManager hm;
-    private IDatabase database;
-    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
-    private Dictionary<int, DialogData> initialDialog;
+    protected PlayerController pc;
+    protected PlayerMove pm;
+    protected EventHistoryManager hm;
+    protected IDatabase database;
+    protected Dictionary<string, Dictionary<int, DialogData>> allDialogs;
+    protected Dictionary<int, DialogData> initialDialog;
 
     public string ZoneID => zoneID;
 
 
-    public void Init(IDatabase db)
+    public virtual void Init(IDatabase db)
     {
         database = db;
         allDialogs = database.GetDialogEvent(eventID);
@@ -29,7 +29,7 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
     }
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         pc = FindAnyObjectByType<PlayerController>();
         if (pc == null) Debug.Log("BlockTriggerZone - Failed to Load PlayerController");
@@ -39,18 +39,18 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
         if (hm == null) Debug.Log("BlockTriggerZone - Failed to Load EventHistoryManager");
     }
 
-    private void OnEnable()
+    protected void OnEnable()
     {
         EventBus.Instance.Subscribe<UIEvents.EndDialog>(OnEndDialog);
     }
-    private void OnDisable()
+    protected void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.EndDialog>(OnEndDialog);
     }
 
 
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         // 트리거 존은 플레이어와만 상호작용
         if (other.CompareTag("Player")) {
@@ -63,7 +63,7 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
         }
     }
 
-    public void OnTrigger(GameObject actor)
+    public virtual void OnTrigger(GameObject actor)
     {
         if (canPass)
         {
@@ -72,15 +72,16 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
         }
         else 
         {
+            EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(eventID));
             EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
 
             // 종료 이벤트 저장
-            EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent(eventID));
+            EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent(eventID)); // 이거는 대화에서 하는거아닌가?
         }
     }
 
 
-    private void OnEndDialog(UIEvents.EndDialog evt) {
+    protected virtual void OnEndDialog(UIEvents.EndDialog evt) {
         // 경고 대화가 끝났을 때
         if (evt.eventID == eventID) {
             pm.PushBack();

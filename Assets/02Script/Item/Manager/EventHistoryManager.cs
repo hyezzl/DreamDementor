@@ -68,7 +68,7 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
 
 
 
-    // 외부호출 : 이벤트 완료 여부 확인
+    // 외부호출 : 이벤트 완료 여부 확인 (+ Npc대화)
     public bool IsEventComplete(string eventID)
     {
         return completedEvents.Exists(e => e == eventID);

@@ -192,7 +192,7 @@ public static class GameEvents
 
         public EndEvent(string eventID)
         {
-            this.eventID = eventID;
+            this.eventID = eventID;     // event혹은 npc대화
             Debug.Log($"{eventID} 이벤트 종료 후 저장!");
         }
     }
@@ -244,6 +244,17 @@ public static class GameEvents
 
     // 브금 중단
     public struct StopBGM { }
+
+
+    // 효과음
+    public struct PlaySFX
+    {
+        public SFXType type;
+        public PlaySFX(SFXType type) {
+            this.type = type;
+        }
+    }
+
 
 
     // 플레이어 방향 / 애니메이션 강제

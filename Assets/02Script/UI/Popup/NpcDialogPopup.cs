@@ -346,6 +346,8 @@ public class NpcDialogPopup : MonoBehaviour
 
         // 대화끝 이벤트 (대화 NPC ID 전달)
         EventBus.Instance.Publish<UIEvents.EndNpcDialog>(new UIEvents.EndNpcDialog(curNpcID, curNpcEventID));
+        // 이벤트 끝 
+        EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent(curNpcID));
     }
 
     // 외부에서 강제 대화창 닫음

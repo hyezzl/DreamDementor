@@ -3,6 +3,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
@@ -20,6 +21,8 @@ public class HappyOnePuzzles : EventBase
     [SerializeField] PlayableDirector appearEnemy;     // 귀신등장 타임라인
 
     [SerializeField] GameObject hand;
+
+    [SerializeField] GameObject blockzone;
 
     // 임시 퀘스트
     [SerializeField] private TextMeshProUGUI quest;
@@ -58,6 +61,10 @@ public class HappyOnePuzzles : EventBase
         if (curKeyCnt == 3) {
             // key개수가 3개에 도달하면 귀신 등장
             Debug.Log("열쇠 세개 모았으므로 괴물이 등장!");
+
+            // 문을 막고있던 BlockZone 삭제
+            blockzone.SetActive(false);
+            Debug.Log("문을 막고 있던 블락존 삭제!");
 
             // EnemySpawn
             EventBus.Instance.Publish<PuzzleEvents.HO_AppearEnemy>(new PuzzleEvents.HO_AppearEnemy(npcID));

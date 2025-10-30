@@ -37,6 +37,10 @@ MonoBehaviour:
     NpcName: "\uD601\uC774"
   - NpcID: N012
     NpcName: "\uC11C\uB9B0\uC774 \uBC29 \uCE68\uB300"
+  - NpcID: N013
+    NpcName: "2\uC2A4\uD14C\uC774\uC9C0 \uBB38"
+  - NpcID: N014
+    NpcName: "\uBC9A\uAF43 \uB098\uBB34"
   NpcDialog:
   - NpcID: N001
     NpcEventID: N001
@@ -1494,6 +1498,108 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Basic
     Emotion: -1
+  - NpcID: N013
+    NpcEventID: N013
+    LogID: 13001
+    Dialog: "\uC65C \uC774\uB7F0\uACF3\uC5D0 \uBB38\uC774 \uC788\uB294\uAC70\uC9C0..?"
+    NextID: 13002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N013
+    NpcEventID: N013
+    LogID: 13002
+    Dialog: "\uBE44\uBC00\uBC88\uD638\uB85C \uC5EC\uB294 \uBB38\uC774\uB124..."
+    NextID: 13003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N013
+    NpcEventID: N013
+    LogID: 13003
+    Dialog: "\uBE44\uBC00\uBC88\uD638\uAC00.. \uC5B4\uB514 \uC801\uD600\uC788\uC744\uAE4C?"
+    NextID: 13004
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N013
+    NpcEventID: N013
+    LogID: 13004
+    Dialog: "\uD55C\uBC88 \uCC3E\uC544\uBD10\uC57C\uACA0\uB2E4.."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N014
+    NpcEventID: N014
+    LogID: 14001
+    Dialog: "\uBC9A\uAF43\uC774\uB124..?\n\uC624\uB79C\uB9CC\uC5D0 \uBCF4\uB294 \uAC70
+      \uAC19\uC740\uB370.. \uC9C4\uC9DC \uC774\uC058\uB2E4.."
+    NextID: 14002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Monologue
+    Emotion: -1
+  - NpcID: N014
+    NpcEventID: N014
+    LogID: 14002
+    Dialog: "\uC5B4...? \uADF8\uB7EC\uACE0\uBCF4\uB2C8..."
+    NextID: 14003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Monologue
+    Emotion: -1
+  - NpcID: N014
+    NpcEventID: N014
+    LogID: 14003
+    Dialog: "\uC9C0\uAE08\uC774 \uBD04\uC774\uB358\uAC00..?"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: C011
+    Textbox: Monologue
+    Emotion: -1
+  - NpcID: N014
+    NpcEventID: N014_0
+    LogID: 14004
+    Dialog: "\uAE84\uC545!!!"
+    NextID: 14005
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 2
+  - NpcID: N014
+    NpcEventID: N014_0
+    LogID: 14005
+    Dialog: "\uBB50\uC9C0..? \uC9C0\uAE08 \uBC9A\uAF43\uC774 \uD544\uB9AC\uAC00 \uC5C6\uC796\uC544..\n\uB098\uD55C\uD14C
+      \uC65C \uC774\uB7EC\uB294 \uAC70\uC57C..."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - NpcID: N014
+    NpcEventID: N014_1
+    LogID: 14006
+    Dialog: "\uADF8\uB807\uC9C0?\n\uBD84\uBA85 \uBD04\uC774\uC5C8\uB358 \uAC70 \uAC19\uC544.."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
   NpcReDialog:
   - NpcID: N001
     Dialog: ......................
@@ -1566,5 +1672,11 @@ MonoBehaviour:
     Dialog: ......................
     Speaker: Extra
     SpeakerName: "\uCE68\uB300"
+    Textbox: Basic
+    Emotion: -1
+  - NpcID: N014
+    Dialog: ......................
+    Speaker: Extra
+    SpeakerName: "\uBC9A\uAF43 \uB098\uBB34"
     Textbox: Basic
     Emotion: -1

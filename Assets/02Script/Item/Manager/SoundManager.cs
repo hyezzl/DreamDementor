@@ -12,6 +12,9 @@ public enum BGMType
 
 public enum SFXType
 { 
+    footPrint,                  // 발자국소리
+    raining,                    // 빗소리
+    trafficAccident         = 0,            // 서린이 부모님 사고 사운드
 
 }
 
@@ -26,7 +29,8 @@ public class SoundManager : Singleton<SoundManager>
 
     [Header("AudioSource Ref")]
     public AudioSource bgmSource;
-    public AudioSource sfxSource;
+    public AudioSource sfxSource01;
+    public AudioSource sfxSource02;
 
     [Header("Clip List")]
     public AudioClip[] bgmClips;
@@ -62,6 +66,7 @@ public class SoundManager : Singleton<SoundManager>
     {
         EventBus.Instance.Subscribe<GameEvents.PlayBGM>(OnPlayBGM);
         EventBus.Instance.Subscribe<GameEvents.StopBGM>(OnStopBGM);
+        EventBus.Instance.Subscribe<GameEvents.PlaySFX>(OnPlaySFX);
         // SFX
     }
     private void OnDisable()
@@ -104,14 +109,36 @@ public class SoundManager : Singleton<SoundManager>
         StartCoroutine(BGMFadeOut());
     }
 
+    // SFX 이벤트 발행
+    private void OnPlaySFX(GameEvents.PlaySFX evt) {
+        int sfxIdx = (int)evt.type;
+
+        PlaySFX(sfxIdx);
+    }
+
+
 
     // SFX 재생
     public void PlaySFX(int sfxIndex)
     {
-        //int sfxIdx = (int)evt.type;
-
         if (sfxIndex < 0 || sfxIndex >= sfxClips.Length) return;
-        sfxSource.PlayOneShot(sfxClips[sfxIndex]);
+
+        if (!sfxSource01.isPlaying)
+        {
+            // 1번 SFX 플레이어가 비어있으면
+            sfxSource01.PlayOneShot(sfxClips[sfxIndex]);
+        }
+        else if (!sfxSource02.isPlaying)
+        {
+            // 1번 사용중이면 1번에서 재생
+            sfxSource02.PlayOneShot(sfxClips[sfxIndex]);
+        }
+        else {
+            // 두 SFX 소스가 모두 사용중일 때
+            Debug.LogError("3개의 소리가 겹쳐 첫번째 SFX 소리가 무시됨!!!!!!!!!!");
+            // 첫번째 소스 무시하고 재생
+            sfxSource01.PlayOneShot(sfxClips[sfxIndex]);
+        }
     }
 
 

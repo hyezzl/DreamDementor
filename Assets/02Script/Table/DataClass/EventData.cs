@@ -132,3 +132,11 @@ public class ChoiceData
     public List<string> continueIDs;
     public string rootID;
 }
+
+public class QuestData
+{
+    public string questID;
+    public string text;
+    public string activeID;
+    public string deactiveID;
+}

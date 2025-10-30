@@ -3,7 +3,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UIElements;
 
 public enum ItemType
 {
@@ -37,6 +36,8 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
     //private Dictionary<string, Dictionary<int, DialogData>> dialogDict = new();
     private Dictionary<string, Dictionary<string, Dictionary<int, DialogData>>> dialogDict = new();
     private Dictionary<string, ChoiceData> choiceDict = new();
+    private Dictionary<string, string> openQuestDict = new();
+    private List<string> closeQuestList = new();
 
     // NPC 정보
     private Dictionary<string, NPCData> npcDict = new();
@@ -274,6 +275,25 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
 
         }
 
+        // Quest
+        foreach (var evt in SOevent.Quest) {
+            // OpenQuestDict
+            if (!openQuestDict.ContainsKey(evt.ActiveID))
+            {
+                openQuestDict[evt.ActiveID] = evt.Text;
+            }
+            else 
+            {
+                // key 중복
+                continue;
+            }
+
+            // CloseQuestList
+            if (!closeQuestList.Contains(evt.DeactiveID)) {
+                closeQuestList.Add(evt.DeactiveID);
+            }
+        }
+
         // NPC 정보 생략
 
         // 9. NPC Dialog
@@ -400,6 +420,9 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
     }
 
 
+
+
+
     public EventData GetEventData(string eventID) {
         if (eventDict.TryGetValue(eventID, out var data)) {
             return data;
@@ -441,6 +464,21 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
         }
         return null;
     }
+
+
+    public string GetOpenQuest(string eventID) {
+        if (openQuestDict.TryGetValue(eventID, out var text)){
+            return text;
+        }
+        return null;
+    }
+
+    public List<string> GetCloseQuest() {
+        return closeQuestList;
+    }
+
+
+
 
     public Dictionary<string, Dictionary<int, NPCDialogData>> GetNpcEvent(string npcID) {
         if (npcDialogDict.TryGetValue(npcID, out var dataDict)) {

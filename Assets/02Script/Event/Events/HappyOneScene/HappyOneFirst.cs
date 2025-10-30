@@ -8,10 +8,6 @@ public class HappyOneFirst : SceneStart
     [SerializeField] private GameObject happyOneTuto;
     [SerializeField] private GameObject miniQuest;
 
-    [SerializeField] private Button yesBTN;
-    private bool clickYes = false;
-
-
     protected override void Awake()
     {
         SwitchSceneManager.Instance.CurScene = SceneType.HappyOneScene;
