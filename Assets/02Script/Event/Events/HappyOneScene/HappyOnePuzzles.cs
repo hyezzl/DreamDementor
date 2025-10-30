@@ -25,6 +25,7 @@ public class HappyOnePuzzles : EventBase
     [SerializeField] GameObject blockzone;
 
     // 임시 퀘스트
+    [SerializeField] private CanvasGroup questgroup;
     [SerializeField] private TextMeshProUGUI quest;
 
 
@@ -121,7 +122,7 @@ public class HappyOnePuzzles : EventBase
     }
 
     private void UpdateQuest() {
-        string preText = "미로를 탐험하여 열쇠 찾기 ( ";
+        string preText = "●  미로를 탐험하여 열쇠 찾기 ( ";
         string aftText = " / 3 )";
 
         quest.text = preText + HOcurKeyCnt.ToString() + aftText;
@@ -129,9 +130,9 @@ public class HappyOnePuzzles : EventBase
 
 
     // 게임오버 시 실행
-    private void OnGameOver(GameEvents.GameOver evt) { 
+    private void OnGameOver(GameEvents.GameOver evt) {
         // 미니퀘스트 종료
-        quest.gameObject.SetActive(false);
+        questgroup.alpha = 0f;
 
         // 필터효과 종료
         //EventBus.Instance.Publish<GameEvents.FilterOff>

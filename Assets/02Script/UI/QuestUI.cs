@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
+using static GameEvents;
 
 public class QuestUI : MonoBehaviour
 {
 
     [Header("UI Ref")]
     [SerializeField] private CanvasGroup canvas;
+
+
 
     private void Awake()
     {
@@ -16,11 +20,17 @@ public class QuestUI : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(OnModeChange);
+        EventBus.Instance.Subscribe<GameEvents.EndEvent>(OnEndEvent);
+        EventBus.Instance.Subscribe<UIEvents.EndDialog>(OnEndDialog);
+        EventBus.Instance.Subscribe<UIEvents.EndNpcDialog>(OnEndNpcDialog);
+
     }
 
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.GameModeChange>(OnModeChange);
+        EventBus.Instance.Subscribe<GameEvents.EndEvent>(OnEndEvent);
+
     }
 
 

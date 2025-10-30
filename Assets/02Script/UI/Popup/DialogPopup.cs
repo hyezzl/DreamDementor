@@ -285,7 +285,7 @@ public class DialogPopup : MonoBehaviour
         // 대화끝 이벤트 (대화이벤트 ID 전달)
         EventBus.Instance.Publish<UIEvents.EndDialog>(new UIEvents.EndDialog(curEventID));
         // 이벤트의 끝 저장
-        EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent(curEventID));
+        //EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent(curEventID));
     }
 
     // 외부에서 강제로 대화창 닫기
