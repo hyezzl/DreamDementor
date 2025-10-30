@@ -24,10 +24,8 @@ public class SceneStart : MonoBehaviour, IGameEvent
     protected List<NarrationData> narrations;
     protected bool isFirst = true;  // 첫방문인지
 
-    protected virtual void Awake()
-    {
-        //SwitchSceneManager.Instance.CurScene = curScene;
-    }
+    protected virtual void Awake() { }
+
 
     protected virtual void OnEnable() 
     {
@@ -59,23 +57,11 @@ public class SceneStart : MonoBehaviour, IGameEvent
                 if (narrations == null) Debug.Log($"*{this.GetType().Name} - Failed to Load NarrationData");
                 break;
         }
+        isFirst = EventHistoryManager.Instance.IsFirstVisit(curScene);
 
-        // PlayerPrefs사용한 첫방문 분기
-        //bool happyFirstVisit = PlayerPrefs.GetInt("HappySceneFirstVisit", 0) == 0;  // 첫방문인가?
-
-        //if (happyFirstVisit) { 
-        //    eyeCanvas.gameObject.SetActive(true);
-        //    PlayTeleport();
-        //    PlayerPrefs.SetInt("HappySceneFirstVisit", 1);
-        //    PlayerPrefs.Save();
-
-        //    //브금 재생
-        //}
-
-        isFirst = EventHistoryManager.Instance.isFirstVisit(curScene);
 
         // 씬 재방문 조사
-        if (EventHistoryManager.Instance.isFirstVisit(curScene))
+        if (EventHistoryManager.Instance.IsFirstVisit(curScene))
         {
             // 첫방문이면
             OnFirstVisit();
@@ -89,18 +75,20 @@ public class SceneStart : MonoBehaviour, IGameEvent
         }
     }
 
-    /// 첫방문일 때 실행될 함수
+    /// <summary>
+    /// 첫방문일 때 실행될 함수 (직후)
+    /// </summary>
     protected virtual void OnFirstVisit() {
         Debug.Log($"{curScene} : 첫방문입니다.");
-
         // 씬여는 효과 생략? or not? (base)
         EventBus.Instance.Publish<GameEvents.SceneStartEffect>(new GameEvents.SceneStartEffect(curScene));
     }
 
-    /// 재방문일 때 실행될 함수
+    /// <summary>
+    /// 재방문일 때 실행될 함수 (직후)
+    /// </summary>
     protected virtual void OnRevisit() {
         Debug.Log($"{curScene} : 재방문입니다.");
-
         // 씬여는 효과
         EventBus.Instance.Publish<GameEvents.SceneStartEffect>(new GameEvents.SceneStartEffect(curScene));
     }

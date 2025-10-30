@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HappyOneFirst : SceneStart
 {
     [SerializeField] private GameObject happyOneTuto;
-    [SerializeField] private GameObject miniQuest;
+    [SerializeField] private CanvasGroup miniQuest;
 
     protected override void Awake()
     {
@@ -59,7 +59,7 @@ public class HappyOneFirst : SceneStart
         happyOneTuto.SetActive(false);
 
         // 퀘스트 생성
-        miniQuest.SetActive(true);
+        miniQuest.alpha = 1f;
 
         // 게임모드 변경
         PlayerController.Instance.CurMode = GameMode.InspectMode;

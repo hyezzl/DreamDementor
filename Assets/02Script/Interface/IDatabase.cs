@@ -26,7 +26,9 @@ public interface IDatabase
 
     string GetOpenQuest(string eventID);
 
-    List<string> GetCloseQuest();
+    List<string> GetOpenQuestList();
+
+    List<string> GetCloseQuestList();
 
     Dictionary<string, Dictionary<int, NPCDialogData>> GetNpcEvent(string npcID);
 

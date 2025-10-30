@@ -23,6 +23,9 @@ public class BloodEffect : MonoBehaviour
         StopAllCoroutines();
         group.alpha = 1f;
         StartCoroutine(FadeOut());
+
+        // Damage¼Ò¸®
+        EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.takeDamage));
     }
 
     private IEnumerator FadeOut() {

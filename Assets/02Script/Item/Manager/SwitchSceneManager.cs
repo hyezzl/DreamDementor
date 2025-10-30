@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// 씬 전환 관리
@@ -29,6 +27,8 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
 
     private CameraFilterPack_FX_Spot spot;
 
+
+
     protected override void DoAwake()
     {
         base.DoAwake();
@@ -42,9 +42,9 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         else
             // 초기값
             spot.Radius = fadeInVal;
-
-
     }
+
+
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.SwitchScene>(SwitchScene);
@@ -95,6 +95,8 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
     // + 플레이어 위치 지정
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        FindSpotComponent();    // 씬 로드 될때마다 SpotComponent 새로 찾아옴
+
         string sceneName = scene.name;
         if (System.Enum.TryParse(sceneName, out SceneType sceneType))
         {
@@ -147,7 +149,10 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
     // 씬 닫힐 때 효과
     private IEnumerator FadeOutScene()
     {
-        if (spot == null) yield break;
+        if (spot == null) {
+            Debug.Log("Spot이 널이므로 생략");   
+            yield break;
+        }
 
         float elapsed = 0f;
         spot.Radius = fadeInVal;
@@ -166,6 +171,27 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
 
 
         yield return null;
+    }
+
+    // 매씬 Spot 새로 찾기
+    private void FindSpotComponent() {
+        Camera mainCam = Camera.main;
+        if (mainCam != null)
+        {
+            spot = mainCam.GetComponent<CameraFilterPack_FX_Spot>();
+            if (spot != null)
+            {
+                spot.Radius = fadeInVal;
+            }
+            else
+            {
+                Debug.LogWarning("CameraFilterPack_FX_Spot 컴포넌트를 찾을 수 없음!");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Main Camera를 찾을 수 없음!");
+        }
     }
 
 }

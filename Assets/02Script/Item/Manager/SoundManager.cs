@@ -13,8 +13,10 @@ public enum BGMType
 public enum SFXType
 { 
     footPrint,                  // 발자국소리
+    takeDamage,                 // 데미지입을 때 나는 소리
+    grrr,                       // 귀신 등장할 때 나는 소리
+    trafficAccident,            // 서린이 부모님 사고 사운드
     raining,                    // 빗소리
-    trafficAccident         = 0,            // 서린이 부모님 사고 사운드
 
 }
 
@@ -64,6 +66,8 @@ public class SoundManager : Singleton<SoundManager>
     }  
     private void OnEnable()
     {
+        EventBus.Instance.Subscribe<GameEvents.NewStageStart>(OnStartNewStage);
+
         EventBus.Instance.Subscribe<GameEvents.PlayBGM>(OnPlayBGM);
         EventBus.Instance.Subscribe<GameEvents.StopBGM>(OnStopBGM);
         EventBus.Instance.Subscribe<GameEvents.PlaySFX>(OnPlaySFX);
@@ -71,30 +75,32 @@ public class SoundManager : Singleton<SoundManager>
     }
     private void OnDisable()
     {
+        EventBus.Instance.Unsubscribe<GameEvents.NewStageStart>(OnStartNewStage);
+
         EventBus.Instance.Unsubscribe<GameEvents.PlayBGM>(OnPlayBGM);
         EventBus.Instance.Unsubscribe<GameEvents.StopBGM>(OnStopBGM);
+    }
+
+    // 새로운 스테이지가 시작 (첫시작)
+    private void OnStartNewStage(GameEvents.NewStageStart evt) {
+        // 씬에 따라 다른 브금 재생
+        switch (evt.newStage) 
+        {
+            case Stage.Happy:
+                PlayBGM((int)BGMType.HappyBGM);
+                break;
+
+            case Stage.Sorrow:
+                PlayBGM((int)BGMType.SorrowBGM);
+                break;
+        
+        }
     }
 
 
     // 브금 재생
     private void OnPlayBGM(GameEvents.PlayBGM evt) {
-        int bgmIdx = (int)evt.type;
-
-        if (bgmIdx < 0 || bgmIdx >= bgmClips.Length) return;
-        if (isBGMPlaying && bgmSource.clip == bgmClips[bgmIdx]) return;     // 이미 같은 브금이 재생중이면 무시
-
-        if (!isBGMPlaying)
-        {
-            StartCoroutine(BGMFadeIn(bgmClips[bgmIdx]));
-        }
-        // 이미 재생되고있는 브금이 있으면
-        else {
-            Debug.Log("Bug : 브금 겹침");
-
-            if(bgmCoroutine != null) StopCoroutine(bgmCoroutine);
-
-            bgmCoroutine = StartCoroutine(SwitchBGM(bgmClips[bgmIdx]));
-        }
+        PlayBGM((int)evt.type);
     }
 
 
@@ -114,6 +120,28 @@ public class SoundManager : Singleton<SoundManager>
         int sfxIdx = (int)evt.type;
 
         PlaySFX(sfxIdx);
+    }
+
+
+
+    // BGM 재생
+    private void PlayBGM(int bgmIndex) {
+        if (bgmIndex < 0 || bgmIndex >= bgmClips.Length) return;
+        if (isBGMPlaying && bgmSource.clip == bgmClips[bgmIndex]) return;     // 이미 같은 브금이 재생중이면 무시
+
+        if (!isBGMPlaying)
+        {
+            StartCoroutine(BGMFadeIn(bgmClips[bgmIndex]));
+        }
+        // 이미 재생되고있는 브금이 있으면
+        else
+        {
+            Debug.Log("Bug : 브금 겹침");
+
+            if (bgmCoroutine != null) StopCoroutine(bgmCoroutine);
+
+            bgmCoroutine = StartCoroutine(SwitchBGM(bgmClips[bgmIndex]));
+        }
     }
 
 

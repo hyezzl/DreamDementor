@@ -410,4 +410,14 @@ public static class GameEvents
         }
     }
 
+
+    // 스테이지 시작
+    public struct NewStageStart
+    {
+        public Stage newStage;
+        public NewStageStart(Stage newStage) {
+            this.newStage = newStage;
+        }
+    }
+
 }

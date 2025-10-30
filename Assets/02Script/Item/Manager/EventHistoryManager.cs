@@ -13,7 +13,7 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
     private static List<string> completedEvents = new();  // 실행된 이벤트 저장
 
     // 씬 방문 기록
-    private Dictionary<SceneType, bool> visitScene = new();
+    private static Dictionary<SceneType, bool> visitScene = new();
 
     private void OnEnable()
     {
@@ -41,7 +41,6 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
     }
 
     public void RecordDialog(UIEvents.EndDialog evt) {
-        completedEvents.Add(evt.eventID);
         if (!completedEvents.Exists(e => e == evt.eventID))
         {
             completedEvents.Add(evt.eventID);
@@ -50,7 +49,6 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
     }
 
     public void RecordNpcDialog(UIEvents.EndNpcDialog evt) {
-        completedEvents.Add(evt.npcID);
         if (!completedEvents.Exists(e => e == evt.npcID))
         {
             completedEvents.Add(evt.npcID);
@@ -68,7 +66,9 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
 
 
 
-    // 외부호출 : 이벤트 완료 여부 확인 (+ Npc대화)
+    /// <summary>
+    /// 외부호출 : 이벤트 완료 여부 확인 (+ Npc대화)
+    /// </summary>
     public bool IsEventComplete(string eventID)
     {
         return completedEvents.Exists(e => e == eventID);
@@ -80,7 +80,7 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
     //=========================================================//
 
     // 씬 첫방문 여부 확인
-    public bool isFirstVisit(SceneType scene) {
+    public bool IsFirstVisit(SceneType scene) {
         if (visitScene.TryGetValue(scene, out bool isVisit)) {
             return !isVisit;
         }
@@ -90,7 +90,7 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
 
     // 씬 방문 기록 추가
     public void RecordVisit(SceneType scene) {
-        //Debug.Log($"{scene} 방문 기록!");
+        Debug.Log($"****{scene} 방문 기록!");
         visitScene[scene] = true;
     }
 

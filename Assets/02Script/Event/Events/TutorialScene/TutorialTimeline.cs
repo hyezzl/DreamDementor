@@ -122,10 +122,12 @@ public class TutorialTimeline : EventBase
         enemySpeaker.text = "";
     }
 
-    // 변신 시 글리치 필터
+    // 변신 시 글리치 필터 + 효과음
     public void EnemyTransform() {
         if (glitch != null)
             glitch.Glitch = 1f;
+
+        EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.grrr));
     }
 
     // 변신 이후 글리치 약화
@@ -134,3 +136,5 @@ public class TutorialTimeline : EventBase
             glitch.Glitch = 0.1f;
     }
 }
+
+

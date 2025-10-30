@@ -15,7 +15,10 @@ public class HappyFirst : SceneStart
     [SerializeField] private GameObject happyTutorial;
     [SerializeField] private Button yesBTN;
 
-    private bool isClickY = false;      // 확인 버튼 눌렸는가?
+    // 재방문
+    public string reEventID;
+    protected Dictionary<int, DialogData> revisitDialog;
+
 
 
     private int[] requireIDs = { 10001002, 10001003, 10001004 };
@@ -27,23 +30,44 @@ public class HappyFirst : SceneStart
         base.Awake();
     }
 
+    public override void Init(IDatabase db) { 
+        base.Init(db);
+        Debug.Log("여기뜨나욤???????????????");
+        revisitDialog = database.GetDialog(reEventID, reEventID);
+        if (revisitDialog == null) Debug.Log($"*{this.GetType().Name} - Failed to Load DialogData");
+    }
+
+
 
     protected override void OnFirstVisit() {
+        // 첫 방문
+        Debug.Log("해피맵 첫방문!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        // 스테이지 첫 시작
+        EventBus.Instance.Publish<GameEvents.NewStageStart>(new GameEvents.NewStageStart(Stage.Happy));
+
         // 씬여는 효과 생략하고 개인 이벤트시작
         StartCoroutine(PlayEvents());
+
     }
 
     protected override void OnRevisit()
     {
         base.OnRevisit();
+        Debug.Log("해피맵 재방문!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+
         pp.gameObject.SetActive(false);
 
+        if (revisitDialog == null) {
+            Debug.Log("들어오지맛!!!");
+            revisitDialog = database.GetDialog(reEventID, reEventID);
+        }
 
         // 재방문 + 열쇠 3개 모두 가지고있을경우   
         if (IsSatisfying()) {
             // 19번 이벤트 발행
-            //EventBus.Instance.Publish<GameEvents.PlayEvent>();
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog("E019", initialDialog));
+            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(reEventID, revisitDialog, GameMode.InspectMode));
         }
     }
 

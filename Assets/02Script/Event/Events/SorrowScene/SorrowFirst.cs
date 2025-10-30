@@ -16,22 +16,22 @@ public class SorrowFirst : SceneStart
 
         PlayerController.Instance.CurMode = GameMode.EventMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
-
-        // PlayerPrefs사용한 첫방문 분기
-        //bool sorrowFirstVisit = PlayerPrefs.GetInt("SorrowSceneFirstVisit", 0) == 0;  // 첫방문인가?
-
-        //if (sorrowFirstVisit) { 
-        //    PlayerPrefs.SetInt("SorrowSceneFirstVisit", 1);
-        //    PlayerPrefs.Save();
-
-        //브금 재생
-        //EventBus.Instance.Publish<GameEvents.PlayBGM>(new GameEvents.PlayBGM(BGMType.HappyBGM));
     }
+
+    protected override void OnFirstVisit()
+    {
+        Debug.Log("슬픔맵 첫방문!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        // 스테이지 첫 시작
+        EventBus.Instance.Publish<GameEvents.NewStageStart>(new GameEvents.NewStageStart(Stage.Sorrow));
+    
+        base.OnFirstVisit();
+    }
+
 
     protected override void OnSceneStart()
     {
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(startEventID));
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.InspectMode));
     }
-
 }

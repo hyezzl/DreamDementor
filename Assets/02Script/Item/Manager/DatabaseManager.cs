@@ -37,6 +37,8 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
     private Dictionary<string, Dictionary<string, Dictionary<int, DialogData>>> dialogDict = new();
     private Dictionary<string, ChoiceData> choiceDict = new();
     private Dictionary<string, string> openQuestDict = new();
+
+    private List<string> openQuestList = new();
     private List<string> closeQuestList = new();
 
     // NPC Á¤º¸
@@ -288,7 +290,12 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
                 continue;
             }
 
-            // CloseQuestList
+            // openQuestList
+            if (!openQuestList.Contains(evt.ActiveID)) {
+                openQuestList.Add(evt.ActiveID);
+            }
+
+            // closeQuestList
             if (!closeQuestList.Contains(evt.DeactiveID)) {
                 closeQuestList.Add(evt.DeactiveID);
             }
@@ -473,7 +480,11 @@ public class DatabaseManager : Singleton<DatabaseManager>, IDatabase
         return null;
     }
 
-    public List<string> GetCloseQuest() {
+
+    public List<string> GetOpenQuestList() {
+        return openQuestList;
+    }
+    public List<string> GetCloseQuestList() {
         return closeQuestList;
     }
 

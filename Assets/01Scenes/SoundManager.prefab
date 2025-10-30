@@ -51,8 +51,14 @@ MonoBehaviour:
   bgmSource: {fileID: 919482320166961835}
   sfxSource01: {fileID: 7673144547406739841}
   sfxSource02: {fileID: 2955492980969474121}
-  bgmClips: []
+  bgmClips:
+  - {fileID: 8300000, guid: b9db7f4d90003e843a5ccfac8b092bc0, type: 3}
+  - {fileID: 8300000, guid: b6446132c76679e4288c580f181b7bb3, type: 3}
+  - {fileID: 8300000, guid: 7e7cfefe75c87a74f86741f831476580, type: 3}
   sfxClips:
+  - {fileID: 8300000, guid: d306c11c44cadcb4183e68ba66bf70e0, type: 3}
+  - {fileID: 8300000, guid: 6b747dc907536e244a6f1baf284d2dd3, type: 3}
+  - {fileID: 8300000, guid: db7d5854189fbac478040322ab0948cb, type: 3}
   - {fileID: 8300000, guid: cd04dccceaa36cc41a1d6bb4ffe831e7, type: 3}
   fadeDuration: 1
   isBGMPlaying: 0
