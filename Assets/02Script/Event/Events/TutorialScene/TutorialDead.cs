@@ -21,7 +21,7 @@ public class TutorialDead : EventBase
 
         if (evt.eventID == this.eventID) {
             // HappyScene으로 이동
-            EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.HappyScene));
+            EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.TutorialScene, SceneType.HappyScene));
         }
     }
 }

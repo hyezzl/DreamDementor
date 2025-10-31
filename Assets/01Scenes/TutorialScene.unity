@@ -3682,6 +3682,7 @@ PrefabInstance:
     - {fileID: 6445538318351089406, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
     - {fileID: 1433104800637099979, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
     - {fileID: 7483350840969253930, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
+    - {fileID: 7694587153051481860, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5741754087646404387, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       insertIndex: 0
@@ -3690,7 +3691,7 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 388284340}
     - targetCorrespondingSourceObject: {fileID: 5741754087646404387, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-      insertIndex: 6
+      insertIndex: 5
       addedObject: {fileID: 4145851963433893332}
     - targetCorrespondingSourceObject: {fileID: 9054551393772365873, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       insertIndex: 0
@@ -11577,7 +11578,6 @@ GameObject:
   - component: {fileID: 1089390147}
   - component: {fileID: 1089390149}
   - component: {fileID: 1089390150}
-  - component: {fileID: 1089390155}
   - component: {fileID: 1089390151}
   - component: {fileID: 1089390152}
   - component: {fileID: 1089390153}
@@ -11703,6 +11703,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1142784332481645871}
   anim: {fileID: 1806655542}
+  curScene: 1
+  deathType: 0
+  isInstantDeath: 1
   moveSpeed: 8
 --- !u!195 &1089390154
 NavMeshAgent:
@@ -11726,21 +11729,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1089390155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089390146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a96441a888ea8940993f2881e04bc56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curScene: 1
-  deathType: 0
-  isInstantDeath: 1
 --- !u!1 &1089420891
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,8 +10,17 @@ public class EnemyMoveSprite : MonoBehaviour, IMoveObject
     [SerializeField] private Transform player;
     [SerializeField] private Animator anim;
 
+    [Header("Scene Info")]
+    [SerializeField] private SceneType curScene;
+
+    [Header("Death Setting")]
+    [SerializeField] private DeathType deathType = DeathType.CrashEnemy;
+    [SerializeField] private bool isInstantDeath = true;    // 즉사여부
+
     [Header("Enemy Movement Setting")]
     [SerializeField] private float moveSpeed = 3f;
+
+    private bool isDead = false;        // 중복방지
 
     private Rigidbody rig;
     private EnemyController ec;
@@ -108,6 +117,21 @@ public class EnemyMoveSprite : MonoBehaviour, IMoveObject
             anim.SetBool("isWalk", isWalk);
             anim.SetFloat("xDir", moveDir.x);
             anim.SetFloat("yDir", moveDir.y);
+        }
+    }
+
+    //충돌하면 사망
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !isDead)
+        {
+            Debug.Log("게임오버! 플레이어 충돌");
+            isDead = true;
+            EventBus.Instance.Publish<GameEvents.TutorialDead>(new GameEvents.TutorialDead(curScene, DeathType.CrashEnemy));
+
+            // 게임모드
+            pc.CurMode = GameMode.GameOverMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.GameOverMode));
         }
     }
 

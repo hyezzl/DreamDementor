@@ -8,7 +8,7 @@ public class HappyOnePortal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.HappyScene));
+            EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.HappyOneScene, SceneType.HappyScene));
         }
     }
 }

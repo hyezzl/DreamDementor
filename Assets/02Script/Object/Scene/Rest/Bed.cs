@@ -22,6 +22,6 @@ public class Bed : NPC
         
         yield return null;
 
-        EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.SorrowScene));
+        EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.RestScene, SceneType.SorrowScene));
     }
 }

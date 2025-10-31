@@ -18,6 +18,7 @@ public class HappyFirst : SceneStart
     // 재방문
     public string reEventID;
     protected Dictionary<int, DialogData> revisitDialog;
+    [SerializeField] private BoxCollider portal;
 
 
 
@@ -32,7 +33,6 @@ public class HappyFirst : SceneStart
 
     public override void Init(IDatabase db) { 
         base.Init(db);
-        Debug.Log("여기뜨나욤???????????????");
         revisitDialog = database.GetDialog(reEventID, reEventID);
         if (revisitDialog == null) Debug.Log($"*{this.GetType().Name} - Failed to Load DialogData");
     }
@@ -56,11 +56,13 @@ public class HappyFirst : SceneStart
         base.OnRevisit();
         Debug.Log("해피맵 재방문!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
+        // NPC / Zone Load
+        SaveManager.Instance.AutoLoad();
 
         pp.gameObject.SetActive(false);
 
         if (revisitDialog == null) {
-            Debug.Log("들어오지맛!!!");
+            Debug.Log("혹시나....는맞았다 여기없으면 오류남.");
             revisitDialog = database.GetDialog(reEventID, reEventID);
         }
 
@@ -68,6 +70,9 @@ public class HappyFirst : SceneStart
         if (IsSatisfying()) {
             // 19번 이벤트 발행
             EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(reEventID, revisitDialog, GameMode.InspectMode));
+
+            // 포탈 비활성화
+            portal.enabled = false;
         }
     }
 

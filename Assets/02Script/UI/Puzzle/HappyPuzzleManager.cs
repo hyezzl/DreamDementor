@@ -21,6 +21,6 @@ public class HappyPuzzleManager : MonoBehaviour
             }
         }
         // æ¿¿Ãµø
-        EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.RestScene));
+        EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.HappyScene, SceneType.RestScene));
     }
 }

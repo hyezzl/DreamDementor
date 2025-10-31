@@ -1,11 +1,9 @@
 using UnityEngine;
 
-public class HappyPortal : MonoBehaviour
+public class HappyPortal : Portal
 {
-    private void OnTriggerEnter(Collider other)
+    protected override void CustomSave()
     {
-        if (other.CompareTag("Player")) {
-            EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.HappyOneScene));
-        }
+        SaveManager.Instance.AutoSave();    // npc, zone 정보 저장
     }
 }

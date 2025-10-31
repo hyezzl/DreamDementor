@@ -106,19 +106,23 @@ public static class GameEvents
     // (강제) 씬이동 이벤트
     public struct SwitchScene
     {
+        public SceneType curScene;
         public SceneType nextScene;
-        public SwitchScene(SceneType nextScene) {
+        public SwitchScene(SceneType curScene, SceneType nextScene) {
+            this.curScene = curScene;
             this.nextScene = nextScene;
         }
     }
 
     // (포탈) 씬이동 
     public struct PortalSwitchScene
-    { 
+    {
+        public SceneType curScene;
         public SceneType nextScene;
         public Vector3 targetPoint;
         public Direction4 targetDir;
-        public PortalSwitchScene(SceneType nextScene, Vector3 targetPoint, Direction4 targetDir) { 
+        public PortalSwitchScene(SceneType curScene, SceneType nextScene, Vector3 targetPoint, Direction4 targetDir) {
+            this.curScene = curScene;
             this.nextScene = nextScene;
             this.targetPoint = targetPoint;
             this.targetDir = targetDir;
@@ -420,4 +424,21 @@ public static class GameEvents
         }
     }
 
+
+
+
+
+
+    ///////일회용
+    ///
+    public struct TutorialDead
+    {
+        public SceneType scene;
+        public DeathType type;
+        public TutorialDead(SceneType scene, DeathType type)
+        {
+            this.scene = scene;
+            this.type = type;
+        }
+    }
 }

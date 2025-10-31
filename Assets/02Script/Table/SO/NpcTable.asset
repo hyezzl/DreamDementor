@@ -1674,6 +1674,12 @@ MonoBehaviour:
     SpeakerName: "\uCE68\uB300"
     Textbox: Basic
     Emotion: -1
+  - NpcID: N013
+    Dialog: ......................
+    Speaker: Extra
+    SpeakerName: "\uC624\uB798\uB41C \uBB38"
+    Textbox: Basic
+    Emotion: -1
   - NpcID: N014
     Dialog: ......................
     Speaker: Extra

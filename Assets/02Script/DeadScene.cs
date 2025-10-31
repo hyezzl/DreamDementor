@@ -1,67 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DeadScene : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class DeadScene : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject topBack;
-    [SerializeField] private GameObject bottomBack;
-    [SerializeField] private Image bloodSpot1;
-    [SerializeField] private Image bloodSpot2;
-    [SerializeField] private float fadeDuration = 5f;
-
-    // 버튼
-    [SerializeField] private Button loadBTN;
-    [SerializeField] private Image backImg;
-    [SerializeField] private CanvasGroup loadGroup;
-
-    [SerializeField] private Button exitBTN;
-    [SerializeField] private Image backImg2;
-    [SerializeField] private CanvasGroup exitGroup;
-
-
-    //  현재 죽음에 대한 정보 캐싱값
+    //현재 죽음에 대한 정보 캐싱값
     private SceneType scene;
     private DeathType deathType;
 
+    [SerializeField] private float fadeDuration = 3f;
 
-    private void Start()
-    {
-        topBack.SetActive(false);
-        bottomBack.SetActive(false);
+    [Header("UI Ref")]
+    [SerializeField] private CanvasGroup deadScene;
+    [SerializeField] private CanvasGroup black;
+    [SerializeField] private Image illust;
+    [SerializeField] private TextMeshProUGUI overText;
+    [SerializeField] private CanvasGroup overGroup;
 
-        bloodSpot1.enabled = false;
-        bloodSpot2.enabled = false;
+    // 버튼
+    [SerializeField] private Button loadBTN;
+    [SerializeField] private Image loadback;
+    [SerializeField] private CanvasGroup BTNGroup;
 
-        backImg.enabled = false;
-        loadBTN.gameObject.SetActive(false);        // 버튼 비활성화 상태로 시작
+    [SerializeField] private Button exitBTN;
+    [SerializeField] private Image exitback;
 
-        backImg2.enabled = false;
-        exitBTN.gameObject.SetActive(false);
-    }
 
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.GameOver>(OnOver);
-        loadBTN.onClick.AddListener(LoadGame);
+        loadBTN.onClick.AddListener(OnLoadGame);
         exitBTN.onClick.AddListener(ExitGame);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.GameOver>(OnOver);
-        loadBTN.onClick.RemoveListener(LoadGame);
+        loadBTN.onClick.RemoveListener(OnLoadGame);
         exitBTN.onClick.RemoveListener(ExitGame);
     }
 
     private void OnOver(GameEvents.GameOver evt) {
-        // 카메라 필터
-        
-        // 배경
-        topBack.SetActive(true);
-        bottomBack.SetActive(true);
-
         // 게임모드
         PlayerController.Instance.CurMode = GameMode.GameOverMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.GameOverMode));
@@ -70,169 +52,121 @@ public class DeadScene : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         scene = evt.scene;
         deathType = evt.type;
 
-        StartCoroutine(AfterDead()); // 데드씬 연출 + 이후 처리
-        
+        // 데드씬 연출
+        StartCoroutine(DeadSceneCor());
     }
 
-    private IEnumerator BloodEffect() {
-        yield return null;
-        float elapsed = 0f;
+    private IEnumerator DeadSceneCor() {
+        // 효과음
+        deadScene.alpha = 1f;
 
-        bloodSpot1.enabled = true;
-        //효과음
+        // 검은배경 페이드인
+        yield return StartCoroutine(Fade(black, 0f, 1f, 1f));
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
-        bloodSpot2.enabled = true;
-        //효과음
+        // fade아웃 직전에 일러스트 켜줌
+        illust.enabled = true;
 
-        float startAlpha1 = bloodSpot1.color.a;
-        float startAlpha2 = bloodSpot2.color.a;
+        // 검은배경 페이드아웃
+        yield return StartCoroutine(Fade(black, 1f, 0f, 3f));
 
-        while (elapsed < fadeDuration) {
-            elapsed += Time.deltaTime;
-            float alpha1 = Mathf.Lerp(startAlpha1, 0f, elapsed / fadeDuration);
-            float alpha2 = Mathf.Lerp(startAlpha2, 0f, elapsed / fadeDuration);
+        yield return new WaitForSeconds(2f);        // 2초동안 일러스트 보여줌
 
-            bloodSpot1.color = new Color(bloodSpot1.color.r, bloodSpot1.color.g, bloodSpot1.color.b, alpha1);
-            bloodSpot2.color = new Color(bloodSpot2.color.r, bloodSpot2.color.g, bloodSpot2.color.b, alpha2);
-            yield return null;
-        }
-        bloodSpot1.color = new Color(bloodSpot1.color.r, bloodSpot1.color.g, bloodSpot1.color.b, 0f);
-        bloodSpot2.color = new Color(bloodSpot2.color.r, bloodSpot2.color.g, bloodSpot2.color.b, 0f);
-    }
+        // 검은배경 페이드인
+        yield return StartCoroutine(Fade(black, 0f, 0.4f, 2f));
 
-    // 데드씬 끝난 이후 처리
-    private IEnumerator AfterDead() {
-        yield return StartCoroutine(BloodEffect());  // 코루틴 끝날 때 까지 기다림
+        // 글자 페이드인 // 3
+        yield return StartCoroutine(Fade(overGroup, 0f, 1f, 4f));
 
-        if (scene == SceneType.TutorialScene && deathType == DeathType.CrashEnemy) // D0100
-        {
-            EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E004"));
-            yield break;
-        }
-
-        // 데드씬 끝난 뒤 버튼 페이드인 + 활성화 코루틴 호출
-        yield return StartCoroutine(ShowLoadButton());
-    }
-
-
-
-
-    // 버튼 생성 함수
-    private IEnumerator ShowLoadButton() { 
-        loadBTN.gameObject.SetActive(true);
-        exitBTN.gameObject.SetActive(true);
-
-        float elapsed = 0f;
-        float duration = 1.5f;      // 페이드인
-
-        Color imgColor = backImg.color;     // 기존컬러 캐싱
-        imgColor.a = 0f;
-        backImg.color = imgColor;
-
-        loadGroup.alpha = 0f;
-
-        while (elapsed < duration) { 
-            elapsed += Time.deltaTime;
-            float alpha = Mathf.Clamp01(elapsed / duration);
-
-            imgColor.a = alpha;
-            backImg.color = imgColor;
-
-            loadGroup.alpha = alpha;
-
-            yield return null;
-        }
-        imgColor.a = 1f;
-        backImg.color = imgColor;
-        loadGroup.alpha = 1f;
-        exitGroup.alpha = 1f;
-
-        // 포커스 강제지정
-        //FocusLoadButton();
-
-        //마우스 임시 On
+        // 마우스 생성
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.Confined;
 
-        yield return null;
+        StartCoroutine(Fade(BTNGroup, 0f, 1f, 2f));
+        BTNGroup.interactable = true;
     }
 
 
+    public IEnumerator Fade(CanvasGroup group, float startVal, float endVal, float fadeDuration)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            group.alpha = Mathf.Lerp(startVal, endVal, elapsed / fadeDuration);
+            yield return null;
+        }
+
+        group.alpha = endVal;
+    }
+
+
+    private void OnLoadGame() {
+        // 로드 버튼 눌렸을때
+        Debug.Log("게임이 로드 됩니다!!!!!!!!!!!!!!!!!!!!!!!!!");
+        deadScene.alpha = 0f;
+
+        //EventBus.Instance.Publish<GameEvents.ReloadScene>(new GameEvents.ReloadScene());
+        SaveManager.Instance.ReloadScene(SwitchSceneManager.Instance.CurScene);
+    }
 
     /// 버튼
 
     // loadBTN 전용
-    public void OnLoadButtonPointerEnter(PointerEventData eventData)
+    //public void OnLoadButtonPointerEnter(PointerEventData eventData)
+    //{
+    //    if (backImg != null)
+    //        backImg.enabled = true;
+    //}
+    //public void OnLoadButtonPointerExit(PointerEventData eventData)
+    //{
+    //    if (backImg != null)
+    //        backImg.enabled = false;
+    //}
+
+    //// exitBTN 전용
+    //public void OnExitButtonPointerEnter(PointerEventData eventData)
+    //{
+    //    if (backImg2 != null)
+    //        backImg2.enabled = true;
+    //}
+    //public void OnExitButtonPointerExit(PointerEventData eventData)
+    //{
+    //    if (backImg2 != null)
+    //        backImg2.enabled = false;
+    //}
+
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    if (eventData.pointerEnter == loadBTN.gameObject)
+    //    {
+    //        if (backImg != null) backImg.enabled = true;
+    //    }
+    //    else if (eventData.pointerEnter == exitBTN.gameObject)
+    //    {
+    //        if (backImg2 != null) backImg2.enabled = true;
+    //    }
+    //}
+
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
+    //    if (eventData.pointerEnter == loadBTN.gameObject)
+    //    {
+    //        if (backImg != null) backImg.enabled = false;
+    //    }
+    //    else if (eventData.pointerEnter == exitBTN.gameObject)
+    //    {
+    //        if (backImg2 != null) backImg2.enabled = false;
+    //    }
+    //}
+
+
+
+    private void ExitGame()
     {
-        if (backImg != null)
-            backImg.enabled = true;
-    }
-    public void OnLoadButtonPointerExit(PointerEventData eventData)
-    {
-        if (backImg != null)
-            backImg.enabled = false;
-    }
-
-    // exitBTN 전용
-    public void OnExitButtonPointerEnter(PointerEventData eventData)
-    {
-        if (backImg2 != null)
-            backImg2.enabled = true;
-    }
-    public void OnExitButtonPointerExit(PointerEventData eventData)
-    {
-        if (backImg2 != null)
-            backImg2.enabled = false;
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (eventData.pointerEnter == loadBTN.gameObject)
-        {
-            if (backImg != null) backImg.enabled = true;
-        }
-        else if (eventData.pointerEnter == exitBTN.gameObject)
-        {
-            if (backImg2 != null) backImg2.enabled = true;
-        }
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (eventData.pointerEnter == loadBTN.gameObject)
-        {
-            if (backImg != null) backImg.enabled = false;
-        }
-        else if (eventData.pointerEnter == exitBTN.gameObject)
-        {
-            if (backImg2 != null) backImg2.enabled = false;
-        }
-    }
-
-
-
-    private void LoadGame() {
-        // 로드 버튼 눌렸을때
-        Debug.Log("게임이 로드 됩니다!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        // 저장 데이터 불러오기
-        SaveManager.Instance.LoadGame();
-
-        // 불러온 데이터 게임 내 반영
-        SaveManager.Instance.ApplyLoadedData();
-
-        // 현재 씬 재시작 (불러온 상태 반영 위해 씬 다시 로드)
-        //var currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-        //UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
-
-        EventBus.Instance.Publish<GameEvents.ReloadScene>(new GameEvents.ReloadScene());
-    }
-
-    private void ExitGame() {
         // 종료버튼
         Application.Quit();
     }
-
 }

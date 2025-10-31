@@ -41,13 +41,44 @@ public class TitleBTN : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // 버튼별 행동 정의
         if (name.Contains("Start"))
         {
+            // 1. 세이브 데이터 삭제
+            if (ES3.KeyExists("GameSave"))
+            {
+                ES3.DeleteKey("GameSave");
+                Debug.Log("세이브 데이터가 초기화!");
+            }
+
+            // ES3 파일 직접 삭제!
+            //ES3.DeleteFile("SaveFile.es3");
+            //Debug.Log("세이브파일 자체가 완전히 삭제");
+
+            ES3.DeleteFile();
+
             Debug.Log("게임 시작!");
             EventBus.Instance.Publish<GameEvents.SwitchScene>(
-                new GameEvents.SwitchScene(SceneType.TutorialScene));
+                new GameEvents.SwitchScene(SceneType.TitleScene, SceneType.TutorialScene));
         }
         else if (name.Contains("Load"))
         {
-            Debug.Log("불러오기 버튼 클릭!");
+            // 1. 세이브 파일이 있는지 체크!
+            if (ES3.KeyExists("GameSave"))
+            {
+                // 2. 세이브 데이터에서 씬 이름 불러오기
+                var saveData = ES3.Load<SaveData>("GameSave");
+                string sceneName = saveData.scene.ToString(); // enum이면 ToString(), string이면 그대로
+
+                // 3. 해당 씬으로 이동!
+                EventBus.Instance.Publish<GameEvents.SwitchScene>(
+                    new GameEvents.SwitchScene(SceneType.TitleScene, SceneType.TutorialScene));
+
+                Debug.Log("저장된 데이터로 불러오기 성공!");
+            }
+            else
+            {
+                Debug.LogWarning("저장된 데이터가 없어요! 새로 시작해야 합니다.");
+                // 원하면 안내 메시지 띄우기!
+            }
+            
         }
         else if (name.Contains("Exit"))
         {

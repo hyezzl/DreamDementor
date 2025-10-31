@@ -1,0 +1,38 @@
+using UnityEngine;
+
+//public enum EventType
+//{ 
+//    Narration,
+//    Cutscene,
+//    Conversation,  // only 대화 (플레이어의 입력 포함)
+//    SceneChange,
+//}
+
+
+public class EventFlowManager : Singleton<EventFlowManager> // 싱글톤일 이유가?
+{
+
+    protected override void DoAwake()
+    {
+        base.DoAwake();
+    }
+
+    private void OnEnable()
+    {
+    }
+
+    private void OnDisable()
+    {
+    }
+
+
+    private void OccurEvent(GameEvents.PlayEvent evt) { 
+        
+    }
+
+    private void OccurChoice(GameEvents.PlayChoiceEvent evt) { 
+        // eventID에 따른 데이터 찾아서 
+    }
+}
+
+

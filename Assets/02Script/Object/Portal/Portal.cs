@@ -35,8 +35,11 @@ public class Portal : MonoBehaviour
             // 다른 씬 이동시
             if (curScene != targetScene)
             {
+                // 다른 씬 이동 시 저장
+                CustomSave();
+
                 // 이벤트 발행
-                EventBus.Instance.Publish<GameEvents.PortalSwitchScene>(new GameEvents.PortalSwitchScene(targetScene, spawnPoint, spawnDir));
+                EventBus.Instance.Publish<GameEvents.PortalSwitchScene>(new GameEvents.PortalSwitchScene(curScene,targetScene, spawnPoint, spawnDir));
             }
 
             // 같은 씬 내 이동
@@ -56,4 +59,6 @@ public class Portal : MonoBehaviour
             }
         }
     }
+
+    protected virtual void CustomSave() { }
 }

@@ -43,7 +43,7 @@ public class TitleScene : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (selected == start)
         {
             Debug.Log("게임 시작!");
-            EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.TutorialScene));
+            EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.TitleScene, SceneType.TutorialScene));
         }
         else if (selected == load)
         {

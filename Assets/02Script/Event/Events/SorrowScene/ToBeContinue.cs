@@ -37,6 +37,9 @@ public class ToBeContinue : MonoBehaviour
             PlayerController.Instance.CurMode = GameMode.EventMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
 
+            // ºê±Ý²ô±â
+            EventBus.Instance.Publish<GameEvents.StopBGM>(new GameEvents.StopBGM());
+
             StartCoroutine(OnTrigger());
         }
     }
