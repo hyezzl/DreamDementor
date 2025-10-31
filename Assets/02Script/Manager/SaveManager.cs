@@ -72,7 +72,7 @@ public class SaveManager : Singleton<SaveManager>
         if (scenesToAutoSave.Contains(evt.curScene))
         {
             Debug.Log($"&************오토세이브");
-            AutoSave();
+            //AutoSave();
         }
         ManualSave();
         SaveGame();
@@ -83,7 +83,7 @@ public class SaveManager : Singleton<SaveManager>
         if (scenesToAutoSave.Contains(evt.curScene))
         {
             Debug.Log($"&************오토세이브");
-            AutoSave();
+            //AutoSave();
         }
         ManualSave();
         SaveGame();

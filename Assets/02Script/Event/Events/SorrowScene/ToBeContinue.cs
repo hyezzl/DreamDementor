@@ -93,6 +93,23 @@ public class ToBeContinue : MonoBehaviour
     }
 
     private void ExitGame() {
+        //try
+        //{
+        //    if (ES3.FileExists("SaveFile.es3"))
+        //    {
+        //        ES3.DeleteFile("SaveFile.es3");
+        //        Debug.Log("SaveFile.es3 파일 완전히 삭제!");
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("삭제할 SaveFile.es3 파일이 없음");
+        //    }
+        //}
+        //catch (System.Exception ex)
+        //{
+        //    Debug.LogError($"파일 삭제 에러! : {ex.Message}");
+        //}
+
         Application.Quit();
     }
 

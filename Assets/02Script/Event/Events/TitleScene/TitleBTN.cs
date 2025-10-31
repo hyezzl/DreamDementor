@@ -41,22 +41,39 @@ public class TitleBTN : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // 버튼별 행동 정의
         if (name.Contains("Start"))
         {
+
+            StartCoroutine(Dele());
             // 1. 세이브 데이터 삭제
-            if (ES3.KeyExists("GameSave"))
-            {
-                ES3.DeleteKey("GameSave");
-                Debug.Log("세이브 데이터가 초기화!");
-            }
+            //if (ES3.KeyExists("GameSave"))
+            //{
+            //    ES3.DeleteKey("GameSave");
+            //    Debug.Log("세이브 데이터가 초기화!");
+            //}
 
-            // ES3 파일 직접 삭제!
-            //ES3.DeleteFile("SaveFile.es3");
-            //Debug.Log("세이브파일 자체가 완전히 삭제");
+            // ES3 파일 직접 삭제
+            //try
+            //{
+            //    // 파일 존재할 때만 삭제 (Easy Save 내부적으로 File.Exists 체크)
+            //    if (ES3.FileExists("SaveFile.es3"))
+            //    {
+            //        ES3.DeleteFile("SaveFile.es3");
+            //        Debug.Log("세이브 파일이 정상적으로 삭제");
+            //    }
+            //    else
+            //    {
+            //        Debug.LogWarning("세이브 파일이 없음");
+            //    }
+            //}
+            //catch (System.Exception ex)
+            //{
+            //    Debug.LogError($"세이브 파일 삭제 도중 오류 발생! : {ex.Message}");
+            //}
 
-            ES3.DeleteFile();
+            //ES3.DeleteFile();
 
-            Debug.Log("게임 시작!");
-            EventBus.Instance.Publish<GameEvents.SwitchScene>(
-                new GameEvents.SwitchScene(SceneType.TitleScene, SceneType.TutorialScene));
+            //Debug.Log("게임 시작!");
+            //EventBus.Instance.Publish<GameEvents.SwitchScene>(
+            //    new GameEvents.SwitchScene(SceneType.TitleScene, SceneType.TutorialScene));
         }
         else if (name.Contains("Load"))
         {
@@ -99,5 +116,42 @@ public class TitleBTN : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         isSelected = false;
         if (highlight != null)
             highlight.enabled = false;
+    }
+
+    IEnumerator Dele()
+    {
+        try
+        {
+            // 파일 존재할 때만 삭제 (Easy Save 내부적으로 File.Exists 체크)
+            if (ES3.FileExists("SaveFile.es3"))
+            {
+                ES3.DeleteFile("SaveFile.es3");
+                Debug.Log("세이브 파일삭제");
+            }
+            else
+            {
+                Debug.LogWarning("세이브 파일이 없음");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"세이브 파일 삭제 도중 오류 발생! : {ex.Message}");
+        }
+
+        ES3.DeleteFile();
+
+        // Easy Save 자동초기화!
+        string filePath = System.IO.Path.Combine(Application.persistentDataPath, "SaveFile.es3");
+        if (System.IO.File.Exists(filePath))
+            System.IO.File.Delete(filePath);
+
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+
+        Debug.Log("게임 시작!");
+        EventBus.Instance.Publish<GameEvents.SwitchScene>(
+            new GameEvents.SwitchScene(SceneType.TitleScene, SceneType.TutorialScene));
     }
 }
