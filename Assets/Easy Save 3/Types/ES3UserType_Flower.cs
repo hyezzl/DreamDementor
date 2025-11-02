@@ -16,7 +16,7 @@ namespace ES3Types
 		{
 			var instance = (Flower)obj;
 			
-			writer.WriteProperty("isFriend", instance.isFriend, ES3Type_bool.Instance);
+			writer.WriteProperty("isFriend", instance.isFriendly, ES3Type_bool.Instance);
 			writer.WriteProperty("isContacted", instance.isContacted, ES3Type_bool.Instance);
 		}
 
@@ -29,7 +29,7 @@ namespace ES3Types
 				{
 					
 					case "isFriend":
-						instance.isFriend = reader.Read<System.Boolean>(ES3Type_bool.Instance);
+						instance.isFriendly = reader.Read<System.Boolean>(ES3Type_bool.Instance);
 						break;
 					case "isContacted":
 						instance.isContacted = reader.Read<System.Boolean>(ES3Type_bool.Instance);

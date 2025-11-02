@@ -4,6 +4,11 @@ public class NPCData
 {
     public string npcID;
     public string npcName;
+    public bool isContacted;
+    public bool isPass;
+    public bool isEndEvent;
+
+
 }
 
 public class NPCDialogData

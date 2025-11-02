@@ -10,10 +10,17 @@ using static GameEvents;
 public class EventHistoryManager : Singleton<EventHistoryManager>
 {
     // 실행된 이벤트 목록 관리
-    private static List<string> completedEvents = new();  // 실행된 이벤트 저장
+    private List<string> completedEvents = new();  // 실행된 이벤트 저장
 
     // 씬 방문 기록
-    private static Dictionary<SceneType, bool> visitScene = new();
+    private Dictionary<SceneType, bool> visitScene = new();
+
+    // 존 활성화 정보 관리
+    public Dictionary<string, bool> zoneActiveMap = new();
+
+
+
+
 
     private void OnEnable()
     {
@@ -125,5 +132,23 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
     public Dictionary<SceneType, bool> GetVisitSceneDict()
     {
         return new Dictionary<SceneType, bool>(visitScene);
+    }
+
+    /// ///////////////////////////////////////
+
+    // Zone 정보 Set / Get
+
+    public void SetZoneActive(string zoneID, bool isActive)
+    {
+        zoneActiveMap[zoneID] = isActive;
+    }
+
+    public bool GetZoneActive(string zoneID)
+    {
+        if (!zoneActiveMap.ContainsKey(zoneID))
+        {
+            zoneActiveMap[zoneID] = true;  // 기본값 세팅은 get에서 처리
+        }
+        return zoneActiveMap[zoneID];
     }
 }

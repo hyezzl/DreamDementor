@@ -31,7 +31,7 @@ public class Flower : NeutralNPC
 
         if (player == null || sr == null || eyes == null || eyes.Length < 5) return;
 
-        if (!isFriend)
+        if (!isFriendly)
         {
             UpdateEyeDirection();
         }
@@ -66,7 +66,7 @@ public class Flower : NeutralNPC
         if (evt.npcID == npcID)
         {
             // 친화적이면 눈을 감음
-            if (isFriend)
+            if (isFriendly)
             {
                 Debug.Log("당신은 꽃과 친화적입니다");
                 eyeAnim.enabled = true;

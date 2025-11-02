@@ -4,6 +4,15 @@ using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+public enum NPCType
+{ 
+    Base,               // None (isContact)
+    QuizNPC,            // 퀴즈 (pass or not)
+    NeutralNPC,         // 적대적 / 친화적 (friendly or not)
+    EventNPC,           // 강제 이벤트 발행하는 NPC
+}
+
+
 public class NPC : MonoBehaviour, IActionNpc
 {
     public string npcID;

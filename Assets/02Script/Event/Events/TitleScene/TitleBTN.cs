@@ -41,40 +41,9 @@ public class TitleBTN : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // 버튼별 행동 정의
         if (name.Contains("Start"))
         {
-
-            StartCoroutine(Dele());
-            // 1. 세이브 데이터 삭제
-            //if (ES3.KeyExists("GameSave"))
-            //{
-            //    ES3.DeleteKey("GameSave");
-            //    Debug.Log("세이브 데이터가 초기화!");
-            //}
-
-            // ES3 파일 직접 삭제
-            //try
-            //{
-            //    // 파일 존재할 때만 삭제 (Easy Save 내부적으로 File.Exists 체크)
-            //    if (ES3.FileExists("SaveFile.es3"))
-            //    {
-            //        ES3.DeleteFile("SaveFile.es3");
-            //        Debug.Log("세이브 파일이 정상적으로 삭제");
-            //    }
-            //    else
-            //    {
-            //        Debug.LogWarning("세이브 파일이 없음");
-            //    }
-            //}
-            //catch (System.Exception ex)
-            //{
-            //    Debug.LogError($"세이브 파일 삭제 도중 오류 발생! : {ex.Message}");
-            //}
-
-            //ES3.DeleteFile();
-
-            //Debug.Log("게임 시작!");
-            //EventBus.Instance.Publish<GameEvents.SwitchScene>(
-            //    new GameEvents.SwitchScene(SceneType.TitleScene, SceneType.TutorialScene));
+            StartCoroutine(DeleteSaveFile());
         }
+
         else if (name.Contains("Load"))
         {
             // 1. 세이브 파일이 있는지 체크!
@@ -118,7 +87,7 @@ public class TitleBTN : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             highlight.enabled = false;
     }
 
-    IEnumerator Dele()
+    IEnumerator DeleteSaveFile()
     {
         try
         {
@@ -145,8 +114,6 @@ public class TitleBTN : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (System.IO.File.Exists(filePath))
             System.IO.File.Delete(filePath);
 
-        yield return null;
-        yield return null;
         yield return null;
         yield return null;
 

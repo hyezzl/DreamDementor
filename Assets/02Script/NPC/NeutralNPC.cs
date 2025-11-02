@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class NeutralNPC : NPC
 {
-    public bool isFriend = false;       // 친화적인지
+    public bool isFriendly = false;       // 친화적인지
 
     public override void OnNpcChoice(UIEvents.MakeChoice evt)
     {
@@ -22,7 +22,7 @@ public class NeutralNPC : NPC
                 if (score == 0)
                 {
                     // 값이 0이면(정답이면 친화적)
-                    isFriend = true;
+                    isFriendly = true;
                 }
             }
         }
