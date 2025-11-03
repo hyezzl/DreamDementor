@@ -22730,22 +22730,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Main Canvas '
       objectReference: {fileID: 0}
-    - target: {fileID: 1890817552016237795, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2190296404164289953, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-      propertyPath: m_Alpha
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2190296404164289953, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-      propertyPath: m_Interactable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2190296404164289953, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-      propertyPath: m_BlocksRaycasts
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2253549149134046443, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
@@ -22754,18 +22738,6 @@ PrefabInstance:
       propertyPath: bg
       value: 
       objectReference: {fileID: 1354594686}
-    - target: {fileID: 2525389895288994630, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-      propertyPath: illust
-      value: 
-      objectReference: {fileID: 1354594687}
-    - target: {fileID: 2525389895288994630, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-      propertyPath: BTNGroup
-      value: 
-      objectReference: {fileID: 1354594685}
-    - target: {fileID: 2525389895288994630, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-      propertyPath: deadScene
-      value: 
-      objectReference: {fileID: 1354594688}
     - target: {fileID: 2577273974406489329, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_Alpha
       value: 0
@@ -22814,10 +22786,6 @@ PrefabInstance:
       propertyPath: targetCam
       value: 
       objectReference: {fileID: 23178421}
-    - target: {fileID: 5353189743161979241, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5492129455760904340, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_Alpha
       value: 0
@@ -23016,30 +22984,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1433104800637099979, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
   m_PrefabInstance: {fileID: 1354594681}
   m_PrefabAsset: {fileID: 0}
---- !u!225 &1354594685 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 906552436154517475, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-  m_PrefabInstance: {fileID: 1354594681}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1354594686 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4668862368620167091, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-  m_PrefabInstance: {fileID: 1354594681}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1354594687 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5353189743161979241, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
-  m_PrefabInstance: {fileID: 1354594681}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!225 &1354594688 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 2190296404164289953, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
   m_PrefabInstance: {fileID: 1354594681}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1358864971
