@@ -8,7 +8,10 @@ public class temp : SceneStart
     {
         SwitchSceneManager.Instance.CurScene = SceneType.SorrowOneScene;
         base.Awake();
+    }
 
+    private void Start()
+    {
         PlayerController.Instance.CurAspect = AspectMode.OnepersonMode;
         EventBus.Instance.Publish<GameEvents.AspectChange>(new GameEvents.AspectChange(AspectMode.OnepersonMode));
     }
