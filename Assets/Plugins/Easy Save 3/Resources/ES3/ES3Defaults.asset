@@ -43,7 +43,7 @@ MonoBehaviour:
     - spine-csharp
     - spine-unity
     - Tilemap3D
-    showAdvancedSettings: 1
+    showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
   addAllPrefabsToManager: 1
