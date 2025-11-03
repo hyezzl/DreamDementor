@@ -32,6 +32,12 @@ public class DeadScene : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
 
     private void OnEnable()
     {
+        // 초기값
+        BTNGroup.gameObject.SetActive(false);
+        black.gameObject.SetActive(false);
+        illust.gameObject.SetActive(false);
+        overText.gameObject.SetActive(false);
+
         EventBus.Instance.Subscribe<GameEvents.GameOver>(OnOver);
         loadBTN.onClick.AddListener(OnLoadGame);
         exitBTN.onClick.AddListener(ExitGame);
@@ -61,12 +67,15 @@ public class DeadScene : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         deadScene.alpha = 1f;
 
         // 검은배경 페이드인
-        yield return StartCoroutine(Fade(black, 0f, 1f, 1f));
+        //yield return StartCoroutine(Fade(black, 0f, 1f, 1f));
+
+        black.gameObject.SetActive(true);
+        black.alpha = 1f;   // 페이드인보다는 바로 까매지는게 나은 듯
 
         yield return new WaitForSeconds(1f);
 
         // fade아웃 직전에 일러스트 켜줌
-        illust.enabled = true;
+        illust.gameObject.SetActive(true);
 
         // 검은배경 페이드아웃
         yield return StartCoroutine(Fade(black, 1f, 0f, 3f));
@@ -74,15 +83,18 @@ public class DeadScene : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         yield return new WaitForSeconds(2f);        // 2초동안 일러스트 보여줌
 
         // 검은배경 페이드인
-        yield return StartCoroutine(Fade(black, 0f, 0.4f, 2f));
+        yield return StartCoroutine(Fade(black, 0f, 0.8f, 2f));
 
         // 글자 페이드인 // 3
+        overText.gameObject.SetActive(true);
         yield return StartCoroutine(Fade(overGroup, 0f, 1f, 4f));
 
         // 마우스 생성
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
 
+        // 버튼 활성화
+        BTNGroup.gameObject.SetActive(true);
         StartCoroutine(Fade(BTNGroup, 0f, 1f, 2f));
         BTNGroup.interactable = true;
     }
