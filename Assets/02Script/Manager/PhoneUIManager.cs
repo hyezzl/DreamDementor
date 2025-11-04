@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
@@ -21,8 +22,6 @@ public class PhoneUIManager : MonoBehaviour
     [SerializeField] private GameObject infoContent;
     [SerializeField] private InventoryDescription invenDesc;    // 인벤토리 세부창
 
-    //[Header("UI Group")]
-    //[SerializeField] private CanvasGroup popupGroup;
 
     private IInputHandler inputHandler;
     private bool isOpen = false;

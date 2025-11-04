@@ -177,4 +177,7 @@ public static class UIEvents
             this.curScene = curScene;
         }
     }
+
+    // 게임종료 경고창 띄우기
+    public struct WarningShutdown { }
 }
