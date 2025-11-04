@@ -57,7 +57,7 @@ public enum Stage
 /// 
 public class PlayerController : Singleton<PlayerController>
 {
-    public int CurHP { get; set; } = 100;
+    public int CurHP { get; private set; }
 
     // 스테이지별 정신력 관리
     public Dictionary<Stage, int> wholeHP = new();
@@ -165,14 +165,13 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
-    // 외부에서 현재 씬에 해당하는 HP반환
-    public int GetCurHP(SceneType scene) {
-        return CurHP;
-    }
-
-    public void SetCurHP(int hp, SceneType scene)
+    // 외부에서 CurHP Set
+    public void SetCurHP(int hp)
     {
-        CurHP = hp;
+        int diff = hp - CurHP;
+        if (diff != 0) {
+            ChangeHp(diff);
+        }
     }
 
 

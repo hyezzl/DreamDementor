@@ -64,13 +64,25 @@ public class SceneStart : MonoBehaviour, IGameEvent
         if (EventHistoryManager.Instance.IsFirstVisit(curScene))
         {
             // 첫방문이면
-            OnFirstVisit();
-            EventHistoryManager.Instance.RecordVisit(curScene);
 
-            // 브금재생
+            // 씬 전환 세이브가 선행
+            SaveManager.Instance.ManualSave();
+            SaveManager.Instance.SaveGame();
+
+            // 씬 방문 정보 갱신
+            EventHistoryManager.Instance.RecordVisit(curScene);
+            
+            // 첫 방문 시 실행될 함수
+            OnFirstVisit();
         }
         else {
             // 재방문이면
+
+            // 씬 전환 세이브가 선행
+            SaveManager.Instance.ManualSave();
+            SaveManager.Instance.SaveGame();
+
+            // 재 방문 실행 함수
             OnRevisit();
         }
     }

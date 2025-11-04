@@ -179,6 +179,7 @@ public class DeadScene : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
     private void ExitGame()
     {
         // 종료버튼
+        // 아니면 타이틀로?
         Application.Quit();
     }
 }

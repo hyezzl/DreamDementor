@@ -16,6 +16,7 @@ public class SaveData
     public List<string> completedEvents = new();                // 실행된 이벤트 목록
     public Dictionary<SceneType, bool> visitScene = new();     // 씬 방문기록
     public Dictionary<string, bool> zoneActiveMap = new();             // 존 활성화/비활성화 관리
+    public Dictionary<Stage, int> wholeHP = new();
 }
 
 
@@ -31,25 +32,35 @@ public class SaveManager : Singleton<SaveManager>
     HashSet<SceneType> scenesToAutoSave = new HashSet<SceneType>
     {
         SceneType.HappyScene,
-        //SceneType.SorrowScene,
+        SceneType.SorrowScene,
     };
 
     // 씬 저장 함수 (가려는씬이 아니라 현재 위치한 씬)
     HashSet<SceneType> scenesToSave = new HashSet<SceneType>
     {
-        SceneType.HappyScene,
-        SceneType.HappyOneScene,
+        //SceneType.HappyScene,
+        //SceneType.HappyOneScene,
         //SceneType.SorrowScene,
+        //SceneType.SorrowOneScene,
+    };
+
+    // 씬 열릴 때 자동으로 저장할 씬
+    // (씬 내부(SceneStart)에서 따로 저장하지 않는 씬들)
+    HashSet<SceneType> OpenSceneSave = new HashSet<SceneType>
+    {
+        //SceneType.TutorialScene
     };
 
 
     // 로드될 특정 씬
-    HashSet<SceneType> scenesToLoad = new HashSet<SceneType>
+    HashSet<SceneType> scenesToAutoLoad = new HashSet<SceneType>
     {
         SceneType.HappyScene,
         SceneType.SorrowScene,
     };
 
+    // 세이브매니저는 싱글톤이니까.. 굳이 이벤트발행으로 저장하지말고
+    // 외부에서 저장하게 하는 방법은 어떨까..?
 
     private void OnEnable()
     {
@@ -74,8 +85,11 @@ public class SaveManager : Singleton<SaveManager>
             Debug.Log($"&************오토세이브");
             AutoSave();
         }
-        ManualSave();
-        SaveGame();
+        if (scenesToSave.Contains(evt.curScene)) {
+            Debug.Log($"플레이어에 관한 정보가 저장! 씬정보 : {evt.curScene}");
+            ManualSave();
+            SaveGame();
+        }
     }
 
     // 씬이동2
@@ -85,24 +99,27 @@ public class SaveManager : Singleton<SaveManager>
             Debug.Log($"&************오토세이브");
             AutoSave();
         }
-        ManualSave();
-        SaveGame();
+        if (scenesToSave.Contains(evt.curScene))
+        {
+            Debug.Log($"플레이어에 관한 정보가 저장! 씬정보 : {evt.curScene}");
+            ManualSave();
+            SaveGame();
+        }
     }
 
     // 씬로드
     private void OnSceneStart(GameEvents.SceneStart evt) {
-        // 필요시 씬 시작할 때 저장
+        // 필요시 씬 시작할 때 (강제)저장 (오토세이브X)
 
-        if (scenesToSave.Contains(evt.curScene))
+        if (OpenSceneSave.Contains(evt.curScene))
         {
             ManualSave();
             SaveGame();
-            // 오토는 생각좀해보고
         }
-        else
-        {
-            Debug.Log($"{evt.curScene} 씬에서는 시작 시 저장 하지않음.");
-        }
+        //else
+        //{
+        //    Debug.Log($"{evt.curScene} 씬에서는 시작 시 저장 하지않음.");
+        //}
     }
 
 
@@ -113,7 +130,7 @@ public class SaveManager : Singleton<SaveManager>
         Debug.Log("게임 데이터를 저장!");
     }
 
-    // 자동 저장 (NPC + Zone)
+    // 자동 저장 (NPC)
     public void AutoSave() {
         // 모든 체크 오브젝트의 상태를 즉시 저장 
         ES3AutoSaveMgr.Current.Save();
@@ -125,7 +142,6 @@ public class SaveManager : Singleton<SaveManager>
         if (ES3.KeyExists(SaveKey))
         {
             curSaveData = ES3.Load<SaveData>(SaveKey);
-            Debug.Log("데이터 로드!");
             return true;
         }
         else
@@ -136,29 +152,15 @@ public class SaveManager : Singleton<SaveManager>
     }
 
     // 자동 로드 (NPC + Zone)
-    public void AutoLoad() {
+    public void AutoLoad() 
+    {
         ES3AutoSaveMgr.Current.Load();
     }
 
     // 수동 저장
-    private void ManualSave() {
+    public void ManualSave() {
         // 1. 현재 HP기록
         curSaveData.curHP = PlayerController.Instance.CurHP;
-        //Stage curStage = PlayerController.Instance.Scene2Stage(SwitchSceneManager.Instance.CurScene);
-
-        // 기존 curHP딕셔너리에 해당 스테이지 HP갱신
-        //if (curSaveData.curHp == null) {
-        //    curSaveData.curHp = new Dictionary<Stage, int>();
-        //}
-
-        //int playerHP = 100;     // 임시 기본값
-        //if (PlayerController.Instance.curHp != null && PlayerController.Instance.curHp.ContainsKey(curStage))
-        //{
-        //    playerHP = PlayerController.Instance.curHp[curStage];
-        //}
-        //curSaveData.curHp[curStage] = playerHP;
-
-
 
         // 2. 현재 씬 기록
         curSaveData.scene = SwitchSceneManager.Instance.CurScene;
@@ -171,28 +173,20 @@ public class SaveManager : Singleton<SaveManager>
 
         // 5. 씬 방문 기록 저장
         curSaveData.visitScene = EventHistoryManager.Instance.GetVisitSceneDict();
+
+        // 6. 전체 HP 정보 저장
+        curSaveData.wholeHP = PlayerController.Instance.wholeHP;
     }
 
     // 수동 로드
-    private void ManualLoad() {
-        // 저장 데이터에서 현재 씬 기준 스테이지 HP 가져와서 PlayerController에 세팅
-
+    public void ManualLoad() {
         // 1. HP 로드
-        //Stage currentStage = PlayerController.Instance.Scene2Stage(curSaveData.scene);
-
-        //if (curSaveData.curHp != null && curSaveData.curHp.ContainsKey(currentStage))
-        //{
-        //    if (PlayerController.Instance.curHp == null)
-        //        PlayerController.Instance.curHp = new Dictionary<Stage, int>();
-
-        //    PlayerController.Instance.curHp[currentStage] = curSaveData.curHp[currentStage];
-        //}
         if (PlayerController.Instance != null)
-            PlayerController.Instance.SetCurHP(curSaveData.curHP, curSaveData.scene); // SetCurHP는 직접 구현 필요: 해당 씬 기준으로 HP 적용
+            PlayerController.Instance.SetCurHP(curSaveData.curHP);
 
 
         // 2. 씬
-        if (curSaveData.scene != null) { 
+        if (curSaveData.scene != SceneType.None) { 
             SwitchSceneManager.Instance.CurScene = curSaveData.scene;
         }
 
@@ -212,31 +206,65 @@ public class SaveManager : Singleton<SaveManager>
         {
             EventHistoryManager.Instance.LoadVisitScenes(curSaveData.visitScene);
         }
+
+        // 6. 전체 HP 정보 로드
+        if (curSaveData.wholeHP != null && curSaveData.wholeHP.Count > 0)
+        {
+            PlayerController.Instance.wholeHP = new Dictionary<Stage, int>(curSaveData.wholeHP);
+        }
     }
 
 
+    /// <summary>
+    /// 데드씬에서 씬 재로드하는 함수
+    /// </summary>
     public void ReloadScene(SceneType curScene) {
         // 1. 씬 방문 기록을 첫 방문으로 초기화
-        EventHistoryManager.Instance.ResetVisitSceneRecord(curScene);
+        //EventHistoryManager.Instance.ResetVisitSceneRecord(curScene);
 
         // 2. 저장파일 있으면 불러오기 
         if (LoadGame())
         {
-            //Stage restartStage = PlayerController.Instance.Scene2Stage(curScene);
-            //if (curSaveData.curHp.ContainsKey(restartStage))
-            //    curSaveData.curHp[restartStage] = 100;
-
-            // 3. HP, 인벤토리, 이벤트, 씬방문 등 모든 데이터가 저장된 값으로 복원됨
             ManualLoad();
 
-            // 4. 오토세이브 오브젝트(존, NPC 등) 상태 복원
-            //AutoLoad();
+            // 오토로드
+            if (scenesToAutoLoad.Contains(curScene)) { 
+                AutoLoad();
+            }
 
-            // 5. 씬 재시작
+            // 씬 재시작
             UnityEngine.SceneManagement.SceneManager.LoadScene(curScene.ToString());
         }
         else {
             Debug.Log("저장된 데이터 없음!");
+        }
+    }
+
+    /// <summary>
+    /// 타이틀씬에서 로드게임 하는 함수
+    /// </summary>
+    public void LoadGameInTitle() 
+    {
+        // 1. 저장된 데이터가 있는지 확인
+        if (LoadGame())
+        {
+            // 씬 정보 불러와서 씬이동
+            SceneType savedScene = curSaveData.scene;
+
+            ManualLoad();
+
+            // 특정 씬에서만 오토세이브 상태 복원
+            if (scenesToAutoLoad.Contains(savedScene))
+            {
+                AutoLoad();
+            }
+
+            // 씬 전환
+            UnityEngine.SceneManagement.SceneManager.LoadScene(savedScene.ToString());
+        }
+        else
+        {
+            Debug.Log("저장된 데이터가 없어서 새 게임 시퀀스 시작 필요");
         }
     }
 }

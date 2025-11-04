@@ -35,7 +35,7 @@ public class UpdateStatus : MonoBehaviour
 
     private void OnSceneStart(GameEvents.SceneStart evt) 
     {
-        curHP = PlayerController.Instance.GetCurHP(evt.curScene);
+        curHP = PlayerController.Instance.CurHP;
         UpdateHP();
         UpdateFace();
     }
