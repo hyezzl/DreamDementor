@@ -20,6 +20,9 @@ public class HappyPuzzleManager : MonoBehaviour
                 return;
             }
         }
+        // 스테이지 종료 알림
+        EventBus.Instance.Publish<GameEvents.StageEnd>(new GameEvents.StageEnd(Stage.Happy));
+
         // 씬이동
         EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.HappyScene, SceneType.RestScene));
     }

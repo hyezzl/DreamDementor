@@ -20,14 +20,14 @@ public class InventoryUI : MonoBehaviour
         database = db;
 
         // 十茎 持失
-        if (slots.Count == 0) { 
-            for (int i = 0; i < slotCnt; i++)
-            {
-                var slot = Instantiate(slotPrefab, slotParent).GetComponent<InventorySlot>();
-                slot.Init(DatabaseManager.Instance);
-                slots.Add(slot);
-            }
-        }
+        //if (slots.Count == 0) { 
+        //    for (int i = 0; i < slotCnt; i++)
+        //    {
+        //        var slot = Instantiate(slotPrefab, slotParent).GetComponent<InventorySlot>();
+        //        slot.Init(DatabaseManager.Instance);
+        //        slots.Add(slot);
+        //    }
+        //}
 
         RefreshInventory();
     }
@@ -41,16 +41,6 @@ public class InventoryUI : MonoBehaviour
         if (!TryGetComponent<InventoryDescription>(out desc)) {
             Debug.Log("InventoryUI - Failed to Load InventoryDescription");
         }
-
-        // 十茎 持失
-        //if (slots.Count == 0) { 
-        //    for (int i = 0; i < slotCnt; i++)
-        //    {
-        //        var slot = Instantiate(slotPrefab, slotParent).GetComponent<InventorySlot>();
-        //        slot.Init(DatabaseManager.Instance);
-        //        slots.Add(slot);
-        //    }
-        //}
     }
 
     private void OnEnable()

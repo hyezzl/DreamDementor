@@ -45,19 +45,16 @@ public class preDeadScene : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.TutorialDead>(OnOver);
-        //loadBTN.onClick.AddListener(LoadGame);
-        //exitBTN.onClick.AddListener(ExitGame);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.TutorialDead>(OnOver);
-        //loadBTN.onClick.RemoveListener(LoadGame);
-        //exitBTN.onClick.RemoveListener(ExitGame);
     }
 
-    private void OnOver(GameEvents.TutorialDead evt) {
+    private void OnOver(GameEvents.TutorialDead evt)
+    {
         // 카메라 필터
-        
+
         // 배경
         topBack.SetActive(true);
         bottomBack.SetActive(true);
@@ -71,10 +68,11 @@ public class preDeadScene : MonoBehaviour
         deathType = evt.type;
 
         StartCoroutine(AfterDead()); // 데드씬 연출 + 이후 처리
-        
+
     }
 
-    private IEnumerator BloodEffect() {
+    private IEnumerator BloodEffect()
+    {
         yield return null;
         float elapsed = 0f;
 
@@ -89,7 +87,8 @@ public class preDeadScene : MonoBehaviour
         float startAlpha1 = bloodSpot1.color.a;
         float startAlpha2 = bloodSpot2.color.a;
 
-        while (elapsed < fadeDuration) {
+        while (elapsed < fadeDuration)
+        {
             elapsed += Time.deltaTime;
             float alpha1 = Mathf.Lerp(startAlpha1, 0f, elapsed / fadeDuration);
             float alpha2 = Mathf.Lerp(startAlpha2, 0f, elapsed / fadeDuration);
@@ -103,7 +102,8 @@ public class preDeadScene : MonoBehaviour
     }
 
     // 데드씬 끝난 이후 처리
-    private IEnumerator AfterDead() {
+    private IEnumerator AfterDead()
+    {
         yield return StartCoroutine(BloodEffect());  // 코루틴 끝날 때 까지 기다림
 
         if (scene == SceneType.TutorialScene && deathType == DeathType.CrashEnemy) // D0100
@@ -111,16 +111,14 @@ public class preDeadScene : MonoBehaviour
             EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E004"));
             yield break;
         }
-
-        // 데드씬 끝난 뒤 버튼 페이드인 + 활성화 코루틴 호출
-        //yield return StartCoroutine(ShowLoadButton());
     }
 
 
 
 
     // 버튼 생성 함수
-    private IEnumerator ShowLoadButton() { 
+    private IEnumerator ShowLoadButton()
+    {
         loadBTN.gameObject.SetActive(true);
         exitBTN.gameObject.SetActive(true);
 
@@ -133,7 +131,8 @@ public class preDeadScene : MonoBehaviour
 
         loadGroup.alpha = 0f;
 
-        while (elapsed < duration) { 
+        while (elapsed < duration)
+        {
             elapsed += Time.deltaTime;
             float alpha = Mathf.Clamp01(elapsed / duration);
 
@@ -148,15 +147,6 @@ public class preDeadScene : MonoBehaviour
         backImg.color = imgColor;
         loadGroup.alpha = 1f;
         exitGroup.alpha = 1f;
-
-        // 포커스 강제지정
-        //FocusLoadButton();
-
-        //마우스 임시 On
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        yield return null;
     }
 
 
@@ -210,29 +200,4 @@ public class preDeadScene : MonoBehaviour
             if (backImg2 != null) backImg2.enabled = false;
         }
     }
-
-
-
-    private void LoadGame() {
-        // 로드 버튼 눌렸을때
-        Debug.Log("게임이 로드 됩니다!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        // 저장 데이터 불러오기
-        //SaveManager.Instance.LoadGame();
-
-        // 불러온 데이터 게임 내 반영
-        //SaveManager.Instance.ApplyLoadedData();
-
-        // 현재 씬 재시작 (불러온 상태 반영 위해 씬 다시 로드)
-        //var currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-        //UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
-
-        EventBus.Instance.Publish<GameEvents.ReloadScene>(new GameEvents.ReloadScene());
-    }
-
-    private void ExitGame() {
-        // 종료버튼
-        Application.Quit();
-    }
-
 }

@@ -18,6 +18,9 @@ public class EventHistoryManager : Singleton<EventHistoryManager>
     // 존 활성화 정보 관리
     public Dictionary<string, bool> zoneActiveMap = new();
 
+    // 메모 활성화 정보 관리
+    public Dictionary<int, string> noteCollection = new();
+
 
 
 

@@ -382,8 +382,26 @@ public static class GameEvents
     }
 
 
+    // HP 30이하
+    public struct OnLackedHP
+    {
+        public SceneType curScene;
+        public OnLackedHP(SceneType curScene) { 
+            this.curScene = curScene;
+        }
+    }
+
+    // HP 30초과로 안정되었을 때
+    public struct OnSteadyHp
+    { 
+        public SceneType curScene;
+        public OnSteadyHp(SceneType curScene) {
+            this.curScene = curScene;
+        }
+    }
+
+
     //////////////////////////////////////////
-    ///
 
     // 룰쪽지 얻었을 때
     public struct GetNote
@@ -421,6 +439,15 @@ public static class GameEvents
         public Stage newStage;
         public NewStageStart(Stage newStage) {
             this.newStage = newStage;
+        }
+    }
+
+    // 스테이지 끝
+    public struct StageEnd
+    {
+        public Stage stage;     // 끝날 스테이지
+        public StageEnd(Stage stage) {
+            this.stage = stage;
         }
     }
 

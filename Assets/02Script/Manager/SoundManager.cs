@@ -67,6 +67,7 @@ public class SoundManager : Singleton<SoundManager>
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.NewStageStart>(OnStartNewStage);
+        EventBus.Instance.Subscribe<GameEvents.StageEnd>(OnEndStage);
 
         EventBus.Instance.Subscribe<GameEvents.PlayBGM>(OnPlayBGM);
         EventBus.Instance.Subscribe<GameEvents.StopBGM>(OnStopBGM);
@@ -76,6 +77,7 @@ public class SoundManager : Singleton<SoundManager>
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.NewStageStart>(OnStartNewStage);
+        EventBus.Instance.Unsubscribe<GameEvents.StageEnd>(OnEndStage);
 
         EventBus.Instance.Unsubscribe<GameEvents.PlayBGM>(OnPlayBGM);
         EventBus.Instance.Unsubscribe<GameEvents.StopBGM>(OnStopBGM);
@@ -98,6 +100,11 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
+    // 기존 스테이지 끝나면 브금 멈춤
+    private void OnEndStage(GameEvents.StageEnd evt) { 
+        StopBGM();
+    }
+
 
     // 브금 재생
     private void OnPlayBGM(GameEvents.PlayBGM evt) {
@@ -107,13 +114,7 @@ public class SoundManager : Singleton<SoundManager>
 
     // 브금 중단
     private void OnStopBGM(GameEvents.StopBGM evt) {
-        if (bgmCoroutine != null)
-        {
-            StopCoroutine(bgmCoroutine);
-            bgmCoroutine = null;
-        }
-        bgmSource.clip = null;
-        StartCoroutine(BGMFadeOut());
+        StopBGM();
     }
 
     // SFX 이벤트 발행
@@ -143,6 +144,19 @@ public class SoundManager : Singleton<SoundManager>
 
             bgmCoroutine = StartCoroutine(SwitchBGM(bgmClips[bgmIndex]));
         }
+    }
+
+
+    // BGM 정지
+    private void StopBGM()
+    {
+        if (bgmCoroutine != null)
+        {
+            StopCoroutine(bgmCoroutine);
+            bgmCoroutine = null;
+        }
+        bgmSource.clip = null;
+        StartCoroutine(BGMFadeOut());
     }
 
 

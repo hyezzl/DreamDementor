@@ -57,14 +57,13 @@ public enum Stage
 /// 
 public class PlayerController : Singleton<PlayerController>
 {
-    // 플레이어 정신력 관리
-    //public Dictionary<Stage, int> curHp = new();
-    public int CurHP { get; set; } = 0;
+    public int CurHP { get; set; } = 100;
 
+    // 스테이지별 정신력 관리
+    public Dictionary<Stage, int> wholeHP = new();
     public PlayerState CurState { get; set; } = PlayerState.Idle;
     public GameMode CurMode { get; set; } = GameMode.InspectMode;
     public AspectMode CurAspect { get; set; } = AspectMode.ThirdpersonMode;
-    //public SceneType CurScene { get; set; } = SceneType.HappyScene;
 
 
 
@@ -73,13 +72,6 @@ public class PlayerController : Singleton<PlayerController>
     {
         base.DoAwake();
 
-        // HP 초기화
-        //if (curHp.Count == 0) { 
-        //    curHp[Stage.Happy] = 100;
-        //    curHp[Stage.Sorrow] = 100;
-        //    curHp[Stage.Chaos] = 100;
-        //    curHp[Stage.Horror] = 100;
-        //}
         // HP 기본값 세팅
         if (CurHP <= 0)
         {
@@ -91,77 +83,76 @@ public class PlayerController : Singleton<PlayerController>
     {
         EventBus.Instance.Subscribe<GameEvents.OnDamaged>(OnDamaged);
         EventBus.Instance.Subscribe<GameEvents.OnHeal>(OnHeal);
+
+        EventBus.Instance.Subscribe<GameEvents.NewStageStart>(OnStartNewStage);
+        EventBus.Instance.Subscribe<GameEvents.StageEnd>(OnEndStage);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.OnDamaged>(OnDamaged);
         EventBus.Instance.Unsubscribe<GameEvents.OnHeal>(OnHeal);
-    }
+
+        EventBus.Instance.Unsubscribe<GameEvents.NewStageStart>(OnStartNewStage);
+        EventBus.Instance.Unsubscribe<GameEvents.StageEnd>(OnEndStage);
+            }
 
     private void OnDamaged(GameEvents.OnDamaged evt) {
-        Debug.Log($"***{evt.damage}");
         //ChangeHp(Scene2Stage(CurScene), evt.damage);
-        ChangeHpTemp(evt.damage); // 바로 사용
+        ChangeHp(evt.damage); // 바로 사용
 
-        //SceneType curScene = SwitchSceneManager.Instance.CurScene;
-        //ChangeHp(Scene2Stage(curScene), evt.damage);
     }
 
     private void OnHeal(GameEvents.OnHeal evt) {
         //ChangeHp(Scene2Stage(CurScene), evt.heal);
 
         SceneType curScene = SwitchSceneManager.Instance.CurScene;
-        //ChangeHp(Scene2Stage(curScene), evt.heal);
-        ChangeHpTemp(evt.heal);
+        ChangeHp(evt.heal);
     }
 
-    // 체력 관리
-    //public void ChangeHp(Stage stage, int val)  // 음수면 피해, 양수면 회복
-    //{
-    //    if (!curHp.ContainsKey(stage)) {
-
-    //        Debug.Log("존재하지않는 스테이지");
-    //        return;
-    //    }
-
-    //    int preHp = curHp[stage];
-    //    int newHp = Mathf.Clamp(preHp + val, 0, 100);
-    //    curHp[stage] = newHp;
-
-    //    //EventBus.Instance.Publish<GameEvents.OnHpChange>(new GameEvents.OnHpChange());
-
-    //    // 정신력 0 도달 (씬알려주기) -> 게임오버
-    //    Debug.Log($"~~~~new : {newHp} , val : {val} , preHp : {preHp}");
-    //    if (newHp <= 0 && preHp > 0)
-    //    {
-    //        SceneType curScene = SwitchSceneManager.Instance.CurScene;
-    //        EventBus.Instance.Publish<GameEvents.OnHpDepeleted>(new GameEvents.OnHpDepeleted(curScene));
+    // 스테이지 시작 시
+    private void OnStartNewStage(GameEvents.NewStageStart evt) { 
+        
+    }
 
 
-    //        //게임오버
-    //        EventBus.Instance.Publish<GameEvents.GameOver>(new GameEvents.GameOver(curScene, DeathType.BadChoice));
-    //    }
+    // 스테이지 종료
+    private void OnEndStage(GameEvents.StageEnd evt) {
+        // 종료스테이지 체력값 저장
+        Debug.Log($"{evt.stage} 스테이지 종료! 체력값 ({CurHP}) 저장!");
+        wholeHP[evt.stage] = CurHP;
 
-    //    // HP 변경
-    //    if (val != 0) {
-    //        Debug.Log("Hp 변경!!!!!!!!!!!!!!");
-    //        SceneType curScene = SwitchSceneManager.Instance.CurScene;
-    //        EventBus.Instance.Publish<GameEvents.OnHpChange>(new GameEvents.OnHpChange(Scene2Stage(curScene), preHp, newHp));
-    //    }
-    //}
+        // 저장 이후 100으로 (Next Stage)
+        CurHP = 100;
+    }
 
-    public void ChangeHpTemp(int val)
+    // 음수면 피해, 양수면 회복
+    public void ChangeHp(int val)
     {
         int preHp = CurHP;
         int newHp = Mathf.Clamp(preHp + val, 0, 100);
         CurHP = newHp;
 
-        // 정신력 0 도달 (씬알려주기) -> 게임오버
         Debug.Log($"~~~~new : {newHp} , val : {val} , preHp : {preHp}");
+
+        // 정신력이 30이하로 도달 (기존 30초과 -> 30이하)
+        if (newHp <= 30 && preHp > 30) 
+        {
+            SceneType curScene = SwitchSceneManager.Instance.CurScene;
+            EventBus.Instance.Publish<GameEvents.OnLackedHP>(new GameEvents.OnLackedHP(curScene));
+        }
+
+        // 정신력이 안정권으로 도달 (기존 30이하 -> 30초과)
+        if (newHp > 30 && preHp <= 30) {
+            SceneType curScene = SwitchSceneManager.Instance.CurScene;
+            EventBus.Instance.Publish<GameEvents.OnSteadyHp>(new GameEvents.OnSteadyHp(curScene));
+        }
+
+        // 정신력 0 도달 (씬알려주기) -> 게임오버
         if (newHp <= 0 && preHp > 0)
         {
             SceneType curScene = SwitchSceneManager.Instance.CurScene;
             EventBus.Instance.Publish<GameEvents.OnHpDepeleted>(new GameEvents.OnHpDepeleted(curScene));
+            
             // 게임오버
             EventBus.Instance.Publish<GameEvents.GameOver>(new GameEvents.GameOver(curScene, DeathType.BadChoice));
         }
@@ -169,24 +160,13 @@ public class PlayerController : Singleton<PlayerController>
         // HP 변경
         if (val != 0)
         {
-            Debug.Log("Hp 변경!!!!!!!!!!!!!!");
             SceneType curScene = SwitchSceneManager.Instance.CurScene;
             EventBus.Instance.Publish<GameEvents.OnHpChange>(new GameEvents.OnHpChange(Scene2Stage(curScene), preHp, newHp));
         }
     }
 
-
     // 외부에서 현재 씬에 해당하는 HP반환
     public int GetCurHP(SceneType scene) {
-        //Stage stage = Scene2Stage(scene);
-
-        //if (curHp.ContainsKey(stage))
-        //{
-        //    return curHp[stage];
-        //}
-        //else {
-        //    return 100;
-        //}
         return CurHP;
     }
 

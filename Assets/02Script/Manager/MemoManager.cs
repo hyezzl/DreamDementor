@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// 지금은 개수대로 나오게했는데 추후에 누락된부분만 따로 떨어지게 다시 코딩할것~~
+/// 
 /// </summary>
 
 public class MemoManager : MonoBehaviour
@@ -14,8 +14,7 @@ public class MemoManager : MonoBehaviour
     [SerializeField] private Image[] pieces;
     [SerializeField] private TextMeshProUGUI[] texts;
     [SerializeField] private Button memoBTN;
-
-    public static Dictionary<int, string> noteCollection = new();
+    //[SerializeField] private Button memoTab;
 
     // 허용하는 itemID 목록
     private readonly int[] allowedIDs = { 50001001, 50001002, 50001003, 50001004 };
@@ -35,8 +34,8 @@ public class MemoManager : MonoBehaviour
 
     private void OnEnable()
     {
-        UpdateMemoText(noteCollection.Count);
-        UpdateMemoImg(noteCollection.Count);
+        UpdateMemoText();
+        UpdateMemoImg();
         UpdateMemoButton();
 
         EventBus.Instance.Subscribe<GameEvents.GetNote>(OnGetNote);
@@ -52,47 +51,59 @@ public class MemoManager : MonoBehaviour
             return;
 
         // 이미존재하면 무시
-        if (noteCollection.ContainsKey(evt.itemID)) {
+        if (EventHistoryManager.Instance.noteCollection.ContainsKey(evt.itemID)) {
             Debug.Log($"이미 획득한 메모 : {evt.text}");
             return;
         }
-        
+
         // 추가
-        noteCollection[evt.itemID] = evt.text;
+        EventHistoryManager.Instance.noteCollection[evt.itemID] = evt.text;
         Debug.Log("노트추가완료!");
 
-        UpdateMemoText(noteCollection.Count);
-        UpdateMemoImg(noteCollection.Count);
+        UpdateMemoText();
+        UpdateMemoImg();
         UpdateMemoButton();
     }
 
-    private void UpdateMemoImg(int cnt) {
-        // cnt 수만큼 배열 앞부터 활성화 / cnt가 배열 길이보다 크면 배열 길이까지만 활성화
+    private void UpdateMemoImg() {
+        // id배열 순서대로 각 아이템 활성화
         if (pieces != null) { 
-            for (int i = 0; i < cnt && i < pieces.Length; i++)
+            for (int i = 0; i < allowedIDs.Length && i < pieces.Length; i++)
             {
-                pieces[i].enabled = true;
+                pieces[i].enabled = EventHistoryManager.Instance.noteCollection.ContainsKey(allowedIDs[i]);
             }
         }
 
     }
 
-    private void UpdateMemoText(int cnt) {
+    private void UpdateMemoText() {
         // cnt 수만큼 배열 앞부터 활성화 / cnt가 배열 길이보다 크면 배열 길이까지만 활성화
         if (texts != null) { 
-            for (int i = 0; i < cnt && i < texts.Length; i++)
+            for (int i = 0; i < allowedIDs.Length && i < texts.Length; i++)
             {
-                texts[i].enabled = true;
+                // 해당 allowedID가 noteCollection에 있다면 활성화 및 텍스트 지정
+                if (EventHistoryManager.Instance.noteCollection.ContainsKey(allowedIDs[i]))
+                {
+                    texts[i].enabled = true;
+                    texts[i].text = EventHistoryManager.Instance.noteCollection[allowedIDs[i]];
+                }
+                else
+                {
+                    texts[i].enabled = false;
+                    texts[i].text = ""; // 비워두기
+                }
             }
         }
     }
 
     private void UpdateMemoButton()
     {
+        //if (memoBTN != null && memoTab != null)
         if (memoBTN != null)
-        {
+            {
             // 메모가 하나도 없으면 버튼 비활성화
-            memoBTN.interactable = noteCollection.Count > 0;
+            memoBTN.interactable = EventHistoryManager.Instance.noteCollection.Count > 0;
+            //memoTab.interactable = EventHistoryManager.Instance.noteCollection.Count > 0;
         }
     }
 }
