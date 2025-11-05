@@ -49,6 +49,7 @@ public class IntroEvent : EventBase
     { 
         base.Init(db);
 
+        background_white.gameObject.SetActive(true);
         StartCoroutine(PlayIntro());
     }
 

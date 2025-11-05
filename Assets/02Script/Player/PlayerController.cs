@@ -132,13 +132,14 @@ public class PlayerController : Singleton<PlayerController>
         int newHp = Mathf.Clamp(preHp + val, 0, 100);
         CurHP = newHp;
 
-        Debug.Log($"~~~~new : {newHp} , val : {val} , preHp : {preHp}");
+        Debug.Log($"~~~~preHp : {preHp} -> new : {newHp} , val : {val}");
 
         // 정신력이 30이하로 도달 (기존 30초과 -> 30이하)
         if (newHp <= 30 && preHp > 30) 
         {
             SceneType curScene = SwitchSceneManager.Instance.CurScene;
             EventBus.Instance.Publish<GameEvents.OnLackedHP>(new GameEvents.OnLackedHP(curScene));
+            Debug.Log("피가 30이하가 되어 그로기상태");
         }
 
         // 정신력이 안정권으로 도달 (기존 30이하 -> 30초과)
@@ -152,7 +153,7 @@ public class PlayerController : Singleton<PlayerController>
         {
             SceneType curScene = SwitchSceneManager.Instance.CurScene;
             EventBus.Instance.Publish<GameEvents.OnHpDepeleted>(new GameEvents.OnHpDepeleted(curScene));
-            
+
             // 게임오버
             EventBus.Instance.Publish<GameEvents.GameOver>(new GameEvents.GameOver(curScene, DeathType.BadChoice));
         }

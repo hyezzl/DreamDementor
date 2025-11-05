@@ -24,7 +24,6 @@ public class PlayerHP : MonoBehaviour
     private void OnSceneStart(GameEvents.SceneStart evt) {
         //씬이 새로 시작되면 이전 값 업데이트
         int curHP = PlayerController.Instance.CurHP;
-        Debug.Log($"씬시작! : 기존 HP : {curHP}");
 
         ChangeMoon(curHP);
     }

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+/// <summary>
+/// 1ÀÎÄª ³» ±«¹°
+/// </summary>
 public class EnemyMoveOne : MonoBehaviour, IMoveObject
 {
     [SerializeField] private Transform player;

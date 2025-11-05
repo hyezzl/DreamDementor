@@ -28,7 +28,6 @@ public class UpdateStatus : MonoBehaviour
     {
         // Hp 변경될 때 업데이트
         curHP = Mathf.Clamp(evt.newHp, 0, 100);
-        Debug.Log($"^^^{curHP}");
         UpdateHP();
         UpdateFace();
     }

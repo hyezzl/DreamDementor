@@ -181,7 +181,7 @@ public class Selection : MonoBehaviour
             if (curScore != null && curScore != 0) 
             {
                 // 정신력 피해
-                Debug.Log($"{curScore}만큼 피해입음!!");
+                //Debug.Log($"{curScore}만큼 피해입음!!");
                 EventBus.Instance.Publish<GameEvents.OnDamaged>(new GameEvents.OnDamaged(curData.scores[idx]));
             }
         }
@@ -200,11 +200,9 @@ public class Selection : MonoBehaviour
 
     private IEnumerator BlockInput(float sec) {
         inputBlock = true;
-        Debug.Log("Input Block started");
 
         yield return new WaitForSeconds(sec);
 
         inputBlock = false;
-        Debug.Log("Input Block ended");
     }
 }

@@ -69,13 +69,11 @@ public class QuestUI : MonoBehaviour, IGameEvent
             {
                 text.text = preText + curQuest;
 
-                Debug.Log($"퀘스트 창 열기: {curQuest}");
                 OpenQuest();
             }
         }
         // 클로즈 퀘스트 목록에 있을 때
         else if (allCloseQuest.Contains(evt.eventID)) {
-            Debug.Log($"퀘스트 창 닫기: {evt.eventID}");
             CloseQuest();
         }
     }

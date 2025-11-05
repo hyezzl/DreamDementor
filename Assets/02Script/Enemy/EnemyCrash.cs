@@ -12,19 +12,8 @@ public class EnemyCrash : MonoBehaviour
 
     [Header("Death Setting")]
     [SerializeField] private DeathType deathType = DeathType.CrashEnemy;
-    [SerializeField] private bool isInstantDeath = true;    // 즉사여부
+    [SerializeField] private bool isDead = true;    // 중복방지
 
-    private bool isDead = false;        // 중복방지
-
-
-    private PlayerController pc;
-
-
-    private void Awake()
-    {
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) Debug.Log("EnemyCrash - Failed to Load PlayerController");
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !isDead)
@@ -34,8 +23,11 @@ public class EnemyCrash : MonoBehaviour
             EventBus.Instance.Publish<GameEvents.GameOver>(new GameEvents.GameOver(curScene, DeathType.CrashEnemy));
 
             // 게임모드
-            pc.CurMode = GameMode.GameOverMode;
+            PlayerController.Instance.CurMode = GameMode.GameOverMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.GameOverMode));
+        }
+        else if (other.CompareTag("Player") && isDead) {
+            Debug.Log("테스트용! 게임오버됨");
         }
     }
 }
