@@ -3120,6 +3120,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2469342842560641834, guid: 7d911414d73b46944b204e640d749ee1, type: 3}
+      propertyPath: bgmClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 018810df122c7404aa791f5f9f4e11ce, type: 3}
+    - target: {fileID: 2469342842560641834, guid: 7d911414d73b46944b204e640d749ee1, type: 3}
+      propertyPath: bgmClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1847a3d92a64ba643827df27e1cb45bc, type: 3}
+    - target: {fileID: 2469342842560641834, guid: 7d911414d73b46944b204e640d749ee1, type: 3}
+      propertyPath: bgmClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2a10acc615d865542a8abedebba5351e, type: 3}
     - target: {fileID: 6050786345060862475, guid: 7d911414d73b46944b204e640d749ee1, type: 3}
       propertyPath: m_Name
       value: SoundManager
