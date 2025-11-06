@@ -38,4 +38,9 @@ public class EatableItem : MonoBehaviour, IActionItem
     }
 
     // 먹었을때 체력 +=
+
+    public GameObject GetObject()
+    {
+        return this.gameObject;
+    }
 }

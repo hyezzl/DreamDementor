@@ -131,4 +131,8 @@ public class NPC : MonoBehaviour, IActionNpc
         curNpcEventID = null;       // 대화가끝나면 초기화
     }
 
+    public GameObject GetObject()
+    {
+        return this.gameObject;
+    }
 }

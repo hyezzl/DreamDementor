@@ -35,4 +35,9 @@ public class PickableItem : MonoBehaviour, IActionItem
         yield return null;
         Destroy(gameObject);
     }
+
+    public GameObject GetObject()
+    {
+        return this.gameObject;
+    }
 }

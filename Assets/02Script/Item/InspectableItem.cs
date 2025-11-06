@@ -23,5 +23,10 @@ public class InspectableItem : MonoBehaviour, IActionItem
         // Monologue Ãâ·Â
         EventBus.Instance.Publish<UIEvents.ItemMonologue>(new UIEvents.ItemMonologue(itemID, data.monologue));
     }
-    
+
+    public GameObject GetObject()
+    {
+        return this.gameObject;
+    }
+
 }

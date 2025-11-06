@@ -45,4 +45,9 @@ public class InteractableItem : MonoBehaviour, IActionItem
         else return;
 
     }
+
+    public GameObject GetObject()
+    {
+        return this.gameObject;
+    }
 }

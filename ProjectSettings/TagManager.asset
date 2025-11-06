@@ -8,6 +8,8 @@ TagManager:
   - Item
   - Deactive
   - PuzzleTarget
+  - Road
+  - EscapeDoor
   layers:
   - Default
   - TransparentFX

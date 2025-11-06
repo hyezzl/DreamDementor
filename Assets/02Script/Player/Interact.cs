@@ -24,6 +24,8 @@ public class Interact : MonoBehaviour
     private IActionItem curItem; // 바라보고있는 아이템
     private AspectMode curAspect = AspectMode.ThirdpersonMode;
 
+    private bool isChase = false;       // 쫓기고 있는가?
+
 
     // 박스 캐스트 변수
     Vector3 boxCenter;
@@ -50,10 +52,12 @@ public class Interact : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.AspectChange>(OnModeChange);
+        EventBus.Instance.Subscribe<GameEvents.EnemyStateChange>(OnChase);
     }
     private void OnDisable()
     {
-        EventBus.Instance.Subscribe<GameEvents.AspectChange>(OnModeChange);
+        EventBus.Instance.Unsubscribe<GameEvents.AspectChange>(OnModeChange);
+        EventBus.Instance.Unsubscribe<GameEvents.EnemyStateChange>(OnChase);
     }
 
 
@@ -68,28 +72,51 @@ public class Interact : MonoBehaviour
 
     private void OnInteract() {
 
-        switch (curAspect) { 
-            case AspectMode.ThirdpersonMode:
-                if (pc.CurMode == GameMode.InspectMode)
-                    if (inputHandler.DoInteract() && SearchForward() != null) {
+        if (isChase)
+        {
+            // 쫓기는 중이라면
+            var target = (curAspect == AspectMode.ThirdpersonMode) ? SearchForward() : sight.curTarget;
+            if (target == null) return;
+
+            // 태그가 EscapeDoor 인 경우만 상호작용 허용
+            if (target.GetObject().CompareTag("EscapeDoor"))
+            {
+                if (inputHandler.DoInteract() && SearchForward() != null)
+                {
+                    target.Interact();
+                }
+            }
+            else return;
+
+        }
+        else { 
+            // 쫓기지 않을 때
+            switch (curAspect)
+            {
+                case AspectMode.ThirdpersonMode:
+                    if (pc.CurMode == GameMode.InspectMode)
+                        if (inputHandler.DoInteract() && SearchForward() != null)
+                        {
+                            {
+                                SearchForward().Interact();
+                            }
+                        }
+
+                    break;
+
+
+                case AspectMode.OnepersonMode:
+                    if (pc.CurMode == GameMode.InspectMode)
                     {
-                        Debug.Log("앞 조사");
-                        SearchForward().Interact();
+                        if (inputHandler.DoInteract() && sight.curTarget != null)
+                        {
+                            sight.curTarget.Interact();
+                        }
                     }
-                }
 
-                break;
+                    break;
 
-
-            case AspectMode.OnepersonMode:
-                if (pc.CurMode == GameMode.InspectMode) {
-                    if (inputHandler.DoInteract() && sight.curTarget != null) {
-                        sight.curTarget.Interact();
-                    }
-                }
-
-                break;
-
+            }
         }
 
     }
@@ -138,6 +165,12 @@ public class Interact : MonoBehaviour
         Gizmos.matrix = matrix;
 
         Gizmos.DrawWireCube(Vector3.zero, half * 2);
+    }
+
+    private void OnChase(GameEvents.EnemyStateChange evt) {
+        if (evt.state == EnemyState.Chase) {
+            isChase = true;
+        }
     }
 
 
