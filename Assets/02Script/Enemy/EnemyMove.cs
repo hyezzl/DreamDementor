@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.AI;
 /// <summary>
@@ -7,7 +8,6 @@ using UnityEngine.AI;
 public class EnemyMove : MonoBehaviour, IMoveObject
 {
     [SerializeField] private Transform player;
-    [SerializeField] private Animator anim;
     public EnemyState curState;
     public bool moveable;
 
@@ -18,6 +18,7 @@ public class EnemyMove : MonoBehaviour, IMoveObject
     private EnemyController ec;
     private PlayerController pc;
     private NavMeshAgent na;
+    private Animator anim;
     private Billboard billboard;    // 빌보드는 항상 켜있어야 하지않을까?
 
     private bool isWalk = false;
@@ -41,6 +42,8 @@ public class EnemyMove : MonoBehaviour, IMoveObject
         {
             Debug.Log("EnemyMove - Failed to Load NavMeshAgent");
         }
+
+        if (!TryGetComponent<Animator>(out anim)) Debug.Log("EnemyMove - Failed to Load Animator");
 
         if (!TryGetComponent<Billboard>(out billboard)) Debug.Log("EnemyMove - Failed to Load Billboard");
 
@@ -120,7 +123,6 @@ public class EnemyMove : MonoBehaviour, IMoveObject
                 // 애니메이터 파라미터 업데이트
                 anim.SetFloat("dirX", relX);
                 anim.SetFloat("dirY", relY);
-                //anim.SetBool("isWalk", isWalk);
             }
             else
             {
@@ -132,7 +134,6 @@ public class EnemyMove : MonoBehaviour, IMoveObject
                 // 애니메이터 파라미터 업데이트
                 anim.SetFloat("dirX", 0);
                 anim.SetFloat("dirY", 0);
-                //anim.SetBool("isWalk", isWalk);
             }
 
             // 목적지 도달 시 멈춤
@@ -146,13 +147,14 @@ public class EnemyMove : MonoBehaviour, IMoveObject
 
                 anim.SetFloat("dirX", 0);
                 anim.SetFloat("dirY", 0);
-                //anim.SetBool("isWalk", isWalk);
             }
             else
             {
                 na.isStopped = false;
                 isWalk = true;
             }
+
+            // 애니메이터 파라미터 전달
             anim.SetBool("isWalk", isWalk);
         }
     }

@@ -84,7 +84,7 @@ public class TutorialEvent : EventBase
         if (glitch != null)
             glitch.Glitch = 1f;
 
-        EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.ColorAdjust, true));
+        EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.HorrorReverse, true));
         if (colorAdjust != null) {
             colorAdjust.enabled = true;
             colorAdjust.filterchoice = CameraFilterPack_Colors_Adjust_PreFilters.filters.RedWhite;

@@ -230,10 +230,10 @@ public static class GameEvents
     // 카메라 필터 비활성화
     public struct FilterOff
     {
-        //public FilterType type;
-        //public FilterOff(FilterType type) {
-        //    this.type = type;
-        //}
+        public FilterType type;
+        public FilterOff(FilterType type) {
+            this.type = type;
+        }
     }
 
     // 브금 재생

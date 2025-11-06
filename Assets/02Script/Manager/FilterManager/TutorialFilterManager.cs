@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class TutorialFilterManager : FilterManager
 {
-    //[Header("Filter Refs")]
-    //[SerializeField] CameraFilterPack_TV_MovieNoise oldMovieFilter;
-    //[SerializeField] CameraFilterPack_FX_Glitch1 glitchFilter;
-
     CameraFilterPack_TV_MovieNoise oldMovieFilter;
     CameraFilterPack_FX_Glitch1 glitchFilter;
 
@@ -32,7 +28,7 @@ public class TutorialFilterManager : FilterManager
                 }
                 else if (!evt.isLasting)
                 {
-                    StartCoroutine(FiniteFilter(oldMovieFilter, evt.duration));
+                    StartCoroutine(FiniteFilterOn(oldMovieFilter, evt.duration));
                 }
                 else return;
                 break;
@@ -45,7 +41,7 @@ public class TutorialFilterManager : FilterManager
                 }
                 else if (!evt.isLasting)
                 {
-                    StartCoroutine(FiniteFilter(glitchFilter, evt.duration));
+                    StartCoroutine(FiniteFilterOn(glitchFilter, evt.duration));
                 }
                 else return;
                 break;
