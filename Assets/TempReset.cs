@@ -23,11 +23,6 @@ public class TempReset : MonoBehaviour
         {
             Debug.LogError($"세이브 파일 삭제 도중 오류 발생! : {ex.Message}");
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        ES3.DeleteFile();
     }
 }
