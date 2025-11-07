@@ -17,7 +17,6 @@ public class Stamina : MonoBehaviour
 
     [Header("UI Refs")]
     [SerializeField] private Slider staminaBar;
-    [SerializeField] private TextMeshProUGUI staminaText;
 
     private float maxStamina = 100f;
     private float curStamina;                   // 현재 스태미나
@@ -159,22 +158,5 @@ public class Stamina : MonoBehaviour
         if (staminaBar != null) { 
             staminaBar.value = curStamina / maxStamina;
         }
-        if (staminaText != null) {
-            staminaText.text = curStamina + " / 100";
-        }
     }
-
-    //private void OnChangeSprintState(GameEvents.ChangeSprintState evt) {
-    //    canSprint = evt.canRunning;
-    //    staminaLow = !evt.canRunning;
-
-    //    if (!canSprint && isSprint) {
-    //        // 강제로 달리기 중지
-    //        isSprint = false;
-    //        isRecovering = false;
-    //        delayTimer = recoverDelay;
-    //        // 0이되는거맞나..?
-    //        EventBus.Instance.Publish<GameEvents.OnStaminaDepleted>(new GameEvents.OnStaminaDepleted());
-    //    }
-    //}
 }

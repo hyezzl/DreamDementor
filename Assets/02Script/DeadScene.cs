@@ -36,7 +36,7 @@ public class DeadScene : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         BTNGroup.gameObject.SetActive(false);
         black.gameObject.SetActive(false);
         illust.gameObject.SetActive(false);
-        overText.gameObject.SetActive(false);
+        overGroup.gameObject.SetActive(false);
 
         EventBus.Instance.Subscribe<GameEvents.GameOver>(OnOver);
         loadBTN.onClick.AddListener(OnLoadGame);
@@ -86,8 +86,8 @@ public class DeadScene : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         yield return StartCoroutine(Fade(black, 0f, 0.8f, 2f));
 
         // 글자 페이드인 // 3
-        overText.gameObject.SetActive(true);
-        yield return StartCoroutine(Fade(overGroup, 0f, 1f, 4f));
+        overGroup.gameObject.SetActive(true);
+        yield return StartCoroutine(Fade(overGroup, 0f, 1f, 3f));
 
         // 마우스 생성
         Cursor.visible = true;
@@ -95,8 +95,18 @@ public class DeadScene : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
 
         // 버튼 활성화
         BTNGroup.gameObject.SetActive(true);
-        StartCoroutine(Fade(BTNGroup, 0f, 1f, 2f));
+        StartCoroutine(Fade(BTNGroup, 0f, 1f, 1f));
         BTNGroup.interactable = true;
+    }
+
+
+    private IEnumerator AfterClick() { 
+        // 버튼 제거
+        BTNGroup.gameObject.SetActive(false);
+
+        // 검은배경으로 서서히 채워짐
+        StartCoroutine(Fade(overGroup, 1f, 0f, 0.8f));
+        yield return StartCoroutine(Fade(black, 0.8f, 1f, 1f));
     }
 
 
@@ -116,11 +126,14 @@ public class DeadScene : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
 
 
     private void OnLoadGame() {
+        StartCoroutine(LoadBTN());
+    }
+
+    private IEnumerator LoadBTN() {
         // 로드 버튼 눌렸을때
         Debug.Log("게임이 로드 됩니다!!!!!!!!!!!!!!!!!!!!!!!!!");
-        deadScene.alpha = 0f;
+        yield return StartCoroutine(AfterClick());
 
-        //EventBus.Instance.Publish<GameEvents.ReloadScene>(new GameEvents.ReloadScene());
         SaveManager.Instance.ReloadScene(SwitchSceneManager.Instance.CurScene);
     }
 

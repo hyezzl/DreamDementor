@@ -15,7 +15,7 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         set => curScene = value;
     }
 
-    public GameObject player;
+    private GameObject player;
     private Vector3 spawnPoint = Vector3.zero;
     private Direction4 spawnDir;
     private bool isPortal = false;      // 포탈이동에 의한 씬이동인지?

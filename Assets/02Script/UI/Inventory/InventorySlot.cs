@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IPointerClickHandler
+public class InventorySlot : MonoBehaviour, IInventory, IPointerClickHandler
 {
     [Header("UI Refs")]
     [SerializeField] private Image icon;
@@ -32,6 +32,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
             {
                 case ItemType.Pickable:
                     if (database == null) Debug.Log("database가 널!");
+
                     var dataP = database.GetPickable(itemInst.itemID);
                     icon.sprite = dataP.icon;
                     itemName = dataP.itemName;
@@ -43,6 +44,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
 
                 case ItemType.Eatable:
                     if (database == null) Debug.Log("database가 널!");
+
                     var dataE = database.GetEatable(itemInst.itemID);
                     icon.sprite = dataE.icon;
                     itemName = dataE.itemName;

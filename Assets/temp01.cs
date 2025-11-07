@@ -7,7 +7,7 @@ public class temp01 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerController.Instance.SetCurHP(40);
+        PlayerController.Instance.SetCurHP(100);
     }
 
 }

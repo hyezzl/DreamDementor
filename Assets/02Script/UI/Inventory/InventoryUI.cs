@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : MonoBehaviour, IInventory
 {
     [Header("UI Refs")]
     [SerializeField] private GameObject slotPrefab;
@@ -20,14 +20,14 @@ public class InventoryUI : MonoBehaviour
         database = db;
 
         // ½½·Ô »ý¼º
-        //if (slots.Count == 0) { 
-        //    for (int i = 0; i < slotCnt; i++)
-        //    {
-        //        var slot = Instantiate(slotPrefab, slotParent).GetComponent<InventorySlot>();
-        //        slot.Init(DatabaseManager.Instance);
-        //        slots.Add(slot);
-        //    }
-        //}
+        if (slots.Count == 0) { 
+            for (int i = 0; i < slotCnt; i++)
+            {
+                var slot = Instantiate(slotPrefab, slotParent).GetComponent<InventorySlot>();
+                slot.Init(DatabaseManager.Instance);
+                slots.Add(slot);
+            }
+        }
 
         RefreshInventory();
     }
@@ -58,6 +58,11 @@ public class InventoryUI : MonoBehaviour
     }
 
     private void OnOpenInventory(UIEvents.OpenInventory evt) {
+        foreach (var slot in slots)
+        {
+            slot.Init(database);
+        }
+
         RefreshInventory();
     }
 

@@ -90,11 +90,13 @@ public class DialogPopup : MonoBehaviour
     {
         EventBus.Instance.Subscribe<UIEvents.OpenDialog>(OnOpenDialog);
         EventBus.Instance.Subscribe<UIEvents.CloseDialog>(CloseDialogPanel);
+        EventBus.Instance.Subscribe<GameEvents.GameOver>(OnGameOver);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OpenDialog>(OnOpenDialog);
         EventBus.Instance.Unsubscribe<UIEvents.CloseDialog>(CloseDialogPanel);
+        EventBus.Instance.Unsubscribe<GameEvents.GameOver>(OnGameOver);
     }
 
     private void Update()
@@ -143,6 +145,11 @@ public class DialogPopup : MonoBehaviour
 
         // 타이핑
         StartCoroutine(TypeDialog(evt.texts));
+    }
+
+    // 게임오버 시, 대화창 강제 닫음
+    private void OnGameOver(GameEvents.GameOver evt) {
+        ForceCloseDialog();
     }
 
 
@@ -285,7 +292,7 @@ public class DialogPopup : MonoBehaviour
         // 대화끝 이벤트 (대화이벤트 ID 전달)
         EventBus.Instance.Publish<UIEvents.EndDialog>(new UIEvents.EndDialog(curEventID));
         // 이벤트의 끝 저장
-        //EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent(curEventID));
+        EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent(curEventID));
     }
 
     // 외부에서 강제로 대화창 닫기
@@ -294,8 +301,7 @@ public class DialogPopup : MonoBehaviour
         // NPC가 아닌 이벤트 대화일때만
         if (!evt.isNpc)
         {
-            Debug.Log("이벤트창 닫습니다");
-            StartCoroutine(ClosePanel());
+            ForceCloseDialog();
         }
     }
 
@@ -516,6 +522,27 @@ public class DialogPopup : MonoBehaviour
         basicText.text = "";
         monologueText.text = "";
         enemyText.text = "";
+    }
+
+    // 외부에서 대화창 강제로 닫음
+    public void ForceCloseDialog() {
+        if (typing != null && typing.IsActive()) typing.Kill();
+        if (seq != null && seq.IsActive()) seq.Kill();
+        textarea.text = "";
+
+        // Spine 리셋
+        if (playerSpine != null) SetColor(true);
+
+        // 일러스트 닫음 +  초기화
+        LeftIll.alpha = 0f;
+        RightIll.alpha = 0f;
+        otherIll.sprite = null;
+        otherIll.color = new Color(1, 1, 1, 0);
+        curLeftIdx = -1;
+        curRightIdx = -1;
+
+        standbyInput = false;
+        isOpen = false;
     }
 
     // 스파인 애니메이션 재생 함수

@@ -82,12 +82,14 @@ public class NpcDialogPopup : MonoBehaviour
         EventBus.Instance.Subscribe<UIEvents.OpenNpcDialog>(OnOpenNpcDialog);
         EventBus.Instance.Subscribe<UIEvents.OpenNpcReDialog>(OnOpenNpcReDialog);
         EventBus.Instance.Subscribe<UIEvents.CloseDialog>(CloseDialogPanel);
+        EventBus.Instance.Subscribe<GameEvents.GameOver>(OnGameOver);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OpenNpcDialog>(OnOpenNpcDialog);
         EventBus.Instance.Unsubscribe<UIEvents.OpenNpcReDialog>(OnOpenNpcReDialog);
         EventBus.Instance.Unsubscribe<UIEvents.CloseDialog>(CloseDialogPanel);
+        EventBus.Instance.Unsubscribe<GameEvents.GameOver>(OnGameOver);
     }
 
 
@@ -156,6 +158,12 @@ public class NpcDialogPopup : MonoBehaviour
 
         // 타이핑
         StartCoroutine(TypeReDialog(evt.data));
+    }
+
+    // 게임오버 시, 강제로 대화창 닫음
+    private void OnGameOver(GameEvents.GameOver evt)
+    {
+        ForceCloseDialog();
     }
 
 
@@ -351,10 +359,9 @@ public class NpcDialogPopup : MonoBehaviour
     }
 
     // 외부에서 강제 대화창 닫음
-    private void CloseDialogPanel(UIEvents.CloseDialog evt) {
+    public void CloseDialogPanel(UIEvents.CloseDialog evt) {
         if (evt.isNpc) {
-            Debug.Log("npc창 닫습니다");
-            StartCoroutine(ClosePanel());
+            ForceCloseDialog();
         }
     }
 
@@ -568,6 +575,26 @@ public class NpcDialogPopup : MonoBehaviour
                 SetColor(false);
                 break;
         }
+    }
+
+    // 외부에서 강제로 대화창 닫음
+    public void ForceCloseDialog() {
+        if (typing != null && typing.IsActive()) typing.Kill();
+        if (seq != null && seq.IsActive()) seq.Kill();
+        if (textarea != null)
+            textarea.text = "";
+
+        // Spine 리셋
+        if (playerSpine != null) SetColor(true);
+
+        // 일러스트 닫음 +  초기화
+        LeftIll.alpha = 0f;
+        RightIll.alpha = 0f;
+        otherIll.sprite = null;
+        otherIll.color = new Color(1, 1, 1, 0);
+
+        standbyInput = false;
+        isOpen = false;
     }
 
     // 스파인 애니메이션 재생 함수

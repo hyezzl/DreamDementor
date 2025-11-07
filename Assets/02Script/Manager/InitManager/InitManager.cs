@@ -9,16 +9,10 @@ public class InitManager : MonoBehaviour
 {
     protected DatabaseManager db;
 
-    // 인벤토리
-    protected InventoryManager invenManager;
-    protected InventoryDescription invenDesc;
-    protected InventorySlot invenSlot;
-    protected InventoryUI invenUI;
-
     protected virtual void Start()
     {
         db = DatabaseManager.Instance;
-        invenManager = InventoryManager.Instance;
+
 
         // 씬에 존재하는 IActionItem / IActionNpc 찾아 Init 실행
         var items = FindObjectsOfType<MonoBehaviour>().OfType<IActionTarget>();
@@ -32,6 +26,15 @@ public class InitManager : MonoBehaviour
                 }
             }
         }
+
+        // 씬에 존재하는 인벤토리관련 클래스 Init
+        var invens = FindObjectsOfType<MonoBehaviour>().OfType<IInventory>();
+        if (invens != null) {
+            foreach (var inven in invens) { 
+                if(inven != null) inven.Init(db);
+            }
+        }
+
 
         // 씬에 존재하는 TiggerZone찾아 이벤트 Init 실행
         var zones = FindObjectsOfType<MonoBehaviour>().OfType<ITriggerZone>();
@@ -57,19 +60,19 @@ public class InitManager : MonoBehaviour
         }
 
 
-        invenDesc = FindAnyObjectByType<InventoryDescription>();
-        if (invenDesc == null) Debug.Log("InitManager - Failed to Load InvenDescription");
+        //invenDesc = FindAnyObjectByType<InventoryDescription>();
+        //if (invenDesc == null) Debug.Log("InitManager - Failed to Load InvenDescription");
 
-        invenUI = FindAnyObjectByType<InventoryUI>();
-        if (invenUI == null) Debug.Log("InitManager - Failed to Load InventoryUI");
+        //invenUI = FindAnyObjectByType<InventoryUI>();
+        //if (invenUI == null) Debug.Log("InitManager - Failed to Load InventoryUI");
 
-        //invenSlot = FindAnyObjectByType<InventorySlot>();
-        //if (invenSlot == null) Debug.Log("InitManager - Failed to Load InvenSlot");
+        ////invenSlot = FindAnyObjectByType<InventorySlot>();
+        ////if (invenSlot == null) Debug.Log("InitManager - Failed to Load InvenSlot");
 
-        // 인벤토리 Init
-        invenManager?.Init(db);
-        invenDesc?.Init(db);
-        invenUI?.Init(db);
-        invenSlot?.Init(db);   //씬시작시 동적으로 만들어짐
+        //// 인벤토리 Init
+        //invenManager?.Init(db);
+        //invenDesc?.Init(db);
+        //invenUI?.Init(db);
+        //invenSlot?.Init(db);   //씬시작시 동적으로 만들어짐
     }
 }

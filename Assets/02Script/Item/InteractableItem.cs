@@ -25,26 +25,26 @@ public class InteractableItem : MonoBehaviour, IActionItem
         EventBus.Instance.Publish<UIEvents.ItemMonologue>(new UIEvents.ItemMonologue(itemID, data.monologue));
     }
 
-    public int CountPairID(string pairID)
-    {
-        return inventory.Count(item => item.pairID == pairID);
-    }
+    //public int CountPairID(string pairID)
+    //{
+    //    return inventory.Count(item => item.pairID == pairID);
+    //}
 
-    private void CheckInventory() {
-        // inventorManager 접근 > GetInventory() 받아와서 갯수 셈
-        inventory = InventoryManager.Instance.GetInventory();
+    //private void CheckInventory() {
+    //    // inventorManager 접근 > GetInventory() 받아와서 갯수 셈
+    //    inventory = InventoryManager.Instance.GetInventory();
 
-        // 갯수 세기
-        if (CountPairID(data.pairID) == data.hnum)
-        {
-            // ActiveMSG
-            EventBus.Instance.Publish<UIEvents.ItemMonologue>(new UIEvents.ItemMonologue(itemID, data.activeMSG));
-            // MiniSelection
-            // todo :: 이벤트 생성 / 발행
-        }
-        else return;
+    //    // 갯수 세기
+    //    if (CountPairID(data.pairID) == data.hnum)
+    //    {
+    //        // ActiveMSG
+    //        EventBus.Instance.Publish<UIEvents.ItemMonologue>(new UIEvents.ItemMonologue(itemID, data.activeMSG));
+    //        // MiniSelection
+    //        // todo :: 이벤트 생성 / 발행
+    //    }
+    //    else return;
 
-    }
+    //}
 
     public GameObject GetObject()
     {

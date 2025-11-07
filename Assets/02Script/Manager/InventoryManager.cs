@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 /// 인벤토리 관리 / 아이템 습득
 /// </summary>
 
-public class InventoryManager : Singleton<InventoryManager>
+public class InventoryManager : Singleton<InventoryManager>, IInventory
 {
     // 플레이어가 가진 아이템
     private List<ItemInstance> inventory = new();
@@ -65,8 +65,8 @@ public class InventoryManager : Singleton<InventoryManager>
                     Debug.Log($"{itemID} : unknown PickableItem ERROR");
                     return;
                 }
-                inventory.Add(new ItemInstance(itemID, dataP.pairID));
-                Debug.Log($"{itemID}가 정상적으로 추가됨!");
+                inventory.Add(new ItemInstance(itemID));
+                Debug.Log($"{itemID} 아이템 추가!");
                 EventBus.Instance.Publish<UIEvents.InventoryChanged>(new UIEvents.InventoryChanged());
 
                 break;
@@ -78,8 +78,8 @@ public class InventoryManager : Singleton<InventoryManager>
                     Debug.Log($"{itemID} : unknown EatableItem ERROR");
                     return;
                 }
-                Debug.Log($"{itemID}가 정상적으로 추가됨!");
-                inventory.Add(new ItemInstance(itemID, ""));
+                inventory.Add(new ItemInstance(itemID));
+                Debug.Log($"{itemID} 아이템 추가!");
                 EventBus.Instance.Publish<UIEvents.InventoryChanged>(new UIEvents.InventoryChanged());
 
                 break;

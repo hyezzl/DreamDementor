@@ -132,10 +132,6 @@ public class HappyFirst : SceneStart
 
     private IEnumerator PlayTuto() {
 
-        // 강제 이벤트모드
-        //PlayerController.Instance.CurMode = GameMode.EventMode;
-        //EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
-
         // 튜토리얼 화면 나오게
         happyTutorial.SetActive(true);
 

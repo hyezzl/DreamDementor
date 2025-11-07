@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class InventoryDescription : MonoBehaviour
+public class InventoryDescription : MonoBehaviour, IInventory
 {
     [Header("UI Refs")]
-    [SerializeField] public GameObject Description;
     [SerializeField] private Button outsideBG;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI itemName;
@@ -18,10 +18,11 @@ public class InventoryDescription : MonoBehaviour
     [SerializeField] private Button noBTN;
     [SerializeField] private Sprite nothing;
 
+    private GameObject description;
     private IDatabase database;
     private PickableData pickable;
     private EatableData eatable;
-    private PopupManager pm;
+    private PhoneUIManager pm;
 
     public bool isOpen = false;    // 현재 열려있는지?
 
@@ -31,8 +32,12 @@ public class InventoryDescription : MonoBehaviour
 
     private void Awake()
     {
-        pm = FindAnyObjectByType<PopupManager>();
-        if (pm == null) Debug.Log("InventoryDescription - Failed to Load PopupManager");
+        pm = FindAnyObjectByType<PhoneUIManager>();
+        if (pm == null) Debug.Log("InventoryDescription - Failed to Load PhoneUIManager");
+
+        //description = transform.Find("Content/Contents/Inventory/DescriptionPopup")?.gameObject;
+        //if (description == null) Debug.Log("안됐어..");
+        Debug.Log("실행되는지!!!!!!!!");
     }
 
     private void Update()
@@ -40,7 +45,7 @@ public class InventoryDescription : MonoBehaviour
         // ESC 눌렀을 때 자체 세부창만 닫음
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Description.activeSelf)
+            if (description.activeSelf)
             {
                 CloseDescription();
                 // 여기서 return하면 이 프레임엔 인벤토리는 안 닫힘!
@@ -62,6 +67,8 @@ public class InventoryDescription : MonoBehaviour
 
         outsideBG?.onClick.AddListener(CloseDescription);
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         Clear();
     }
     private void OnDisable()
@@ -73,12 +80,20 @@ public class InventoryDescription : MonoBehaviour
         noBTN.onClick.RemoveListener(CloseDescription);
 
         outsideBG?.onClick.RemoveListener(CloseDescription);
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        //씬이 바뀔때마다 새로운 오브젝트 할당
+        description = transform.Find("Content/Contents/Inventory/DescriptionPopup")?.gameObject;
+        if (description == null) Debug.Log("안됐어..");
     }
 
     private void OnSlotClicked(UIEvents.SlotClicked evt) {
         isOpen = true;
 
-        Description.SetActive(true);
+        description.SetActive(true);
         ShowInformation(evt.item);
     }
 
@@ -120,7 +135,7 @@ public class InventoryDescription : MonoBehaviour
 
     public void CloseDescription() {
         isOpen = false;
-        Description.SetActive(false);
+        description.SetActive(false);
     }
 
     // 초기화
@@ -161,7 +176,7 @@ public class InventoryDescription : MonoBehaviour
 
             // UI창 닫힘
             CloseDescription();
-            pm.ClosePopup();
+            pm.StartCoroutine(pm.ClosePopupUI());
         }
     }
 }

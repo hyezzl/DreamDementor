@@ -99,6 +99,13 @@ MonoBehaviour:
     Reply: "\uD64D\uC0BC \uCE94\uB514\uB97C \uC8FC\uC6E0\uB2E4."
     IconName: Icon_E2
     Mental: 10
+  - ItemID: 20001003
+    ItemName: "\uC784\uC2DC"
+    Type: Eatable
+    Description: "\uBA39\uC73C\uBA74 \uC8FD\uC5B4\uC694"
+    Reply: "\uBA39\uC73C\uBA74 \uC8FD\uC5B4\uC694"
+    IconName: Icon_E3
+    Mental: -100
   Interactable:
   - ItemID: 30001001
     ItemName: "\uC624\uB798\uB3FC \uBCF4\uC774\uB294 \uB098\uBB34 \uBB38"
@@ -131,13 +138,18 @@ MonoBehaviour:
     Monologue: "\uC544\uB984\uB2F5\uAC8C \uC870\uD615\uB418\uC5B4 \uB208\uC774 \uBD80\uC2DC\uB294
       \uBD84\uC218\uB300\uB2E4.\n\uBCF4\uB294 \uAC83\uB9CC\uC73C\uB85C\uB3C4 \uC2DC\uC6D0\uD55C
       \uB290\uB08C\uC774\uB2E4."
+  - ItemID: 40001003
+    ItemName: "\uC11C\uB9B0\uC774 \uBC29 \uBB38"
+    Type: Inspectable
+    Monologue: "\uBC16\uC5D0 \uB098\uAC00\uAE30\uC5D4 \uB2A6\uC740 \uC2DC\uAC04\uC774\uC57C..\n\uB0B4\uC77C\uC744
+      \uC704\uD574\uC11C \uC5B4\uC11C \uC790\uC57C \uD574."
   Note:
   - ItemID: 50001001
     ItemName: "\uB8F0\uCABD\uC9C01"
     Type: Note
     Text: "\uAFC8\uC18D\uC784\uC744 \uC778\uC9C0\uD558\uC9C0\uB9C8\uB77C"
-    Reply: "\uCC22\uC5B4\uC9C4 \uBA54\uBAA8\uB97C \uC8FC\uC6E0\uB2E4.\n\uC911\uC694\uD55C
-      \uB0B4\uC6A9 \uAC19\uC73C\uB2C8 \uC8FC\uC6CC\uB194\uBCFC\uAE4C..."
+    Reply: "\uCC22\uC5B4\uC9C4 \uBA54\uBAA8\uB97C \uC8FC\uC6E0\uB2E4.\n\uAFC8\uC758
+      \uADDC\uCE59...?\n\uC911\uC694\uD55C \uB0B4\uC6A9 \uAC19\uC73C\uB2C8 \uC8FC\uC6CC\uB194\uBCFC\uAE4C..."
   - ItemID: 50001002
     ItemName: "\uB8F0\uCABD\uC9C02"
     Type: Note
