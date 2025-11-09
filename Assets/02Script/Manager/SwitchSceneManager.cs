@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// 씬 전환 관리
 /// </summary>
+[DefaultExecutionOrder(-10)]
 public class SwitchSceneManager : Singleton<SwitchSceneManager>
 {
     private SceneType curScene = SceneType.TitleScene;

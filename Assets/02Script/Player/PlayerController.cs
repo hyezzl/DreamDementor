@@ -79,6 +79,13 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F1)) { 
+            StateReport();
+        }
+    }
+
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.OnDamaged>(OnDamaged);
@@ -198,5 +205,15 @@ public class PlayerController : Singleton<PlayerController>
             default:
                 return Stage.Happy;
         }
+    }
+
+
+    // 플레이어의 현상태 브리핑 함수
+    private void StateReport() {
+        Debug.Log($"curHP : {CurHP}");
+        Debug.Log($"curMode : {CurMode}");
+        Debug.Log($"curAspect : {CurAspect}");
+        Debug.Log($"curScene : {SwitchSceneManager.Instance.CurScene}");
+        Debug.Log($"curState : {CurState}");
     }
 }

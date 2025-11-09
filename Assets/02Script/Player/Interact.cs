@@ -67,6 +67,8 @@ public class Interact : MonoBehaviour
     private void Update()
     {
         OnInteract();
+        if (inputHandler.DoInteract()) Debug.Log("스패이스 눌리긴+ 함!");
+        if (SearchForward() != null) Debug.Log("스패이스 눌리긴 함!");
     }
 
 

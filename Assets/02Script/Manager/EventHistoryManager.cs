@@ -7,6 +7,7 @@ using static GameEvents;
 /// 해당 씬 내에서 끝난 이벤트 / 대화 데이터 보관
 /// 씬 방문
 /// </summary>
+[DefaultExecutionOrder(-1)]
 public class EventHistoryManager : Singleton<EventHistoryManager>
 {
     // 실행된 이벤트 목록 관리
