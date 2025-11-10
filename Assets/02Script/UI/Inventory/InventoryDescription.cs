@@ -37,7 +37,6 @@ public class InventoryDescription : MonoBehaviour, IInventory
 
         //description = transform.Find("Content/Contents/Inventory/DescriptionPopup")?.gameObject;
         //if (description == null) Debug.Log("안됐어..");
-        Debug.Log("실행되는지!!!!!!!!");
     }
 
     private void Update()

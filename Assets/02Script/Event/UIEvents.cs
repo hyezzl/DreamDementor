@@ -172,9 +172,9 @@ public static class UIEvents
     // ∆€¡Ò UI ø≠±‚
     public struct OpenPuzzle
     {
-        public SceneType curScene;
-        public OpenPuzzle(SceneType curScene) { 
-            this.curScene = curScene;
+        public PuzzleType puzzle;
+        public OpenPuzzle(PuzzleType puzzle) { 
+            this.puzzle = puzzle;
         }
     }
 

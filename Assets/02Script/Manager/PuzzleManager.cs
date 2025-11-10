@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 0 : Happy
-// 1 : 
+public enum PuzzleType
+{ 
+    Happy_Door,
+    SorrowOne_LineToLine,
+    Sorrow_Door,
+
+}
 
 
 /// <summary>
@@ -38,22 +43,20 @@ public class PuzzleManager : MonoBehaviour
 
     private void OnOpenPuzzleUI(UIEvents.OpenPuzzle evt) {
         // 캔버스 우선순위 올림
-        canvas.sortingOrder = 1000;
+        canvas.sortingOrder = 100;
         
         // 게임 모드 변경
         pc.CurMode = GameMode.UIPuzzleMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.UIPuzzleMode));
 
         // 씬에 따른 다른 캔버스 Active
-        switch (evt.curScene) 
+        switch (evt.puzzle) 
         {
-            case SceneType.HappyScene:
-                Debug.Log("해피 퍼즐 열림");
+            case PuzzleType.Happy_Door:
                 OpenPuzzleUI(0);
                 break;
 
-            case SceneType.SorrowScene:
-                Debug.Log("슬픔 퍼즐 열림");
+            case PuzzleType.SorrowOne_LineToLine:
                 OpenPuzzleUI(1);
                 break;
 

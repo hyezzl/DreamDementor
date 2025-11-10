@@ -13,7 +13,7 @@ public class HappyDoor : NPC
 
         if (IsSatisfying())
         {
-            EventBus.Instance.Publish<UIEvents.OpenPuzzle>(new UIEvents.OpenPuzzle(SceneType.HappyScene));
+            EventBus.Instance.Publish<UIEvents.OpenPuzzle>(new UIEvents.OpenPuzzle(PuzzleType.Happy_Door));
         }
         // 아직 조건 만족하지 않음
         else { 

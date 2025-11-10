@@ -11,6 +11,7 @@ public enum ItemType
     Interactable,
     Inspectable,
     //Readable,
+    Custom,
     Note,
 }
 

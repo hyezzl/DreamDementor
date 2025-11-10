@@ -45,10 +45,6 @@ public class Interact : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-    }
-
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.AspectChange>(OnModeChange);
@@ -113,6 +109,7 @@ public class Interact : MonoBehaviour
                     {
                         if (inputHandler.DoInteract() && sight.curTarget != null)
                         {
+                            Debug.Log("----------상호작용-----------");
                             sight.curTarget.Interact();
                         }
                     }
