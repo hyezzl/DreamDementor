@@ -923,11 +923,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5b4b8e1582567cc4790329acfd9a8d21, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5b4b8e1582567cc4790329acfd9a8d21, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1080,7 +1080,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -1190,6 +1190,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &772453818
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4204747742721678495, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_Name
+      value: Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204747742721678495, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671561512374455223, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671561512374455223, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671561512374455223, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 47.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671561512374455223, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671561512374455223, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671561512374455223, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671561512374455223, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671561512374455223, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671561512374455223, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671561512374455223, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
 --- !u!1 &799088129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,7 +1395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 875897209}
   - component: {fileID: 875897210}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemyCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1703,6 +1764,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Main Canvas '
       objectReference: {fileID: 0}
+    - target: {fileID: 1850129256627395640, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1890817552016237795, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_Alpha
       value: 0
@@ -1761,27 +1826,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 4955431149133923576, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -26
       objectReference: {fileID: 0}
     - target: {fileID: 5250874884771018152, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: targetCam
@@ -1913,11 +1978,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8056663043807565140, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8056663043807565140, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8139228069987341657, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1925,27 +1990,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 8178155357631387315, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -78
       objectReference: {fileID: 0}
     - target: {fileID: 8493958609938853987, guid: 7de337e29ac79e042978bd8fdd23d488, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2102,7 +2167,7 @@ GameObject:
   - component: {fileID: 1597206084}
   - component: {fileID: 1597206083}
   - component: {fileID: 1597206082}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2541,7 +2606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5b4b8e1582567cc4790329acfd9a8d21, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4330,28 +4395,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2890710093157303720}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &403216973612258595
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9191916411849136114}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &406282697520233441
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5643,28 +5686,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &934154427369858617
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4356891604443550262}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &940775674873162925
 Transform:
   m_ObjectHideFlags: 0
@@ -6030,8 +6051,7 @@ GameObject:
   - component: {fileID: 1823307378261028376}
   - component: {fileID: 3757438019357012021}
   - component: {fileID: 3871080055512357335}
-  - component: {fileID: 2436180761620897072}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9515,28 +9535,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &2436180761620897072
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1027089554343527248}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &2455401881661990542
 Transform:
   m_ObjectHideFlags: 0
@@ -10725,7 +10723,7 @@ Transform:
   m_GameObject: {fileID: 2890710093156882824}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.8622044, z: -0, w: 0.5065606}
-  m_LocalPosition: {x: 2.12, y: 0, z: 44.33}
+  m_LocalPosition: {x: 7.86, y: 0, z: 44.51}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11738,28 +11736,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6266178660960235395}
   m_Mesh: {fileID: -8907757473011522176, guid: 568a8de0b0838b942b7c6f1b8f8ac527, type: 3}
---- !u!64 &3162561788932858137
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3499816818655131118}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3163151823907621303
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12711,7 +12687,7 @@ Transform:
   m_GameObject: {fileID: 3081492765869508368}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6839802, y: 0.17936295, z: -0.17936295, w: 0.6839802}
-  m_LocalPosition: {x: 0.35, y: 0.05, z: 43.46}
+  m_LocalPosition: {x: 6.09, y: 0.05, z: 43.639996}
   m_LocalScale: {x: 3.2565787, y: 1.5834, z: 1.5834}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12743,8 +12719,7 @@ GameObject:
   - component: {fileID: 1056117890182525457}
   - component: {fileID: 6015138248969654080}
   - component: {fileID: 3073815970461536434}
-  - component: {fileID: 3162561788932858137}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15220,8 +15195,7 @@ GameObject:
   - component: {fileID: 3196889670681464090}
   - component: {fileID: 7786121654898028878}
   - component: {fileID: 8318659868850135200}
-  - component: {fileID: 5773852554955106975}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15309,8 +15283,7 @@ GameObject:
   - component: {fileID: 6459731253434249137}
   - component: {fileID: 5984533025782193723}
   - component: {fileID: 7047509474004336371}
-  - component: {fileID: 934154427369858617}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16583,7 +16556,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6731574926010276916}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17420,8 +17393,7 @@ GameObject:
   - component: {fileID: 7354978902615294463}
   - component: {fileID: 2383429711028426006}
   - component: {fileID: 563339114062362646}
-  - component: {fileID: 8151457079530545420}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18229,8 +18201,7 @@ GameObject:
   - component: {fileID: 7974231204170936832}
   - component: {fileID: 3296630437405301444}
   - component: {fileID: 6252549679050592830}
-  - component: {fileID: 6496768206984304866}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19058,8 +19029,7 @@ GameObject:
   - component: {fileID: 6267368389827048592}
   - component: {fileID: 4488697771507663909}
   - component: {fileID: 86402355087220451}
-  - component: {fileID: 6678964553964009125}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19293,28 +19263,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2092125944282288914}
   m_Mesh: {fileID: -5411298343185607128, guid: efd0cb9ee600605499dee797bf75bc7d, type: 3}
---- !u!64 &5773852554955106975
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4320365795311006080}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &5778646339143839452
 Transform:
   m_ObjectHideFlags: 0
@@ -19643,28 +19591,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5860063272601428014
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6317064738410707239}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5867076327858278382
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20186,28 +20112,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784491206767315399}
   m_Mesh: {fileID: -835618609371171157, guid: bde5a46920464eb45823233aaf8ebb33, type: 3}
---- !u!64 &6036620621367067986
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6103610646985309794}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &6045674924399954930
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20403,8 +20307,7 @@ GameObject:
   - component: {fileID: 1977435784448263953}
   - component: {fileID: 5021567271421748083}
   - component: {fileID: 3312428524318756554}
-  - component: {fileID: 6036620621367067986}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20869,8 +20772,7 @@ GameObject:
   - component: {fileID: 363066683047093548}
   - component: {fileID: 5364439275465921131}
   - component: {fileID: 6532408970691326718}
-  - component: {fileID: 5860063272601428014}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21269,28 +21171,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &6496768206984304866
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5361763290865985850}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &6514546181397881508
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -21649,28 +21529,6 @@ Transform:
   - {fileID: 9175886767769202101}
   m_Father: {fileID: 1330338031535555390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &6678964553964009125
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5710623976311647660}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &6687582719444161489
 GameObject:
   m_ObjectHideFlags: 0
@@ -23038,8 +22896,7 @@ GameObject:
   - component: {fileID: 4919660408577256454}
   - component: {fileID: 8709764033457515186}
   - component: {fileID: 5079602294295820496}
-  - component: {fileID: 7326809607216941027}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23451,28 +23308,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7182304935904803605
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8259748356364374566}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &7182960021151595063
 Transform:
   m_ObjectHideFlags: 0
@@ -23771,28 +23606,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7366029956646314359}
   m_Mesh: {fileID: 4300000, guid: fd18b7cc033385c47b2d097aa02e0614, type: 3}
---- !u!64 &7326809607216941027
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7045223348525315704}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7330192505601333007
 GameObject:
   m_ObjectHideFlags: 0
@@ -27056,28 +26869,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8144364584678872440}
   m_Mesh: {fileID: 4300006, guid: 5030d278fe13dad47b6ec22ada2b75b2, type: 3}
---- !u!64 &8151457079530545420
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5231674903190470496}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &8158999274302815231
 GameObject:
   m_ObjectHideFlags: 0
@@ -27380,8 +27171,7 @@ GameObject:
   - component: {fileID: 3033937371437647426}
   - component: {fileID: 4719455433118485511}
   - component: {fileID: 525447583662389804}
-  - component: {fileID: 7182304935904803605}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28391,7 +28181,7 @@ Transform:
   m_GameObject: {fileID: 3508618516908437312}
   serializedVersion: 2
   m_LocalRotation: {x: 0.69648445, y: -0.12210417, z: 0.12210417, w: 0.69648445}
-  m_LocalPosition: {x: 4.45, y: 0.05, z: 44.74}
+  m_LocalPosition: {x: 10.190001, y: 0.05, z: 44.92}
   m_LocalScale: {x: 3.2565784, y: 1.5833998, z: 1.5834}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29695,6 +29485,7 @@ MonoBehaviour:
   player: {fileID: 5983583959999828007}
   half: {x: 0.5, y: 1, z: 1}
   sight: {fileID: 1778291239}
+  isChase: 0
 --- !u!114 &9135606366724464217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29712,7 +29503,6 @@ MonoBehaviour:
   recoverDelay: 1
   minStaminaVal: 33
   staminaBar: {fileID: 1354594683}
-  staminaText: {fileID: 0}
 --- !u!4 &9138906175293938819
 Transform:
   m_ObjectHideFlags: 0
@@ -29909,8 +29699,7 @@ GameObject:
   - component: {fileID: 5688441188259456881}
   - component: {fileID: 694536144759882730}
   - component: {fileID: 3299370913192919392}
-  - component: {fileID: 403216973612258595}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorrowOne_Tile2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29933,3 +29722,4 @@ SceneRoots:
   - {fileID: 7572373669482142514}
   - {fileID: 697657353}
   - {fileID: 63990787}
+  - {fileID: 772453818}

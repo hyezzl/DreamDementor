@@ -11,7 +11,7 @@ public class TitleFirst : MonoBehaviour
     void Start()
     {
         if (spine != null) {
-            spine.AnimationState.SetAnimation(0, "Idle", true);
+            spine.AnimationState.SetAnimation(0, "gooseflesh_Idle", true);
         }
 
         // ºê±Ý

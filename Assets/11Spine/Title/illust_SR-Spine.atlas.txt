@@ -1,0 +1,211 @@
+illust_SR-Spine.png
+size:2014,1651
+filter:Linear,Linear
+Nomal 뒷머리1
+bounds:2,878,590,771
+Nomal 뒷머리2
+bounds:995,1049,600,368
+rotate:90
+Nomal 머리 안테나1
+bounds:1453,619,67,78
+Nomal 머리 안테나2
+bounds:1453,1312,52,67
+rotate:90
+Nomal 머리1
+bounds:1820,1419,230,181
+offsets:21,39,257,221
+rotate:90
+Nomal 머리1.5
+bounds:1659,622,40,105
+Nomal 머리2
+bounds:1666,729,86,334
+offsets:0,2,88,337
+rotate:90
+Nomal 머리3
+bounds:1083,2,283,368
+rotate:90
+Nomal 머리4
+bounds:1242,905,84,142
+offsets:0,0,84,172
+Nomal 목
+bounds:594,881,159,147
+offsets:1,0,161,148
+rotate:90
+Nomal 몸통
+bounds:594,1042,399,607
+offsets:1,0,400,608
+Nomal 셔츠 뒷부분
+bounds:1591,783,69,47
+Nomal 얼굴
+bounds:1365,1056,221,254
+Nomal 옆머리 L
+bounds:1816,1065,102,121
+offsets:0,0,103,121
+Nomal 옆머리 R
+bounds:1743,625,102,163
+offsets:23,0,125,163
+rotate:90
+Nomal 오른쪽 교복 팔
+bounds:1361,616,90,270
+offsets:0,1,93,271
+Nomal 오른쪽 눈
+bounds:1752,17,41,40
+offsets:0,1,43,42
+rotate:90
+Nomal 오른쪽 눈썹
+bounds:1242,888,63,15
+offsets:0,0,63,16
+Nomal 오른쪽 코트1
+bounds:1058,896,151,182
+offsets:1,1,153,184
+rotate:90
+Nomal 오른쪽 코트2
+bounds:1760,83,129,231
+offsets:1,0,131,231
+Nomal 오른쪽 코트3
+bounds:1453,9,211,280
+offsets:2,0,214,280
+Nomal 오른쪽 흰자 채색
+bounds:1591,720,66,61
+Nomal 왼쪽 눈
+bounds:1969,308,41,40
+offsets:0,1,43,42
+Nomal 왼쪽 눈썹
+bounds:1371,890,61,16
+offsets:0,0,62,16
+Nomal 왼쪽 코트 3
+bounds:1567,316,220,302
+offsets:1,0,223,302
+Nomal 왼쪽 코트1
+bounds:892,888,152,164
+offsets:0,0,153,165
+rotate:90
+Nomal 왼쪽 코트2
+bounds:1453,699,355,131
+offsets:1,0,357,131
+rotate:90
+Nomal 왼쪽 흰자 채색
+bounds:1586,895,74,61
+Nomal 왼쬭 교복 팔
+bounds:1666,60,92,254
+offsets:12,2,105,256
+Nomal 윗 아이라인 L
+bounds:1413,967,87,33
+offsets:0,1,89,34
+rotate:90
+Nomal 윗 아이라인 R
+bounds:1789,316,88,32
+offsets:1,1,89,34
+Nomal 입
+bounds:2003,1611,38,9
+rotate:90
+Scar 가슴
+bounds:841,3,263,240
+rotate:90
+Scar 뒷머리1
+bounds:2,105,588,771
+offsets:0,0,590,771
+Scar 뒷머리2
+bounds:993,287,599,366
+offsets:0,1,600,368
+rotate:90
+Scar 머리 안테나1
+bounds:1522,620,67,77
+offsets:0,0,67,78
+Scar 머리 안테나2
+bounds:1522,1314,50,66
+offsets:0,0,52,67
+rotate:90
+Scar 머리1
+bounds:1820,1188,229,181
+offsets:22,38,257,221
+rotate:90
+Scar 머리1.5
+bounds:1701,622,40,105
+Scar 머리2
+bounds:1365,1312,86,337
+offsets:0,0,88,337
+Scar 머리3
+bounds:1453,1366,283,365
+offsets:0,1,283,368
+rotate:90
+Scar 머리4
+bounds:1328,908,83,139
+offsets:0,1,84,172
+Scar 목
+bounds:743,881,159,147
+offsets:0,0,161,148
+rotate:90
+Scar 몸통
+bounds:592,268,399,608
+offsets:0,0,400,608
+Scar 셔츠 뒷부분
+bounds:1591,958,72,83
+offsets:0,52,72,136
+Scar 어깨
+bounds:1590,1043,321,224
+offsets:6,61,334,285
+rotate:90
+Scar 얼굴
+bounds:1789,350,220,254
+offsets:0,0,221,254
+Scar 얼굴 거즈
+bounds:1794,42,39,39
+offsets:92,2,133,61
+Scar 얼굴 피
+bounds:1920,1096,92,90
+offsets:31,101,190,213
+Scar 옆머리 L
+bounds:1908,606,102,121
+offsets:0,0,103,121
+Scar 옆머리 R
+bounds:1891,143,108,163
+offsets:17,0,125,163
+Scar 오른쪽 눈
+bounds:1709,17,41,41
+offsets:1,2,44,44
+Scar 오른쪽 눈썹
+bounds:1307,888,62,15
+offsets:0,0,63,16
+Scar 오른쪽 팔
+bounds:1666,926,346,115
+offsets:1,0,349,121
+Scar 오른쪽 팔 2
+bounds:2,6,97,340
+offsets:28,0,127,479
+rotate:90
+Scar 오른쪽 흰자 채색
+bounds:1591,657,66,61
+Scar 왼쪽 눈
+bounds:1666,16,41,42
+offsets:1,1,44,44
+Scar 왼쪽 눈썹
+bounds:993,269,62,16
+Scar 왼쪽 팔
+bounds:344,9,94,247
+offsets:14,0,109,248
+rotate:90
+Scar 왼쪽 팔 2
+bounds:1666,817,107,334
+offsets:12,11,134,346
+rotate:90
+Scar 왼쪽 흰자 채색
+bounds:1586,832,74,61
+Scar 윗 아이라인 L
+bounds:1920,1062,89,32
+offsets:0,2,89,34
+Scar 윗 아이라인 R
+bounds:1879,316,88,32
+offsets:1,2,89,34
+Scar 입
+bounds:1413,915,50,26
+offsets:1,1,52,29
+rotate:90
+nomal 가슴
+bounds:593,3,263,246
+offsets:0,2,263,250
+rotate:90
+nomal 어깨
+bounds:1361,291,323,204
+offsets:5,19,334,224
+rotate:90
