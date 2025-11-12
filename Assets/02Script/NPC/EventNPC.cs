@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.ShaderData;
 
 // 대화 이후 이벤트 강제 진행 (Conversation한정)
 
