@@ -28,6 +28,7 @@ public class EnemyCrash : MonoBehaviour
         }
         else if (other.CompareTag("Player") && isDead) {
             Debug.Log("테스트용! 게임오버됨");
+            EventBus.Instance.Publish<GameEvents.GameOver>(new GameEvents.GameOver(curScene, DeathType.CrashEnemy));
         }
     }
 }

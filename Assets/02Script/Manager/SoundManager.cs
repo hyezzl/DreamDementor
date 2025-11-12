@@ -26,6 +26,7 @@ public enum SFXType
 /// 사운드 전체 관리 ( 브금/효과음 + 설정값에 따른 변화값 저장 )
 /// </summary>
 
+[DefaultExecutionOrder(-1)]
 public class SoundManager : Singleton<SoundManager>
 {
     [Header("AudioMixer")]

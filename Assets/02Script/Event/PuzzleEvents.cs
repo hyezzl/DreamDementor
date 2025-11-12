@@ -27,4 +27,12 @@ public static class PuzzleEvents
             this.npcID = npcID;
         }
     }
+
+    public struct SO_ConnectLine
+    {
+        public LineColor color;
+        public SO_ConnectLine(LineColor color) { 
+            this.color = color;
+        }
+    }
 }

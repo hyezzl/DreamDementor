@@ -24,6 +24,12 @@ public class PuzzleManager : MonoBehaviour
 
     private int originSortOrder = 0;
 
+    private void Start()
+    {
+        // √ ±‚»≠
+        foreach (var puzzle in puzzles) { puzzle.SetActive(false); }
+    }
+
     private void OnEnable()
     {
         pc = FindAnyObjectByType<PlayerController>();

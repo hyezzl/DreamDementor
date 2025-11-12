@@ -11248,7 +11248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 358c745b58e2b944698c25201e89bfc0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 358c745b58e2b944698c25201e89bfc0, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -75097,7 +75097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1056495012398573349}
   anim: {fileID: 7303286028946570911}
-  moveSpeed: 5
+  moveSpeed: 11
   moveable: 0
   curState: 0
 --- !u!1 &6783797754236644001

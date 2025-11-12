@@ -4,18 +4,35 @@ using UnityEngine;
 
 public class LineToLinePuzzle : MonoBehaviour
 {
-    public Transform[] bottomPoints;    // 5, 6, 7, 8
-    public Transform[] topPoints;       // 1, 2, 3, 4
-    public GameObject[] lineSprites;
-    public GameObject[] fixedLines;     // 정답 시 나올 선
+    public List<LineDropZone> zones;
 
-    private int curStartIdx = -1;       // 드래그 시작점 Index
-
-    private void Start()
+    private void OnEnable()
     {
-        // 초기값
-        foreach (var line in lineSprites) line.SetActive(false);
-        foreach(var line in fixedLines) line.SetActive(false);
+        EventBus.Instance.Subscribe<PuzzleEvents.SO_ConnectLine>(OnConnectLine);
+    }
+    private void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<PuzzleEvents.SO_ConnectLine>(OnConnectLine);
+    }
+
+    private void OnConnectLine(PuzzleEvents.SO_ConnectLine evt) {
+        foreach (var zone in zones) {
+            if (!zone.IsConnect) return;
+        }
+        Debug.Log("전선 연결 모두 완료!!!");
+
+        // 전선 연결 모두 완료!!!
+
+        // 효과음
+
+        // UI자동 close ?
+
+        // 불 들어옴
+
+        // 완료 이후, 오브젝트와 상호작용 불가능하도록
+
+
+
     }
 
 }
