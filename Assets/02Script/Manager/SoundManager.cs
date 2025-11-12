@@ -8,6 +8,7 @@ public enum BGMType
     TitleBGM        = 0,
     HappyBGM        = 1,
     SorrowBGM       = 2,
+    EnemyBGM        = 3,
 }
 
 public enum SFXType
@@ -17,6 +18,7 @@ public enum SFXType
     grrr,                       // 귀신 등장할 때 나는 소리
     trafficAccident,            // 서린이 부모님 사고 사운드
     raining,                    // 빗소리
+    enemyLaugh,                 // 슬픔맵 1인칭 귀신등장
 
 }
 
