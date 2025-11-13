@@ -37,9 +37,6 @@ public class Interact : MonoBehaviour
 
     private void Awake()
     {
-        pc = FindAnyObjectByType<PlayerController>();
-        if (pc == null) Debug.Log("Interact - Failed to Load PlayerController");
-
         if (!TryGetComponent<PlayerMove>(out pm)) {
             Debug.Log("Interact - Failed to Load PlayerMove");
         }
@@ -63,13 +60,11 @@ public class Interact : MonoBehaviour
     private void Update()
     {
         OnInteract();
-        if (inputHandler.DoInteract()) Debug.Log("스패이스 눌리긴+ 함!");
-        if (SearchForward() != null) Debug.Log("스패이스 눌리긴 함!");
+        if (inputHandler.DoInteract() && SearchForward() != null) Debug.Log("***되는데?");
     }
 
 
     private void OnInteract() {
-
         if (isChase)
         {
             // 쫓기는 중이라면
@@ -87,12 +82,12 @@ public class Interact : MonoBehaviour
             else return;
 
         }
-        else { 
+        else {
             // 쫓기지 않을 때
             switch (curAspect)
             {
                 case AspectMode.ThirdpersonMode:
-                    if (pc.CurMode == GameMode.InspectMode)
+                    if (PlayerController.Instance.CurMode == GameMode.InspectMode)
                         if (inputHandler.DoInteract() && SearchForward() != null)
                         {
                             {
@@ -105,7 +100,7 @@ public class Interact : MonoBehaviour
 
 
                 case AspectMode.OnepersonMode:
-                    if (pc.CurMode == GameMode.InspectMode)
+                    if (PlayerController.Instance.CurMode == GameMode.InspectMode)
                     {
                         if (inputHandler.DoInteract() && sight.curTarget != null)
                         {

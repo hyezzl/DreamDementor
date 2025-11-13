@@ -35,4 +35,21 @@ public static class PuzzleEvents
             this.color = color;
         }
     }
+
+    public struct SO_FixPin
+    {
+        //public int pinIdx;
+        //public SO_FixPin(int pinIdx) { 
+        //    this.pinIdx = pinIdx;
+        //}
+    }
+
+    // CustomItem¿« ∆€¡Ò¿Ã ≥°≥µ¿ª∂ß
+    public struct CutOff
+    {
+        public int itemID;
+        public CutOff(int itemID) { 
+            this.itemID = itemID;
+        }
+    }
 }

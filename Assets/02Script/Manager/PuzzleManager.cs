@@ -7,6 +7,7 @@ public enum PuzzleType
 { 
     Happy_Door,
     SorrowOne_LineToLine,
+    SorrowOne_Lockpick,
     Sorrow_Door,
 
 }
@@ -18,7 +19,7 @@ public enum PuzzleType
 public class PuzzleManager : MonoBehaviour
 {
     public GameObject[] puzzles;
-    public Button exitBTN;
+    public Button[] exitBTNs;
     private PlayerController pc;
     private Canvas canvas;
 
@@ -38,13 +39,20 @@ public class PuzzleManager : MonoBehaviour
 
         EventBus.Instance.Subscribe<UIEvents.OpenPuzzle>(OnOpenPuzzleUI);
 
-        exitBTN.onClick.AddListener(CloseAllPuzzleUI);
+        //exitBTN.onClick.AddListener(CloseAllPuzzleUI);
+        foreach (var btn in exitBTNs) {
+            btn.onClick.AddListener(CloseAllPuzzleUI);
+        }
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OpenPuzzle>(OnOpenPuzzleUI);
 
-        exitBTN.onClick.RemoveListener(CloseAllPuzzleUI);
+        //exitBTN.onClick.RemoveListener(CloseAllPuzzleUI);
+        foreach (var btn in exitBTNs)
+        {
+            btn.onClick.RemoveListener(CloseAllPuzzleUI);
+        }
     }
 
     private void OnOpenPuzzleUI(UIEvents.OpenPuzzle evt) {
@@ -64,6 +72,10 @@ public class PuzzleManager : MonoBehaviour
 
             case PuzzleType.SorrowOne_LineToLine:
                 OpenPuzzleUI(1);
+                break;
+
+            case PuzzleType.SorrowOne_Lockpick:
+                OpenPuzzleUI(2);
                 break;
 
             default:

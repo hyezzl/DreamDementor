@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class FirstColumn : CustomItem
 {
-    [SerializeField] private Canvas minigame;
-    [SerializeField] private RectTransform line2line;
+    [SerializeField] private PuzzleType type;
 
     public override void Interact()
     {
         base.Interact();
 
-        EventBus.Instance.Publish<UIEvents.OpenPuzzle>(new UIEvents.OpenPuzzle(PuzzleType.SorrowOne_LineToLine));
+        EventBus.Instance.Publish<UIEvents.OpenPuzzle>(new UIEvents.OpenPuzzle(type));
     }
 }
