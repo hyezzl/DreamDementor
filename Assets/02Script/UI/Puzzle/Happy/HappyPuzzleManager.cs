@@ -9,7 +9,6 @@ public class HappyPuzzleManager : MonoBehaviour
     public List<DropZone> zones;    // 3개의 퍼즐
     public SceneType nextScene = SceneType.RestScene;     // 이동할 씬
 
-
     public void TouchDoorRing() {
 
         // 모든 드랍존이 정답인지?

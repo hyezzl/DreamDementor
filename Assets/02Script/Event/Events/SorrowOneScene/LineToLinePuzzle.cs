@@ -5,6 +5,13 @@ using UnityEngine;
 public class LineToLinePuzzle : MonoBehaviour
 {
     public List<LineDropZone> zones;
+    private PuzzleManager pm;
+
+    private void Awake()
+    {
+        pm = transform.parent.GetComponent<PuzzleManager>();
+        if (pm == null) Debug.Log("LineToLinePuzzle - failed to Load PuzzleManager");
+    }
 
     private void OnEnable()
     {
@@ -25,7 +32,8 @@ public class LineToLinePuzzle : MonoBehaviour
 
         // 효과음
 
-        // UI자동 close ?
+        // UI자동 close
+        pm.CloseAllPuzzleUI();
 
         // 불 들어옴
 

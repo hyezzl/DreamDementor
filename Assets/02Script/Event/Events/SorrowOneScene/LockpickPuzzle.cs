@@ -5,6 +5,13 @@ using UnityEngine;
 public class LockpickPuzzle : MonoBehaviour
 {
     public List<DragPin> pins;
+    private PuzzleManager pm;
+
+    private void Awake()
+    {
+        pm = transform.parent.GetComponent<PuzzleManager>();
+        if (pm == null) Debug.Log("LineToLinePuzzle - failed to Load PuzzleManager");
+    }
 
     private void OnEnable()
     {
@@ -26,6 +33,8 @@ public class LockpickPuzzle : MonoBehaviour
         // 효과음
 
         // 불들어옴
+
+        pm.CloseAllPuzzleUI();
 
         // 상호작용 불가능 하도록
         EventBus.Instance.Publish<PuzzleEvents.CutOff>(new PuzzleEvents.CutOff(60001002));
