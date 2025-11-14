@@ -55,7 +55,7 @@ public static class GameEvents
     {
         public CameraType type;
         public int blend;
-        public CameraShift(CameraType type, int blend) {
+        public CameraShift(CameraType type, int blend = 1) {
             this.type = type;
             this.blend = blend;
         }

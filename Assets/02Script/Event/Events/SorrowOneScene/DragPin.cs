@@ -96,7 +96,6 @@ public class DragPin : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         // Y 값 비교
         if (Mathf.Abs(pin.anchoredPosition.y - targetY) <= allowDiff)
         {
-            Debug.Log("시간 누적중!!!");
             holdTime += Time.deltaTime;
             if (holdTime >= requireTime)
             {

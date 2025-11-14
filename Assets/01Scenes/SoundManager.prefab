@@ -59,7 +59,7 @@ MonoBehaviour:
   sfxClips:
   - {fileID: 8300000, guid: d306c11c44cadcb4183e68ba66bf70e0, type: 3}
   - {fileID: 8300000, guid: 6b747dc907536e244a6f1baf284d2dd3, type: 3}
-  - {fileID: 8300000, guid: db7d5854189fbac478040322ab0948cb, type: 3}
+  - {fileID: 8300000, guid: 71aa54d6728586240b8f58bbd53487d7, type: 3}
   - {fileID: 8300000, guid: cd04dccceaa36cc41a1d6bb4ffe831e7, type: 3}
   - {fileID: 8300000, guid: 34e096faf3472de4485c2f490a39f087, type: 3}
   - {fileID: 8300000, guid: 455e57c6a78285e4980b1eb51df94936, type: 3}

@@ -36,20 +36,28 @@ public static class PuzzleEvents
         }
     }
 
-    public struct SO_FixPin
-    {
+    public struct SO_FixPin { }
+    //{
         //public int pinIdx;
         //public SO_FixPin(int pinIdx) { 
         //    this.pinIdx = pinIdx;
         //}
-    }
+    //}
 
-    // CustomItem의 퍼즐이 끝났을때
+    // CustomItem의 퍼즐이 끝났을때 (더이상 상호작용 하지 못하도록 함)
     public struct CutOff
     {
         public int itemID;
         public CutOff(int itemID) { 
             this.itemID = itemID;
+        }
+    }
+
+    public struct PassMinigame
+    {
+        public PuzzleType puzzle;
+        public PassMinigame(PuzzleType puzzle) { 
+            this.puzzle = puzzle;
         }
     }
 }

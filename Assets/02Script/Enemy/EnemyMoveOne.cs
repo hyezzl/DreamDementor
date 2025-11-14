@@ -148,25 +148,13 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
                 na.isStopped = false;
                 isWalk = true;
             }
-
-            // 애니메이션 파라미터 전달 (조건부)
-            //if (Mathf.Abs(angle) > 60f)
-            //{
-            //    // 완전 옆 방향일때만 Left/Right 넘김 (좌우)
-            //    anim.SetFloat("xDir", relX);
-            //    anim.SetFloat("yDir", 0);
-            //}
-            //else {
-            //    anim.SetFloat("xDir", 0);
-            //    anim.SetFloat("yDir", relY);
-            //}
-            //anim.SetBool("isWalk", isWalk);
-            //anim.SetFloat("xDir", relX);
-            //anim.SetFloat("yDir", relY);
         }
         else {
             billboard.enabled = false;
         }
+
+        // 애니메이터 파라미터 전달
+        anim.SetBool("isWalk", isWalk);
     }
 
 

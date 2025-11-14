@@ -78,7 +78,7 @@ public class HappyOnePuzzles : EventBase
     private IEnumerator PlayEnemyEvent() {
         yield return new WaitForSeconds(2f);
         // 귀신 등장 브금
-        EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.grrr));
+        EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.enemyScream));
 
         // 이벤트 모드
         PlayerController.Instance.CurMode = GameMode.EventMode;

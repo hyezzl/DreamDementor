@@ -15,11 +15,11 @@ public enum SFXType
 { 
     footPrint,                  // 발자국소리
     takeDamage,                 // 데미지입을 때 나는 소리
-    grrr,                       // 귀신 등장할 때 나는 소리
+    enemyScream,                // 귀신 등장할 때 나는 소리
     trafficAccident,            // 서린이 부모님 사고 사운드
-    raining,                    // 빗소리
+    pencilSound,
+    rainSound,                    // 빗소리
     enemyLaugh,                 // 슬픔맵 1인칭 귀신등장
-
 }
 
 /// <summary>

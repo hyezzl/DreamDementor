@@ -127,7 +127,7 @@ public class TutorialTimeline : EventBase
         if (glitch != null)
             glitch.Glitch = 1f;
 
-        EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.grrr));
+        EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.enemyScream));
     }
 
     // 변신 이후 글리치 약화

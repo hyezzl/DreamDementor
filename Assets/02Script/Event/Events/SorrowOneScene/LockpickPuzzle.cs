@@ -33,6 +33,7 @@ public class LockpickPuzzle : MonoBehaviour
         // 효과음
 
         // 불들어옴
+        EventBus.Instance.Publish<PuzzleEvents.PassMinigame>(new PuzzleEvents.PassMinigame(PuzzleType.SorrowOne_Lockpick));
 
         pm.CloseAllPuzzleUI();
 

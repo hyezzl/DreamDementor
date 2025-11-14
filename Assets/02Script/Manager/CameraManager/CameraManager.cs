@@ -1,13 +1,11 @@
 using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class CameraManager : MonoBehaviour
 {
-
-    protected List<CinemachineVirtualCamera> cams;
+    public List<CinemachineVirtualCamera> cams;
     protected bool isPlayer = false;
     protected Camera mainCam;
     protected CinemachineBrain brain;
@@ -30,7 +28,8 @@ public class CameraManager : MonoBehaviour
     }
 
 
-    protected virtual void OnCameraShift(GameEvents.CameraShift evt) { }
+    protected virtual void OnCameraShift(GameEvents.CameraShift evt) {
+    }
 
     
 

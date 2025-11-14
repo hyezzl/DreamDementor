@@ -1,4 +1,3 @@
-using cakeslice;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +8,10 @@ public class TriggerZone : MonoBehaviour, ITriggerZone
     public string eventID;
     public bool isContacted = false;
 
-    private PlayerController pc;
-    private IDatabase database;
-    private Dictionary<string, Dictionary<int, DialogData>> allDialogs;
-    private Dictionary<int, DialogData> initialDialog;
+    protected PlayerController pc;
+    protected IDatabase database;
+    protected Dictionary<string, Dictionary<int, DialogData>> allDialogs;
+    protected Dictionary<int, DialogData> initialDialog;
 
     public string ZoneID => zoneID;
 

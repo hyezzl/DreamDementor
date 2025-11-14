@@ -36,6 +36,7 @@ public class LineToLinePuzzle : MonoBehaviour
         pm.CloseAllPuzzleUI();
 
         // 불 들어옴
+        EventBus.Instance.Publish<PuzzleEvents.PassMinigame>(new PuzzleEvents.PassMinigame(PuzzleType.SorrowOne_LineToLine));
 
         // 완료 이후, 오브젝트와 상호작용 불가능하도록
         EventBus.Instance.Publish<PuzzleEvents.CutOff>(new PuzzleEvents.CutOff(60001001));

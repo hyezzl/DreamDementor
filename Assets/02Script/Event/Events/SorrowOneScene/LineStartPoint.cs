@@ -9,6 +9,7 @@ public class LineStartPoint : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     public LineColor color;
     public RectTransform line;
     public Image tempImg;       // 짧은 임시 전선이미지
+    public LineDropZone dropZone;       // 정답 존
 
 
     private Vector2 startPos;
@@ -55,6 +56,18 @@ public class LineStartPoint : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         tempImg.enabled = true;
         line.gameObject.SetActive(false);
         isDrag = false;
+
+        // 이중체크
+        RectTransform rect = dropZone.GetComponent<RectTransform>();
+        if (RectTransformUtility.RectangleContainsScreenPoint(rect, eventData.position, null)) {
+            // 빠른감지용
+            dropZone.HandleDrop(this);
+        }
+        else
+        {
+            // 오답이면 복구
+            ReturnLine();
+        }
     }
 
     // 선위치 실시간 업데이트

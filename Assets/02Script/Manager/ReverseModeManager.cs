@@ -87,7 +87,7 @@ public class ReverseModeManager : MonoBehaviour, IGameEvent
         EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.HorrorReverse, true));
 
         // 효과음
-        EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.grrr));
+        EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.enemyScream));
 
         // 타임라인 시작
         appearance.Play();
