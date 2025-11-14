@@ -77,7 +77,7 @@ public class HappyOnePuzzles : EventBase
 
     private IEnumerator PlayEnemyEvent() {
         yield return new WaitForSeconds(2f);
-        // 귀신 등장 브금
+        // 귀신 등장 효과음
         EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.enemyScream));
 
         // 이벤트 모드
@@ -99,6 +99,9 @@ public class HappyOnePuzzles : EventBase
             // 괴물 ChaseMode
             Debug.Log("술래잡기 시작!");
             EventBus.Instance.Publish<GameEvents.EnemyStateChange>(new GameEvents.EnemyStateChange(EnemyState.Chase));
+
+            // 귀신 브금
+            EventBus.Instance.Publish<GameEvents.PlayBGM>(new GameEvents.PlayBGM(BGMType.EnemyBGM));
 
             // 카메라효과
             EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.Glitch, true));

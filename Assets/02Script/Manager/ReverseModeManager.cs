@@ -89,6 +89,9 @@ public class ReverseModeManager : MonoBehaviour, IGameEvent
         // 효과음
         EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.enemyScream));
 
+        // 브금 변경
+        EventBus.Instance.Publish<GameEvents.PlayBGM>(new GameEvents.PlayBGM(BGMType.EnemyBGM));
+
         // 타임라인 시작
         appearance.Play();
 
