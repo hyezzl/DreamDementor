@@ -7,7 +7,6 @@ using UnityEngine;
 /// <summary>
 /// 일러스트 감상 시, 스파인 비활성화
 /// </summary>
-
 public class SpineManager : MonoBehaviour
 {
     [SerializeField] private SkeletonGraphic spine;
