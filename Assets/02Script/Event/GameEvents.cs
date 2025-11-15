@@ -452,6 +452,14 @@ public static class GameEvents
     }
 
 
+    // ³¯¾¾
+    public struct ChangeWeather
+    {
+        public bool isOn;
+        public ChangeWeather(bool isOn) { 
+            this.isOn = isOn;
+        }
+    }
 
 
 

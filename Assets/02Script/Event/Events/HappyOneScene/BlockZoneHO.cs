@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockZone : BlockTriggerZone
+public class BlockZoneHO : BlockTriggerZone
 {
 
     private int[] requireIDs = { 10001002, 10001003, 10001004 };
@@ -13,8 +13,6 @@ public class BlockZone : BlockTriggerZone
         if (other.CompareTag("Player")) { 
             if (!IsSatisfying())
             {
-                Debug.Log("열쇠를 가지고 있지 않음");
-
                 EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(eventID));
                 EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
             }

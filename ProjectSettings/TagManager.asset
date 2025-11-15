@@ -10,6 +10,7 @@ TagManager:
   - PuzzleTarget
   - Road
   - EscapeDoor
+  - Tunnel
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - TriggerZone
   - Transparency
   - PP
-  - 
+  - Weather
   - 
   - 
   - 
