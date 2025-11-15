@@ -4104,6 +4104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1946c938bbaec848bbe548e4ee62dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cams: []
   fixCam: {fileID: 1579875460452039507}
   enemyCam: {fileID: 4029453063377349692}
   betweenCam: {fileID: 1941151789}
@@ -16245,7 +16246,7 @@ MonoBehaviour:
   timeline02: {fileID: 843929494}
   dialog: {fileID: 281569418}
   tutorialPopup: {fileID: 8299543878620079426}
-  yesBTN: {fileID: 0}
+  playerDialog: {fileID: 281569423}
   playerAnim: {fileID: 5191428394091071734}
   EnemyAnim: {fileID: 2552751874383624724}
   glitch: {fileID: 2039305658}
@@ -193417,7 +193418,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.45, y: 0.8}
+  m_Size: {x: 0.39, y: 0.7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

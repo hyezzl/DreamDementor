@@ -22,6 +22,11 @@ public class HappyPuzzleManager : MonoBehaviour
         // 스테이지 종료 알림
         EventBus.Instance.Publish<GameEvents.StageEnd>(new GameEvents.StageEnd(Stage.Happy));
 
+        // 사용된 3개 아이템 제거
+        InventoryManager.Instance.RemoveItem(10001002);
+        InventoryManager.Instance.RemoveItem(10001003);
+        InventoryManager.Instance.RemoveItem(10001004);
+
         // 씬이동
         EventBus.Instance.Publish<GameEvents.SwitchScene>(new GameEvents.SwitchScene(SceneType.HappyScene, SceneType.RestScene));
     }

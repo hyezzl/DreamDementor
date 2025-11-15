@@ -217,7 +217,6 @@ public static class GameEvents
     public struct FilterOn
     {
         public FilterType type;
-        //public ICameraFilter filter;
         public bool isLasting;
         public float duration;
         public FilterOn(FilterType type, bool isLasting = true, float duration = 1f) {
@@ -258,6 +257,29 @@ public static class GameEvents
             this.type = type;
         }
     }
+
+    // Only 효과음
+    public struct PlayOnlySFX
+    {
+        public SFXType type;
+        public PlayOnlySFX(SFXType type) {
+            this.type = type;
+        }
+    }
+
+    // 루프용 효과음
+    public struct PlayLoopSFX
+    {
+        public SFXType type;
+        public PlayLoopSFX(SFXType type)
+        {
+            this.type = type;
+        }
+    }
+
+
+    // 효과음 중단
+    public struct StopSFX { }
 
 
 

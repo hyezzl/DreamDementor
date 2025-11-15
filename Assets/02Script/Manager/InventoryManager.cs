@@ -87,7 +87,7 @@ public class InventoryManager : Singleton<InventoryManager>, IInventory
     }
 
     // 아이템 사용 시, 지워지는 함수
-    private void RemoveItem(int itemID)
+    public void RemoveItem(int itemID)
     {
         // 조건에 맞는 첫 번째 ItemInstance 찾기
         var item = inventory.FirstOrDefault(i => i.itemID == itemID);

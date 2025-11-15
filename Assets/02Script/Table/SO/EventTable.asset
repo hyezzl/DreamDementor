@@ -145,6 +145,30 @@ MonoBehaviour:
   - EventID: E043
     EventName: 
     EventType: Conversation
+  - EventID: E044
+    EventName: 
+    EventType: Conversation
+  - EventID: E045
+    EventName: 
+    EventType: Conversation
+  - EventID: E046
+    EventName: 
+    EventType: Conversation
+  - EventID: E047
+    EventName: 
+    EventType: Conversation
+  - EventID: E048
+    EventName: 
+    EventType: Conversation
+  - EventID: E049
+    EventName: 
+    EventType: Conversation
+  - EventID: E050
+    EventName: 
+    EventType: Conversation
+  - EventID: E051
+    EventName: 
+    EventType: Conversation
   Narration:
   - EventID: E001
     Order: 1
@@ -1688,10 +1712,10 @@ MonoBehaviour:
     Emotion: 0
   - EventID: E040
     EventDetailID: E040
-    LogID: 40000
+    LogID: 40001
     Dialog: "\uC124\uB9C8.... \uC544\uAE4C \uBD24\uB358 \uADF8 \uAD34\uBB3C\uC758
       \uC18C\uB9AC...?"
-    NextID: 40001
+    NextID: 40002
     Speaker: Player
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
@@ -1699,7 +1723,7 @@ MonoBehaviour:
     Emotion: 6
   - EventID: E040
     EventDetailID: E040
-    LogID: 40001
+    LogID: 40002
     Dialog: "\uB3C4\uB9DD\uCCD0\uC57C\uD574...!"
     NextID: -1
     Speaker: Player
@@ -1768,6 +1792,319 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Basic
     Emotion: 5
+  - EventID: E044
+    EventDetailID: E044
+    LogID: 44001
+    Dialog: "\uCC98\uC74C \uBCF4\uB294 \uD130\uB110\uC778\uB370.."
+    NextID: 44002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E044
+    EventDetailID: E044
+    LogID: 44002
+    Dialog: "\uC6B0\uB9AC \uB3D9\uB124\uC5D0 \uC774\uB7F0 \uD130\uB110\uC774 \uC788\uC5C8\uB098?"
+    NextID: 44003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E044
+    EventDetailID: E044
+    LogID: 44003
+    Dialog: "\uB108\uBB34 \uC5B4\uB450\uC6CC\uC11C \uC55E\uC774 \uC798 \uC548\uBCF4\uC774\uB124.."
+    NextID: 44004
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E044
+    EventDetailID: E044
+    LogID: 44004
+    Dialog: "\uC77C\uB2E8 \uC55E\uC73C\uB85C \uAC00\uBD10\uC57C\uACA0\uB2E4.."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E045
+    EventDetailID: E045
+    LogID: 45001
+    Dialog: "\uC800\uAE30\uAC00 \uD130\uB110 \uCD9C\uAD6C\uC778\uAC00?"
+    NextID: 45002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E045
+    EventDetailID: E045
+    LogID: 45002
+    Dialog: "\uC870\uAE08\uB9CC \uB354 \uAC00\uBA74 \uB418\uACA0\uB2E4."
+    NextID: 45003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E045
+    EventDetailID: E045
+    LogID: 45003
+    Dialog: "\uC5B4..?"
+    NextID: 45004
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E045
+    EventDetailID: E045
+    LogID: 45004
+    Dialog: "\uC124\uB9C8.....\uC800\uAE34?"
+    NextID: 45005
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E045
+    EventDetailID: E045
+    LogID: 45005
+    Dialog: "\uC544\uB2C8\uACA0\uC9C0..?"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E046
+    EventDetailID: E046
+    LogID: 46001
+    Dialog: "\uB0B4\uAC00 \uC5B4\uB5BB\uAC8C \uC78A\uACE0 \uC0B4\uC558\uB294\uB370..."
+    NextID: 46002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E046
+    EventDetailID: E046
+    LogID: 46002
+    Dialog: "\uC65C \uC5EC\uAE30\uB85C \uC624\uAC8C \uB41C\uAC70\uC57C..."
+    NextID: 46003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E046
+    EventDetailID: E046
+    LogID: 46003
+    Dialog: "\uC5C4\uB9C8....\uC544\uBE60...."
+    NextID: 46004
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E046
+    EventDetailID: E046
+    LogID: 46004
+    Dialog: "\uB2E4 \uB098 \uB54C\uBB38\uC774\uC57C..."
+    NextID: 46005
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E046
+    EventDetailID: E046
+    LogID: 46005
+    Dialog: "\uBBF8\uC548\uD574...."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E047
+    EventDetailID: E047
+    LogID: 47001
+    Dialog: "\uC774\uAC8C \uBB34\uC2A8 \uC18C\uB9AC\uC9C0..?"
+    NextID: 47002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E047
+    EventDetailID: E047
+    LogID: 47002
+    Dialog: "\u3137...\u314F....\u3134....\u3154.....\u3148...\u314F...\u3139...\u3141...\u3157..\u3145..\u3147....\u3151..."
+    NextID: -1
+    Speaker: Extra
+    SpeakerName: ???
+    ChoiceID: 
+    Textbox: Monster
+    Emotion: 0
+  - EventID: E048
+    EventDetailID: E048
+    LogID: 48001
+    Dialog: "\uBC29\uAE08 \uADF8\uAC74 \uBB50\uC600\uC9C0..?"
+    NextID: 48002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E048
+    EventDetailID: E048
+    LogID: 48002
+    Dialog: "\uADF8\uB798 \uB9DE\uC544..."
+    NextID: 48003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E048
+    EventDetailID: E048
+    LogID: 48003
+    Dialog: "\uAE30\uC5B5\uB0AC\uC5B4.."
+    NextID: 48004
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E048
+    EventDetailID: E048
+    LogID: 48004
+    Dialog: "\uC544\uAE4C \uD559\uAD50\uC5D0\uC11C \uAFBC \uAFC8.."
+    NextID: 48005
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E048
+    EventDetailID: E048
+    LogID: 48005
+    Dialog: "\uADF8\uACF3\uC5D0\uC11C\uB3C4  \uC800\uB140\uC11D\uC744 \uBD24\uC5C8\uC5B4.."
+    NextID: 48006
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E048
+    EventDetailID: E048
+    LogID: 48006
+    Dialog: "\uD639\uC2DC...."
+    NextID: 48007
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E048
+    EventDetailID: E048
+    LogID: 48007
+    Dialog: "\uC5C4\uB9C8\uC758 \uC77C\uAE30\uC7A5\uC5D0 \uC4F0\uC5EC\uC788\uB358
+      \uBABD\uB839\uC774 \uBC14\uB85C \uC800 \uB140\uC11D\uC778\uAC00..?"
+    NextID: 48008
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E048
+    EventDetailID: E048
+    LogID: 48008
+    Dialog: "\uC18C\uB984\uB07C\uCCD0...."
+    NextID: 48009
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E048
+    EventDetailID: E048
+    LogID: 48009
+    Dialog: "\uC5B4\uC11C \uBE68\uB9AC \uBE44\uBC00\uBC88\uD638\uB97C \uCC3E\uACE0
+      \uC5EC\uAE30\uC11C \uB3C4\uB9DD\uCCD0\uC57C\uACA0\uB2E4.."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E049
+    EventDetailID: E049
+    LogID: 49001
+    Dialog: "\uC800 \uAC00\uB85C\uB4F1... \uBB54\uAC00 \uC774\uC0C1\uD55C\uB370.."
+    NextID: 49002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E049
+    EventDetailID: E049
+    LogID: 49002
+    Dialog: "\uD55C\uBC88 \uD655\uC778 \uD574\uBCFC\uAE4C..."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E050
+    EventDetailID: E050
+    LogID: 50001
+    Dialog: "\uC790\uB3D9\uCC28 \uC548\uC5D0 \uBB54\uAC00 \uC788\uC744\uAC70\uAC19\uC740\uB370..."
+    NextID: 50002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E050
+    EventDetailID: E050
+    LogID: 50002
+    Dialog: "\uBB38\uC774 \uC5F4\uB9AC\uB824\uB098..?"
+    NextID: 50003
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E050
+    EventDetailID: E050
+    LogID: 50003
+    Dialog: "\uD55C\uBC88 \uD655\uC778 \uD574\uBD10\uC57C\uACA0\uB2E4.."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Basic
+    Emotion: 0
+  - EventID: E051
+    EventDetailID: E051
+    LogID: 51001
+    Dialog: "\uBE44\uBC00\uBC88\uD638\uB97C \uCC3E\uAE30 \uC804\uAE4C\uC9C4 \uB3CC\uC544\uAC08
+      \uC218 \uC5C6\uC5B4.."
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Monologue
+    Emotion: -1
   Choice:
   - ChoiceID: C001
     Choice0: " \uB2F9\uC2E0\uC740 \uC5C4\uB9C8\uAC00 \uC544\uB2C8\uC57C.\n\uB108..\uB204\uAD6C\uC57C?"

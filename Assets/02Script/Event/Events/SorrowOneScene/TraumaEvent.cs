@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
 
 
 /// <summary>
@@ -8,30 +10,26 @@ using UnityEngine;
 /// </summary>
 public class TraumaEvent : TriggerZone
 {
-    public Animator enemyAnim;       // 괴물 애니메이터
-
+    public GameObject enemy;       // 괴물 애니메이터
+    public PlayableDirector traumaTimeline;
+    
     public override void OnTrigger(GameObject actor)
     {
-        Debug.Log("부딪힘");
-        //if (!isContacted && initialDialog != null)
-        if (!isContacted)
+        if (!isContacted && initialDialog != null)
+        //if (!isContacted)
         {
             // 귀신 등장음
             EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.enemyLaugh));
 
             // 귀신 활성화
-            enemyAnim.gameObject.SetActive(true);
+            enemy.SetActive(true);
 
             // 이벤트 모드 변경
             PlayerController.Instance.CurMode = GameMode.EventMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
 
-            // 카메라 블렌딩 (타임라인? 단순 이벤트?)
-            StartCoroutine(CameraBlend());
-
-            // 대화이벤트
-            Debug.Log("대화이벤트 진행!");
-            //EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
+            // 타임라인 + 대사이벤트
+            StartCoroutine(TraumaTimeline());
         }
     }
 
@@ -40,33 +38,33 @@ public class TraumaEvent : TriggerZone
     public override void OnEndDialog(UIEvents.EndDialog evt)
     {
         // 귀신 사라짐
-        StartCoroutine(FadeOutEnemy());
+        //StartCoroutine(FadeOutEnemy());
 
         // 마지막에!
         base.OnEndDialog(evt);
     }
 
-    private IEnumerator CameraBlend() {
-        EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.EnemyCam, 1));
-        
-        yield return new WaitForSeconds(3f);    // 블렌드 + 쳐다보기
 
-        EventBus.Instance.Publish<GameEvents.CameraShift>(new GameEvents.CameraShift(CameraType.PlayerSightCam, 1));
-    }
+    // 트라우마 귀신 등장 타임라인
+    private IEnumerator TraumaTimeline() {
+        yield return new WaitForSeconds(3f);        // 효과음 후 1초동안 대기
 
-    // 귀신 사라짐
-    private IEnumerator FadeOutEnemy() {
-        // 귀신 사라짐
-        enemyAnim.SetTrigger("FadeOut");
+        // 카메라 필터 ON
+        EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.HorrorReverse, true));
 
-        // 애니메이터에서 현재 상태 길이만큼 대기
-        AnimatorStateInfo stateInfo = enemyAnim.GetCurrentAnimatorStateInfo(0);
+        // 타임라인 시작
+        traumaTimeline.Play();
+
+        yield return new WaitUntil(() => traumaTimeline.state != PlayState.Playing);
         yield return null;
-        stateInfo = enemyAnim.GetCurrentAnimatorStateInfo(0);
 
-        yield return new WaitForSeconds(stateInfo.length);
+        // 카메라 필터 OFF
+        EventBus.Instance.Publish<GameEvents.FilterOff>(new GameEvents.FilterOff(FilterType.HorrorReverse));
 
-        // 비활성화
-        enemyAnim.gameObject.SetActive(false);
+        // 괴물 비활성화
+        enemy.SetActive(false);
+
+        // 대화 이벤트 시작
+        EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
     }
 }

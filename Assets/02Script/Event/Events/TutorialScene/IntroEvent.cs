@@ -82,17 +82,7 @@ public class IntroEvent : EventBase
             zoomScale,
             zoomDuration));
 
-        // 책 등장
-        //book.alpha = 1f;
-        //yield return StartCoroutine(FadeGroup(book, 1f, 0f, 1f));
-        // 과 동시에 페이드 아웃
-        //yield return StartCoroutine(FadeGroup(book, 1f, 0f, 0.15f));
-        //StartCoroutine(FadeGroup(book, 1.5f, 1f, 0.1f));
-
-
         // 3. 검은 배경과 텍스트 활성화
-        //book.alpha = 0.1f;
-        //background.gameObject.SetActive(true);
         textArea.gameObject.SetActive(true);
         textArea.text = "";
 
@@ -112,9 +102,12 @@ public class IntroEvent : EventBase
         }
         textArea.gameObject.SetActive(false);
         StartCoroutine(FadeInBackground(0.7f, false));
-        
+
         // 타이핑 끝나고 화면 꺼주기
         //background.gameObject.SetActive(false);
+
+        // 나레이션 효과음 즉시 제거
+        EventBus.Instance.Publish<GameEvents.StopSFX>(new GameEvents.StopSFX());
 
         // 바로 다음 이벤트 호출
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E003"));
@@ -132,6 +125,10 @@ public class IntroEvent : EventBase
         blinkCor = StartCoroutine(BlinkArrow()); // Arrow blink 0.5초후 시작
 
         foreach (var narration in narrations.OrderBy(n => n.order)) {
+
+            // 글씨쓰는 효과음
+            EventBus.Instance.Publish<GameEvents.PlayOnlySFX>(new GameEvents.PlayOnlySFX(SFXType.pencilSound));
+
             float duration = narration.text.Length * typingSpeed;
             var typing = textArea.DOText(narration.text + "\n", duration).SetEase(Ease.Linear);
 

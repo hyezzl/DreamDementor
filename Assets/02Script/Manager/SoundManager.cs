@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UIElements;
 
 public enum BGMType
 { 
@@ -36,6 +37,7 @@ public class SoundManager : Singleton<SoundManager>
     public AudioSource bgmSource;
     public AudioSource sfxSource01;
     public AudioSource sfxSource02;
+    public AudioSource loopSfxSource;       // 루프용 SFX오디오 소스
 
     [Header("Clip List")]
     public AudioClip[] bgmClips;
@@ -47,6 +49,9 @@ public class SoundManager : Singleton<SoundManager>
     // 현재 사운드 상태값
     public bool isBGMPlaying = false;
     public bool isSFXPlaying = false;
+
+    // onlySFX 변수
+    public bool isOnlySfxPlaying = false;
 
     private Coroutine bgmCoroutine;
 
@@ -75,6 +80,9 @@ public class SoundManager : Singleton<SoundManager>
         EventBus.Instance.Subscribe<GameEvents.PlayBGM>(OnPlayBGM);
         EventBus.Instance.Subscribe<GameEvents.StopBGM>(OnStopBGM);
         EventBus.Instance.Subscribe<GameEvents.PlaySFX>(OnPlaySFX);
+        EventBus.Instance.Subscribe<GameEvents.PlayOnlySFX>(OnPlayOnlySFX);
+        EventBus.Instance.Subscribe<GameEvents.PlayLoopSFX>(OnPlayLoopSFX);
+        EventBus.Instance.Subscribe<GameEvents.StopSFX>(OnStopSFX);
         // SFX
     }
     private void OnDisable()
@@ -84,6 +92,9 @@ public class SoundManager : Singleton<SoundManager>
 
         EventBus.Instance.Unsubscribe<GameEvents.PlayBGM>(OnPlayBGM);
         EventBus.Instance.Unsubscribe<GameEvents.StopBGM>(OnStopBGM);
+        EventBus.Instance.Unsubscribe<GameEvents.PlayOnlySFX>(OnPlayOnlySFX);
+        EventBus.Instance.Unsubscribe<GameEvents.PlayLoopSFX>(OnPlayLoopSFX);
+        EventBus.Instance.Unsubscribe<GameEvents.StopSFX>(OnStopSFX);
     }
 
     // 새로운 스테이지가 시작 (첫시작)
@@ -125,6 +136,22 @@ public class SoundManager : Singleton<SoundManager>
         int sfxIdx = (int)evt.type;
 
         PlaySFX(sfxIdx);
+    }
+
+    private void OnPlayOnlySFX(GameEvents.PlayOnlySFX evt) {
+        int sfxIdx = (int)evt.type;
+
+        PlayOnlySFX(sfxIdx);
+    }
+
+    private void OnPlayLoopSFX(GameEvents.PlayLoopSFX evt) {
+        int sfxIdx = (int)evt.type;
+
+    }
+
+    // SFX 중단
+    private void OnStopSFX(GameEvents.StopSFX evt) {
+        StopSFX();
     }
 
 
@@ -176,7 +203,7 @@ public class SoundManager : Singleton<SoundManager>
         }
         else if (!sfxSource02.isPlaying)
         {
-            // 1번 사용중이면 1번에서 재생
+            // 1번 사용중이면 2번에서 재생
             sfxSource02.PlayOneShot(sfxClips[sfxIndex]);
         }
         else {
@@ -185,6 +212,59 @@ public class SoundManager : Singleton<SoundManager>
             // 첫번째 소스 무시하고 재생
             sfxSource01.PlayOneShot(sfxClips[sfxIndex]);
         }
+    }
+
+    // SFX 중복없이 재생
+    public void PlayOnlySFX(int sfxIndex) {
+        if (!isOnlySfxPlaying) {
+            isOnlySfxPlaying = true;
+
+            // 사운드 재생
+            if (!sfxSource01.isPlaying)
+            {
+                sfxSource01.PlayOneShot(sfxClips[sfxIndex]);
+            }
+            else if (!sfxSource02.isPlaying)
+            {
+                sfxSource02.PlayOneShot(sfxClips[sfxIndex]);
+            }
+            else
+            {
+                Debug.LogError("3개의 소리가 겹쳐 첫번째 SFX 소리가 무시됨!!!!!!!!!!");
+                sfxSource01.PlayOneShot(sfxClips[sfxIndex]);
+            }
+
+            // 끝나고 플래그 리셋
+            StartCoroutine(ResetOnlySFX(sfxClips[sfxIndex].length));
+        }
+    }
+
+    // Loop될 SFX 재생
+    public void PlayLoopSFX(int sfxIndex) {
+        if (!loopSfxSource.isPlaying) {
+            loopSfxSource.clip = sfxClips[sfxIndex];
+            loopSfxSource.loop = true;
+            loopSfxSource.Play();
+        }
+    }
+
+
+    // SFX 즉시 종료
+    public void StopSFX() {
+        sfxSource01.Stop();
+        sfxSource02.Stop();
+        loopSfxSource.Stop();
+
+        isOnlySfxPlaying = false;
+        isSFXPlaying = false;
+    }
+
+
+    // 코루틴
+    public IEnumerator ResetOnlySFX(float delay) {
+        yield return new WaitForSeconds(delay);
+
+        isOnlySfxPlaying = false;
     }
 
 

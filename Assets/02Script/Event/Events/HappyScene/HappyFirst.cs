@@ -62,12 +62,14 @@ public class HappyFirst : SceneStart
         pp.gameObject.SetActive(false);
 
         if (revisitDialog == null) {
-            Debug.Log("혹시나....는맞았다 여기없으면 오류남.");
             revisitDialog = database.GetDialog(reEventID, reEventID);
         }
 
         // 재방문 + 열쇠 3개 모두 가지고있을경우   
         if (IsSatisfying()) {
+            // 브금 다시 해피로
+            EventBus.Instance.Publish<GameEvents.PlayBGM>(new GameEvents.PlayBGM(BGMType.HappyBGM));
+
             // 19번 이벤트 발행
             EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(reEventID, revisitDialog, GameMode.InspectMode));
 

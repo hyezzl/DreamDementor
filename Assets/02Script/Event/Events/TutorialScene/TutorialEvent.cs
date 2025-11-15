@@ -16,7 +16,7 @@ public class TutorialEvent : EventBase
     [Header("UIRefs")]
     [SerializeField] private CanvasGroup dialog;
     [SerializeField] private GameObject tutorialPopup;
-    [SerializeField] private Button yesBTN;
+    [SerializeField] private CanvasGroup playerDialog;
 
     [Header("Animator")]
     [SerializeField] private Animator playerAnim;
@@ -77,7 +77,8 @@ public class TutorialEvent : EventBase
         // 선택까지 대기
         yield return new WaitUntil(() => isChoice == true); // 이벤트 발생
 
-
+        // 플레이어 대화창 강제 내림
+        playerDialog.alpha = 0f;
 
         // 카메라 필터 (괴물 변신)
         EventBus.Instance.Publish<GameEvents.FilterOn>(new GameEvents.FilterOn(FilterType.Glitch, true));

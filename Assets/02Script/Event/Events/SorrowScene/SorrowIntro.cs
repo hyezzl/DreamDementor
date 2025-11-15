@@ -13,22 +13,13 @@ public class SorrowIntro : EventBase
         pc.CurMode = GameMode.EventMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
 
-        // PlayerPrefs사용한 첫방문 분기
-        //bool sorrowFirstVisit = PlayerPrefs.GetInt("SorrowSceneFirstVisit", 0) == 0;  // 첫방문인가?
-
-        //if (sorrowFirstVisit) { 
-        //    PlayerPrefs.SetInt("SorrowSceneFirstVisit", 1);
-        //    PlayerPrefs.Save();
-
-        //    //브금 재생
-        //}
-
         if (SorrowSceneFirstVisit)
         {
-            Debug.Log("SorrowScene 임시로 재방문켜둠!");
-
             // 브금 재생
             EventBus.Instance.Publish<GameEvents.PlayBGM>(new GameEvents.PlayBGM(BGMType.HappyBGM));
+
+            // 빗소리
+            EventBus.Instance.Publish<GameEvents.PlayLoopSFX>(new GameEvents.PlayLoopSFX(SFXType.rainSound));
 
             SorrowStart();
         }
