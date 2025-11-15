@@ -48,6 +48,9 @@ public class WeatherManager : MonoBehaviour
         // 특정존(ex.터널) 나가면 날씨효과 ON
         if (other.CompareTag("Player"))
         {
+            // 빗소리
+            EventBus.Instance.Publish<GameEvents.PlayLoopSFX>(new GameEvents.PlayLoopSFX(SFXType.rainSound));
+
             weatherParticle.SetActive(true);
             StartCoroutine(FadeOutTemp(tempParticle));
         }
