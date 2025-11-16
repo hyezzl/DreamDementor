@@ -15096,7 +15096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73eee97a8a19d94b81a875aaea0783a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Description: {fileID: 6492541809840461179}
+  description: {fileID: 6492541809840461179}
   outsideBG: {fileID: 6622238978151837730}
   icon: {fileID: 6211688827151115389}
   itemName: {fileID: 8692920344947299878}

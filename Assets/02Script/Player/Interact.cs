@@ -60,7 +60,7 @@ public class Interact : MonoBehaviour
     private void Update()
     {
         OnInteract();
-        if (inputHandler.DoInteract() && SearchForward() != null) Debug.Log("***되는데?");
+        //if (inputHandler.DoInteract() && SearchForward() != null) Debug.Log("***되는데?");
     }
 
 
@@ -87,7 +87,7 @@ public class Interact : MonoBehaviour
             switch (curAspect)
             {
                 case AspectMode.ThirdpersonMode:
-                    if (PlayerController.Instance.CurMode == GameMode.InspectMode)
+                    if (PlayerController.Instance.CurMode == GameMode.InspectMode) { 
                         if (inputHandler.DoInteract() && SearchForward() != null)
                         {
                             {
@@ -95,7 +95,7 @@ public class Interact : MonoBehaviour
                                 SearchForward().Interact();
                             }
                         }
-
+                    }
                     break;
 
 
@@ -104,11 +104,9 @@ public class Interact : MonoBehaviour
                     {
                         if (inputHandler.DoInteract() && sight.curTarget != null)
                         {
-                            Debug.Log("----------상호작용-----------");
                             sight.curTarget.Interact();
                         }
                     }
-
                     break;
 
             }

@@ -41,7 +41,6 @@ public class QuestUI : MonoBehaviour, IGameEvent
         EventBus.Instance.Subscribe<GameEvents.EndEvent>(OnEndEvent);
         EventBus.Instance.Subscribe<UIEvents.EndDialog>(OnEndDialog);
         EventBus.Instance.Subscribe<UIEvents.EndNpcDialog>(OnEndNpcDialog);
-
     }
 
     private void OnDisable()
@@ -50,7 +49,6 @@ public class QuestUI : MonoBehaviour, IGameEvent
         EventBus.Instance.Unsubscribe<GameEvents.EndEvent>(OnEndEvent);
         EventBus.Instance.Unsubscribe<UIEvents.EndDialog>(OnEndDialog);
         EventBus.Instance.Unsubscribe<UIEvents.EndNpcDialog>(OnEndNpcDialog);
-
     }
 
     private void OnEndEvent(GameEvents.EndEvent evt) { 
@@ -117,10 +115,8 @@ public class QuestUI : MonoBehaviour, IGameEvent
     }
 
     private void OpenQuest() { canvas.alpha = 1f; }
-    private void CloseQuest() { 
+    public void CloseQuest() { 
         canvas.alpha = 0f;
         curQuest = null;
     }
-
-
 }

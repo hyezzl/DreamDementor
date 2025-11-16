@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class InventoryDescription : MonoBehaviour, IInventory
 {
     [Header("UI Refs")]
+    [SerializeField] private GameObject description;
     [SerializeField] private Button outsideBG;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI itemName;
@@ -18,7 +19,6 @@ public class InventoryDescription : MonoBehaviour, IInventory
     [SerializeField] private Button noBTN;
     [SerializeField] private Sprite nothing;
 
-    private GameObject description;
     private IDatabase database;
     private PickableData pickable;
     private EatableData eatable;
@@ -34,9 +34,6 @@ public class InventoryDescription : MonoBehaviour, IInventory
     {
         pm = FindAnyObjectByType<PhoneUIManager>();
         if (pm == null) Debug.Log("InventoryDescription - Failed to Load PhoneUIManager");
-
-        //description = transform.Find("Content/Contents/Inventory/DescriptionPopup")?.gameObject;
-        //if (description == null) Debug.Log("안됐어..");
     }
 
     private void Update()
@@ -66,27 +63,17 @@ public class InventoryDescription : MonoBehaviour, IInventory
 
         outsideBG?.onClick.AddListener(CloseDescription);
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
         Clear();
     }
     private void OnDisable()
     {
-        EventBus.Instance.Subscribe<UIEvents.SlotClicked>(OnSlotClicked);
+        EventBus.Instance.Unsubscribe<UIEvents.SlotClicked>(OnSlotClicked);
         exitBTN?.onClick.RemoveListener(CloseDescription);
 
         yesBTN.onClick.RemoveListener(YesBTN);
         noBTN.onClick.RemoveListener(CloseDescription);
 
         outsideBG?.onClick.RemoveListener(CloseDescription);
-
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        //씬이 바뀔때마다 새로운 오브젝트 할당
-        description = transform.Find("Content/Contents/Inventory/DescriptionPopup")?.gameObject;
-        if (description == null) Debug.Log("안됐어..");
     }
 
     private void OnSlotClicked(UIEvents.SlotClicked evt) {

@@ -130,6 +130,10 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
 
     // 전환 효과 후 씬이동
     private IEnumerator CloseScene(SceneType nextScene) {
+        // 씬 닫기 직전 퀘스트UI 강제 닫기
+        QuestUI questUI = FindObjectOfType<QuestUI>();
+        if (questUI != null)
+            questUI.CloseQuest();         // 알파값 0으로
 
         if (curScene != SceneType.TutorialScene && curScene != SceneType.TitleScene) 
         {

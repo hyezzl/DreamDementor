@@ -56,7 +56,7 @@ public class HappyFirst : SceneStart
         base.OnRevisit();
         Debug.Log("해피맵 재방문!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
-        // NPC / Zone Load
+        // NPC Info Load
         SaveManager.Instance.AutoLoad();
 
         pp.gameObject.SetActive(false);
@@ -66,7 +66,8 @@ public class HappyFirst : SceneStart
         }
 
         // 재방문 + 열쇠 3개 모두 가지고있을경우   
-        if (IsSatisfying()) {
+        if (IsSatisfying())
+        {
             // 브금 다시 해피로
             EventBus.Instance.Publish<GameEvents.PlayBGM>(new GameEvents.PlayBGM(BGMType.HappyBGM));
 
@@ -76,13 +77,11 @@ public class HappyFirst : SceneStart
             // 포탈 비활성화
             portal.enabled = false;
         }
+        else {
+            // 그냥 재방문 (상정하지 않을거지만 혹시나)
+            Debug.Log("그냥 재방문!!!! 근데 왜 아무키도 안먹지?");
+        }
     }
-
-    protected override void OnSceneStart()
-    {
-
-    }
-
 
     private IEnumerator PlayEvents()
     {

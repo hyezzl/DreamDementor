@@ -34,9 +34,14 @@ public class HappyOneFirst : SceneStart
 
     protected override void OnSceneStart()
     {
-
         EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(startEventID));
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.EventMode));
+    }
+
+    protected override void OnSceneRestart()
+    {
+        PlayerController.Instance.CurMode = GameMode.InspectMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
     }
 
     protected override void AfterDialog(UIEvents.EndDialog evt)

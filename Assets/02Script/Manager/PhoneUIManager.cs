@@ -110,6 +110,11 @@ public class PhoneUIManager : MonoBehaviour
         isAnimating = true;
         background.gameObject.SetActive(false);
 
+        // ´Ý±âÁ÷Àü È¤½Ã, Description ÄÑÁ®ÀÖ´Ù¸é ²¨ÁÜ
+        if (invenDesc != null) {
+            invenDesc.CloseDescription();
+        }
+
         yield return phone.DOAnchorPos(hidePos, 0.8f)
             .SetEase(Ease.InOutSine)
             .WaitForCompletion();
