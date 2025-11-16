@@ -55,8 +55,6 @@ public class QuizNPC : NPC
         // 통과 이후 대화끝
         if (evt.npcID == npcID && evt.npcEventID == curNpcEventID && isPass)
         {
-            Debug.Log($"*통과 이후 대화끝입니다");
-
             if (!isDeactive) { 
                 // 퀴즈 합격 (단발)
                 EventBus.Instance.Publish<PuzzleEvents.PassedQuiz>(new PuzzleEvents.PassedQuiz(npcID));

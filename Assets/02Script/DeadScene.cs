@@ -137,62 +137,12 @@ public class DeadScene : MonoBehaviour//, IPointerEnterHandler, IPointerExitHand
         SaveManager.Instance.ReloadScene(SwitchSceneManager.Instance.CurScene);
     }
 
-    /// 버튼
-
-    // loadBTN 전용
-    //public void OnLoadButtonPointerEnter(PointerEventData eventData)
-    //{
-    //    if (backImg != null)
-    //        backImg.enabled = true;
-    //}
-    //public void OnLoadButtonPointerExit(PointerEventData eventData)
-    //{
-    //    if (backImg != null)
-    //        backImg.enabled = false;
-    //}
-
-    //// exitBTN 전용
-    //public void OnExitButtonPointerEnter(PointerEventData eventData)
-    //{
-    //    if (backImg2 != null)
-    //        backImg2.enabled = true;
-    //}
-    //public void OnExitButtonPointerExit(PointerEventData eventData)
-    //{
-    //    if (backImg2 != null)
-    //        backImg2.enabled = false;
-    //}
-
-    //public void OnPointerEnter(PointerEventData eventData)
-    //{
-    //    if (eventData.pointerEnter == loadBTN.gameObject)
-    //    {
-    //        if (backImg != null) backImg.enabled = true;
-    //    }
-    //    else if (eventData.pointerEnter == exitBTN.gameObject)
-    //    {
-    //        if (backImg2 != null) backImg2.enabled = true;
-    //    }
-    //}
-
-    //public void OnPointerExit(PointerEventData eventData)
-    //{
-    //    if (eventData.pointerEnter == loadBTN.gameObject)
-    //    {
-    //        if (backImg != null) backImg.enabled = false;
-    //    }
-    //    else if (eventData.pointerEnter == exitBTN.gameObject)
-    //    {
-    //        if (backImg2 != null) backImg2.enabled = false;
-    //    }
-    //}
-
-
 
     private void ExitGame()
     {
+        Debug.Log("게임이 종료 됩니다!!!!!!!!!!!!!!!!!!!!!!!!!");
+
         // 종료버튼
-        // 아니면 타이틀로?
-        Application.Quit();
+        EventBus.Instance.Publish<UIEvents.WarningShutdown>(new UIEvents.WarningShutdown());
     }
 }

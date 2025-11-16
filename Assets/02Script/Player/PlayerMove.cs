@@ -442,7 +442,8 @@ public class PlayerMove : MonoBehaviour, IMoveObject
             canRunning = false;
             forceRunning = true;
         }
-        else if (!forceRunning && evt.mode != GameMode.EventInInspectMode) {
+        else if (evt.mode != GameMode.EventInInspectMode) // !forceRunning < 조건 삭제
+        {
             canRunning = true;
             forceRunning = false;
         }

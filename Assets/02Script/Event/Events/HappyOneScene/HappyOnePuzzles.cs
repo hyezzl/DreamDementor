@@ -27,8 +27,8 @@ public class HappyOnePuzzles : EventBase
     [SerializeField] private CanvasGroup questgroup;
     [SerializeField] private TextMeshProUGUI quest;
 
-
-
+    // 분수 npc
+    private string[] npcIDs = { "N006", "N007", "N008" };
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -47,7 +47,7 @@ public class HappyOnePuzzles : EventBase
         EventBus.Instance.Unsubscribe<PuzzleEvents.HO_GetKey>(OnGetKey);
         EventBus.Instance.Unsubscribe<GameEvents.GameOver>(OnGameOver);
     }
-
+    
     private void OnGetKey(PuzzleEvents.HO_GetKey evt) {
         HOcurKeyCnt++;
         Debug.Log($"현재까지 모은 열쇠 갯수 : {HOcurKeyCnt}");
@@ -64,7 +64,6 @@ public class HappyOnePuzzles : EventBase
 
             // 문을 막고있던 BlockZone 삭제
             blockzone.SetActive(false);
-            Debug.Log("문을 막고 있던 블락존 삭제!");
 
             // EnemySpawn
             EventBus.Instance.Publish<PuzzleEvents.HO_AppearEnemy>(new PuzzleEvents.HO_AppearEnemy(npcID));
@@ -76,7 +75,17 @@ public class HappyOnePuzzles : EventBase
 
 
     private IEnumerator PlayEnemyEvent() {
+        yield return null;
+        yield return null;
+
+        // 모드변경 (강제변경)
+        PlayerController.Instance.CurMode = GameMode.EventInInspectMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventInInspectMode));
+
+
         yield return new WaitForSeconds(2f);
+
+
         // 귀신 등장 효과음
         EventBus.Instance.Publish<GameEvents.PlaySFX>(new GameEvents.PlaySFX(SFXType.enemyScream));
 
@@ -95,6 +104,9 @@ public class HappyOnePuzzles : EventBase
     {
         if (evt.eventID == eventID) {
             // 귀신 등장관련 이벤트(E40) 이후
+
+            PlayerController.Instance.CurMode = GameMode.InspectMode;
+            EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
 
             // 괴물 ChaseMode
             Debug.Log("술래잡기 시작!");
