@@ -60,4 +60,7 @@ public static class PuzzleEvents
             this.puzzle = puzzle;
         }
     }
+
+    // SO 타임어택
+    public struct SO_TimeAttack { }
 }
