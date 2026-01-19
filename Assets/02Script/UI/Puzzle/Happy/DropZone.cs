@@ -15,7 +15,6 @@ public enum PuzzleItem
     KeyHead,
     KeyBody,
     KeyTail,
-
 }
 
 public class DropZone : MonoBehaviour, IDropHandler
