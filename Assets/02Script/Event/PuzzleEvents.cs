@@ -38,11 +38,19 @@ public static class PuzzleEvents
 
     public struct SO_FixPin { }
     //{
-        //public int pinIdx;
-        //public SO_FixPin(int pinIdx) { 
-        //    this.pinIdx = pinIdx;
-        //}
+    //public int pinIdx;
+    //public SO_FixPin(int pinIdx) { 
+    //    this.pinIdx = pinIdx;
     //}
+    //}
+
+    // 자판기 Complete
+    public struct SO_WorkVendingMachine { }
+
+    // 코인 올바르게 넣음
+    public struct SO_InsertCoin { }
+
+
 
     // CustomItem의 퍼즐이 끝났을때 (더이상 상호작용 하지 못하도록 함)
     public struct CutOff

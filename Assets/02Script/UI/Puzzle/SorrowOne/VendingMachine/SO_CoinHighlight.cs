@@ -7,7 +7,8 @@ public class SO_CoinHighlight : MonoBehaviour
     public Image back;
 
     public float blinkspeed = 1.5f;
-    private float maxAlpha = 0.75f;
+    private float maxAlpha = 0.58f;
+    private float minAlpha = 0.105f;
 
     void Update()
     {
