@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class VendingMachinePuzzle : MonoBehaviour
 {
-    // 두개의 드랍 존
     private PuzzleManager pm;
+
+    // 두가지 버전의 자판기
+    public GameObject uncompleteVendingMachine;
+    public GameObject completeVendingMachine;
 
     private void Awake()
     {
-        pm = transform.GetComponent<PuzzleManager>();
+        pm = transform.parent.GetComponent<PuzzleManager>();
         if (pm == null) Debug.Log("VendingMachinePuzzle - failed to Load PuzzleManager");
     }
 
@@ -23,12 +26,20 @@ public class VendingMachinePuzzle : MonoBehaviour
     }
 
 
-    private void CompleteVendingMachine(PuzzleEvents.SO_WorkVendingMachine evt) { 
+    private void CompleteVendingMachine(PuzzleEvents.SO_WorkVendingMachine evt) {
         // 두개의 동전이 모두 들어갔을때
+        Debug.Log("자판기 퍼즐 완료!");
 
-        // 드랍존 검증 x2
+        // 자판기 변경
+        completeVendingMachine.SetActive(true);
+        uncompleteVendingMachine.SetActive(false);
 
         //효과음
+
+        // Close
+        //pm.CloseAllPuzzleUI();
+
+        //EventBus.Instance.Publish<PuzzleEvents.CutOff>(new PuzzleEvents.CutOff(60001003));
 
     }
 }

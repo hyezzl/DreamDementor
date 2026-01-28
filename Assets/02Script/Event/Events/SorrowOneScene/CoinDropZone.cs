@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CoinDropZone : MonoBehaviour, IDropHandler
+public class CoinDropZone : MonoBehaviour
 {
     private int curCnt = 0;     // 현재 넣어진 동전의 개수
+    private int completeCnt = 2;
 
     private RectTransform rect;
 
@@ -15,32 +17,18 @@ public class CoinDropZone : MonoBehaviour, IDropHandler
     {
         rect = GetComponent<RectTransform>();
     }
-    public void OnDrop(PointerEventData eventData)
-    {
-        var coin = eventData.pointerDrag?.GetComponent<DropCoin>();
-        if (coin != null) { 
-            curCnt++;
 
-            // 드래그 지점이 드롭존 범위 안인지 체크
-            if (RectTransformUtility.RectangleContainsScreenPoint(rect, eventData.position, null))
-            {
-                // 드랍존 위치에서 애니메이션 실행
-                coin.transform.position = transform.position;
+    public void HandleCoin(DropCoin coin) {
 
-                // 애니메이션 실행
+        curCnt++;
+        Debug.Log("코인 들어감!");
 
-                EventBus.Instance.Publish<PuzzleEvents.SO_InsertCoin>(new PuzzleEvents.SO_InsertCoin());
+        //코인 정답 처리
+        coin.InsertCoin(transform.position);
 
-                if (curCnt == 2)
-                {
-
-                }
-            }
-            else { 
-                // 드랍존 외 드랍 시
-            }
-
+        // 2개가 모두 들어갔으면 이벤트 실행
+        if (curCnt >= completeCnt) {
+            EventBus.Instance.Publish<PuzzleEvents.SO_WorkVendingMachine>(new PuzzleEvents.SO_WorkVendingMachine());
         }
-
     }
 }
