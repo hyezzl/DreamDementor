@@ -115,7 +115,6 @@ public class PlayerSight : MonoBehaviour
         }
         else if (overlapItems.Count == 0)
         {
-            //Debug.Log("PlayerSight - GetClosestItem : 감지된 오브젝트가 없습니다");
             return null;
         }
         else

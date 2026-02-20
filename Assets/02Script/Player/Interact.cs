@@ -60,7 +60,6 @@ public class Interact : MonoBehaviour
     private void Update()
     {
         OnInteract();
-        //if (inputHandler.DoInteract() && SearchForward() != null) Debug.Log("***µÇ´Âµ¥?");
     }
 
 

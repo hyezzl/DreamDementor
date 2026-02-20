@@ -9,13 +9,14 @@ using UnityEngine;
 //}
 
 
-public class EventFlowManager : Singleton<EventFlowManager> // ΩÃ±€≈Ê¿œ ¿Ã¿Ø∞°?
+//public class EventFlowManager : Singleton<EventFlowManager> // ΩÃ±€≈Ê¿œ ¿Ã¿Ø∞°?
+public class EventFlowManager : MonoBehaviour // ΩÃ±€≈Ê¿œ ¿Ã¿Ø∞°?
 {
 
-    protected override void DoAwake()
-    {
-        base.DoAwake();
-    }
+    //protected override void DoAwake()
+    //{
+    //    base.DoAwake();
+    //}
 
     private void OnEnable()
     {
