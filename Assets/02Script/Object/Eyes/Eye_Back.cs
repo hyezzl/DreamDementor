@@ -7,6 +7,13 @@ public class Eye_Back : BaseEyes
     public float tempFarDist;
     public float tempNearDist;
 
+    protected override void Start()
+    {
+        base.Start();
+
+        stateName = "BlinkEye_Back";
+    }
+
     protected override int GetVer(Vector3 dir)
     {
         float x = dir.x;

@@ -6,17 +6,28 @@ public abstract class BaseEyes : MonoBehaviour
 {
     public Sprite[] eyes;
     public Transform player;
+    public Animator anim;
     protected SpriteRenderer sr;
+    protected string stateName;
 
     protected virtual void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         if (sr == null) Debug.Log("BaseEyes - Failed to Load SpriteRenderer");
+
+        if (anim == null) {
+            anim = GetComponent<Animator>();
+        }
+
+        StartCoroutine(RandomBlink());
     }
 
-    protected virtual void Update() {
-        if (player != null && sr != null) { 
-            UpdateEyeVer();
+    protected virtual void LateUpdate() {
+        if (player != null && sr != null) {
+
+            if (!IsBlinking()) {
+                UpdateEyeVer();
+            }
         }
     }
 
@@ -32,6 +43,32 @@ public abstract class BaseEyes : MonoBehaviour
         idx = Mathf.Clamp(idx, 0, eyes.Length - 1);
 
         sr.sprite = eyes[idx];
+    }
+
+    protected void BlinkEye() {
+        if (anim != null)
+        {
+            anim.SetTrigger("blink");
+        }
+    }
+
+    protected IEnumerator RandomBlink() {
+        while (true) {
+            float sec = Random.Range(5f, 10f);
+            yield return new WaitForSeconds(sec);
+
+            BlinkEye();
+            Debug.Log(gameObject.name + " 깜빡!");
+        }
+    }
+
+    // 현재 애니메이션 상태인지 조사
+    protected bool IsBlinking() {
+        if (anim == null ||
+            string.IsNullOrEmpty(stateName)) return false;
+
+        AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);  // 0번 레이어
+        return state.IsName(stateName);
     }
 
 

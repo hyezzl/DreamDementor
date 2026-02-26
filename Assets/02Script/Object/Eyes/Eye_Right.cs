@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Eye_Side : BaseEyes
+public class Eye_Right : BaseEyes
 {
     public float tempFarDist;
     public float tempNearDist;
@@ -11,14 +11,14 @@ public class Eye_Side : BaseEyes
     {
         base.Start();
 
-        stateName = "BlinkEye_Side";
+        stateName = "BlinkEye_Right";
     }
 
     protected override int GetVer(Vector3 dir)
     {
         float z = dir.z;
 
-        switch (z) 
+        switch (z)
         {
             case float a when a <= -tempFarDist:
                 return 0;
@@ -41,4 +41,3 @@ public class Eye_Side : BaseEyes
     }
 
 }
-
