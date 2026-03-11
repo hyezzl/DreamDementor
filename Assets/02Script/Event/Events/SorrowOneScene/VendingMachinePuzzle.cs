@@ -19,6 +19,8 @@ public class VendingMachinePuzzle : MonoBehaviour
     // 메모 애니메이터
     public Animator memoAnim;
 
+    public GameObject memoImg;
+
     private void Awake()
     {
         pm = transform.parent.GetComponent<PuzzleManager>();
@@ -29,6 +31,7 @@ public class VendingMachinePuzzle : MonoBehaviour
     {
         selectBtn.gameObject.SetActive(false);
         getBtn.gameObject.SetActive(false);
+        memoImg?.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -83,6 +86,7 @@ public class VendingMachinePuzzle : MonoBehaviour
 
         // 메모 UI 켜짐
         Debug.Log("메모UI켜짐");
+        memoImg?.SetActive(true);
 
     }
 
