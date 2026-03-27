@@ -58,7 +58,6 @@ public abstract class BaseEyes : MonoBehaviour
             yield return new WaitForSeconds(sec);
 
             BlinkEye();
-            Debug.Log(gameObject.name + " ±ôºý!");
         }
     }
 

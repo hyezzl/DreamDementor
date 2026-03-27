@@ -38,5 +38,6 @@ public class InputManager : MonoBehaviour
         FindAnyObjectByType<MonologuePopup>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<PlayerMoveOne>()?.SetInputHandler(inputHandler);
         FindAnyObjectByType<Stamina>()?.SetInputHandler(inputHandler);
+        FindAnyObjectByType<FlashLight>()?.SetInputHandler(inputHandler);
     }
 }

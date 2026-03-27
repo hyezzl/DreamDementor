@@ -92,16 +92,6 @@ public class PlayerMove : MonoBehaviour, IMoveObject
 
     private void Update()
     {
-        //if (moveable && isThree)
-        //{
-        //    Movement();
-        //    ApplyGravity();
-        //}
-        //else if (moveable && !isThree) {
-        //    HandleMouse();
-        //    HandleMovement();
-        //    ApplyGravity();
-        //}
         if (moveable && isThree && !GameManager.IsPaused)
         {
             Movement();
