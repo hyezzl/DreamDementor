@@ -10,7 +10,8 @@ public class FlashLight : MonoBehaviour
     [Header("Light Setting")]
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private GameObject lightObj;
-    [SerializeField] private float tempX = 25.32f;
+    [SerializeField] private GameObject noneLightObj;   // 라이트가 켜지지않았을 경우 기본 빛
+    [SerializeField] private float tempX;
 
     [Header("Gauge Setting")]
     [SerializeField] private Image gaugeImg;
@@ -25,6 +26,8 @@ public class FlashLight : MonoBehaviour
 
 
     private bool isOn = false;
+    private bool canOn = true;      // 당장 플래시라이트를 켤 수 있는지
+    private bool canRecovery = false;    // 충전 가능한지?
 
     public void SetInputHandler(IInputHandler inputHandler) => this.inputHandler = inputHandler;
 
@@ -36,6 +39,10 @@ public class FlashLight : MonoBehaviour
 
         pm = GetComponent<PlayerMove>();
         if (pm == null) Debug.Log("FlashLight - Failed to Load PlayerMove Component");
+
+        // 기본 세팅
+        lightObj.SetActive(false);
+        noneLightObj.SetActive(true);
     }
 
     private void Update()
@@ -44,7 +51,7 @@ public class FlashLight : MonoBehaviour
         if (inputHandler != null && inputHandler.ToggleLight()) {
 
             // 배터리가 있을 때만 켜기 가능
-            if (!isOn && curGauge > 0)
+            if (!isOn && curGauge > 0 && canOn)
             {
                 HandleLight(true);
             }
@@ -61,7 +68,7 @@ public class FlashLight : MonoBehaviour
         }
         else {
             // 꺼져있을 때, 배터리가 풀이 아니라면 회복
-            if (curGauge < maxTime) {
+            if (curGauge < maxTime && canRecovery) {
                 RecoverGauge();
             }
         }
@@ -75,14 +82,24 @@ public class FlashLight : MonoBehaviour
         if (lightObj != null)
         {
             lightObj.SetActive(isOn);
+            noneLightObj.SetActive(!isOn);
         }
 
         // 손전등 토글 사운드
 
-        if (isOn) ShowGaugeUI();
-        else if (curGauge >= maxTime) { 
-            // 껐는데 풀충전이라면 카운트 시작
-            StartHideTimer();
+        if (isOn) {
+            ShowGaugeUI();
+            StopCoroutine(WaitForRecovery());
+            StopCoroutine(WaitForOn());
+        }
+        else { 
+            // 손전등을 끄면 코루틴들 시작
+            StartCoroutine(WaitForOn());
+            StartCoroutine(WaitForRecovery());
+
+            if (curGauge >= maxTime) {
+                StartHideTimer();
+            }
         }
     }
 
@@ -121,6 +138,8 @@ public class FlashLight : MonoBehaviour
 
     // 손전등 배터리 충전
     private void RecoverGauge() {
+        ShowGaugeUI();
+
         curGauge += Time.deltaTime * recoverRatio;
 
         if (curGauge >= maxTime) {
@@ -142,7 +161,32 @@ public class FlashLight : MonoBehaviour
     }
 
 
-    //////// UI
+
+
+
+    //////////// 조건 //////////
+
+    private IEnumerator WaitForRecovery() {
+        canRecovery = false;
+
+        yield return new WaitForSeconds(3f);
+
+        canRecovery = true;
+    }
+
+
+    private IEnumerator WaitForOn() {
+        canOn = false;
+
+        yield return new WaitForSeconds(3f);    // 3초 후 다시 켜기 가능 
+
+        canOn = true;
+    }
+
+
+
+
+    //////// UI  //////////////////////
 
     private void ShowGaugeUI() {
         if (uiFadeCoroutine != null) { 

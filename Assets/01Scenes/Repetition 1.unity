@@ -10707,7 +10707,7 @@ Transform:
   m_GameObject: {fileID: 1783823640}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.01, y: 5.37, z: 0.08}
+  m_LocalPosition: {x: 0.01, y: 5.37, z: 0.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12194,7 +12194,7 @@ Transform:
   m_GameObject: {fileID: 2039305650}
   serializedVersion: 2
   m_LocalRotation: {x: 0.13052626, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 209.51, y: 5.587688, z: -15.492419}
+  m_LocalPosition: {x: 270.85, y: 5.587688, z: -15.492419}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13097,7 +13097,7 @@ Transform:
   m_GameObject: {fileID: 919132147882963388}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 209.51, y: 0, z: 1.8}
+  m_LocalPosition: {x: 270.85, y: 0, z: 1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13807,7 +13807,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 10
   lightObj: {fileID: 1303403740}
-  tempX: 46.42
+  noneLightObj: {fileID: 1783823640}
+  tempX: 35.32
   gaugeImg: {fileID: 2098143169}
   maxTime: 20
   curGauge: 0
