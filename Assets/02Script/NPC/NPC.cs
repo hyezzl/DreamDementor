@@ -10,6 +10,7 @@ public enum NPCType
     QuizNPC,            // 퀴즈 (pass or not)
     NeutralNPC,         // 적대적 / 친화적 (friendly or not)
     EventNPC,           // 강제 이벤트 발행하는 NPC
+    WarpNPC,
 }
 
 

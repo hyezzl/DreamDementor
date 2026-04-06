@@ -194,12 +194,7 @@ public class PlayerController : Singleton<PlayerController>
             case SceneType.SorrowOneScene:
                 return Stage.Sorrow;
 
-            case SceneType.ChaosScene:
-            case SceneType.ChaosOneScene:
-                return Stage.Chaos;
-
             case SceneType.HorrorScene:
-            case SceneType.HorrorOneScene:
                 return Stage.Horror;
 
             default:

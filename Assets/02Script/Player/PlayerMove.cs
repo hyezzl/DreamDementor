@@ -448,6 +448,24 @@ public class PlayerMove : MonoBehaviour, IMoveObject
         Debug.Log("뒤로밀림");
     }
 
+    // 외부에서 호출할 Player 방향 강제수정
+    public void SetPlayerDir(Vector2 dir) {
+        preDir = dir.normalized;
+
+        // 애니메이터
+        Vector3 animDir = transform.InverseTransformDirection(dir);
+
+        if (anim != null) {
+            // 이동 블렌드트리
+            anim.SetFloat("inputX", animDir.x);
+            anim.SetFloat("inputY", animDir.z);
+
+            anim.SetFloat("lookX", animDir.x);
+            anim.SetFloat("lookY", animDir.z);
+        }
+    }
+
+
     // 현재 달리는 중인지?
     private bool IsPlayerRunning() {
         return pc.CurState == PlayerState.Run;

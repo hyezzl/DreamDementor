@@ -11,10 +11,7 @@ public enum SceneType
     RestScene,
     SorrowScene,
     SorrowOneScene,
-    ChaosScene,
-    ChaosOneScene,
     HorrorScene,
-    HorrorOneScene,
     EndingScene,
 
     ClassroomScene,
