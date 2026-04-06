@@ -6,9 +6,23 @@ public abstract class BaseEyes : MonoBehaviour
 {
     public Sprite[] eyes;
     public Transform player;
-    public Animator anim;
+
+    protected string startEventID = "E014";     // 눈이 떠질 시점
+    protected Animator anim;
     protected SpriteRenderer sr;
     protected string stateName;
+
+    private bool isOpen = false;    // 눈이 떠졌는지?
+
+
+    protected virtual void OnEnable()
+    {
+        EventBus.Instance.Subscribe<UIEvents.EndDialog>(AfterDialog);
+    }
+    protected virtual void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<UIEvents.EndDialog>(AfterDialog);
+    }
 
     protected virtual void Start()
     {
@@ -18,13 +32,10 @@ public abstract class BaseEyes : MonoBehaviour
         if (anim == null) {
             anim = GetComponent<Animator>();
         }
-
-        StartCoroutine(RandomBlink());
     }
 
     protected virtual void LateUpdate() {
-        if (player != null && sr != null) {
-
+        if (isOpen && player != null && sr != null) {
             if (!IsBlinking()) {
                 UpdateEyeVer();
             }
@@ -53,7 +64,9 @@ public abstract class BaseEyes : MonoBehaviour
     }
 
     protected IEnumerator RandomBlink() {
-        while (true) {
+        yield return new WaitForSeconds(Random.Range(1f, 3f));
+
+        while (isOpen) {
             float sec = Random.Range(5f, 10f);
             yield return new WaitForSeconds(sec);
 
@@ -68,6 +81,25 @@ public abstract class BaseEyes : MonoBehaviour
 
         AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);  // 0번 레이어
         return state.IsName(stateName);
+    }
+
+    protected virtual void AfterDialog(UIEvents.EndDialog evt)
+    {
+        if (evt.eventID == startEventID)
+        {
+            StartCoroutine(EyeAnim());
+        }
+    }
+
+    protected virtual IEnumerator EyeAnim() {
+        yield return null;
+
+        anim.SetTrigger("open");
+
+        yield return new WaitForSeconds(1f);
+
+        isOpen = true;
+        StartCoroutine(RandomBlink());
     }
 
 
