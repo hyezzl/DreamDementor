@@ -19,7 +19,7 @@ public class RoomPortal : MonoBehaviour
         if (other.CompareTag("Player")) {
             if (rm != null)
             {
-                if (rm.curStep < 2)
+                if (rm.curRoomStep < 2)
                 {
                     rm.ToNextStep(other.gameObject);
 

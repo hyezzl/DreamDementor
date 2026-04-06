@@ -15,6 +15,8 @@ public class HorrorFirst : SceneStart
     {
         SwitchSceneManager.Instance.CurScene = SceneType.HorrorScene;
         base.Awake();
+
+        pm = FindAnyObjectByType<PlayerMove>();
     }
 
     public override void Init(IDatabase db)

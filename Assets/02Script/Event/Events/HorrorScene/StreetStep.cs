@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StreetStep : MonoBehaviour
+public class StreetStep : HorrorBaseStep
 {
     [Header("Area 2: Street")]
     public string streetEventID;
@@ -21,8 +21,10 @@ public class StreetStep : MonoBehaviour
 
 
 
-    public void InitData(IDatabase db)
+    public override void InitData(IDatabase db)
     {
+        base.InitData(db);
+
         if (!string.IsNullOrEmpty(streetEventID))
             streetDialog = db.GetDialog(streetEventID, streetEventID);
     }
@@ -32,7 +34,8 @@ public class StreetStep : MonoBehaviour
         if (evt.portalID == "P009") {
             // 첫이벤트 실행
             EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(streetEventID));
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(streetEventID, streetDialog, GameMode.InspectMode));
+            if (streetDialog != null)
+                EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(streetEventID, streetDialog, GameMode.InspectMode));
         }
     }
 }
