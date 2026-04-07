@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
+using static PuzzleEvents;
 
 public class SOTimeAttack : MonoBehaviour
 {
     [SerializeField] private int timeLimit = 30;    // 제한시간(초)
+    private string triggerID = "E054";
 
     [Header("UI Ref")]
     [SerializeField] private CanvasGroup timeGroup;
@@ -23,9 +25,6 @@ public class SOTimeAttack : MonoBehaviour
     {
         wall.SetActive(false);  // 시작 시 벽 비활성화
         timeGroup.alpha = 0f;   // 시작 시 시간 비활성화 
-
-        // 임시 시작
-        //StartCoroutine(temp());
     }
 
     private bool isOn = false;       // 타임어택 시작
@@ -35,16 +34,33 @@ public class SOTimeAttack : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.Instance.Subscribe<PuzzleEvents.SO_TimeAttack>(TriggerTA);
+        EventBus.Instance.Subscribe<PuzzleEvents.SO_StartChase>(OnStartChase);
+        EventBus.Instance.Subscribe<UIEvents.EndDialog>(OnStartTimeAttack);
+        EventBus.Instance.Subscribe<GameEvents.GameOver>(OnGameOver);
     }
 
     private void OnDisable()
     {
-        EventBus.Instance.Unsubscribe<PuzzleEvents.SO_TimeAttack>(TriggerTA);
+        EventBus.Instance.Unsubscribe<PuzzleEvents.SO_StartChase>(OnStartChase);
+        EventBus.Instance.Unsubscribe<UIEvents.EndDialog>(OnStartTimeAttack);
+        EventBus.Instance.Unsubscribe<GameEvents.GameOver>(OnGameOver);
     }
 
-    private void TriggerTA(PuzzleEvents.SO_TimeAttack evt) {
-        StartTimeAttack(timeLimit);
+    private void OnStartChase(PuzzleEvents.SO_StartChase evt) {
+        // 벽 활성화
+        wall?.SetActive(true);
+    }
+
+    private void OnStartTimeAttack(UIEvents.EndDialog evt) {
+        if (evt.eventID == triggerID) {
+            //트리거 대화가 끝났을 때 타임어택 시작
+            StartTimeAttack(timeLimit);
+        }
+    }
+
+    private void OnGameOver(GameEvents.GameOver evt) {
+        // 게임오버 시 초기상태로 되돌리고 UI 끔
+        ResetTimeAttack();
     }
 
 
@@ -53,9 +69,6 @@ public class SOTimeAttack : MonoBehaviour
         // 타임어택 시작
         isOn = true;
         nowTime = timeLimit;
-
-        // 벽 활성화
-        wall.SetActive(true);
 
         // 타임어택 이벤트 (사운드)
 
@@ -121,6 +134,22 @@ public class SOTimeAttack : MonoBehaviour
         yield return new WaitUntil(() => wallTimeline.state != PlayState.Playing);
 
         // 타임라인 끝나면 벽 실제 비활성화
-        wall.SetActive(false);
+        wall?.SetActive(false);
+    }
+
+    // 초기값 저장
+    private void ResetTimeAttack() {
+        isOn = false;
+        nowTime = timeLimit;
+
+        // UI 초기화
+        if (timeGroup != null) timeGroup.alpha = 0f;
+        UpdateTimer();
+
+        // 벽 및 타임라인 정지 (게임오버 시 벽을 바로 끌지 말지는 기획에 따라 결정)
+        if (wallTimeline != null) wallTimeline.Stop();
+        wall?.SetActive(false);
+
+        StopAllCoroutines(); // 진행 중인 FadeOutWall 등이 있다면 중단
     }
 }

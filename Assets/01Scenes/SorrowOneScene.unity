@@ -6469,8 +6469,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 71.6, y: 99.9}
-  m_SizeDelta: {x: 92.6, y: 34.9}
+  m_AnchoredPosition: {x: 71.6, y: 145.1}
+  m_SizeDelta: {x: 92.6, y: 112}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &290845509
 MonoBehaviour:
@@ -7330,7 +7330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7509760271807912362, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
       propertyPath: isDead
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7509760271807912362, guid: a166ff24cdfdb4e418d7d89a5c5bc0ee, type: 3}
       propertyPath: curScene
@@ -16839,6 +16839,7 @@ MonoBehaviour:
   canPass: 0
   isContacted: 0
   deactiveConditionID: E055
+  isOk: 0
 --- !u!65 &1636024746
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16956,7 +16957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1657539836
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28546,7 +28547,7 @@ Transform:
   m_GameObject: {fileID: 5983583959999828007}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21, y: 0, z: -22.19}
+  m_LocalPosition: {x: 0, y: 0, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

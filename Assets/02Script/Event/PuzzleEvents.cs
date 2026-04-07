@@ -59,6 +59,8 @@ public static class PuzzleEvents
 
     public struct SO_GetAllNumber { }
 
+    public struct SO_StartChase { }
+
 
     // 슬픔1인칭 맵의 타임어택이 끝나고 술래잡기 종료
     public struct SO_EndChase { }

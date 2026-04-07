@@ -70,10 +70,11 @@ public class SO_ChaseEnemy : MonoBehaviour
 
         // 술래잡기 시작
         enemy.SetActive(true);
+        EventBus.Instance.Publish<PuzzleEvents.SO_StartChase>(new PuzzleEvents.SO_StartChase());
         EventBus.Instance.Publish<GameEvents.EnemyStateChange>(new GameEvents.EnemyStateChange(EnemyState.Chase));
         
-        // 타임어택 시작
-        EventBus.Instance.Publish<PuzzleEvents.SO_TimeAttack>(new PuzzleEvents.SO_TimeAttack());
+        // 타임어택 시작 (변경)
+        //EventBus.Instance.Publish<PuzzleEvents.SO_TimeAttack>(new PuzzleEvents.SO_TimeAttack());
 
         // 모드 변경
         PlayerController.Instance.CurMode = GameMode.InspectMode;
