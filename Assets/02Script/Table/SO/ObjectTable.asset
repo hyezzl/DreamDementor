@@ -143,6 +143,12 @@ MonoBehaviour:
     Type: Inspectable
     Monologue: "\uBC16\uC5D0 \uB098\uAC00\uAE30\uC5D4 \uB2A6\uC740 \uC2DC\uAC04\uC774\uC57C..\n\uB0B4\uC77C\uC744
       \uC704\uD574\uC11C \uC5B4\uC11C \uC790\uC57C \uD574."
+  - ItemID: 40001004
+    ItemName: "\uC790\uD310\uAE30"
+    Type: Inspectable
+    Monologue: "\uC790\uD310\uAE30\uB97C \uC0AC\uC6A9\uD558\uB824\uBA74 \uB3D9\uC804\uC774
+      \uD544\uC694\uD55C\uB370...\n\uC5B4\uB518\uAC00\uC5D0\uC11C \uB3D9\uC804\uC744
+      \uC5BB\uC744 \uC218 \uC788\uC9C0 \uC54A\uC744\uAE4C..?"
   Note:
   - ItemID: 50001001
     ItemName: "\uB8F0\uCABD\uC9C01"

@@ -41,6 +41,8 @@ MonoBehaviour:
     NpcName: "2\uC2A4\uD14C\uC774\uC9C0 \uBB38"
   - NpcID: N014
     NpcName: "\uBC9A\uAF43 \uB098\uBB34"
+  - NpcID: N015
+    NpcName: "3\uC2A4\uD14C\uC774\uC9C0 \uC11C\uB9B0\uC774 \uBC29 \uCC45\uC0C1"
   NpcDialog:
   - NpcID: N001
     NpcEventID: N001
@@ -84,7 +86,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: -1
+    Emotion: 1
   - NpcID: N001
     NpcEventID: N001_0
     LogID: 1005
@@ -95,7 +97,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: -1
+    Emotion: 2
   - NpcID: N001
     NpcEventID: N001_1
     LogID: 1006
@@ -105,7 +107,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: -1
+    Emotion: 6
   - NpcID: N001
     NpcEventID: N001_1
     LogID: 1007
@@ -115,7 +117,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: -1
+    Emotion: 5
   - NpcID: N002
     NpcEventID: N002
     LogID: 2001
@@ -155,7 +157,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 2
+    Emotion: 5
   - NpcID: N002
     NpcEventID: N002_0
     LogID: 2005
@@ -166,7 +168,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 6
   - NpcID: N002
     NpcEventID: N002_1
     LogID: 2006
@@ -176,7 +178,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: -1
+    Emotion: 0
   - NpcID: N003
     NpcEventID: N003
     LogID: 3001
@@ -186,7 +188,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 4
   - NpcID: N003
     NpcEventID: N003
     LogID: 3002
@@ -206,7 +208,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 4
+    Emotion: 3
   - NpcID: N003
     NpcEventID: N003
     LogID: 3004
@@ -237,7 +239,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 5
   - NpcID: N003
     NpcEventID: N003
     LogID: 3007
@@ -257,7 +259,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 2
+    Emotion: 0
   - NpcID: N003
     NpcEventID: N003
     LogID: 3009
@@ -318,7 +320,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 4
   - NpcID: N003
     NpcEventID: N003
     LogID: 3015
@@ -338,7 +340,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 4
   - NpcID: N003
     NpcEventID: N003
     LogID: 3017
@@ -380,7 +382,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 2
+    Emotion: 5
   - NpcID: N004
     NpcEventID: N004_0
     LogID: 4004
@@ -390,7 +392,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 2
   - NpcID: N004
     NpcEventID: N004_1
     LogID: 4005
@@ -410,7 +412,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 5
   - NpcID: N005
     NpcEventID: N005
     LogID: 5002
@@ -471,7 +473,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 5
   - NpcID: N006
     NpcEventID: N006
     LogID: 6005
@@ -575,7 +577,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 3
+    Emotion: 2
   - NpcID: N006
     NpcEventID: N006_1
     LogID: 6015
@@ -691,7 +693,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: C006
     Textbox: Monologue
-    Emotion: 0
+    Emotion: 6
   - NpcID: N007
     NpcEventID: N007_0
     LogID: 7009
@@ -723,7 +725,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 5
   - NpcID: N007
     NpcEventID: N007_0
     LogID: 7012
@@ -807,7 +809,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 5
   - NpcID: N008
     NpcEventID: N008
     LogID: 8003
@@ -827,7 +829,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 6
   - NpcID: N008
     NpcEventID: N008
     LogID: 8005
@@ -973,7 +975,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 2
   - NpcID: N008
     NpcEventID: N008_1
     LogID: 8019
@@ -1005,7 +1007,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Monologue
-    Emotion: 0
+    Emotion: -1
   - NpcID: N009
     NpcEventID: N009
     LogID: 9001
@@ -1026,7 +1028,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 2
   - NpcID: N009
     NpcEventID: N009
     LogID: 9003
@@ -1036,7 +1038,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: C008
     Textbox: Basic
-    Emotion: 0
+    Emotion: 2
   - NpcID: N009
     NpcEventID: N009_0
     LogID: 9004
@@ -1076,7 +1078,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 2
   - NpcID: N010
     NpcEventID: N010
     LogID: 10002
@@ -1169,7 +1171,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 1
+    Emotion: 2
   - NpcID: N010
     NpcEventID: N010
     LogID: 10011
@@ -1271,7 +1273,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 1
+    Emotion: 2
   - NpcID: N011
     NpcEventID: N011
     LogID: 11001
@@ -1302,7 +1304,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 6
   - NpcID: N011
     NpcEventID: N011
     LogID: 11004
@@ -1313,7 +1315,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 5
   - NpcID: N011
     NpcEventID: N011
     LogID: 11005
@@ -1343,7 +1345,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 2
   - NpcID: N011
     NpcEventID: N011
     LogID: 11008
@@ -1415,7 +1417,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 1
+    Emotion: 2
   - NpcID: N011
     NpcEventID: N011_1
     LogID: 11015
@@ -1507,7 +1509,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 5
   - NpcID: N013
     NpcEventID: N013
     LogID: 13002
@@ -1589,7 +1591,7 @@ MonoBehaviour:
     SpeakerName: "\uC11C\uB9B0"
     ChoiceID: 
     Textbox: Basic
-    Emotion: 0
+    Emotion: 5
   - NpcID: N014
     NpcEventID: N014_1
     LogID: 14006
@@ -1600,6 +1602,28 @@ MonoBehaviour:
     ChoiceID: 
     Textbox: Basic
     Emotion: 0
+  - NpcID: N015
+    NpcEventID: N015
+    LogID: 15001
+    Dialog: "\uC5B4...? \uBD84\uBA85 \uC5EC\uAE30\uC5D0 \uC77C\uAE30\uC7A5\uC744
+      \uB480\uB294\uB370..."
+    NextID: 15002
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Monologue
+    Emotion: -1
+  - NpcID: N015
+    NpcEventID: N015
+    LogID: 15002
+    Dialog: "\uC5EC\uAE30\uC5D0 \uC5C6\uC73C\uBA74... \uC5B4\uB514\uC5D0 \uC788\uB294
+      \uAC70\uC9C0..?"
+    NextID: -1
+    Speaker: Player
+    SpeakerName: "\uC11C\uB9B0"
+    ChoiceID: 
+    Textbox: Monologue
+    Emotion: -1
   NpcReDialog:
   - NpcID: N001
     Dialog: ......................

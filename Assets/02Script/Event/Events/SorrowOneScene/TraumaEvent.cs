@@ -56,13 +56,14 @@ public class TraumaEvent : TriggerZone
         traumaTimeline.Play();
 
         yield return new WaitUntil(() => traumaTimeline.state != PlayState.Playing);
+        
+        // 괴물 비활성화
+        enemy.SetActive(false);
         yield return null;
 
         // 카메라 필터 OFF
         EventBus.Instance.Publish<GameEvents.FilterOff>(new GameEvents.FilterOff(FilterType.HorrorReverse));
 
-        // 괴물 비활성화
-        enemy.SetActive(false);
 
         // 대화 이벤트 시작
         EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));

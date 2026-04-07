@@ -39,11 +39,11 @@ public class BlockTriggerZone : MonoBehaviour, ITriggerZone
         if (hm == null) Debug.Log("BlockTriggerZone - Failed to Load EventHistoryManager");
     }
 
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
         EventBus.Instance.Subscribe<UIEvents.EndDialog>(OnEndDialog);
     }
-    protected void OnDisable()
+    protected virtual void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.EndDialog>(OnEndDialog);
     }

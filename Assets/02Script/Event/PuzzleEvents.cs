@@ -44,11 +44,24 @@ public static class PuzzleEvents
     //}
     //}
 
+    // 코인 얻음 (2개얻으면 자판기 접근 가능)
+    public struct SO_GetCoin { }
+
+    // 자판기 접근 가능
+    public struct SO_SetMachine { }
+
     // 자판기 Complete
     public struct SO_WorkVendingMachine { }
 
     // 코인 올바르게 넣음
     public struct SO_InsertCoin { }
+
+
+    public struct SO_GetAllNumber { }
+
+
+    // 슬픔1인칭 맵의 타임어택이 끝나고 술래잡기 종료
+    public struct SO_EndChase { }
 
 
 

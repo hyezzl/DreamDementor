@@ -29,6 +29,7 @@ public class LockpickPuzzle : MonoBehaviour
         }
 
         Debug.Log("자물쇠 열기 완료!");
+        EventBus.Instance.Publish<PuzzleEvents.SO_GetCoin>(new PuzzleEvents.SO_GetCoin());
 
         // 효과음
 

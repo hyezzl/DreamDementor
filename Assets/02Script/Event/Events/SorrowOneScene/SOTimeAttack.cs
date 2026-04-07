@@ -68,6 +68,11 @@ public class SOTimeAttack : MonoBehaviour
     {
         if (!isOn) return;
 
+        if (PlayerController.Instance.CurMode != GameMode.InspectMode)
+        {
+            return;
+        }
+
         // 타임어택 시작
         nowTime -= Time.deltaTime;
 
@@ -105,6 +110,9 @@ public class SOTimeAttack : MonoBehaviour
 
         // 벽비활성화 타임라인
         StartCoroutine(FadeOutWall());
+
+        // 타임어택 끝 알림
+        EventBus.Instance.Publish<PuzzleEvents.SO_EndChase>(new PuzzleEvents.SO_EndChase());
     }
 
     IEnumerator FadeOutWall() {
@@ -115,11 +123,4 @@ public class SOTimeAttack : MonoBehaviour
         // 타임라인 끝나면 벽 실제 비활성화
         wall.SetActive(false);
     }
-
-    //IEnumerator temp() {
-    //    yield return new WaitForSeconds(25f);
-
-
-    //    StartTimeAttack(timeLimit);
-    //}
 }

@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,6 +14,7 @@ public class SorrowOneTimeline : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemyText;
     [SerializeField] private TextMeshProUGUI enemySpeaker;
 
+    
     // 임시 대사
     private string playerD = "이게 무슨 소리지..?";
     private string enemyD = "ㄷ...ㅏ....ㄴ....ㅔ.....ㅈ...ㅏ...ㄹ...ㅁ...ㅗ..ㅅ..ㅇ....ㅑ...";

@@ -55,6 +55,8 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
 
     private void OnEnable()
     {
+        InitComponent();
+
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(ModeChange);
         EventBus.Instance.Subscribe<GameEvents.UpdateEnemy>(OnChange);
 
@@ -172,16 +174,40 @@ public class EnemyMoveOne : MonoBehaviour, IMoveObject
             na.velocity = Vector3.zero;
         }
     }
-public void ModeChange(GameEvents.GameModeChange evt)
+
+    public void ModeChange(GameEvents.GameModeChange evt)
     {
-        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode ||
-            evt.mode == GameMode.PauseMode || evt.mode == GameMode.UIPuzzleMode)
+            if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode ||
+                evt.mode == GameMode.PauseMode || evt.mode == GameMode.UIPuzzleMode)
+            {
+                StopGame();
+            }
+            else
+            {
+                ResumeGame();
+            }
+    }
+    
+    
+    private void InitComponent() {
+        if (rig == null) rig = GetComponent<Rigidbody>();
+        if (ec == null) ec = GetComponent<EnemyController>();
+        if (na == null)
         {
-            StopGame();
+            if (TryGetComponent<NavMeshAgent>(out na))
+            {
+                na.updateRotation = false;
+                na.speed = moveSpeed;
+            }
         }
-        else
-        {
-            ResumeGame();
-        }
+        if (pc == null) pc = FindAnyObjectByType<PlayerController>();
+        if (billboard == null) billboard = GetComponent<Billboard>();
+
+
+        na.updateRotation = false;      // 자동회전값 끄기
+        na.speed = moveSpeed;
     }
 }
+
+
+

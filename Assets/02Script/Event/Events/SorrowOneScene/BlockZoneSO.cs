@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class BlockZoneSO : BlockTriggerZone
 {
-    // 통과 기준
+    public bool isOk = false;
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        EventBus.Instance.Subscribe<PuzzleEvents.SO_GetAllNumber>(ReadyToOpen);
+    }
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        EventBus.Instance.Unsubscribe<PuzzleEvents.SO_GetAllNumber>(ReadyToOpen);
+    }
+
 
     protected override void OnTriggerEnter(Collider other)
     {
@@ -18,7 +31,12 @@ public class BlockZoneSO : BlockTriggerZone
             }
             else
             {
-                Debug.Log("통과!.");
+                // zone 상태 저장
+                EventBus.Instance.Publish<GameEvents.ActiveZone>(new GameEvents.ActiveZone(zoneID, false));
+
+                // 2. 물리적 비활성화 (플레이어가 슥 지나가게 함)
+                Collider col = GetComponent<Collider>();
+                if (col != null) col.enabled = false;
             }
         }
     }
@@ -26,6 +44,10 @@ public class BlockZoneSO : BlockTriggerZone
     // 나갈 기준 만족했는지
     private bool IsSatisfying()
     {
-        return false;
+        return isOk;
+    }
+
+    private void ReadyToOpen(PuzzleEvents.SO_GetAllNumber evt) { 
+        isOk = true;
     }
 }

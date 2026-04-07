@@ -21,6 +21,9 @@ public class VendingMachinePuzzle : MonoBehaviour
 
     public GameObject memoImg;
 
+    // 특별 취소 버튼(Completed)
+    public Button exitBTN;
+
     private void Awake()
     {
         pm = transform.parent.GetComponent<PuzzleManager>();
@@ -29,8 +32,8 @@ public class VendingMachinePuzzle : MonoBehaviour
 
     private void Start()
     {
-        selectBtn.gameObject.SetActive(false);
-        getBtn.gameObject.SetActive(false);
+        selectBtn?.gameObject.SetActive(false);
+        getBtn?.gameObject.SetActive(false);
         memoImg?.gameObject.SetActive(false);
     }
 
@@ -38,15 +41,17 @@ public class VendingMachinePuzzle : MonoBehaviour
     {
         EventBus.Instance.Subscribe<PuzzleEvents.SO_WorkVendingMachine>(CompleteVendingMachine);
 
-        selectBtn.onClick.AddListener(OnClickMemoButton);
-        getBtn.onClick.AddListener(OnGetMemo);
+        selectBtn?.onClick.AddListener(OnClickMemoButton);
+        getBtn?.onClick.AddListener(OnGetMemo);
+        exitBTN?.onClick.AddListener(OnExitUI);
     }
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<PuzzleEvents.SO_WorkVendingMachine>(CompleteVendingMachine);
 
-        selectBtn.onClick.RemoveListener(OnClickMemoButton);
-        getBtn.onClick.RemoveListener(OnGetMemo);
+        selectBtn?.onClick.RemoveListener(OnClickMemoButton);
+        getBtn?.onClick.RemoveListener(OnGetMemo);
+        exitBTN?.onClick.RemoveListener(OnExitUI);
     }
 
 
@@ -58,15 +63,13 @@ public class VendingMachinePuzzle : MonoBehaviour
         completeVendingMachine.SetActive(true);
         uncompleteVendingMachine.SetActive(false);
 
+        // x버튼 임시 숨김
+        exitBTN?.gameObject.SetActive(false);
+
         // 효과음
 
         // 메모 버튼 활성화
-        selectBtn.gameObject.SetActive(true);
-
-
-        // Close
-        //pm.CloseAllPuzzleUI();
-        //EventBus.Instance.Publish<PuzzleEvents.CutOff>(new PuzzleEvents.CutOff(60001003));
+        selectBtn?.gameObject.SetActive(true);
     }
 
     // 메모 버튼 눌렸을 때
@@ -88,6 +91,8 @@ public class VendingMachinePuzzle : MonoBehaviour
         Debug.Log("메모UI켜짐");
         memoImg?.SetActive(true);
 
+        // 임시로 가려놓은 x버튼 재활성화
+        exitBTN?.gameObject.SetActive(true);
     }
 
     IEnumerator MemoAnimation() { 
@@ -96,8 +101,28 @@ public class VendingMachinePuzzle : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         // 메모 습득 버튼 활성화
-        getBtn.gameObject.SetActive(true);
-        selectBtn.gameObject.SetActive(false);
+        getBtn?.gameObject.SetActive(true);
+        selectBtn?.gameObject.SetActive(false);
+    }
+
+    // X버튼
+    private void OnExitUI() {
+        exitBTN.interactable = false;
+
+        StartCoroutine(ExitSequence());
+    }
+
+    private IEnumerator ExitSequence() {
+        PlayerController.Instance.CurMode = GameMode.EventMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
+
+        if (pm != null) {
+            pm.CloseAllPuzzleUI();
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        EventBus.Instance.Publish<PuzzleEvents.SO_GetAllNumber>(new PuzzleEvents.SO_GetAllNumber());
     }
 }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class CustomItem : MonoBehaviour, IActionItem
 {
     public int itemID;
+    protected IDatabase database;
 
     public int GetItemID() => itemID;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LineToLinePuzzle : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class LineToLinePuzzle : MonoBehaviour
         Debug.Log("전선 연결 모두 완료!!!");
 
         // 전선 연결 모두 완료!!!
+        EventBus.Instance.Publish<PuzzleEvents.SO_GetCoin>(new PuzzleEvents.SO_GetCoin());
 
         // 효과음
 
