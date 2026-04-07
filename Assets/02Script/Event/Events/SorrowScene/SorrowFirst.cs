@@ -12,6 +12,10 @@ public class SorrowFirst : SceneStart
     {
         SwitchSceneManager.Instance.CurScene = SceneType.SorrowScene;
         base.Awake();
+
+        if (!isFirst) { 
+            
+        }
     }
 
     public override void Init(IDatabase db)
@@ -55,8 +59,14 @@ public class SorrowFirst : SceneStart
     // 2. 재방문 로직
     protected override void OnRevisit()
     {
+        // temp
+        if (SaveManager.Instance.LoadGame())
+        {
+            SaveManager.Instance.SyncEventHistoryOnly();
+        }
+        //
+
         base.OnRevisit(); // SceneStartEffect 발행
-        Debug.Log("슬픔맵 재방문");
 
         // 재방문 시 필요한 자동 로드 등 처리
         SaveManager.Instance.AutoLoad();
@@ -81,4 +91,5 @@ public class SorrowFirst : SceneStart
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
         }
     }
+
 }

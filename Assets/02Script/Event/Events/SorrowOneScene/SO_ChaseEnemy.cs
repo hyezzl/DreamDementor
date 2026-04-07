@@ -93,6 +93,9 @@ public class SO_ChaseEnemy : MonoBehaviour
         PlayerController.Instance.CurMode = GameMode.EventMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.EventMode));
 
+        // 이벤트 기록
+        EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent("E200"));
+
         if (initialDialog != null)
         {
             EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));

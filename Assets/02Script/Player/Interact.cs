@@ -60,6 +60,10 @@ public class Interact : MonoBehaviour
     private void Update()
     {
         OnInteract();
+
+        if (Input.GetKeyDown(KeyCode.K)) {
+            Temp();
+        }
     }
 
 
@@ -90,7 +94,6 @@ public class Interact : MonoBehaviour
                         if (inputHandler.DoInteract() && SearchForward() != null)
                         {
                             {
-                                Debug.Log("!!!!!!!!!!!상호작용!!!!!!!!!!!!!");
                                 SearchForward().Interact();
                             }
                         }
@@ -180,6 +183,14 @@ public class Interact : MonoBehaviour
     private void OnModeChange(GameEvents.AspectChange evt) {
         curAspect = evt.mode;
     }
+
+    private void Temp() {
+        // 현재 메모리에 뭐가 있는지 전부 출력 // 임시
+        var list = EventHistoryManager.Instance.GetCompletedEventsList();
+        Debug.Log($"[SorrowDoor] 현재 메모리 내 이벤트 개수: {list.Count}");
+        foreach (var id in list) Debug.Log($"기록된 ID: {id}");
+    }
+
 }
 
 

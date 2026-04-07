@@ -8,6 +8,7 @@ public enum EventType
     Cutscene,
     Conversation,  // only 대화 (플레이어의 입력 포함)
     SceneChange,
+    Intersection,
 }
 
 public class EventBase : MonoBehaviour, IGameEvent

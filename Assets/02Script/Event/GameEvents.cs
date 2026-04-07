@@ -189,6 +189,8 @@ public static class GameEvents
     // EnemyState 변경 알림
     public struct UpdateEnemy { }
 
+
+
     // 이벤트 종료 (저장)
     public struct EndEvent
     {

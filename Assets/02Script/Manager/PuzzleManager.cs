@@ -91,6 +91,11 @@ public class PuzzleManager : MonoBehaviour
                 curPuzzle = 3;
                 break;
 
+            case PuzzleType.Sorrow_Door:
+                OpenPuzzleUI(4);
+                curPuzzle = 4;
+                break;
+
             default:
                 Debug.Log("퍼즐 존재하지 않음");
                 break;
@@ -104,7 +109,7 @@ public class PuzzleManager : MonoBehaviour
             puzzle.gameObject.SetActive(false);
         }
         background.SetActive(true);
-        puzzles[idx].gameObject.SetActive(true);
+        puzzles[idx]?.gameObject.SetActive(true);
         UIAnim(puzzles[idx], true);
     }
 

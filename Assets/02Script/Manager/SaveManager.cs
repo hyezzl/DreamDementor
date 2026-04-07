@@ -267,4 +267,16 @@ public class SaveManager : Singleton<SaveManager>
             Debug.Log("저장된 데이터가 없어서 새 게임 시퀀스 시작 필요");
         }
     }
+
+    /// <summary>
+    /// 재방문 시 플레이어 상태(HP 등)는 건드리지 않고, 
+    /// 퀘스트/이벤트 완료 기록만 동기화
+    /// </summary>
+    public void SyncEventHistoryOnly()
+    {
+        if (curSaveData.completedEvents != null)
+        {
+            EventHistoryManager.Instance.LoadCompletedEvents(curSaveData.completedEvents);
+        }
+    }
 }

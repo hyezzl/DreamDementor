@@ -106,22 +106,28 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
         }
         else { Debug.Log($"씬 {sceneName} -> SceneType 변환 실패 "); }
 
-        StartCoroutine(temp());
+        StartCoroutine(SwitchScene());
     }
 
-    private IEnumerator temp() {
+    private IEnumerator SwitchScene() {
         yield return null;
         yield return null;
 
         if (isPortal)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
+            CharacterController cc = player?.GetComponent<CharacterController>();
+
             if (player != null)
             {
+                if (cc != null) cc.enabled = false;
+
                 player.transform.position = spawnPoint;
 
                 // 플레이어 방향 강제 설정
                 EventBus.Instance.Publish(new GameEvents.ForceDir(spawnDir));
+
+                if (cc != null) cc.enabled = true;
             }
             isPortal = false;
         }
@@ -178,6 +184,16 @@ public class SwitchSceneManager : Singleton<SwitchSceneManager>
 
 
         yield return null;
+    }
+
+    public Vector3 GetSpawnPoint()
+    {
+        return spawnPoint;
+    }
+
+    public Direction4 GetSpawnDir()
+    {
+        return spawnDir;
     }
 
     // 매씬 Spot 새로 찾기

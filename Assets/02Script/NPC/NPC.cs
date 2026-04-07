@@ -51,12 +51,12 @@ public class NPC : MonoBehaviour, IActionNpc
         if (reDialogData == null) Debug.Log("NPC - Failed to Load NpcReDialogs");
     }
 
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
         EventBus.Instance.Subscribe<UIEvents.EndNpcDialog>(OnEndNpcDialog);
         EventBus.Instance.Subscribe<UIEvents.MakeChoice>(OnNpcChoice);
     }
-    protected void OnDisable()
+    protected virtual void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.EndNpcDialog>(OnEndNpcDialog);
         EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(OnNpcChoice);
