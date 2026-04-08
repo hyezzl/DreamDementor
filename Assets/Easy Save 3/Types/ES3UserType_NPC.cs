@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ES3Types
 {
 	[UnityEngine.Scripting.Preserve]
-	[ES3PropertiesAttribute("isContacted")]
+	[ES3PropertiesAttribute()]
 	public class ES3UserType_NPC : ES3ComponentType
 	{
 		public static ES3Type Instance = null;
@@ -16,7 +16,6 @@ namespace ES3Types
 		{
 			var instance = (NPC)obj;
 			
-			writer.WriteProperty("isContacted", instance.isContacted, ES3Type_bool.Instance);
 		}
 
 		protected override void ReadComponent<T>(ES3Reader reader, object obj)
@@ -27,9 +26,6 @@ namespace ES3Types
 				switch(propertyName)
 				{
 					
-					case "isContacted":
-						instance.isContacted = reader.Read<System.Boolean>(ES3Type_bool.Instance);
-						break;
 					default:
 						reader.Skip();
 						break;

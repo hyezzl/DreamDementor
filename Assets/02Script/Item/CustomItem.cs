@@ -20,7 +20,7 @@ public class CustomItem : MonoBehaviour, IActionItem
     }
 
     public virtual void OnDisable() { 
-        EventBus.Instance.Subscribe<PuzzleEvents.CutOff>(OnCutoff);
+        EventBus.Instance.Unsubscribe<PuzzleEvents.CutOff>(OnCutoff);
     }
 
     // 퍼즐 종료 후 tag Deactive로 변경

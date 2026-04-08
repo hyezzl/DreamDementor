@@ -10,6 +10,7 @@ public enum PuzzleType
     SorrowOne_LineToLine,
     SorrowOne_Lockpick,
     SorrowOne_VendingMachine,
+    SorrowOne_VendingMachine_Complete,
     Sorrow_Door,
 
 }
@@ -91,9 +92,14 @@ public class PuzzleManager : MonoBehaviour
                 curPuzzle = 3;
                 break;
 
-            case PuzzleType.Sorrow_Door:
+            case PuzzleType.SorrowOne_VendingMachine_Complete:
                 OpenPuzzleUI(4);
                 curPuzzle = 4;
+                break;
+
+            case PuzzleType.Sorrow_Door:
+                OpenPuzzleUI(5);
+                curPuzzle = 5;
                 break;
 
             default:
