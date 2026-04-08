@@ -10,11 +10,10 @@ public class SorrowDoor : NPC
     {
         if (isInDialog || isDelay) return;
 
-        
-
         // 조건 이벤트 만족했는지 검사
         bool hasAllNum = EventHistoryManager.Instance.IsEventComplete(checkEventID);
 
+        Debug.Log($" !!!!재방문여부 :: {EventHistoryManager.Instance.IsEventComplete(checkEventID)}");
         if (hasAllNum)
         {
             // 재방문일때 UI 엶
@@ -24,6 +23,7 @@ public class SorrowDoor : NPC
         else
         {
             // 첫방문
+            Debug.Log("첫방문 로직");
             base.Interact();
         }
     }

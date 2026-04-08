@@ -60,15 +60,31 @@ public class FluidBlockTriggerZone : MonoBehaviour, ITriggerZone
 
     public void OnTrigger(GameObject actor)
     {
+        if (hm != null && !hm.IsEventComplete(activeConditionID))
+        {
+            // 아직 벽이 생성될 조건이 안 되었다면, 밟아도 아무 기록도 하지 않고 통과시킴
+            return;
+        }
+
         if (canPass)
         {
-            // zone 상태 저장
-            EventBus.Instance.Publish<GameEvents.ActiveZone>(new GameEvents.ActiveZone(zoneID, false));
+            if (hm != null && hm.IsEventComplete(deactiveConditionID))
+            {
+                EventBus.Instance.Publish<GameEvents.ActiveZone>(new GameEvents.ActiveZone(zoneID, false));
+                gameObject.SetActive(false);
+            }
         }
         else
         {
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
-            // 여러번 실행될수있으므로 종료이벤트 저장 생략
+            // 벽이 생긴 상태
+            if (initialDialog == null)
+            {
+                Debug.LogError($"initialDialog가 null ZoneID: {zoneID}, EventID: {eventID}");
+            }
+            else
+            {
+                EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
+            }
         }
     }
 

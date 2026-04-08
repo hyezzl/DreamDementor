@@ -15,6 +15,7 @@ public class ZoneManager : MonoBehaviour
             // 씬 내 Zone 활성화/비활성화 갱신
             var zoneObject = (zone as MonoBehaviour).gameObject;
             bool isActive = EventHistoryManager.Instance.GetZoneActive(zone.ZoneID);
+            Debug.Log($"[데이터 수동 체크] ID: {zone.ZoneID} | 결과값: {isActive}");
 
             zoneObject.SetActive(isActive);
         }

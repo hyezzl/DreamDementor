@@ -158,11 +158,18 @@ public class DialogPopup : MonoBehaviour
     {
         seq = DOTween.Sequence();
 
-        // 시작 logID의 최소값
-        if (dialogDict == null) { 
-            Debug.Log("dialogdict가 널임");
+        // 오류 방어코드
+        if (dialogDict == null || dialogDict.Count == 0)
+        {
+            Debug.LogError($"*{curEventID} : dialogDict가 널");
+
+            yield return StartCoroutine(ClosePanel());
+
+            RestoreGameMode();
+
             yield break;
         }
+
         int curlogIdx = dialogDict.Keys.Min();
 
         while (curlogIdx != -1)
@@ -562,6 +569,15 @@ public class DialogPopup : MonoBehaviour
         if (playerSpine != null) { 
             playerSpine.color = isActive ? Color.white : deactive;
         }
+    }
+
+    // 모드 복구 함수
+    private void RestoreGameMode()
+    {
+        GameMode targetMode = (afterMode != GameMode.None) ? afterMode : preMode;
+        pc.CurMode = targetMode;
+        EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(targetMode));
+        Debug.Log($"대화 로직 오류로 이전 모드 복구");
     }
 
 }

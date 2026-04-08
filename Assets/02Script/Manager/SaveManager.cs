@@ -154,7 +154,14 @@ public class SaveManager : Singleton<SaveManager>
     // 자동 로드 (NPC + Zone)
     public void AutoLoad() 
     {
-        ES3AutoSaveMgr.Current.Load();
+        if (ES3AutoSaveMgr.Current != null)
+        {
+            ES3AutoSaveMgr.Current.Load();
+        }
+        else
+        {
+            Debug.LogWarning("현재 씬에 ES3AutoSaveMgr가 없음. 자동 로드 패스");
+        }
     }
 
     // 수동 저장

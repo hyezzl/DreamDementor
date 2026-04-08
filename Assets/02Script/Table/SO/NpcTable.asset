@@ -38,7 +38,7 @@ MonoBehaviour:
   - NpcID: N012
     NpcName: "\uC11C\uB9B0\uC774 \uBC29 \uCE68\uB300"
   - NpcID: N013
-    NpcName: "2\uC2A4\uD14C\uC774\uC9C0 \uBB38"
+    NpcName: "\uC758\uBB38\uC758 \uBB38"
   - NpcID: N014
     NpcName: "\uBC9A\uAF43 \uB098\uBB34"
   - NpcID: N015
@@ -1701,7 +1701,7 @@ MonoBehaviour:
   - NpcID: N013
     Dialog: ......................
     Speaker: Extra
-    SpeakerName: "\uC624\uB798\uB41C \uBB38"
+    SpeakerName: "\uC758\uBB38\uC758 \uBB38"
     Textbox: Basic
     Emotion: -1
   - NpcID: N014

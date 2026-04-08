@@ -31,10 +31,13 @@ public class WarpNPC : NPC
     protected override void OnEndNpcDialog(UIEvents.EndNpcDialog evt)
     {
         base.OnEndNpcDialog(evt);
+        Debug.Log("111111");
 
         // 대화가 완전히 끝났을 때만 실행
         if (evt.npcID == npcID)
         {
+            Debug.Log("2222");
+
             StartCoroutine(WarpSequence());
         }
     }

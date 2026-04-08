@@ -7,7 +7,7 @@ public abstract class BaseEyes : MonoBehaviour
     public Sprite[] eyes;
     public Transform player;
 
-    protected string startEventID = "E014";     // 눈이 떠질 시점
+    protected string startEventID = "E060";     // 눈이 떠질 시점
     protected Animator anim;
     protected SpriteRenderer sr;
     protected string stateName;

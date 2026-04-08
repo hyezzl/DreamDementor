@@ -19,7 +19,7 @@ public class InteractableItem : MonoBehaviour, IActionItem
         if (data == null) Debug.Log($"Interactable : Failed to Load Item {itemID}");
     }
 
-    public void Interact()
+    public virtual void Interact()
     {
         // Monologue Ãâ·Â
         EventBus.Instance.Publish<UIEvents.ItemMonologue>(new UIEvents.ItemMonologue(itemID, data.monologue));

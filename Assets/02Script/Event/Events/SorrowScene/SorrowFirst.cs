@@ -12,15 +12,13 @@ public class SorrowFirst : SceneStart
     {
         SwitchSceneManager.Instance.CurScene = SceneType.SorrowScene;
         base.Awake();
-
-        if (!isFirst) { 
-            
-        }
     }
 
     public override void Init(IDatabase db)
     {
+        //Debug.Log($"111 : {EventHistoryManager.Instance.IsFirstVisit(curScene)}");
         base.Init(db);
+        //Debug.Log($"222 : {EventHistoryManager.Instance.IsFirstVisit(curScene)}");
 
         if (!isFirst)
         {
@@ -59,7 +57,7 @@ public class SorrowFirst : SceneStart
     // 2. 재방문 로직
     protected override void OnRevisit()
     {
-        // temp
+        /////////////// temp
         if (SaveManager.Instance.LoadGame())
         {
             SaveManager.Instance.SyncEventHistoryOnly();
