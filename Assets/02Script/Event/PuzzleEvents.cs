@@ -86,4 +86,25 @@ public static class PuzzleEvents
 
     // SO 타임어택
     public struct SO_TimeAttack { }
+
+    // Horror맵 창문 로직
+    public struct H_CheckWindow 
+    {
+        public int windowID;
+        public HorrorFloor floor;
+        public H_CheckWindow(int windowID, HorrorFloor floor) { 
+            this.windowID = windowID;
+            this.floor = floor;
+        }
+    }
+
+
+    // Horror맵 창문 모두 확인
+    public struct H_GetPassword
+    {
+        public HorrorFloor floor;
+        public H_GetPassword(HorrorFloor floor) { 
+            this.floor = floor;
+        }
+    }
 }
