@@ -2,6 +2,7 @@ using Cinemachine;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class GameEvents
@@ -482,6 +483,36 @@ public static class GameEvents
         public bool isOn;
         public ChangeWeather(bool isOn) { 
             this.isOn = isOn;
+        }
+    }
+
+    // Ä³ºñ´Ö ÀÌ¿ë
+    public struct UseCabinet
+    {
+        public bool isIn;
+        public Transform inPos;
+        public Transform outPos;
+        public CabinetDir outDir;
+
+        public UseCabinet(bool isIn)
+        {
+            this.isIn = true;
+            this.inPos = null;
+            this.outPos = null;
+            this.outDir = CabinetDir.Forward;
+        }
+        public UseCabinet(bool isIn, Transform inPos) { 
+            this.isIn = true;
+            this.inPos = inPos;
+            this.outPos = null;
+            this.outDir = CabinetDir.Forward;
+        }
+        public UseCabinet(bool isIn, Transform outPos, CabinetDir outDir)
+        {
+            this.isIn = false;
+            this.inPos = null;
+            this.outPos = outPos;
+            this.outDir = outDir;
         }
     }
 

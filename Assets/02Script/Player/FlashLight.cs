@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameEvents;
 
 
 // 특정 맵에서만 적용됨
@@ -31,6 +32,15 @@ public class FlashLight : MonoBehaviour
 
     public void SetInputHandler(IInputHandler inputHandler) => this.inputHandler = inputHandler;
 
+
+    private void OnEnable()
+    {
+        EventBus.Instance.Subscribe<GameEvents.UseCabinet>(OnUseCabinet);
+    }
+    private void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<GameEvents.UseCabinet>(OnUseCabinet);
+    }
 
     private void Start()
     {
@@ -217,6 +227,23 @@ public class FlashLight : MonoBehaviour
             gaugeImg.gameObject.SetActive(false);
         }
         uiFadeCoroutine = null;
+    }
+
+
+    //// 제어
+
+    private void OnUseCabinet(GameEvents.UseCabinet evt) {
+        // 캐비닛에 들어갔을 때
+        if (evt.isIn)
+        {
+            // 안에 들어갔을 때, 손전등 자동으로 끔
+            if (isOn) HandleLight(false);
+            canOn = false;
+        }
+        else { 
+            // 캐비닛에서 퇴장하면 다시 켤 수 있게 됨
+            canOn = true;
+        }
     }
 
 }

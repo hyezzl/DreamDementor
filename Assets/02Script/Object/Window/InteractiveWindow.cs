@@ -19,6 +19,11 @@ public class InteractiveWindow : CustomItem
 
     public override void Interact()
     {
+        Debug.Log($"상호작용이 왜 되냐고.. 누구세요ㅠ?? {gameObject.name}");
+
+        string fullPath = GetGameObjectPath(gameObject);
+        Debug.Log($"!!!!!!!!!!!!! \n경로: <color=cyan>{fullPath}</color> \n창문번호: {boardNum}F");
+
         if (!isViewing)
         {
             OpenWindowView();
@@ -50,21 +55,6 @@ public class InteractiveWindow : CustomItem
             sr.sprite = numbers[boardNum];
         }
 
-        // 카메라 변경 + 블렌드x
-        //if (brain != null)
-        //{
-        //    // 원래 설정되어 있던 블렌드 저장
-        //    var originalBlend = brain.m_DefaultBlend;
-
-        //    // Cut 변경
-        //    brain.m_DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.Cut, 0);
-
-        //    // 카메라 전환
-        //    windowCam.Priority = 100;
-
-        //    // 복구
-        //    brain.m_DefaultBlend = originalBlend;
-        //}
         windowCam.Priority = 100;
 
         // 모드변경
@@ -80,5 +70,17 @@ public class InteractiveWindow : CustomItem
 
         PlayerController.Instance.CurMode = GameMode.InspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+    }
+
+    //temp
+    private string GetGameObjectPath(GameObject obj)
+    {
+        string path = obj.name;
+        while (obj.transform.parent != null)
+        {
+            obj = obj.transform.parent.gameObject;
+            path = obj.name + "/" + path;
+        }
+        return path;
     }
 }
