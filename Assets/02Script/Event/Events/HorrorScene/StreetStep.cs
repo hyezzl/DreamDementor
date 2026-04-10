@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class StreetStep : HorrorBaseStep
 {
     [Header("Area 2: Street")]
     public string streetEventID;
     private Dictionary<int, DialogData> streetDialog;
-
 
     private void OnEnable()
     {

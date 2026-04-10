@@ -35,6 +35,9 @@ public class H_FloorToFloor : EventReactBlockZone
     protected override void ReadyToPass()
     {
         // 퍼즐이 풀리지 않았으면 계속 UI 띄움
+        PlayerController.Instance.CurMode = GameMode.EventMode;
+        EventBus.Instance.Publish(new GameEvents.GameModeChange(GameMode.EventMode));
+
         OpenUIPuzzle(unlockedFloor);
     }
 

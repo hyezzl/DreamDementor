@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum HorrorMap
+{ 
+    none,
+    Room,
+    Street,
+    School,
+}
+
 public class HorrorFirst : SceneStart
 {
     PlayerMove pm;
@@ -50,6 +58,7 @@ public class HorrorFirst : SceneStart
     }
     protected override void OnSceneStart()
     {
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 임시로 지워놓음
         //EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(startEventID));
         //EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(startEventID, initialDialog, GameMode.InspectMode));
         PlayerController.Instance.CurMode = GameMode.InspectMode;

@@ -516,6 +516,15 @@ public static class GameEvents
         }
     }
 
+    // È£·¯¾À ³»¿¡¼­ ¸ÊÀÌµ¿
+    public struct WarpInHorror
+    {
+        public HorrorMap dest;  // µµÂøÇÑ ¸Ê
+        public WarpInHorror(HorrorMap dest) {
+            this.dest = dest;
+        }
+    }
+
 
 
 

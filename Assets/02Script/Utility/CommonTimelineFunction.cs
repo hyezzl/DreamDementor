@@ -31,7 +31,7 @@ public class CommonTimelineFunction : MonoBehaviour
     public void PlayerDialog(string playerD)
     {
         SetCanvasGroup(playerDialog, true);
-        playerText.text = playerD;
+        playerText.text = playerD.Replace("\\n", "\n");
         playerSpeaker.text = "¼­¸°";
     }
 
@@ -53,7 +53,7 @@ public class CommonTimelineFunction : MonoBehaviour
     public void EnemyDialog(string enemyD)
     {
         SetCanvasGroup(enemyDialog, true);
-        enemyText.text = enemyD;
+        enemyText.text = enemyD.Replace("\\n", "\n");
         enemySpeaker.text = "¸ù·É";
     }
 

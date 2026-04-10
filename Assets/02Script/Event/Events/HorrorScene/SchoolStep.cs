@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class SchoolStep : HorrorBaseStep
 {
@@ -13,12 +14,15 @@ public class SchoolStep : HorrorBaseStep
     [Header("Step Objects")]
     [SerializeField] private GameObject[] stepObjs;
 
-    [Header("Start Event")]
-    public string schoolStartEventID;
-    private Dictionary<int, DialogData> schoolStartDialog;
+    //[Header("Start Event")]
+    //public string schoolStartEventID;
+    //private Dictionary<int, DialogData> schoolStartDialog;
 
     [Header("Player Ref")]
     public GameObject player;
+
+    [Header("Timeline")]
+    public PlayableDirector timeline01_start;       // 학교 들어오자마자
 
 
 
@@ -36,14 +40,15 @@ public class SchoolStep : HorrorBaseStep
         EventBus.Instance.Unsubscribe<PuzzleEvents.ToNextFloor>(OnRequestNextStep);
     }
 
+    
 
     public override void InitData(IDatabase db)
     {
         base.InitData(db);
 
         // 시작 이벤트
-        if (!string.IsNullOrEmpty(schoolStartEventID))
-            schoolStartDialog = db.GetDialog(schoolStartEventID, schoolStartEventID);
+        //if (!string.IsNullOrEmpty(schoolStartEventID))
+        //    schoolStartDialog = db.GetDialog(schoolStartEventID, schoolStartEventID);
 
         // 루프 이벤트
         if (schoolEventIDs != null && schoolEventIDs.Length > 0)
@@ -60,17 +65,13 @@ public class SchoolStep : HorrorBaseStep
     {
         if (evt.portalID == "P010")
         {
-            if (!string.IsNullOrEmpty(schoolStartEventID) && schoolStartDialog != null)
+            if (timeline01_start != null) 
             {
-                // 첫 이벤트 실행 기록
-                EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent(schoolStartEventID));
-
-                EventBus.Instance.Publish<UIEvents.OpenDialog>(
-                    new UIEvents.OpenDialog(schoolStartEventID, schoolStartDialog, GameMode.InspectMode));
+                StartCoroutine(PlayTimeline());
             }
             else
             {
-                Debug.LogWarning($"SchoolStep - Failed to Load DialogData");
+                Debug.LogWarning($"SchoolStep - Failed to Load Timeline");
 
                 PlayerController.Instance.CurMode = GameMode.InspectMode;
                 EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
@@ -133,5 +134,27 @@ public class SchoolStep : HorrorBaseStep
                     new UIEvents.OpenDialog(eventID, dialog, GameMode.InspectMode));
             }
         }
+    }
+
+    private IEnumerator PlayTimeline()
+    {
+        if (timeline01_start == null) yield break;
+
+        // 이벤트 모드
+        PlayerController.Instance.CurMode = GameMode.EventMode;
+        EventBus.Instance.Publish(new GameEvents.GameModeChange(GameMode.EventMode));
+
+        // 타임라인 실행
+        timeline01_start.Play();
+
+        // 타임라인 끝날 때 까지 대기
+        while (timeline01_start.state == PlayState.Playing)
+        {
+            yield return null;
+        }
+
+        // 타임라인 끝나면 조사모드
+        PlayerController.Instance.CurMode = GameMode.InspectMode;
+        EventBus.Instance.Publish(new GameEvents.GameModeChange(GameMode.InspectMode));
     }
 }

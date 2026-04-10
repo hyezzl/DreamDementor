@@ -28,13 +28,15 @@ public class EventReactBlockZone : EventReactZone
         if (!isActivate)
         {
             // "못 지나간다"
-            EventBus.Instance.Publish<UIEvents.OpenDialog>(new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
+            if (initialDialog != null)
+            {
+                EventBus.Instance.Publish<UIEvents.OpenDialog>(
+                    new UIEvents.OpenDialog(eventID, initialDialog, GameMode.InspectMode));
+            }
         }
         else
         {
             // 통과가능 (바로 해제하지않고, 조건부 해제)
-            //EventBus.Instance.Publish<GameEvents.ActiveZone>(new GameEvents.ActiveZone(zoneID, false));
-            //gameObject.SetActive(false);
 
             ReadyToPass();
         }
