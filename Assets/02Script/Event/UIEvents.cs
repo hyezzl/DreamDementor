@@ -180,4 +180,7 @@ public static class UIEvents
 
     // 게임종료 경고창 띄우기
     public struct WarningShutdown { }
+
+    // 범용 이벤트 PuzzleUI를 닫을때
+    public struct UIPuzzleComplete { }
 }

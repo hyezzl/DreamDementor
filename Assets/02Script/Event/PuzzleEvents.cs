@@ -107,4 +107,22 @@ public static class PuzzleEvents
             this.floor = floor;
         }
     }
+
+    // Horror : 층 자물쇠 퍼즐 완료
+    public struct H_Unlock
+    {
+        public HorrorFloor floor;
+        public H_Unlock(HorrorFloor floor) {
+            this.floor = floor;
+        }
+    }
+
+    // Horror : 다음 층 이동 (학교전용)
+    public struct ToNextFloor
+    {
+        public HorrorFloor floor;   // 요청한 현재 층
+        public ToNextFloor(HorrorFloor floor) {
+            this.floor = floor;
+        }
+    }
 }

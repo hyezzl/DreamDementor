@@ -89,7 +89,7 @@ public class WindowPuzzle : MonoBehaviour
                 EventBus.Instance.Publish(new PuzzleEvents.H_GetPassword(floor));
 
                 // 대화이벤트 발생
-                PublishEvent(floor);
+                //PublishEvent(floor);
             }
         }
         else if(floor == HorrorFloor.Floor2 && !is2FComplete)
@@ -101,7 +101,7 @@ public class WindowPuzzle : MonoBehaviour
                 EventBus.Instance.Publish(new PuzzleEvents.H_GetPassword(floor));
 
                 // 대화이벤트 발생
-                PublishEvent(floor);
+                //PublishEvent(floor);
             }
         }
     }

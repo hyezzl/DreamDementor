@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public enum PuzzleType
     SorrowOne_VendingMachine,
     SorrowOne_VendingMachine_Complete,
     Sorrow_Door,
+    Horror_Lock_1F,
+    Horror_Lock_2F,
 
 }
 
@@ -44,6 +47,7 @@ public class PuzzleManager : MonoBehaviour
         if (!TryGetComponent<Canvas>(out canvas)) Debug.Log("PuzzleManager - Failed to Load Canvas");
 
         EventBus.Instance.Subscribe<UIEvents.OpenPuzzle>(OnOpenPuzzleUI);
+        EventBus.Instance.Subscribe<UIEvents.UIPuzzleComplete>(ClosePuzzle);
 
         //exitBTN.onClick.AddListener(CloseAllPuzzleUI);
         foreach (var btn in exitBTNs) {
@@ -53,6 +57,7 @@ public class PuzzleManager : MonoBehaviour
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.OpenPuzzle>(OnOpenPuzzleUI);
+        EventBus.Instance.Unsubscribe<UIEvents.UIPuzzleComplete>(ClosePuzzle);
 
         //exitBTN.onClick.RemoveListener(CloseAllPuzzleUI);
         foreach (var btn in exitBTNs)
@@ -100,6 +105,16 @@ public class PuzzleManager : MonoBehaviour
             case PuzzleType.Sorrow_Door:
                 OpenPuzzleUI(5);
                 curPuzzle = 5;
+                break;
+
+            case PuzzleType.Horror_Lock_1F:
+                OpenPuzzleUI(6);
+                curPuzzle = 6;
+                break;
+
+            case PuzzleType.Horror_Lock_2F:
+                OpenPuzzleUI(7);
+                curPuzzle = 7;
                 break;
 
             default:
@@ -152,5 +167,10 @@ public class PuzzleManager : MonoBehaviour
         // 게임모드 변경
         PlayerController.Instance.CurMode = GameMode.InspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
+    }
+
+    // 퍼즐 닫는 이벤트 발행되었을 때
+    private void ClosePuzzle(UIEvents.UIPuzzleComplete evt) {
+        CloseAllPuzzleUI();
     }
 }

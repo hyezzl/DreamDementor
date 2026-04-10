@@ -29,11 +29,11 @@ public class TriggerZone : MonoBehaviour, ITriggerZone
         if (pc == null) Debug.Log("TriggerZone - Failed to Load PlayerController");
     }
 
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
         EventBus.Instance.Subscribe<UIEvents.EndDialog>(OnEndDialog);
     }
-    protected void OnDisable()
+    protected virtual void OnDisable()
     {
         EventBus.Instance.Unsubscribe<UIEvents.EndDialog>(OnEndDialog);
     }

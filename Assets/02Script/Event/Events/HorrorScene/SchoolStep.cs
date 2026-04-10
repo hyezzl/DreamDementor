@@ -17,16 +17,23 @@ public class SchoolStep : HorrorBaseStep
     public string schoolStartEventID;
     private Dictionary<int, DialogData> schoolStartDialog;
 
+    [Header("Player Ref")]
+    public GameObject player;
+
+
+
     private Vector3 warpPos = new Vector3(315.172394f, -0.783199549f, 4.47506618f); // 학교 시작지점
 
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.UsePortal>(OnArriveMap);
+        EventBus.Instance.Subscribe<PuzzleEvents.ToNextFloor>(OnRequestNextStep);
     }
 
     private void OnDisable()
     {
         EventBus.Instance.Unsubscribe<GameEvents.UsePortal>(OnArriveMap);
+        EventBus.Instance.Unsubscribe<PuzzleEvents.ToNextFloor>(OnRequestNextStep);
     }
 
 
@@ -69,6 +76,12 @@ public class SchoolStep : HorrorBaseStep
                 EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
             }
         }
+    }
+
+
+    private void OnRequestNextStep(PuzzleEvents.ToNextFloor evt) 
+    {
+        StartCoroutine(WarpSequence(player, warpPos, Vector3.forward));
     }
 
     public void ToNextStep(GameObject player)

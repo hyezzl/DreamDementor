@@ -43818,10 +43818,6 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 23178421}
-    - target: {fileID: 2673337266202291860, guid: e3b5482ea1d1f7f44aac150d31ad9ee6, type: 3}
-      propertyPath: exitBTNs.Array.data[4]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2759208627291347273, guid: e3b5482ea1d1f7f44aac150d31ad9ee6, type: 3}
       propertyPath: m_Name
       value: PuzzleUI
@@ -43908,18 +43904,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5124797342285276568, guid: e3b5482ea1d1f7f44aac150d31ad9ee6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5793490472520970367, guid: e3b5482ea1d1f7f44aac150d31ad9ee6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7131977056817424011, guid: e3b5482ea1d1f7f44aac150d31ad9ee6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8248607061691855703, guid: e3b5482ea1d1f7f44aac150d31ad9ee6, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
