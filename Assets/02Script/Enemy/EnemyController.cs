@@ -5,6 +5,7 @@ public enum EnemyState
     Idle,
     Patrol, // 순찰
     Chase,  // 플레이어 쫓는중
+    LostTarget,     // 플레이어 쫓는 도중 어그로 풀림
     Stop,
     Masked, // 엄마로 분장 중
 }

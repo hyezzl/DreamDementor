@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[DefaultExecutionOrder(1)]
 /// <summary>
 /// 일러스트 감상 시, 스파인 비활성화
 /// </summary>
