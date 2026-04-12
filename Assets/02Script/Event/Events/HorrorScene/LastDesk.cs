@@ -10,7 +10,6 @@ public class LastDesk : CustomItem
 
     public override void Interact() 
     {
-        Debug.Log("왜않되");
         StartCoroutine(PlayEnding());
 
         // 이벤트모드
@@ -32,6 +31,6 @@ public class LastDesk : CustomItem
         while(timeline04.state == PlayState.Playing) yield return null;
 
         // 타임라인 end
-
+        EventBus.Instance.Publish<GameEvents.PlayEvent>(new GameEvents.PlayEvent("E079"));
     }
 }

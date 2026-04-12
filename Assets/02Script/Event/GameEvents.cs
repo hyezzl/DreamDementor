@@ -525,6 +525,11 @@ public static class GameEvents
         }
     }
 
+    // 엔딩씬
+    public struct OpenEndingScene
+    { // 어떤엔딩인지}}
+    }
+
 
 
 
