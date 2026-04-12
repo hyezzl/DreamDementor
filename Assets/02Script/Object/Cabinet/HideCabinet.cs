@@ -31,6 +31,7 @@ public class HideCabinet : MonoBehaviour
     }
 
     private void OnUseCabinet(GameEvents.UseCabinet evt) {
+        
         if (evt.isIn)
         {
             // µé¾î°¬À» ¶§

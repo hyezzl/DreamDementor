@@ -13,7 +13,7 @@ public class RoomStep : HorrorBaseStep
 
     [Header("Light")]
     [SerializeField] private Light directional;     // ºû
-    private float[] lightInt = { 0.99f, 0.66f, 0.33f };   // ½ºÅÜº° ºûÀÇ ¼¼±â
+    private float[] lightInt = { 0.33f, 0.33f, 0.33f };   // ½ºÅÜº° ºûÀÇ ¼¼±â
 
     [Header("Step Objects")]
     [SerializeField] private GameObject[] stepObjs;

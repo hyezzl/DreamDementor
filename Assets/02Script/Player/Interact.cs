@@ -68,6 +68,14 @@ public class Interact : MonoBehaviour
 
 
     private void OnInteract() {
+        //////////////////////// 여기가 문제가 발생할 수 있음!!!!!!!!!!!!!!!!!!!!!
+        // 대화중이거나, 이벤트 연출중에는 Inteact 금지
+        if (PlayerController.Instance.CurMode == GameMode.EventMode ||
+            PlayerController.Instance.CurMode == GameMode.DialogMode)
+        {
+            return;
+        }
+
         if (isChase)
         {
             // 쫓기는 중이라면

@@ -16,9 +16,17 @@ public class EnemyVision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) { 
+        if (other.CompareTag("Player")) 
+        {
+            MeshRenderer playerMr = other.GetComponent<MeshRenderer>();
+
+            // 캐비닛안이라면 (플레이어의 메쉬가 꺼져있다면)
+            if (playerMr != null && !playerMr.enabled)
+            {
+                return;
+            }
+
             em.SetPlayerInVision(true);
-            Debug.Log("들어옴");
 
             if (em.curState == EnemyState.Patrol)
             {

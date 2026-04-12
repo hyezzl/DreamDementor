@@ -35,6 +35,13 @@ public class Cabinet : CustomItem
 
     public override void Interact()
     {
+        // 이벤트 / 대화 중에는 캐비닛 나가기/들어오기 무시
+        if (PlayerController.Instance.CurMode == GameMode.EventMode ||
+            PlayerController.Instance.CurMode == GameMode.DialogMode)
+        {
+            return;
+        }
+
         if (isIn || Time.time - lastExitTime < reEnterDelay)
         {
             Debug.Log("캐비닛: 재입장 대기 중...");
@@ -46,6 +53,13 @@ public class Cabinet : CustomItem
     private void Update()
     {
         if (isIn) {
+            // 이벤트 / 대화 중에는 캐비닛 나가기/들어오기 무시
+            //if (PlayerController.Instance.CurMode == GameMode.EventMode ||
+            //    PlayerController.Instance.CurMode == GameMode.DialogMode)
+            //{
+            //    return;
+            //}
+
             // 숨은지 2초가 지난상태에서, 스페이스바를 누르면 탈출
             if (Time.time - hideTime >= exitDelay)
             {
@@ -54,7 +68,7 @@ public class Cabinet : CustomItem
                     Exit();
                 }
             }
-            else 
+            else
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {

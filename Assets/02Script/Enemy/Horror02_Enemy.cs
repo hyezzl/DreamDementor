@@ -1,13 +1,11 @@
-using System.Linq;
-using System.Linq.Expressions;
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using static GameEvents;
-/// <summary>
-/// 3인칭 내 괴물
-/// </summary>
 
-public class EnemyMove : MonoBehaviour, IMoveObject
+public class Horror02_Enemy : MonoBehaviour, IMoveObject
 {
     [SerializeField] private Transform player;
     public EnemyState curState;
@@ -16,24 +14,20 @@ public class EnemyMove : MonoBehaviour, IMoveObject
     [Header("Enemy Movement Setting")]
     [SerializeField] private float moveSpeed = 5f;
 
-    [Header("Detection Setting")]
-    [SerializeField] private float lostLimit = 10f;  // 어그로 풀리는 시간
-    [SerializeField] float lostTimer = 0f;
-    private bool isPlayerInVision = false;           // 플레이어가 괴물 시야범위내에 있는지
-
     [Header("Patrol Setting")]
-    public Transform[] patrolPoints;
-    private int curPatrolPointIdx = 0;
+    public Transform patrolPoint;
 
     [Header("Vision Ref")]
     [SerializeField] private Transform vision;
+
+    private bool isPlayerInVision = false;
+    private bool isArrived = false;     // 목적지에 도착했는지
 
     private Rigidbody rig;
     private EnemyController ec;
     private PlayerController pc;
     private NavMeshAgent na;
     private Animator anim;
-    private Billboard billboard;    // 빌보드는 항상 켜있어야 하지않을까?
 
     private bool isWalk = false;
     private Vector3 preMoveDir = Vector3.zero;      // 이전프레임 이동각도
@@ -59,17 +53,18 @@ public class EnemyMove : MonoBehaviour, IMoveObject
 
         if (!TryGetComponent<Animator>(out anim)) Debug.Log("EnemyMove - Failed to Load Animator");
 
-        if (!TryGetComponent<Billboard>(out billboard)) Debug.Log("EnemyMove - Failed to Load Billboard");
-
         na.updateRotation = false;      // 자동회전값 끄기
         na.speed = moveSpeed;
     }
+
 
     private void OnEnable()
     {
         EventBus.Instance.Subscribe<GameEvents.GameModeChange>(ModeChange);
         EventBus.Instance.Subscribe<GameEvents.UpdateEnemy>(OnChange);
         EventBus.Instance.Subscribe<GameEvents.UseCabinet>(OnPlayerEnterCabinet);
+
+        curState = EnemyState.Patrol;   // 초기값은 patrol
     }
     private void OnDisable()
     {
@@ -81,37 +76,35 @@ public class EnemyMove : MonoBehaviour, IMoveObject
     private void OnChange(GameEvents.UpdateEnemy evt)
     {
         curState = ec.CurEnemyState;
+
+        if (curState == EnemyState.Patrol)
+        {
+            moveable = true;
+            if (na != null)
+            {
+                na.isStopped = false;
+                na.SetDestination(patrolPoint.position); // 목적지 강제 재설정
+            }
+        }
     }
+
 
     private void FixedUpdate()
     {
         if (!moveable) return;
 
-        switch (curState) 
+        if (curState == EnemyState.Patrol)
         {
-            case EnemyState.Patrol:
-                AIPatrol();
-                break;
-
-            case EnemyState.Chase:
-                AIChasePlayer();
-                break;
-
-            case EnemyState.LostTarget:
-                AILostTarget();
-                break;
+            GoToPoint();
         }
+        
     }
 
-
-
-    #region !!!!!!!!!!  주요 상태별 로직  !!!!!!!!!!!
-
-    // Chase
-    private void AIChasePlayer()
+    private void GoToPoint()
     {
         na.isStopped = false;
-        na.SetDestination(player.position);
+        // 정해진 좌표로 이동
+        na.destination = patrolPoint.position;
 
         // 관성 제어 (급커브 시 멈춤)
         ControlInertia();
@@ -119,91 +112,42 @@ public class EnemyMove : MonoBehaviour, IMoveObject
         // 애니메이션 및 플레이어 상대 좌표(relX, relY) 계산 포함
         UpdateAnimationAndDirection(na.velocity);
 
-        // 플레이어와 너무 가까우면 정지
-        if (Vector3.Distance(transform.position, player.position) <= na.stoppingDistance + 0.3f)
+        // 도착지 판정 로직
+        if (!na.pathPending)
         {
-            StopMovementAction();
-        }
-
-        // 시야 밖으로 나갈 경우 카운트 시작
-        if (!isPlayerInVision) {
-            lostTimer = 0f; // 카운트 초기화
-            EventBus.Instance.Publish(new GameEvents.EnemyStateChange(EnemyState.LostTarget));
-        }
-    }
-
-    // 10초 카운트 로직
-    private void AILostTarget()
-    {
-        // 타겟을 잃었어도 플레이어 위치로 계속 이동
-        na.SetDestination(player.position);
-        UpdateAnimationAndDirection(na.velocity);
-
-        // 시야 안에 들어오면 리셋
-        if (isPlayerInVision)
-        {
-            // 타이머 리셋
-            lostTimer = 0f;
-            EventBus.Instance.Publish(new GameEvents.EnemyStateChange(EnemyState.Chase));
-            return;
-        }
-
-        lostTimer += Time.fixedDeltaTime;
-
-        // 특정 시간에 도달하면 패트롤
-        if (lostTimer >= lostLimit) {
-            Debug.Log("괴물이 다시 순찰모드로 전환");
-            EventBus.Instance.Publish(new GameEvents.EnemyStateChange(EnemyState.Patrol));
-        }
-    }
-
-
-    // 패트롤(순찰)모드
-    private void AIPatrol()
-    {
-        if (patrolPoints == null || patrolPoints.Length < 2) return;
-
-        na.isStopped = false;
-        na.SetDestination(patrolPoints[curPatrolPointIdx].position);
-        UpdateAnimationAndDirection(na.velocity);
-
-        ///
-        if (!na.pathPending && na.remainingDistance < 0.5f) { 
-            curPatrolPointIdx = (curPatrolPointIdx + 1) % patrolPoints.Length;
+            // remainingDistance: 남은 거리
+            if (na.remainingDistance <= na.stoppingDistance && !isArrived)
+            {
+                // 경로가 완전히 끝났거나 속도가 거의 없을 때
+                if (!na.hasPath || na.velocity.sqrMagnitude == 0f)
+                {
+                    isArrived = true;
+                    OnArrivalAtPoint();
+                    Debug.Log("도착했음");
+                }
+            }
         }
     }
 
     // 캐비닛 생사 판정
-    private void OnPlayerEnterCabinet(GameEvents.UseCabinet evt) 
+    private void OnPlayerEnterCabinet(GameEvents.UseCabinet evt)
     {
-        if (curState == EnemyState.Patrol) return;
+        if (curState == EnemyState.Patrol)
+        {
+            Debug.Log("2층 로직 클리어!");
+
+            // 적이 패트롤포인트 도착할때까지 입력 막음
+            PlayerController.Instance.CurMode = GameMode.EventMode;
+            EventBus.Instance.Publish(new GameEvents.GameModeChange(GameMode.EventMode));
+        }
 
         if (isPlayerInVision && (curState == EnemyState.Chase || curState == EnemyState.LostTarget))
         {
-            Debug.Log("캐비닛 안에 있는 플레이어를 귀신이 찾아냄 사망");
+            // 2층에서 적에게 들킴
+            Debug.Log("2층 로직 클리어못함 죽어라");
             // 플레이어 사망
         }
-
-        if (evt.isIn)
-        {
-            if (isPlayerInVision)
-            {
-                Debug.Log("캐비닛 안에 있는 플레이어를 귀신이 찾아냄. 사망22222!");
-                // 
-            }
-            else
-            {
-                Debug.Log("놓침");
-
-                lostTimer = 0f;
-                EventBus.Instance.Publish(new GameEvents.EnemyStateChange(EnemyState.LostTarget));
-            }
-        }
     }
-
-    #endregion
-
-    #region --------- 보조
 
     public void SetPlayerInVision(bool inVision)
     {
@@ -277,31 +221,24 @@ public class EnemyMove : MonoBehaviour, IMoveObject
         anim.SetBool("isWalk", isWalk);
     }
 
-    // 완전히 멈출 때 사용
-    private void StopMovementAction()
+    // 도착지점 도착했을때
+    private void OnArrivalAtPoint()
     {
-        isWalk = false;
-        na.isStopped = true;
-        na.velocity = Vector3.zero;
-        anim.SetFloat("dirX", 0);
-        anim.SetFloat("dirY", 0);
-        anim.SetBool("isWalk", false);
+        if (!moveable) return;
+
+        StopGame(); // 정지
+
+        // 이벤트 모드
+
+        PlayerController.Instance.CurMode = GameMode.EventMode;
+        EventBus.Instance.Publish(new GameEvents.GameModeChange(GameMode.EventMode));
+
+        EventBus.Instance.Publish(new GameEvents.PlayEvent("E073"));
+
+        // 본인 오브젝트 비활성화
+        StartCoroutine(SafeDestroy());
     }
 
-    //private void InitPatrolPoints()
-    //{
-    //    GameObject group = GameObject.Find("PatrolGroup");
-    //    if (group != null)
-    //    {
-    //        patrolPoints = group.GetComponentsInChildren<Transform>().Where(t => t != group.transform).ToArray();
-    //    }
-    //}
-
-    #endregion
-
-
-
-    #region -- 게임 모드 및 상태 제어 --
 
     public void ResumeGame()
     {
@@ -319,7 +256,7 @@ public class EnemyMove : MonoBehaviour, IMoveObject
     }
     public void ModeChange(GameEvents.GameModeChange evt)
     {
-        if (evt.mode == GameMode.EventMode || evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode ||
+        if (evt.mode == GameMode.DialogMode || evt.mode == GameMode.GameOverMode ||
             evt.mode == GameMode.PauseMode || evt.mode == GameMode.UIPuzzleMode)
         {
             StopGame();
@@ -329,6 +266,11 @@ public class EnemyMove : MonoBehaviour, IMoveObject
             ResumeGame();
         }
     }
-    #endregion
 
+    private IEnumerator SafeDestroy()
+    { 
+        yield return null;
+
+        this.gameObject.SetActive(false);
+    }
 }
