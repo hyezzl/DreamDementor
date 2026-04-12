@@ -119,4 +119,14 @@ public class QuestUI : MonoBehaviour, IGameEvent
         canvas.alpha = 0f;
         curQuest = null;
     }
+
+    public void ForceClose()
+    {
+        canvas.alpha = 0f;
+        canvas.interactable = false;
+        canvas.blocksRaycasts = false;
+
+        // 필요하다면 현재 퀘스트 정보도 초기화
+        curQuest = null; 
+    }
 }

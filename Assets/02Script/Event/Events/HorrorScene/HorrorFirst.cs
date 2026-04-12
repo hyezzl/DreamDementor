@@ -25,6 +25,12 @@ public class HorrorFirst : SceneStart
         base.Awake();
 
         pm = FindAnyObjectByType<PlayerMove>();
+
+        QuestUI questUI = FindAnyObjectByType<QuestUI>();
+        if (questUI != null)
+        {
+            questUI.ForceClose(); // 씬 시작하자마자 강제로 닫기
+        }
     }
 
     public override void Init(IDatabase db)

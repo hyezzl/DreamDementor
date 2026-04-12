@@ -48,7 +48,7 @@ public class NPC : MonoBehaviour, IActionNpc
         initialDialog = database.GetNpcDialog(npcID, npcID);
         if (initialDialog == null) Debug.Log("NPC - Failed to Load NpcDialogs");
         reDialogData = database.GetNpcReDialog(npcID);
-        if (reDialogData == null) Debug.Log("NPC - Failed to Load NpcReDialogs");
+        if (reDialogData == null) Debug.Log($"NPC - Failed to Load NpcReDialogs , {gameObject.name}");
     }
 
     protected virtual void OnEnable()
