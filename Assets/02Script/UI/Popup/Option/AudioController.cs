@@ -83,6 +83,7 @@ public class AudioController : MonoBehaviour
             images[(int)type].sprite = playIcon;
             db = Mathf.Log10(value) * 20f;  // 데시벨
             isPlaying[(int)type] = true;
+            preVol[(int)type] = value;
         }
         string parameter = type.ToString() + "Vol";
         am.SetFloat(parameter, db);
@@ -135,18 +136,46 @@ public class AudioController : MonoBehaviour
     {
         // SoundManager가 준비된 상태에서 호출되어야 함
         if (SoundManager.Instance == null) Debug.LogError("매니저가 널");
-        sliders[(int)SoundType.Master].value = SoundManager.Instance.masterVol;
-        sliders[(int)SoundType.BGM].value = SoundManager.Instance.bgmVol;
-        sliders[(int)SoundType.SFX].value = SoundManager.Instance.sfxVol;
+        sliders[(int)SoundType.Master].SetValueWithoutNotify(SoundManager.Instance.masterVol);
+        sliders[(int)SoundType.BGM].SetValueWithoutNotify(SoundManager.Instance.bgmVol);
+        sliders[(int)SoundType.SFX].SetValueWithoutNotify(SoundManager.Instance.sfxVol);
 
         for (int i = 0; i < sliders.Count; i++)
         {
             float val = sliders[i].value;
-            preVol[i] = val;
+            var soundType = (SoundType)i;
+            if (val > 0f)
+                preVol[i] = val;
+            else
+                preVol[i] = GetLastAudibleVol(soundType);
+
             isPlaying[i] = val > 0f;
 
             texts[i].text = Mathf.RoundToInt(val * 100) + " %";
             images[i].sprite = isPlaying[i] ? playIcon : muteIcon;
+
+            ApplyVolumeToMixer(soundType, val);
+        }
+    }
+
+    private void ApplyVolumeToMixer(SoundType type, float value)
+    {
+        float db = value <= 0f ? -80f : Mathf.Log10(value) * 20f;
+        am.SetFloat(type.ToString() + "Vol", db);
+    }
+
+    private static float GetLastAudibleVol(SoundType type)
+    {
+        switch (type)
+        {
+            case SoundType.Master:
+                return SoundManager.Instance.GetLastAudibleMasterVol();
+            case SoundType.SFX:
+                return SoundManager.Instance.GetLastAudibleSfxVol();
+            case SoundType.BGM:
+                return SoundManager.Instance.GetLastAudibleBgmVol();
+            default:
+                return 1f;
         }
     }
 
