@@ -1,4 +1,4 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ public class NpcDialogPopup : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemyText;
     [SerializeField] private TextMeshProUGUI enemySpeaker;
 
-    [SerializeField] private CanvasGroup LeftIll; // alpha°ª Á¶Àı.
+    [SerializeField] private CanvasGroup LeftIll; // alphaê°’ ì¡°ì ˆ.
     [SerializeField] private SkeletonGraphic playerSpine;
     [SerializeField] private CanvasGroup RightIll;
     [SerializeField] private Image otherIll;
@@ -34,27 +34,28 @@ public class NpcDialogPopup : MonoBehaviour
     Sequence seq;
     private bool isOpen = false;
     private bool isTyping = false;
-    private bool standbyInput = false; // »ç¿ëÀÚ ÀÔ·Â ±â´Ù¸®±â
+    private bool standbyInput = false; // ì‚¬ìš©ì ì…ë ¥ ê¸°ë‹¤ë¦¬ê¸°
     private bool isSkip = false;
+    private bool isChoiceOpen = false;
 
-    private string curNpcID;    // Ä³½Ì
-    private string curNpcEventID;   // Ä³½Ì
-    private string sentence;  // Ä³½Ì
-    private GameMode preMode;  // Ä³½Ì
-    private GameMode afterMode;     // ¼³Á¤°ª
+    private string curNpcID;    // ìºì‹±
+    private string curNpcEventID;   // ìºì‹±
+    private string sentence;  // ìºì‹±
+    private GameMode preMode;  // ìºì‹±
+    private GameMode afterMode;     // ì„¤ì •ê°’
     private IInputHandler inputHandler;
-    private TextMeshProUGUI textarea;  // »ç¿ëÇÒ ÅØ½ºÆ®¹Ú½º
+    private TextMeshProUGUI textarea;  // ì‚¬ìš©í•  í…ìŠ¤íŠ¸ë°•ìŠ¤
     private CanvasGroup curTextbox;
-    private int curPanelIndex = -1;  // ÇöÀç Àû¿ëµÇ¾îÀÖ´Â ´ëÈ­Ã¢ UI
+    private int curPanelIndex = -1;  // í˜„ì¬ ì ìš©ë˜ì–´ìˆëŠ” ëŒ€í™”ì°½ UI
 
-    // ´ëÈ­Ã¢ ½ºÆäÀÌ½º ¿¬Å¸ ½Ã ¿À·ù
+    // ëŒ€í™”ì°½ ìŠ¤í˜ì´ìŠ¤ ì—°íƒ€ ì‹œ ì˜¤ë¥˜
     private float inputDelay = 0.4f;
     private float inputTimer = 0f;
 
-    // ÀÏ·¯½ºÆ® º¯°æ ½Ã ÃÖÀûÈ­
-    private int curLeftIdx = -1;  // ÁÖÀÎ°øÀº ¹«Á¶°Ç ¿ŞÂÊ
-    private Speaker curRight = Speaker.Enemy;             // ¿À¸¥ÂÊÀº ´©±¸³ª °¡´É
-    private int curRightIdx = -1;                         // ÀÌ¸ğ¼Ç ÀÎµ¦½º
+    // ì¼ëŸ¬ìŠ¤íŠ¸ ë³€ê²½ ì‹œ ìµœì í™”
+    private int curLeftIdx = -1;  // ì£¼ì¸ê³µì€ ë¬´ì¡°ê±´ ì™¼ìª½
+    private Speaker curRight = Speaker.Enemy;             // ì˜¤ë¥¸ìª½ì€ ëˆ„êµ¬ë‚˜ ê°€ëŠ¥
+    private int curRightIdx = -1;                         // ì´ëª¨ì…˜ ì¸ë±ìŠ¤
     private Color deactive = new Color(0.4f, 0.4f, 0.4f, 1f);
 
     public void SetInputHandler(IInputHandler inputHandler) => this.inputHandler = inputHandler;
@@ -66,14 +67,14 @@ public class NpcDialogPopup : MonoBehaviour
     }
     private void Start()
     {
-        // ´ëÈ­Ã¢ ¸ğµÎ ¼û±â±â
+        // ëŒ€í™”ì°½ ëª¨ë‘ ìˆ¨ê¸°ê¸°
         SetCanvasGroup(basicTextBox, false);
         SetCanvasGroup(enemyTextBox, false);
 
         LeftIll.alpha = 0f;
         SetColor(true);
 
-        // Åõ¸íÃ³¸®
+        // íˆ¬ëª…ì²˜ë¦¬
         otherIll.color = new Color(1, 1, 1, 0);
     }
 
@@ -83,6 +84,8 @@ public class NpcDialogPopup : MonoBehaviour
         EventBus.Instance.Subscribe<UIEvents.OpenNpcReDialog>(OnOpenNpcReDialog);
         EventBus.Instance.Subscribe<UIEvents.CloseDialog>(CloseDialogPanel);
         EventBus.Instance.Subscribe<GameEvents.GameOver>(OnGameOver);
+        EventBus.Instance.Subscribe<UIEvents.OccurSelection>(OnOccurSelection);
+        EventBus.Instance.Subscribe<UIEvents.MakeChoice>(OnMakeChoice);
     }
     private void OnDisable()
     {
@@ -90,77 +93,102 @@ public class NpcDialogPopup : MonoBehaviour
         EventBus.Instance.Unsubscribe<UIEvents.OpenNpcReDialog>(OnOpenNpcReDialog);
         EventBus.Instance.Unsubscribe<UIEvents.CloseDialog>(CloseDialogPanel);
         EventBus.Instance.Unsubscribe<GameEvents.GameOver>(OnGameOver);
+        EventBus.Instance.Unsubscribe<UIEvents.OccurSelection>(OnOccurSelection);
+        EventBus.Instance.Unsubscribe<UIEvents.MakeChoice>(OnMakeChoice);
     }
 
 
     private void Update()
     {
-        if (inputTimer > 0f) // 0.4f °£°İÀ¸·Î ÀÔ·Â°¡´É
+        if (inputTimer > 0f) // 0.4f ê°„ê²©ìœ¼ë¡œ ì…ë ¥ê°€ëŠ¥
             inputTimer -= Time.deltaTime;
 
 
-        if (inputHandler.DoSelect() && inputTimer <= 0f)
+        if (WantAdvance() && inputTimer <= 0f)
         {
-            if (isTyping && !isSkip) // Å¸ÀÌÇÎ Áß ½ºÅµ ÇÑ¹ø¸¸ Çã¿ë (²¿ÀÓ¹æÁö)
+            if (isTyping && !isSkip) // íƒ€ì´í•‘ ì¤‘ ìŠ¤í‚µ í•œë²ˆë§Œ í—ˆìš© (ê¼¬ì„ë°©ì§€)
             {
                 SkipDialog();
                 isSkip = true;
                 inputTimer = inputDelay;
             }
-            else if (standbyInput && !isTyping) // ÀÔ·Â ´ë±â »óÅÂ
+            else if (standbyInput && !isTyping) // ì…ë ¥ ëŒ€ê¸° ìƒíƒœ
             {
                 inputTimer = inputDelay;
             }
         }
     }
 
+    private bool WantAdvance()
+    {
+        if (inputHandler != null && inputHandler.DoSelect())
+            return true;
+        if (isChoiceOpen)
+            return false;
+        return Input.GetMouseButtonDown(0);
+    }
+
+    private void OnOccurSelection(UIEvents.OccurSelection evt)
+    {
+        if (!evt.isNpc) return;
+        isChoiceOpen = true;
+    }
+
+    private void OnMakeChoice(UIEvents.MakeChoice evt)
+    {
+        if (!evt.isNpc) return;
+        isChoiceOpen = false;
+    }
+
     /// <summary>
-    /// NPC ´ëÈ­
+    /// NPC ëŒ€í™”
     /// </summary>
     private void OnOpenNpcDialog(UIEvents.OpenNpcDialog evt)
     {
-        afterMode = evt.afterMode;      // ¼³Á¤ ¸ğµå Ä³½Ì
+        afterMode = evt.afterMode;      // ì„¤ì • ëª¨ë“œ ìºì‹±
+        isChoiceOpen = false;
 
-        // È¤½Ã¸ğ¸¦ ÃÊ±âÈ­
+        // í˜¹ì‹œëª¨ë¥¼ ì´ˆê¸°í™”
         if (playerSpine != null)
         {
             SetColor(true);
         }
 
-        // ¸ğµå º¯°æ
+        // ëª¨ë“œ ë³€ê²½
         pc.CurMode = GameMode.DialogMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
 
-        // ·Î±×Ã¢ Ç¥½Ã
+        // ë¡œê·¸ì°½ í‘œì‹œ
         isOpen = true;
 
         // NPC 
         curNpcID = evt.npcID;
         curNpcEventID = evt.npcEventID;
 
-        // Å¸ÀÌÇÎ
+        // íƒ€ì´í•‘
         StartCoroutine(TypeDialog(evt.texts));
     }
 
     private void OnOpenNpcReDialog(UIEvents.OpenNpcReDialog evt) {
         preMode = pc.CurMode;
+        isChoiceOpen = false;
 
-        // ¸ğµå º¯°æ
+        // ëª¨ë“œ ë³€ê²½
         pc.CurMode = GameMode.DialogMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.DialogMode));
 
-        // ·Î±×Ã¢ Ç¥½Ã
+        // ë¡œê·¸ì°½ í‘œì‹œ
         isOpen = true;
 
         // NPC 
         curNpcID = evt.npcID;
         curNpcEventID = null;
 
-        // Å¸ÀÌÇÎ
+        // íƒ€ì´í•‘
         StartCoroutine(TypeReDialog(evt.data));
     }
 
-    // °ÔÀÓ¿À¹ö ½Ã, °­Á¦·Î ´ëÈ­Ã¢ ´İÀ½
+    // ê²Œì„ì˜¤ë²„ ì‹œ, ê°•ì œë¡œ ëŒ€í™”ì°½ ë‹«ìŒ
     private void OnGameOver(GameEvents.GameOver evt)
     {
         ForceCloseDialog();
@@ -171,14 +199,14 @@ public class NpcDialogPopup : MonoBehaviour
     {
         seq = DOTween.Sequence();
 
-        // ½ÃÀÛ logIDÀÇ ÃÖ¼Ò°ª
+        // ì‹œì‘ logIDì˜ ìµœì†Œê°’
         int curlogIdx = npcDialogDict.Keys.Min();
 
         while (curlogIdx != -1)
         {
             if (!npcDialogDict.TryGetValue(curlogIdx, out var curDialog))
             {
-                Debug.Log($"{curlogIdx} : Á¸ÀçÇÏÁö ¾Ê´Â ´ëÈ­ µ¥ÀÌÅÍ");
+                Debug.Log($"{curlogIdx} : ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ëŒ€í™” ë°ì´í„°");
                 yield break;
             }
 
@@ -187,7 +215,7 @@ public class NpcDialogPopup : MonoBehaviour
             isSkip = false;
             //ShowIllust(npcDialogDict, curlogIdx);
 
-            // Textbox¿¡ µû¸¥ ºĞ±â (´ëÈ­Ã¢ / ÆùÆ®)
+            // Textboxì— ë”°ë¥¸ ë¶„ê¸° (ëŒ€í™”ì°½ / í°íŠ¸)
             if (npcDialogDict[curlogIdx].textbox == Textbox.Basic || npcDialogDict[curlogIdx].textbox == Textbox.Monologue)
             {
                 curTextbox = basicTextBox;
@@ -196,7 +224,7 @@ public class NpcDialogPopup : MonoBehaviour
 
                 ShowIllust(npcDialogDict, curlogIdx);
             }
-            else if (npcDialogDict[curlogIdx].textbox == Textbox.Monster)  // ¸ó½ºÅÍ ÅØ½ºÆ® ¹Ú½º
+            else if (npcDialogDict[curlogIdx].textbox == Textbox.Monster)  // ëª¬ìŠ¤í„° í…ìŠ¤íŠ¸ ë°•ìŠ¤
             {
                 curTextbox = enemyTextBox;
                 DialogFade(curTextbox, true);
@@ -205,51 +233,51 @@ public class NpcDialogPopup : MonoBehaviour
                 ShowIllust(npcDialogDict, curlogIdx);
             }
 
-            sentence = curDialog.dialog; // Ä³½Ì
+            sentence = curDialog.dialog; // ìºì‹±
 
             // Typing
             float duration = curDialog.dialog.Length / typingSpeed;
             typing = textarea.DOText(curDialog.dialog, duration).SetEase(Ease.Linear);
 
-            yield return typing.WaitForCompletion(); // Å¸ÀÌÇÎ ¿Ï·á±îÁö ´ë±â
+            yield return typing.WaitForCompletion(); // íƒ€ì´í•‘ ì™„ë£Œê¹Œì§€ ëŒ€ê¸°
 
             isTyping = false;
             standbyInput = true;
 
-            if (isSkip) // ½ºÅµÀÌ ´­·ÈÀ» ¶§
+            if (isSkip) // ìŠ¤í‚µì´ ëˆŒë ¸ì„ ë•Œ
             {
                 yield return null;
                 isSkip = false;
             }
 
-            // ¼±ÅÃÁö°¡ ÀÖÀ¸¸é ÀÌº¥Æ®°¡ ¹ß»ı!
+            // ì„ íƒì§€ê°€ ìˆìœ¼ë©´ ì´ë²¤íŠ¸ê°€ ë°œìƒ!
             if (!string.IsNullOrEmpty(curDialog.choiceID) && curDialog.choices != null)
             {
                 EventBus.Instance.Publish<UIEvents.OccurSelection>
                     (new UIEvents.OccurSelection(npcDialogDict[curlogIdx].choices.texts.Count, npcDialogDict[curlogIdx].choices, true));
-                yield break;  // ¼±ÅÃÁö ¹ß»ı ½Ã ´ëÈ­ ¸ØÃã
+                yield break;  // ì„ íƒì§€ ë°œìƒ ì‹œ ëŒ€í™” ë©ˆì¶¤
             }
 
-            // ÀÔ·Â ´ë±â
-            yield return new WaitUntil(() => inputHandler.DoSelect());
+            // ì…ë ¥ ëŒ€ê¸°
+            yield return new WaitUntil(() => WantAdvance());
 
             // Index++;
             curlogIdx = curDialog.nextID;
         }
 
-        yield return StartCoroutine(ClosePanel());  // ¸ğµç ´ëÈ­°¡ ³¡³ª¸é ÆĞ³Î ´İÀ½
+        yield return StartCoroutine(ClosePanel());  // ëª¨ë“  ëŒ€í™”ê°€ ëë‚˜ë©´ íŒ¨ë„ ë‹«ìŒ
 
-        // ¸ğµå º¯°æ
+        // ëª¨ë“œ ë³€ê²½
         if (afterMode != GameMode.None)
         {
-            // ´ëÈ­ ÁøÀÔ ½Ã °ÔÀÓ¸ğµå ÁöÁ¤
+            // ëŒ€í™” ì§„ì… ì‹œ ê²Œì„ëª¨ë“œ ì§€ì •
             pc.CurMode = afterMode;
-            Debug.Log($"ClosePanel¿¡¼­ »óÅÂº¯°æ : {afterMode}·Î!");
+            Debug.Log($"ClosePanelì—ì„œ ìƒíƒœë³€ê²½ : {afterMode}ë¡œ!");
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(afterMode));
         }
         else
         {
-            // ´ëÈ­ ÁøÀÔ ½Ã µû·Î °ÔÀÓ¸ğµå¸¦ Á¤ÇØÁÖÁö ¾ÊÀº °æ¿ì (Inspector°íÁ¤)
+            // ëŒ€í™” ì§„ì… ì‹œ ë”°ë¡œ ê²Œì„ëª¨ë“œë¥¼ ì •í•´ì£¼ì§€ ì•Šì€ ê²½ìš° (Inspectorê³ ì •)
             pc.CurMode = GameMode.InspectMode;
             EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
         }
@@ -265,7 +293,7 @@ public class NpcDialogPopup : MonoBehaviour
         standbyInput = false;
         isSkip = false;
 
-        // Textbox¿¡ µû¸¥ ºĞ±â (´ëÈ­Ã¢ / ÆùÆ®)
+        // Textboxì— ë”°ë¥¸ ë¶„ê¸° (ëŒ€í™”ì°½ / í°íŠ¸)
         if (data.textbox == Textbox.Basic || data.textbox == Textbox.Monologue)
         {
             curTextbox = basicTextBox;
@@ -273,7 +301,7 @@ public class NpcDialogPopup : MonoBehaviour
             SetDialog(0, data.speakerName, data.textbox);
 
         }
-        else if (data.textbox == Textbox.Monster)  // ¸ó½ºÅÍ ÅØ½ºÆ® ¹Ú½º
+        else if (data.textbox == Textbox.Monster)  // ëª¬ìŠ¤í„° í…ìŠ¤íŠ¸ ë°•ìŠ¤
         {
             curTextbox = enemyTextBox;
             DialogFade(curTextbox, true);
@@ -285,35 +313,35 @@ public class NpcDialogPopup : MonoBehaviour
         float duration = sentence.Length / typingSpeed;
         typing = textarea.DOText(sentence, duration).SetEase(Ease.Linear);
 
-        yield return typing.WaitForCompletion(); // Å¸ÀÌÇÎ ¿Ï·á±îÁö ´ë±â
+        yield return typing.WaitForCompletion(); // íƒ€ì´í•‘ ì™„ë£Œê¹Œì§€ ëŒ€ê¸°
 
         isTyping = false;
         standbyInput = true;
 
-        if (isSkip) // ½ºÅµÀÌ ´­·ÈÀ» ¶§
+        if (isSkip) // ìŠ¤í‚µì´ ëˆŒë ¸ì„ ë•Œ
         {
             yield return null;
             isSkip = false;
         }
 
-        // ÀÔ·Â ´ë±â
-        yield return new WaitUntil(() => inputHandler.DoSelect());
+        // ì…ë ¥ ëŒ€ê¸°
+        yield return new WaitUntil(() => WantAdvance());
 
-        yield return StartCoroutine(ClosePanel());  // ¸ğµç ´ëÈ­°¡ ³¡³ª¸é ÆĞ³Î ´İÀ½
+        yield return StartCoroutine(ClosePanel());  // ëª¨ë“  ëŒ€í™”ê°€ ëë‚˜ë©´ íŒ¨ë„ ë‹«ìŒ
 
 
-        // NPCReDialog ÀÌÈÄ¿£ ¹İµå½Ã inspect¸ğµåÀÓÀ» ÀüÁ¦!!!!!!!!!!!!!!
+        // NPCReDialog ì´í›„ì—” ë°˜ë“œì‹œ inspectëª¨ë“œì„ì„ ì „ì œ!!!!!!!!!!!!!!
         pc.CurMode = GameMode.InspectMode;
         EventBus.Instance.Publish<GameEvents.GameModeChange>(new GameEvents.GameModeChange(GameMode.InspectMode));
     }
 
 
-    // ½ºÅµ ½Ã ¹Ù·Î Ãâ·Â
+    // ìŠ¤í‚µ ì‹œ ë°”ë¡œ ì¶œë ¥
     private void SkipDialog()
     {
         if (typing != null && typing.IsActive())
         {
-            typing.Kill(true);  // ÇöÀç Å¸ÀÌÇÎ ¾Ö´Ï¸ŞÀÌ¼Ç Áï½Ã Á¾·á, ¸¶Áö¸· »óÅÂ·Î ÅØ½ºÆ® ¿Ï¼º
+            typing.Kill(true);  // í˜„ì¬ íƒ€ì´í•‘ ì• ë‹ˆë©”ì´ì…˜ ì¦‰ì‹œ ì¢…ë£Œ, ë§ˆì§€ë§‰ ìƒíƒœë¡œ í…ìŠ¤íŠ¸ ì™„ì„±
         }
 
         textarea.text = sentence;
@@ -321,7 +349,7 @@ public class NpcDialogPopup : MonoBehaviour
         standbyInput = true;
     }
 
-    // ÆĞ³Î ´İ±â
+    // íŒ¨ë„ ë‹«ê¸°
     public IEnumerator ClosePanel()
     {
         yield return null;
@@ -329,19 +357,19 @@ public class NpcDialogPopup : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);  //Fade Wait
 
-        // °ª ÃÊ±âÈ­
+        // ê°’ ì´ˆê¸°í™”
         if (typing != null && typing.IsActive()) typing.Kill();
         if (seq != null && seq.IsActive()) seq.Kill();
         if(textarea != null)
             textarea.text = "";
 
-        // Spine ¸®¼Â
+        // Spine ë¦¬ì…‹
         if (playerSpine != null)
         {
-            SetColor(true);     // ½ºÆÄÀÎ »ö»óÃÊ±âÈ­        
+            SetColor(true);     // ìŠ¤íŒŒì¸ ìƒ‰ìƒì´ˆê¸°í™”        
         }
 
-        // ÀÏ·¯½ºÆ® ´İÀ½ +  ÃÊ±âÈ­
+        // ì¼ëŸ¬ìŠ¤íŠ¸ ë‹«ìŒ +  ì´ˆê¸°í™”
         LeftIll.alpha = 0f;
         RightIll.alpha = 0f;
         otherIll.sprite = null;
@@ -349,16 +377,17 @@ public class NpcDialogPopup : MonoBehaviour
 
         standbyInput = false;
         isOpen = false;
+        isChoiceOpen = false;
 
         yield return null;
 
-        // ´ëÈ­³¡ ÀÌº¥Æ® (´ëÈ­ NPC ID Àü´Ş)
+        // ëŒ€í™”ë ì´ë²¤íŠ¸ (ëŒ€í™” NPC ID ì „ë‹¬)
         EventBus.Instance.Publish<UIEvents.EndNpcDialog>(new UIEvents.EndNpcDialog(curNpcID, curNpcEventID));
-        // ÀÌº¥Æ® ³¡ 
+        // ì´ë²¤íŠ¸ ë 
         EventBus.Instance.Publish<GameEvents.EndEvent>(new GameEvents.EndEvent(curNpcID));
     }
 
-    // ¿ÜºÎ¿¡¼­ °­Á¦ ´ëÈ­Ã¢ ´İÀ½
+    // ì™¸ë¶€ì—ì„œ ê°•ì œ ëŒ€í™”ì°½ ë‹«ìŒ
     public void CloseDialogPanel(UIEvents.CloseDialog evt) {
         if (evt.isNpc) {
             ForceCloseDialog();
@@ -369,7 +398,7 @@ public class NpcDialogPopup : MonoBehaviour
 
     public void SetDialog(int popupIdx, string speakerName, Textbox boxType)
     {
-        // ÀÌÀü¿¡ ¶ç¿ü´ø Å¸ÀÔ°ú °°À¸¸é ÆĞ³Î ±×´ë·Î µÒ
+        // ì´ì „ì— ë„ì› ë˜ íƒ€ì…ê³¼ ê°™ìœ¼ë©´ íŒ¨ë„ ê·¸ëŒ€ë¡œ ë‘ 
         // case 0 (basic)  / case 1 (monster)
         if (curPanelIndex != -1 && curPanelIndex == popupIdx)
         {
@@ -396,17 +425,17 @@ public class NpcDialogPopup : MonoBehaviour
                     textarea = enemyText;
                     break;
             }
-            textarea.text = ""; // ÅØ½ºÆ®¸¸ ÃÊ±âÈ­
+            textarea.text = ""; // í…ìŠ¤íŠ¸ë§Œ ì´ˆê¸°í™”
             return;
         }
 
 
-        // ÆĞ³Î ¹Ù²î´Â °æ¿ì
+        // íŒ¨ë„ ë°”ë€ŒëŠ” ê²½ìš°
         SetCanvasGroup(basicTextBox, false);
         SetCanvasGroup(enemyTextBox, false);
         CanvasGroup target = null;
 
-        // Æ¯Á¤ ÆË¾÷¸¸ È°¼ºÈ­
+        // íŠ¹ì • íŒì—…ë§Œ í™œì„±í™”
         switch (popupIdx)
         {
             case 0:
@@ -435,12 +464,12 @@ public class NpcDialogPopup : MonoBehaviour
         {
             DialogFade(target, true);
         }
-        // ÅØ½ºÆ® ÃÊ±âÈ­
+        // í…ìŠ¤íŠ¸ ì´ˆê¸°í™”
         textarea.text = "";
-        curPanelIndex = popupIdx; // Ä³½Ì
+        curPanelIndex = popupIdx; // ìºì‹±
     }
 
-    // CanvasGroup »óÅÂ Á¦¾î ÇÔ¼ö (Áï¹ß)
+    // CanvasGroup ìƒíƒœ ì œì–´ í•¨ìˆ˜ (ì¦‰ë°œ)
     private void SetCanvasGroup(CanvasGroup group, bool isActive)
     {
         group.alpha = isActive ? 1 : 0;
@@ -459,20 +488,20 @@ public class NpcDialogPopup : MonoBehaviour
         target.DOFade(val, 0.3f).SetEase(Ease.Linear);
     }
 
-    // ½ºÇÁ¶óÀÌÆ® Addressable·Î ºñµ¿±â ·Îµå
+    // ìŠ¤í”„ë¼ì´íŠ¸ Addressableë¡œ ë¹„ë™ê¸° ë¡œë“œ
     public void LoadSprite(string address, Image targetImg)
     {
-        // ÇöÀç ½ºÇÁ¶óÀÌÆ®¿Í °°À¸¸é ±³Ã¼ÇÏÁö ¾ÊÀ½
+        // í˜„ì¬ ìŠ¤í”„ë¼ì´íŠ¸ì™€ ê°™ìœ¼ë©´ êµì²´í•˜ì§€ ì•ŠìŒ
         if (targetImg.sprite != null && targetImg.sprite.name == address)
         {
             return;
         }
 
-        targetImg.color = new Color(1, 1, 1, 0); // Åõ¸í
+        targetImg.color = new Color(1, 1, 1, 0); // íˆ¬ëª…
 
-        /// Ã¹ ÀÏ·¯½ºÆ® ³ª¿Ã ¶§ ¹ö¹÷ÀÓ »èÁ¦
-        targetImg.DOKill();  // ÇöÀç ÁøÇà ÁßÀÎ ÆäÀÌµå ¾Ö´Ï¸ŞÀÌ¼Ç ÁßÁö
-        targetImg.DOFade(0f, 0f);  // Áï½Ã Åõ¸í Ã³¸®
+        /// ì²« ì¼ëŸ¬ìŠ¤íŠ¸ ë‚˜ì˜¬ ë•Œ ë²„ë²…ì„ ì‚­ì œ
+        targetImg.DOKill();  // í˜„ì¬ ì§„í–‰ ì¤‘ì¸ í˜ì´ë“œ ì• ë‹ˆë©”ì´ì…˜ ì¤‘ì§€
+        targetImg.DOFade(0f, 0f);  // ì¦‰ì‹œ íˆ¬ëª… ì²˜ë¦¬
 
         Addressables.LoadAssetAsync<Sprite>(address).Completed += handle =>
         {
@@ -484,7 +513,7 @@ public class NpcDialogPopup : MonoBehaviour
             }
             else
             {
-                Debug.Log("´ëÈ­Ã¢ ½ºÇÁ¶óÀÌÆ® ·Îµå ½ÇÆĞ");
+                Debug.Log("ëŒ€í™”ì°½ ìŠ¤í”„ë¼ì´íŠ¸ ë¡œë“œ ì‹¤íŒ¨");
                 targetImg.color = new Color(1, 1, 1, 0);
             }
         };
@@ -492,8 +521,8 @@ public class NpcDialogPopup : MonoBehaviour
 
 
     private void ShowIllust(Dictionary<int, NPCDialogData> npcDialogDict, int curlogIdx) {
-        // ÀÏ·¯½ºÆ®
-        if (npcDialogDict[curlogIdx].emotion == -1)    // ÀÏ·¯½ºÆ® ¾øÀ» °æ¿ì
+        // ì¼ëŸ¬ìŠ¤íŠ¸
+        if (npcDialogDict[curlogIdx].emotion == -1)    // ì¼ëŸ¬ìŠ¤íŠ¸ ì—†ì„ ê²½ìš°
         {
             if (npcDialogDict[curlogIdx].speaker == Speaker.Player)
             {
@@ -505,7 +534,7 @@ public class NpcDialogPopup : MonoBehaviour
                 RightIll.alpha = 0f;
                 SetColor(false);
             }
-            return;   // ÀÏ·¯½ºÆ® ¾øÀ» °æ¿ì
+            return;   // ì¼ëŸ¬ìŠ¤íŠ¸ ì—†ì„ ê²½ìš°
         }
 
         switch (npcDialogDict[curlogIdx].speaker)
@@ -577,17 +606,17 @@ public class NpcDialogPopup : MonoBehaviour
         }
     }
 
-    // ¿ÜºÎ¿¡¼­ °­Á¦·Î ´ëÈ­Ã¢ ´İÀ½
+    // ì™¸ë¶€ì—ì„œ ê°•ì œë¡œ ëŒ€í™”ì°½ ë‹«ìŒ
     public void ForceCloseDialog() {
         if (typing != null && typing.IsActive()) typing.Kill();
         if (seq != null && seq.IsActive()) seq.Kill();
         if (textarea != null)
             textarea.text = "";
 
-        // Spine ¸®¼Â
+        // Spine ë¦¬ì…‹
         if (playerSpine != null) SetColor(true);
 
-        // ÀÏ·¯½ºÆ® ´İÀ½ +  ÃÊ±âÈ­
+        // ì¼ëŸ¬ìŠ¤íŠ¸ ë‹«ìŒ +  ì´ˆê¸°í™”
         LeftIll.alpha = 0f;
         RightIll.alpha = 0f;
         otherIll.sprite = null;
@@ -595,9 +624,10 @@ public class NpcDialogPopup : MonoBehaviour
 
         standbyInput = false;
         isOpen = false;
+        isChoiceOpen = false;
     }
 
-    // ½ºÆÄÀÎ ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı ÇÔ¼ö
+    // ìŠ¤íŒŒì¸ ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ í•¨ìˆ˜
     private void PlayAnim(string name, bool loop = true)
     {
         if (playerSpine != null)
@@ -606,7 +636,7 @@ public class NpcDialogPopup : MonoBehaviour
         }
     }
 
-    // ½ºÆÄÀÎ È°¼º/ºñÈ°¼º »ö ÇÔ¼ö
+    // ìŠ¤íŒŒì¸ í™œì„±/ë¹„í™œì„± ìƒ‰ í•¨ìˆ˜
     private void SetColor(bool isActive)
     {
         if (playerSpine != null)
